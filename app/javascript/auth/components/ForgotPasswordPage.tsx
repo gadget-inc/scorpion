@@ -35,7 +35,7 @@ export default class ForgotPasswordPage extends React.Component<{}, ForgotPasswo
     return (
       <PageBox documentTitle="Reset Password">
         <Box pad="small">
-          <Heading>Reset Superpro Password</Heading>
+          <Heading>Reset Scorpion Password</Heading>
         </Box>
         <p>
           If you&apos;ve forgotten your password, enter your email below. We&apos;ll send you an email with instructions to reset your

@@ -99,14 +99,14 @@ export const shallowSubsetEqual = (keys: string[], objA: any, objB: any): boolea
   return true;
 };
 
-export interface SuperproStyleGraphQLError {
+export interface ScorpionStyleGraphQLError {
   field: string;
   relativeField: string;
   mutationClientId?: string;
   message: string;
 }
 
-export interface SuperproStyleRESTError {
+export interface ScorpionStyleRESTError {
   field: string;
   relative_field: string;
   mutation_client_id?: string;
@@ -138,21 +138,21 @@ export const mutationSuccess = <
 };
 
 export const applyResponseErrors = <T extends DocType>(
-  errors: (SuperproStyleGraphQLError | SuperproStyleRESTError)[],
+  errors: (ScorpionStyleGraphQLError | ScorpionStyleRESTError)[],
   form: SuperFormController<T>
 ) => {
   const errorsObject: SuperFormErrors<T> = {};
   errors.forEach(error => {
-    if ((error as SuperproStyleGraphQLError).mutationClientId) {
+    if ((error as ScorpionStyleGraphQLError).mutationClientId) {
       set(
         errorsObject,
-        `${(error as SuperproStyleGraphQLError).mutationClientId}.${(error as SuperproStyleGraphQLError).relativeField}`,
+        `${(error as ScorpionStyleGraphQLError).mutationClientId}.${(error as ScorpionStyleGraphQLError).relativeField}`,
         error.message
       );
-    } else if ((error as SuperproStyleRESTError).mutation_client_id) {
+    } else if ((error as ScorpionStyleRESTError).mutation_client_id) {
       set(
         errorsObject,
-        `${(error as SuperproStyleRESTError).mutation_client_id}.${(error as SuperproStyleRESTError).relative_field}`,
+        `${(error as ScorpionStyleRESTError).mutation_client_id}.${(error as ScorpionStyleRESTError).relative_field}`,
         error.message
       );
     } else {

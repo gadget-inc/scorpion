@@ -23,7 +23,7 @@ Bundler.require(*Rails.groups)
 
 require_relative "../app/lib/silent_log_middleware"
 
-module Superpro
+module Scorpion
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0

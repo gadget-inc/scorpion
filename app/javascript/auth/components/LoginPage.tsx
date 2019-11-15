@@ -39,7 +39,7 @@ export class LoginPage extends React.Component<{}, LoginPageState> {
     return (
       <PageBox documentTitle="Login">
         <Box pad="small">
-          <Heading>Login to Superpro</Heading>
+          <Heading>Login to Scorpion</Heading>
         </Box>
         {this.state.message && <Alert type="error" message={this.state.message} />}
         <SuperForm<LoginFormValues> onSubmit={this.handleSubmit} initialValues={{ email: "", password: "" }}>

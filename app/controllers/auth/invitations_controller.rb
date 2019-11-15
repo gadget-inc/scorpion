@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Pared down, JSON responder version of the invitations controller from devise_invitable
-# Devise powers the Superpro auth API, but not the actual views, so this has to be pretty customized
+# Devise powers the Scorpion auth API, but not the actual views, so this has to be pretty customized
 class Auth::InvitationsController < DeviseController
   prepend_before_action :require_no_authentication, only: %i[edit update]
   before_action :configure_permitted_parameters, if: :devise_controller?

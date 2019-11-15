@@ -7,7 +7,7 @@ import {
   AttachmentContainerEnum,
   AttachRemoteUrlToContainerDocument
 } from "app/app-graph";
-import { SuperproClient } from "app/App";
+import { ScorpionClient } from "app/App";
 
 gql`
   mutation AttachUploadToContainer(
@@ -66,7 +66,7 @@ export class UploadManager {
       if (error) {
         return callback(error, undefined);
       } else {
-        SuperproClient.mutate({
+        ScorpionClient.mutate({
           mutation: AttachUploadToContainerDocument,
           variables: {
             directUploadSignedId: response.signed_id,
@@ -102,7 +102,7 @@ export class RemoteDownloadAttachmentManager {
   }
 
   run(url: string, callback: (error?: Error, attachment?: AttachmentResult) => void) {
-    SuperproClient.mutate({
+    ScorpionClient.mutate({
       mutation: AttachRemoteUrlToContainerDocument,
       variables: {
         url: url,

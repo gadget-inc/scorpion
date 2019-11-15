@@ -2,7 +2,7 @@ import React from "react";
 import { Page } from "../common";
 import { Box, Text, Button } from "grommet";
 import { Row, mutationSuccess, toast } from "superlib";
-import { Invite } from "../common/SuperproIcons";
+import { Invite } from "../common/ScorpionIcons";
 import gql from "graphql-tag";
 import { SuperForm, Input, SuperFormController } from "superlib/superform";
 import { InviteNewUserComponent, InviteNewUserMutationFn } from "app/app-graph";
@@ -45,7 +45,7 @@ export default class InviteUsersPage extends Page {
       <Page.Layout title="Invite Users">
         <Box align="center" gap="small">
           <Text>
-            Invite your team to Superpro! Enter an email below and we&apos;ll send them an email asking them to join your Superpro account.
+            Invite your team to Scorpion! Enter an email below and we&apos;ll send them an email asking them to join your Scorpion account.
           </Text>
           <InviteNewUserComponent>
             {mutate => (

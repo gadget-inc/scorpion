@@ -13,7 +13,7 @@ export class TakeoverPageLayout extends React.Component<{ title?: React.ReactNod
     return (
       <Box fill className="TakeoutPageLayout-container" background="light-2" align="center" justify="center" pad="large">
         <Helmet>
-          <title>{this.props.documentTitle || this.props.title} - Superpro</title>
+          <title>{this.props.documentTitle || this.props.title} - Scorpion</title>
         </Helmet>
         <Box fill pad="medium" background="white" elevation="small">
           {this.props.title && (

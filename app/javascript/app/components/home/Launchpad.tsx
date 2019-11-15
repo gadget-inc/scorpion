@@ -2,7 +2,7 @@ import React from "react";
 import { Page } from "../common";
 import { Paragraph, Box, Heading } from "grommet";
 import { Row, LinkButton } from "superlib";
-import { Add } from "../common/SuperproIcons";
+import { Add } from "../common/ScorpionIcons";
 
 const StartCard = (props: { title: string; destination: string }) => (
   <LinkButton to={props.destination} hoverIndicator>
@@ -20,7 +20,7 @@ export default class HomePage extends Page {
     return (
       <Page.Layout title="Launchpad">
         <Box align="center">
-          <Paragraph>Welcome to Superpro! Let&apos;s get started.</Paragraph>
+          <Paragraph>Welcome to Scorpion! Let&apos;s get started.</Paragraph>
           <Row gap="medium">
             <StartCard title="Do something" destination="/not-done-yet" />
             <StartCard title="Do something else" destination="/also-not-done-yet" />

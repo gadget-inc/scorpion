@@ -35,7 +35,7 @@ export default class CompletePasswordResetPage extends React.Component<RouteComp
     return (
       <PageBox documentTitle="Reset Password">
         <Box pad="small">
-          <Heading>Reset Superpro Password</Heading>
+          <Heading>Reset Scorpion Password</Heading>
         </Box>
         {this.state.message && <Alert type="error" message={this.state.message} />}
         {this.state.success && (
@@ -46,7 +46,7 @@ export default class CompletePasswordResetPage extends React.Component<RouteComp
                 <>
                   Your password has been successfully reset.
                   <br />
-                  <Anchor href="/">Click here to enter Superpro.</Anchor>
+                  <Anchor href="/">Click here to enter Scorpion.</Anchor>
                 </>
               }
             />

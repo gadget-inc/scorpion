@@ -10,7 +10,7 @@ class TestSupportController < ActionController::Base
   end
 
   def clean
-    Superpro::Application.load_tasks
+    Scorpion::Application.load_tasks
     Rake::Task["db:truncate_all"].invoke
     Rake::Task["db:truncate_all"].reenable
     render json: { success: true }

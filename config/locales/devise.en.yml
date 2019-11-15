@@ -19,15 +19,15 @@ en:
       invited: "You have a pending invitation, accept it to finish creating your account."
     mailer:
       confirmation_instructions:
-        subject: "Superpro user account confirmation instructions"
+        subject: "Scorpion user account confirmation instructions"
       reset_password_instructions:
-        subject: "Superpro user account password reset instructions"
+        subject: "Scorpion user account password reset instructions"
       unlock_instructions:
-        subject: "Superpro user account unlock instructions"
+        subject: "Scorpion user account unlock instructions"
       email_changed:
-        subject: "Superpro user account email changed"
+        subject: "Scorpion user account email changed"
       password_change:
-        subject: "Superpro user account password changed"
+        subject: "Scorpion user account password changed"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
@@ -68,9 +68,9 @@ en:
         submit_button: "Set my password"
     mailer:
       invitation_instructions:
-        subject: "You've been invited to Superpro!"
+        subject: "You've been invited to Scorpion!"
         hello: "Hello!"
-        someone_invited_you: "Someone has invited you to Superpro, the best place to go for analytics on your e-commerce business. You can accept it through the link below."
+        someone_invited_you: "Someone has invited you to Scorpion, the best place to go for analytics on your e-commerce business. You can accept it through the link below."
         accept: "Accept invitation"
         accept_until: "This invitation will be due in %{due_date}."
         ignore: "If you don't want to accept the invitation, please ignore this email. Your account won't be created until you access the link above and set your password."

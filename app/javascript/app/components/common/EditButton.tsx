@@ -1,7 +1,7 @@
 import React from "react";
 import { omit } from "lodash";
 import { Button, ButtonProps } from "grommet";
-import { Edit } from "./SuperproIcons";
+import { Edit } from "./ScorpionIcons";
 import { IconProps } from "grommet-icons";
 
 export const EditButton = (props: ButtonProps & { size?: IconProps["size"] }) => (

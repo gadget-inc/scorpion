@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grommet } from "grommet";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ApolloProvider } from "@apollo/react-components";
-import { SuperproGrommetTheme, SuperproGlobalStyle } from "../superlib/SuperproTheme";
+import { ScorpionGrommetTheme, ScorpionGlobalStyle } from "../superlib/ScorpionTheme";
 import { NotFoundPage } from "./components/NotFoundPage";
 import { LoginPage } from "./components/LoginPage";
 import { Settings } from "./lib/settings";
@@ -22,8 +22,8 @@ export class App extends React.Component {
     const app = (
       <SegmentIdentify>
         <FlagsProvider flags={Settings.flags}>
-          <Grommet full theme={SuperproGrommetTheme}>
-            <SuperproGlobalStyle />
+          <Grommet full theme={ScorpionGrommetTheme}>
+            <ScorpionGlobalStyle />
             <ApolloProvider client={client}>
               <ToastContainer>
                 <Router basename={Settings.baseUrl}>

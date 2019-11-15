@@ -4,7 +4,7 @@ import ReactSelect, { ValueType, Props as ReactSelectProps } from "react-select"
 import { isArrayOptionType } from "../utils";
 import { FieldProps, DocType, pathToName, pathToClassName } from "./utils";
 import { useSuperForm } from "../superform";
-import { SuperproReactSelectTheme } from "superlib/SuperproTheme";
+import { ScorpionReactSelectTheme } from "superlib/ScorpionTheme";
 
 export interface SelectOptionType {
   value: string | number | boolean | null;
@@ -38,7 +38,7 @@ export const Select = <T extends DocType, Option extends SelectOptionType = Sele
     <ReactSelect
       name={pathToName(props.path)}
       className={`SuperSelect SuperSelect-${pathToClassName(props.path)}`}
-      theme={SuperproReactSelectTheme}
+      theme={ScorpionReactSelectTheme}
       value={selectedOption}
       styles={{ container: provided => ({ ...provided, minWidth: "200px" }) }}
       filterOption={props.filterOption}

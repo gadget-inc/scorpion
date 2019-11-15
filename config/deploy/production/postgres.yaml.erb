@@ -3,16 +3,16 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-  name: superpro-production-cluster
+  name: scorpion-production-cluster
 spec:
-  dockerImage: gcr.io/superpro-production/spilo-postgres:one22
-  teamId: "superpro"
+  dockerImage: gcr.io/scorpion-production/spilo-postgres:one22
+  teamId: "scorpion"
   volume:
     size: 400G
     storageClass: gce-ssd
   numberOfInstances: 1
   users: # Application/Robot users
-    superpro_production:
+    scorpion_production:
       - superuser
       - createdb
     customer-science:
@@ -26,7 +26,7 @@ spec:
   allowedSourceRanges: # load balancers' source ranges for both master and replica services
     - 0.0.0.0/0
   databases:
-    superpro_production: superpro_production
+    scorpion_production: scorpion_production
 
   # Expert section
 
@@ -100,7 +100,7 @@ spec:
         - name: DB_HOST
           value: localhost
         - name: DB_NAME
-          value: superpro_production
+          value: scorpion_production
         - name: DB_USERNAME
           value: pganalyze
         - name: DB_PASSWORD
@@ -114,7 +114,7 @@ spec:
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: superpro-production-cluster-backup
+  name: scorpion-production-cluster-backup
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
@@ -132,20 +132,20 @@ spec:
                     labelSelector:
                       matchLabels:
                         application: spilo-logical-backup
-                        version: superpro-production-cluster
+                        version: scorpion-production-cluster
                     topologyKey: kubernetes.io/hostname
                   weight: 1
           containers:
             - env:
                 - name: SCOPE
-                  value: superpro-production-cluster
+                  value: scorpion-production-cluster
                 - name: POD_NAMESPACE
                   valueFrom:
                     fieldRef:
                       apiVersion: v1
                       fieldPath: metadata.namespace
                 - name: LOGICAL_BACKUP_S3_BUCKET
-                  value: superpro-postgres-operator-backups
+                  value: scorpion-postgres-operator-backups
                 - name: LOGICAL_BACKUP_S3_BUCKET_SCOPE_SUFFIX
                   value: /dda1bc3e-ef72-11e9-8312-42010a80006a
                 - name: PG_VERSION
@@ -162,8 +162,8 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       key: password
-                      name: postgres.superpro-production-cluster.credentials
-              image: gcr.io/superpro-production/postgres-backup:latest
+                      name: postgres.scorpion-production-cluster.credentials
+              image: gcr.io/scorpion-production/postgres-backup:latest
               # command: ["bash", "-c", "sleep 1000000"]
               name: logical-backup
               ports:

@@ -8,7 +8,7 @@ import { SiderInfoComponent } from "../../app-graph";
 import { UserAvatar } from "../common/UserAvatar";
 import { signOut } from "../../lib/auth";
 import { Settings } from "../../lib/settings";
-import { Invite, Settings as SettingsIcon, Sales, Traffic, Customers } from "../common/SuperproIcons";
+import { Invite, Settings as SettingsIcon } from "../common/ScorpionIcons";
 import { NavigationSectionButton, NavigationSubItemButton } from "./Navigation";
 import { Alert } from "superlib";
 
@@ -51,7 +51,7 @@ export const AppSidebar = withRouter(
     renderLogo() {
       return (
         <Box flex={false}>
-          <Heading level="2">Superpro</Heading>
+          <Heading level="2">Scorpion</Heading>
         </Box>
       );
     }
@@ -61,7 +61,7 @@ export const AppSidebar = withRouter(
           {({ loading, error, data }) => {
             if (error) {
               console.error(error);
-              return <Alert type="error" message="There was an error loading data for Superpro. Please refresh to try again" />;
+              return <Alert type="error" message="There was an error loading data for Scorpion. Please refresh to try again" />;
             }
 
             if (!data) {
@@ -94,38 +94,11 @@ export const AppSidebar = withRouter(
                 )}
                 <Box flex="grow" overflow={{ vertical: "auto" }}>
                   <NavigationSectionButton path="/launchpad" text="Launchpad" icon={<Launch />} onClick={this.close} />
-                  <NavigationSectionButton path="/sales" text="Sales" icon={<Sales />} onClick={this.close}>
-                    <NavigationSubItemButton path="/sales/overview" exact text="Overview" onClick={this.close} />
-                    <NavigationSubItemButton path="/sales/repurchase_rates" exact text="Repurchase Rates" onClick={this.close} />
-                    <NavigationSubItemButton path="/sales/micro_order_timing" exact text="Order Timing" onClick={this.close} />
-                    <NavigationSubItemButton path="/sales/yearly_review" exact text="Yearly Review" onClick={this.close} />
-                  </NavigationSectionButton>
-                  <NavigationSectionButton path="/traffic" text="Traffic" icon={<Traffic />} onClick={this.close}>
-                    <NavigationSubItemButton path="/traffic/overview" exact text="Overview" onClick={this.close} />
-                    <NavigationSubItemButton path="/traffic/slow_landing_pages" exact text="Slow Landing Pages" onClick={this.close} />
-                    <NavigationSubItemButton
-                      path="/traffic/marketing_activity_customer_quality"
-                      exact
-                      text="Customer Quality"
-                      onClick={this.close}
-                    />
-                  </NavigationSectionButton>
-                  <NavigationSectionButton path="/customers" text="Customers" icon={<Customers />} onClick={this.close}>
-                    <NavigationSubItemButton path="/customers/overview" exact text="Overview" onClick={this.close} />
-                    <NavigationSubItemButton path="/customers/rfm_breakdown" exact text="RFM Breakdown" onClick={this.close} />
-                    <NavigationSubItemButton
-                      path="/customers/first_purchase_behavior"
-                      exact
-                      text="First Purchase Behavior"
-                      onClick={this.close}
-                    />
-                  </NavigationSectionButton>
                   <Box flex />
                   <NavigationSectionButton path="/invite" text="Invite Users" icon={<Invite />} onClick={this.close} />
                   <NavigationSectionButton path="/settings" text="Settings" icon={<SettingsIcon />} onClick={this.close}>
                     <NavigationSubItemButton path="/settings/account" exact text="Account" onClick={this.close} />
                     <NavigationSubItemButton path="/settings/users" exact text="Users" onClick={this.close} />
-                    <NavigationSubItemButton path="/settings/connections" exact text="Connections" onClick={this.close} />
                   </NavigationSectionButton>
                 </Box>
                 {!loading && (

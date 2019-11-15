@@ -1,7 +1,7 @@
 import createFlags from "flag";
 import { KeyPath } from "useful-types";
 
-export interface SuperproFlags {
+export interface ScorpionFlags {
   "gate.publicSignUps": boolean;
   "gate.productAccess": boolean;
   "feature.facebookAds": boolean;
@@ -11,6 +11,6 @@ export interface SuperproFlags {
   "feature.bronto": boolean;
 }
 
-const { FlagsProvider, Flag, useFlag, useFlags } = createFlags<SuperproFlags>();
+const { FlagsProvider, Flag, useFlag, useFlags } = createFlags<ScorpionFlags>();
 export { FlagsProvider, Flag, useFlag, useFlags };
-export type FlagKeyPath = KeyPath<SuperproFlags>;
+export type FlagKeyPath = KeyPath<ScorpionFlags>;

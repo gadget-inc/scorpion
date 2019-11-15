@@ -10,7 +10,7 @@ export * from "./TokenLabel";
 export * from "./EmptyTableMessage";
 export * from "./SentryErrorBoundary";
 export * from "./SegmentAnalytics";
-export * from "./SuperproTheme";
+export * from "./ScorpionTheme";
 export * from "./SimpleModal";
 export * from "./Link";
 export * from "./DatePicker";

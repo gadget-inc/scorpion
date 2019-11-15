@@ -3,7 +3,7 @@ import { Box, Heading, Text } from "grommet";
 import { edgeStyle } from "grommet/utils/styles";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { Row, SuperproGrommetTheme } from "superlib";
+import { Row, ScorpionGrommetTheme } from "superlib";
 import { AppSidebar } from "../chrome/AppSidebar";
 import styled from "styled-components";
 
@@ -92,7 +92,7 @@ export const PageLayoutContent = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  ${edgeStyle("padding", "medium", false, SuperproGrommetTheme.box.responsiveBreakpoint, SuperproGrommetTheme)}
+  ${edgeStyle("padding", "medium", false, ScorpionGrommetTheme.box.responsiveBreakpoint, ScorpionGrommetTheme)}
 
   @media print {
     height: auto;
@@ -109,7 +109,7 @@ export const PageLayout = (props: PageLayoutProps) => {
   return (
     <PageLayoutContainer className="PageLayout-container">
       <Helmet>
-        <title>{props.documentTitle || props.title} - Superpro</title>
+        <title>{props.documentTitle || props.title} - Scorpion</title>
       </Helmet>
       <PageLayoutBreadcrumbs {...props} />
       <Row

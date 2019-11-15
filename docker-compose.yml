@@ -29,8 +29,8 @@ services:
       - postgres-data:/var/lib/postgresql/data:delegated
     restart: on-failure
     environment:
-      POSTGRES_USER: superpro
-      POSTGRES_DB: superpro
+      POSTGRES_USER: scorpion
+      POSTGRES_DB: scorpion
 
   redis:
     image: redis:4-alpine
@@ -40,16 +40,3 @@ services:
       - redis-data:/var/lib/redis:delegated
     restart: on-failure
     command: redis-server --appendonly yes
-
-  singer-importer:
-    image: gcr.io/superpro-production/singer-importer:1b486eb79bf9ab0aea0f43847283d7ddbf714ec4
-    ports:
-      - 4002:5000
-    restart: on-failure
-    environment:
-      FLASK_ENV: development
-      TARGET_POSTGRES_HOST: postgres
-      TARGET_POSTGRES_DATABASE: superpro_development
-      TARGET_POSTGRES_USERNAME: superpro
-      AUTH_TOKENS: testdevelopmentapisecret
-      REDIS_URL: redis://redis:6379/3

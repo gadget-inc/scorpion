@@ -5,22 +5,22 @@ default: &default
 
 development:
   <<: *default
-  database: superpro_development
-  username: superpro
+  database: scorpion_development
+  username: scorpion
   host: localhost
   port: 5432
 
 test:
   <<: *default
-  database: superpro_test
-  username: superpro
+  database: scorpion_test
+  username: scorpion
   host: localhost
   port: 5432
 
 integration_test:
   <<: *default
-  database: superpro_integration_test
-  username: superpro
+  database: scorpion_integration_test
+  username: scorpion
   host: localhost
   port: 5432
 

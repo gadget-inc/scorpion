@@ -1,6 +1,6 @@
 # Assets are served in a pretty weird way to appease Larry and Sergei.
 # In order to take advantage of the cheap and Google-native Cloud CDN, we need to use a GKE Ingress provider to serve our resources, so that we can pass it the BackendConfig that sets up the CDN all nice and good. We usually use nginx ingresses cause they're more featureful, but I wasn't able to figure out a good way of configuring the CDN to point to an ingress resource in a reproducible way.
-# So, we have the public assets.superpro.io ingress accepting traffic. The assets are actually stored in a Google Cloud Storage bucket so that A) they're super available and B) the asset availability is permanent. Clients can request old assets if they're running an old version of the client, so they need to be stored somewhere "global" such that they exist beyond the life of the container they're housed in.
+# So, we have the public assets.scorpion.io ingress accepting traffic. The assets are actually stored in a Google Cloud Storage bucket so that A) they're super available and B) the asset availability is permanent. Clients can request old assets if they're running an old version of the client, so they need to be stored somewhere "global" such that they exist beyond the life of the container they're housed in.
 # In order to serve the assets from the bucket, we need something to read them and serve them to this ingress resource. Ideally, we could use a Serivce of type ExternalName and point the ingress at that, but sadly, Google Cloud load balancers don't support that.
 # Google Cloud load balancers also support serving files directly from buckets, but, that can't be configured via the Kubernetes Ingress resource or BackendConfig CRD. See https://github.com/kubernetes/ingress-gce/issues/33. We could just configure it manually with a *gasp* mouse and keyboard to be custom and totally outside the k8s lifecycle, but, cert management then becomes an issue. Because that configuration is all manual and outside of the k8s realm, cert-manager doesn't know anything about the SSL cert the load balancer is configured with, and won't renew it, so we'd have to reconfigure the load balancer every 3 months. Womp womp.
 # So, we need the Ingress to point to a real service, and thus we turn to trusty ole NGINX. The chain looks like this:
@@ -16,11 +16,11 @@ metadata:
     kubernetes.io/ingress.class: gce
 spec:
   tls:
-    - secretName: assets.superpro.io-production
+    - secretName: assets.scorpion.io-production
       hosts:
-        - assets.superpro.io
+        - assets.scorpion.io
   rules:
-    - host: assets.superpro.io
+    - host: assets.scorpion.io
       http:
         paths:
           - backend:
@@ -37,7 +37,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   rules:
-    - host: assets-test.superpro.io
+    - host: assets-test.scorpion.io
       http:
         paths:
           - backend:
@@ -69,7 +69,7 @@ metadata:
 data:
   default.conf: |
     upstream google_cloud_storage {
-      server core-assets-gsbxqmgsbxqm.superpro.io;
+      server core-assets-gsbxqmgsbxqm.scorpion.io;
     }
 
     server {
@@ -85,7 +85,7 @@ data:
       location / {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header Host core-assets-gsbxqmgsbxqm.superpro.io;
+        proxy_set_header Host core-assets-gsbxqmgsbxqm.scorpion.io;
         proxy_pass http://google_cloud_storage;
         proxy_redirect off;
         port_in_redirect off;

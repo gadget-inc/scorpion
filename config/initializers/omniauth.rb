@@ -9,9 +9,9 @@ HOST_CONSTRAINT_SETUP = lambda do |env|
   end
 end
 
-# This is the omniauth config that the *users* of superpro might interact with
-# To OAuth against say Google's services for Superpro to extract data from google, they'd oauth here.
-# There's other auth mechanisms for the app, including another Omniauth instance using google_oauth2 config, but for the admin system, that only Superpro employees might use.
+# This is the omniauth config that the *users* of scorpion might interact with
+# To OAuth against say Google's services for Scorpion to extract data from google, they'd oauth here.
+# There's other auth mechanisms for the app, including another Omniauth instance using google_oauth2 config, but for the admin system, that only Scorpion employees might use.
 Rails.application.config.middleware.use OmniAuth::Builder do
   options path_prefix: "/connection_auth"
 

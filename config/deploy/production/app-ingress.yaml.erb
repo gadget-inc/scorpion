@@ -9,11 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: superpro.io-production
+    - secretName: scorpion.io-production
       hosts:
-        - app.superpro.io
+        - app.scorpion.io
   rules:
-    - host: app.superpro.io
+    - host: app.scorpion.io
       http:
         paths:
           - backend:
@@ -30,11 +30,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: admin.superpro.io-production
+    - secretName: admin.scorpion.io-production
       hosts:
-        - admin.superpro.io
+        - admin.scorpion.io
   rules:
-    - host: admin.superpro.io
+    - host: admin.scorpion.io
       http:
         paths:
           - backend:

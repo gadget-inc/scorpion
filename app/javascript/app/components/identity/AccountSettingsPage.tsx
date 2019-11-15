@@ -79,7 +79,7 @@ export default (_props: {}) => {
                 <FieldBox path="account.businessEpoch" label="Business Start Date">
                   <SuperDatePicker path="account.businessEpoch" />
                 </FieldBox>
-                <p>Superpro will gather data and set up analysis to start from this date forward.</p>
+                <p>Scorpion will gather data and set up analysis to start from this date forward.</p>
                 <Row>
                   <Button type="submit" label="Save Account" />
                 </Row>

@@ -1,6 +1,5 @@
 import React from "react";
-import Dinero from "dinero.js";
-import { SuperproFlags } from "superlib";
+import { ScorpionFlags } from "superlib";
 
 export interface SettingsBag {
   accountId: number;
@@ -17,7 +16,7 @@ export interface SettingsBag {
     symbol: string;
     exponent: number;
   };
-  flags: SuperproFlags;
+  flags: ScorpionFlags;
   directUploadUrl: string;
   analytics: {
     identify: any;
@@ -30,6 +29,3 @@ export interface SettingsBag {
 
 export const SettingsContext = React.createContext<SettingsBag>({} as SettingsBag);
 export const Settings: SettingsBag = (window as any).INJECTED_SETTINGS;
-
-(Dinero as any).defaultCurrency = Settings.reportingCurrency.isoCode;
-(Dinero as any).defaultPrecision = Settings.reportingCurrency.exponent;

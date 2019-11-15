@@ -5,7 +5,7 @@ import { controlBorderStyle } from "grommet/utils/styles";
 import { DocType, useSuperForm, NumberInputProps, NumberInput, pathToName } from "superlib/superform";
 import { Row } from "superlib";
 import styled from "styled-components";
-import { FormClose } from "./SuperproIcons";
+import { FormClose } from "./ScorpionIcons";
 
 const ControlRow = styled(Row)<{ plain?: boolean }>`
   ${props => !props.plain && controlBorderStyle};

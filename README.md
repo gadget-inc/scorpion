@@ -47,13 +47,13 @@ And you're off to the races!
 
 ### Running A Dev Server
 
-You need to be running 3 processes to run a local instance of Superpro:
+You need to be running 3 processes to run a local instance of Scorpion:
 
-- `docker-compose up`: Runs background daemons to power Superpro, like the database, nginx, Redis, and potentially more in the future.
+- `docker-compose up`: Runs background daemons to power Scorpion, like the database, nginx, Redis, and potentially more in the future.
 - `bin/rails server`: Runs the Ruby server process to render pages requested by the browser
 - `bin/webpack-dev-server`: Runs a Node server process to compile, serve, and cache assets (almost all JavaScript) to the browser with much faster re-compile speeds. We keep this one separate because it is very sensitive to the performance hit of running inside docker, and affects developer iteration speed a lot.
 
-Run these three (most do it in separate terminal windows) processes, and then visit https://app.supo.dev, which will point to your local Superpro instance.
+Run these three (most do it in separate terminal windows) processes, and then visit https://app.supo.dev, which will point to your local Scorpion instance.
 
 #### Auxiliary Development Services
 
@@ -67,7 +67,7 @@ to execute Que, our jobs system.
 
 ### Customer Data Warehouse
 
-Changes to the structure of the actual data that Superpro serves are made in the `customer-warehouse` repository, which contains all our data models and the infrastructure to keep them up to date. This Rails app is coupled to those models and depends on them existing in order to work. The structure of the warehouse is dumped using Rails' support for SQL schema on disk, which is good, so a normal `bin/rails db:prepare` sets up the tables from the warehouse.
+Changes to the structure of the actual data that Scorpion serves are made in the `customer-warehouse` repository, which contains all our data models and the infrastructure to keep them up to date. This Rails app is coupled to those models and depends on them existing in order to work. The structure of the warehouse is dumped using Rails' support for SQL schema on disk, which is good, so a normal `bin/rails db:prepare` sets up the tables from the warehouse.
 
 #### Running tests during development
 
@@ -91,7 +91,7 @@ bin/rails db:structure:dump dbt:test:prepare
 
 ### Structure
 
-Superpro is a Rails app with a React frontend that communicates over GraphQL.
+Scorpion is a Rails app with a React frontend that communicates over GraphQL.
 
 Useful directories:
 
@@ -108,7 +108,7 @@ We do our best to keep these principles in mind, within reason:
 
 ### Contributing
 
-Developers are encouraged but not required to use VSCode and an associated plugin stack to hack on Superpro. We've invested in making this environment really productive and find that our technology choices work best in VSCode.
+Developers are encouraged but not required to use VSCode and an associated plugin stack to hack on Scorpion. We've invested in making this environment really productive and find that our technology choices work best in VSCode.
 
 The recommended VSCode plugins are:
 
@@ -127,7 +127,7 @@ We also highly recommend enabling some quality of life settings for VSCode. You 
 
 `$ cp .vscode/settings.json.example .vscode/settings.json`
 
-We force all Superpro code to be linted because it avoids uncessary bugs, and shortens the development cycle by giving in-editor feedback about all sorts of stuff. With the appropriate editor settings, we feel that linters actually make development _faster_, especially because both the Ruby and TypeScript linters support automatic re-formatting of the code. So, you should very rarely have to manually format code. To avoid wasting time doing that, turning on the VSCode `editor.formatOnSave` setting is real important. There's also two scripts to make linting and lint-fixing easier:
+We force all Scorpion code to be linted because it avoids uncessary bugs, and shortens the development cycle by giving in-editor feedback about all sorts of stuff. With the appropriate editor settings, we feel that linters actually make development _faster_, especially because both the Ruby and TypeScript linters support automatic re-formatting of the code. So, you should very rarely have to manually format code. To avoid wasting time doing that, turning on the VSCode `editor.formatOnSave` setting is real important. There's also two scripts to make linting and lint-fixing easier:
 
 - `bin/lint` runs both Ruby and TypeScript linters to report any errors
 - `bin/lintfix` runs the autocorrecting version of the Ruby and TypeScript linters to fix any issues the linters can automatically fix for you.
@@ -136,7 +136,7 @@ We also try to remain pragmatic about linting. If there's a rule that is on that
 
 ### Meta Contributing
 
-Superpro should be structured to be easy to contribute to! If there's something that isn't obvious, or is hard to get set up, we're not doing our jobs as a development team. Those hard things need to be systematically eliminated so that we maintain productivity. Investment in making contributing easy can be a lot of different things:
+Scorpion should be structured to be easy to contribute to! If there's something that isn't obvious, or is hard to get set up, we're not doing our jobs as a development team. Those hard things need to be systematically eliminated so that we maintain productivity. Investment in making contributing easy can be a lot of different things:
 
 - English explaining stuff in the README.md, folder specific READMEs, or big comment blocks. Commenting non-obvious code is a great idea.
 - Setup guides to explain how to get a local development environment going for a particular feature

@@ -15,7 +15,7 @@ module Auth
       context = {
         current_user: current_user,
       }
-      result = SuperproAuthSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      result = ScorpionAuthSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
       render json: result
     end
 

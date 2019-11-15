@@ -1,7 +1,7 @@
 import React from "react";
 import { omit, capitalize } from "lodash";
 import { Button, ButtonProps } from "grommet";
-import { Trash } from "./SuperproIcons";
+import { Trash } from "./ScorpionIcons";
 import { IconProps } from "grommet-icons";
 import { toast } from "superlib";
 import { MutationComponentOptions } from "@apollo/react-components";

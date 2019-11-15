@@ -60,9 +60,9 @@ export default class AcceptInvitePage extends React.Component<RouteComponentProp
 
   public render() {
     return (
-      <PageBox documentTitle="Welcome to Superpro">
+      <PageBox documentTitle="Welcome to Scorpion">
         <Box gap="medium">
-          <Heading level="1">Welcome to Superpro</Heading>
+          <Heading level="1">Welcome to Scorpion</Heading>
           <Text>You&apos;ve been invited to join. Please fill out your details to create your account below.</Text>
           <SimplePromise callback={this.loadInviteData}>
             {response => {
@@ -70,7 +70,7 @@ export default class AcceptInvitePage extends React.Component<RouteComponentProp
                 return (
                   <Alert
                     type="error"
-                    message="This invite code was not found. It may have expired. If you believe this is an error, please contact the account owner, or message us at support@superpro.io."
+                    message="This invite code was not found. It may have expired. If you believe this is an error, please contact the account owner, or message us at support@scorpion.io."
                   />
                 );
               } else {

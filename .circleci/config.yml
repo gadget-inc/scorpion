@@ -4,7 +4,7 @@ orbs:
 jobs:
   build_docker:
     docker:
-      - image: superpro/deploy-container
+      - image: scorpion/deploy-container
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
@@ -15,17 +15,17 @@ jobs:
           command: gcloud auth configure-docker
       - run:
           name: Download latest docker container from registry for caching
-          command: docker pull gcr.io/superpro-production/core:latest || true
+          command: docker pull gcr.io/scorpion-production/core:latest || true
       - run:
           name: Build docker container
-          command: docker build --cache-from gcr.io/superpro-production/core:latest --tag gcr.io/superpro-production/core:$CIRCLE_SHA1 --build-arg RELEASE=$CIRCLE_SHA1 .
+          command: docker build --cache-from gcr.io/scorpion-production/core:latest --tag gcr.io/scorpion-production/core:$CIRCLE_SHA1 --build-arg RELEASE=$CIRCLE_SHA1 .
       - run:
           name: Push docker container
           command: |
-            docker push gcr.io/superpro-production/core:$CIRCLE_SHA1
+            docker push gcr.io/scorpion-production/core:$CIRCLE_SHA1
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              docker tag gcr.io/superpro-production/core:$CIRCLE_SHA1 gcr.io/superpro-production/core:latest
-              docker push gcr.io/superpro-production/core:latest
+              docker tag gcr.io/scorpion-production/core:$CIRCLE_SHA1 gcr.io/scorpion-production/core:latest
+              docker push gcr.io/scorpion-production/core:latest
             fi
 
   lint_javascript:
@@ -86,8 +86,8 @@ jobs:
           REDIS_URL: redis://localhost:6379/1
       - image: circleci/postgres:11
         environment:
-          POSTGRES_USER: superpro
-          POSTGRES_DB: superpro_test
+          POSTGRES_USER: scorpion
+          POSTGRES_DB: scorpion_test
       - image: circleci/redis:4-alpine
     working_directory: ~/repo
     steps:
@@ -182,7 +182,7 @@ jobs:
 
   lint_kubernetes:
     docker:
-      - image: superpro/deploy-container
+      - image: scorpion/deploy-container
     working_directory: ~/repo
     steps:
       - checkout
@@ -194,7 +194,7 @@ jobs:
 
   deploy:
     docker:
-      - image: superpro/deploy-container
+      - image: scorpion/deploy-container
     working_directory: ~/repo
     steps:
       - gcp-cli/initialize
@@ -217,7 +217,7 @@ workflows:
   build_test_push:
     jobs:
       - build_docker:
-          context: superpro-gke
+          context: scorpion-gke
       - test_cypress
       - test_ruby
       - test_javascript
@@ -225,7 +225,7 @@ workflows:
       - lint_javascript
       - lint_kubernetes
       - deploy:
-          context: superpro-gke
+          context: scorpion-gke
           requires:
             - test_ruby
             - lint_ruby

@@ -7,7 +7,7 @@ import { PageBox } from "./PageBox";
 import { SimpleQuery } from "../../superlib/SimpleQuery";
 import { Row } from "../../superlib/Row";
 import { toast, formatDate } from "../../superlib";
-import { Trash, Edit } from "app/components/common/SuperproIcons";
+import { Trash, Edit } from "app/components/common/ScorpionIcons";
 
 gql`
   query AllAccounts {

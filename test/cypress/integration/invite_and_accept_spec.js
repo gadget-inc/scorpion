@@ -49,7 +49,7 @@ describe("Inviting and accepting", function() {
       cy.get("input[name='user.password_confirmation']").type("secret123");
       cy.get("[data-testid=sign-up-submit]").click();
 
-      cy.contains("Welcome to Superpro");
+      cy.contains("Welcome to Scorpion");
       cy.get("button").click();
     });
   });

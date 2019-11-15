@@ -1,7 +1,7 @@
 import { isUndefined, isFunction } from "lodash";
 import React from "react";
 import { Box, Button, ButtonProps, Layer } from "grommet";
-import { FormClose } from "../app/components/common/SuperproIcons";
+import { FormClose } from "../app/components/common/ScorpionIcons";
 
 // Simple modal implementation that requires a trigger to open it.
 // Pass an icon and/or label to get a button trigger automatically,

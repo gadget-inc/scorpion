@@ -17,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.cache_store = :redis_cache_store, { driver: :hiredis, url: ENV.fetch("REDIS_URL") }
-  config.session_store :cache_store, key: "superpro_production_sessions"
+  config.session_store :cache_store, key: "scorpion_production_sessions"
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -44,13 +44,13 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :que
-  config.active_job.queue_name_prefix = "superpro_production"
+  config.active_job.queue_name_prefix = "scorpion_production"
 
   config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
     user_name: "apikey",
     password: ENV["SENDGRID_APIKEY"],
-    domain: "superpro.io",
+    domain: "scorpion.io",
     address: "smtp.sendgrid.net",
     port: 587,
     authentication: :plain,
@@ -80,8 +80,8 @@ Rails.application.configure do
   # Don't run yarn for prod commands since it can change whats installed depending on the environment, and we're in docker where it shouldn't matter.
   config.webpacker.check_yarn_integrity = false
 
-  config.x.domains.app = "app.superpro.io"
-  config.x.domains.admin = "admin.superpro.io"
-  config.action_controller.asset_host = "assets.superpro.io"
+  config.x.domains.app = "app.scorpion.io"
+  config.x.domains.admin = "admin.scorpion.io"
+  config.action_controller.asset_host = "assets.scorpion.io"
   config.action_mailer.default_url_options = { host: config.x.domains.app, protocol: "https" }
 end

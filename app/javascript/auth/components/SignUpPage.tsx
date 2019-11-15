@@ -49,7 +49,7 @@ export default class SignUpPage extends React.Component<RouteComponentProps, Sig
   public render() {
     return (
       <PageBox documentTitle="Sign Up">
-        <Heading level="1">Sign Up for Superpro</Heading>
+        <Heading level="1">Sign Up for Scorpion</Heading>
         {this.state.message && <Alert type="error" message={this.state.message} />}
         <SuperForm<SignUpFormValues>
           initialValues={{ user: { mutation_client_id: "user" }, account: { mutation_client_id: "account" } }} // eslint-disable-line
