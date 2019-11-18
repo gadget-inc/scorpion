@@ -9,11 +9,31 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: scorpion.io-production
+    - secretName: scorpion.superpro.io-production
       hosts:
-        - app.scorpion.io
+        - scorpion.superpro.io
   rules:
-    - host: app.scorpion.io
+    - host: scorpion.superpro.io
+      http:
+        paths:
+          - backend:
+              serviceName: web
+              servicePort: 80
+---
+# Cheat for now and serve assets from the web service
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: assets-ingress
+  annotations:
+    kubernetes.io/ingress.class: gce
+spec:
+  tls:
+    - secretName: scorpion-assets.superpro.io-production
+      hosts:
+        - scorpion-assets.superpro.io
+  rules:
+    - host: scorpion-assets.superpro.io
       http:
         paths:
           - backend:
@@ -30,11 +50,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: admin.scorpion.io-production
+    - secretName: scorpion-admin.superpro.io-production
       hosts:
-        - admin.scorpion.io
+        - scorpion-admin.superpro.io
   rules:
-    - host: admin.scorpion.io
+    - host: scorpion-admin.superpro.io
       http:
         paths:
           - backend:

@@ -54,7 +54,7 @@ class User < ApplicationRecord
 
   # Creations
   has_many :created_accounts, foreign_key: :creator_id, inverse_of: :creator, class_name: "Account", dependent: :restrict_with_exception
-  has_many :created_plaid_items, foreign_key: :creator_id, inverse_of: :creator, class_name: "PlaidItem", dependent: :restrict_with_exception
+  has_many :created_properties, foreign_key: :creator_id, inverse_of: :creator, class_name: "Property", dependent: :restrict_with_exception
 
   # Auth
   has_many :account_user_permissions, inverse_of: :user, dependent: :destroy

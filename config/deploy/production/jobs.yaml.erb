@@ -16,7 +16,7 @@ spec:
       serviceAccountName: core-production
       containers:
         - name: jobs
-          image: "gcr.io/scorpion-production/core:<%= current_sha %>"
+          image: "gcr.io/superpro-production/scorpion-core:<%= current_sha %>"
           args:
             - bundle
             - exec

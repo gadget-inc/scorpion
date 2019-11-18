@@ -8,6 +8,6 @@ local:
 
 gcs_production:
   service: GCS
-  project: scorpion-production
+  project: superpro-production
   bucket: scorpion-core-attachments
   credentials: <%= Rails.root.join("config/google_service_key.json") %>

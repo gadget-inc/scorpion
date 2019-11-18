@@ -385,6 +385,80 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: crawl_attempts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crawl_attempts (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    started_reason character varying NOT NULL,
+    running boolean DEFAULT false NOT NULL,
+    succeeded boolean,
+    started_at timestamp without time zone,
+    last_progress_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    failure_reason character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: crawl_attempts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crawl_attempts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crawl_attempts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crawl_attempts_id_seq OWNED BY public.crawl_attempts.id;
+
+
+--
+-- Name: crawl_pages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crawl_pages (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    crawl_attempt_id bigint NOT NULL,
+    url character varying NOT NULL,
+    result jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: crawl_pages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crawl_pages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crawl_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crawl_pages_id_seq OWNED BY public.crawl_pages.id;
+
+
+--
 -- Name: flipper_features; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -446,6 +520,41 @@ CREATE SEQUENCE public.flipper_gates_id_seq
 --
 
 ALTER SEQUENCE public.flipper_gates_id_seq OWNED BY public.flipper_gates.id;
+
+
+--
+-- Name: properties; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.properties (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    creator_id bigint NOT NULL,
+    name character varying NOT NULL,
+    crawl_roots character varying[] NOT NULL,
+    allowed_domains character varying[] NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: properties_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.properties_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: properties_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.properties_id_seq OWNED BY public.properties.id;
 
 
 --
@@ -623,6 +732,20 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: crawl_attempts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_attempts ALTER COLUMN id SET DEFAULT nextval('public.crawl_attempts_id_seq'::regclass);
+
+
+--
+-- Name: crawl_pages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_pages ALTER COLUMN id SET DEFAULT nextval('public.crawl_pages_id_seq'::regclass);
+
+
+--
 -- Name: flipper_features id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -634,6 +757,13 @@ ALTER TABLE ONLY public.flipper_features ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.flipper_gates ALTER COLUMN id SET DEFAULT nextval('public.flipper_gates_id_seq'::regclass);
+
+
+--
+-- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.properties_id_seq'::regclass);
 
 
 --
@@ -691,6 +821,22 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: crawl_attempts crawl_attempts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_attempts
+    ADD CONSTRAINT crawl_attempts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crawl_pages crawl_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_pages
+    ADD CONSTRAINT crawl_pages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: flipper_features flipper_features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -704,6 +850,14 @@ ALTER TABLE ONLY public.flipper_features
 
 ALTER TABLE ONLY public.flipper_gates
     ADD CONSTRAINT flipper_gates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties
+    ADD CONSTRAINT properties_pkey PRIMARY KEY (id);
 
 
 --
@@ -916,6 +1070,14 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 
 --
+-- Name: crawl_pages fk_rails_4b8453ebe7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_pages
+    ADD CONSTRAINT fk_rails_4b8453ebe7 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: account_user_permissions fk_rails_5c34e80f82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -932,6 +1094,38 @@ ALTER TABLE ONLY public.account_user_permissions
 
 
 --
+-- Name: properties fk_rails_6ddefd0639; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties
+    ADD CONSTRAINT fk_rails_6ddefd0639 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: crawl_attempts fk_rails_93ab1bfe63; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_attempts
+    ADD CONSTRAINT fk_rails_93ab1bfe63 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
+-- Name: crawl_pages fk_rails_b039c7a41e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_pages
+    ADD CONSTRAINT fk_rails_b039c7a41e FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
+
+
+--
+-- Name: crawl_pages fk_rails_ba2ea33cd5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_pages
+    ADD CONSTRAINT fk_rails_ba2ea33cd5 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: accounts fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -945,6 +1139,22 @@ ALTER TABLE ONLY public.accounts
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: crawl_attempts fk_rails_fa7728ded8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_attempts
+    ADD CONSTRAINT fk_rails_fa7728ded8 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: properties fk_rails_ff1cc2f1bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties
+    ADD CONSTRAINT fk_rails_ff1cc2f1bd FOREIGN KEY (creator_id) REFERENCES public.users(id);
 
 
 --
@@ -972,6 +1182,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190709141711'),
 ('20190717223839'),
 ('20191005201916'),
-('20191009141154');
+('20191009141154'),
+('20191115002426'),
+('20191115143608'),
+('20191115145123');
 
 

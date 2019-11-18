@@ -5,7 +5,7 @@ describe("Password reset", function() {
 
   it("can reset a password", function() {
     cy.visit("/auth/forgot_password");
-    cy.get("#email").type("cypress@scorpion.io");
+    cy.get("#email").type("cypress@superpro.io");
 
     cy.get("[data-test-id=forgot-password-submit]").click();
     cy.contains("An email has been sent");

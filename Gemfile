@@ -25,13 +25,9 @@ gem 'rails-i18n'
 
 # Integrations
 gem 'omniauth'
-gem 'plaid'
 
 gem 'omniauth-shopify-oauth2'
 gem 'shopify_api'
-
-gem 'omniauth-facebook'
-gem 'facebookbusiness'
 
 gem 'rest-client'
 gem 'omniauth-google-oauth2'

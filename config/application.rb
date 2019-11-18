@@ -55,13 +55,10 @@ module Scorpion
     config.x.domains.admin = "should be set in the environments"
 
     config.admin = config_for(:admin)
-    config.plaid = config_for(:plaid)
     config.shopify = config_for(:shopify)
-    config.singer_importer = config_for(:singer_importer)
+    config.crawler = config_for(:crawler)
     config.google = config_for(:google)
-    config.facebook = config_for(:facebook)
     config.kubernetes = config_for(:kubernetes)
-    config.kafka = config_for(:kafka)
     config.intercom = config_for(:intercom)
 
     config.rails_semantic_logger.semantic = true

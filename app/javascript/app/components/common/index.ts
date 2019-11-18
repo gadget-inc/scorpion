@@ -8,7 +8,6 @@ export * from "./TrashButton";
 export * from "./EditButton";
 export * from "./FadeBox";
 export * from "./AddButton";
-export * from "./ScenarioInput";
 export * from "./SavingNotice";
 export * from "./HoverEditor";
 export * from "./UserAvatar";

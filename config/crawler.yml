@@ -1,0 +1,13 @@
+development:
+  # api_url: http://localhost:8080
+  api_url: http://localhost:3001
+  auth_token: "foo"
+test:
+  api_url: http://localhost:3001
+  auth_token: "bar"
+integration_test:
+  api_url: ""
+  auth_token: ""
+production:
+  api_url: ""
+  auth_token: <%= ENV['CRAWLER_AUTH_TOKEN'] %>
