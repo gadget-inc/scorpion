@@ -82,7 +82,7 @@
     "is-url": "^1.2.4",
     "json-schema-to-typescript": "^7.1.0",
     "lodash": "^4.17.11",
-    "luxon": "^1.16.1",
+    "luxon": "^1.21.2",
     "memoize-one": "^5.0.4",
     "path-to-regexp": "^3.0.0",
     "pluralize": "^8.0.0",
