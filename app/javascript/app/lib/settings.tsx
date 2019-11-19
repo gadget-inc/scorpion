@@ -21,7 +21,6 @@ export interface SettingsBag {
   analytics: {
     identify: any;
     identifyTraits: any;
-    identifySegmentOpts: any;
     group: any;
     groupTraits: any;
   };

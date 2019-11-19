@@ -59,7 +59,6 @@ module Scorpion
     config.crawler = config_for(:crawler)
     config.google = config_for(:google)
     config.kubernetes = config_for(:kubernetes)
-    config.intercom = config_for(:intercom)
 
     config.rails_semantic_logger.semantic = true
 
