@@ -3,6 +3,8 @@ module Crawler
   class ExecuteCrawl
     include SemanticLogger::Loggable
 
+    DEFAULT_CRAWL_OPTIONS = { maxDepth: 30 }.freeze
+
     def self.run_in_background(property, reason)
       args = [{ property_id: property.id, reason: reason }]
       if Rails.env.production?
@@ -13,7 +15,7 @@ module Crawler
             {
               name: "scorpion-crawler",
               image: "gcr.io/superpro-production/scorpion-crawler:latest",
-              env: { "NODE_ENV" => "production" },
+              env: { "NODE_ENV" => "production", "PORT" => "3005" },
             },
           ],
         )
@@ -22,8 +24,9 @@ module Crawler
       end
     end
 
-    def initialize(account)
+    def initialize(account, crawl_options = DEFAULT_CRAWL_OPTIONS)
       @account = account
+      @crawl_options = crawl_options
     end
 
     def crawl(property, reason)
@@ -35,7 +38,7 @@ module Crawler
 
           CrawlerClient.client.crawl(
             property,
-            crawl_options: { maxDepth: 1 },
+            crawl_options: crawl_options,
             on_result: proc do |result|
               CrawlAttempt.transaction do
                 attempt_record.update!(last_progress_at: Time.now.utc)
@@ -45,7 +48,7 @@ module Crawler
             on_error: proc do |error_result|
               CrawlAttempt.transaction do
                 attempt_record.update!(last_progress_at: Time.now.utc)
-                @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error })
+                @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
               end
             end,
           )
@@ -57,6 +60,9 @@ module Crawler
         logger.info "Crawl completed successfully"
         attempt_record.update!(finished_at: Time.now.utc, succeeded: true)
       end
+    end
+
+    def crawl_options
     end
   end
 end
