@@ -24,7 +24,7 @@ class Infrastructure::KubernetesClient
               end
   end
 
-  def run_background_job_in_k8s(job_class, args)
+  def run_background_job_in_k8s(job_class, args, sidecar_containers: nil)
     class_name = job_class.name
 
     if job_class.ancestors.include?(Que::Job) && job_class.exclusive_execution_lock && !job_class.lock_available?(args)
@@ -34,11 +34,14 @@ class Infrastructure::KubernetesClient
 
     create_long_running_rails_job(
       "zzjob-#{class_name.gsub(/[^A-Za-z0-9]/, "-").downcase}-#{SecureRandom.hex(5)}",
-      ["bundle", "exec", "rake", "job:run_inline[#{Shellwords.escape(class_name)}, #{Shellwords.escape(args.to_json)}]"]
+      ["bundle", "exec", "rake", "job:run_inline[#{Shellwords.escape(class_name)}, #{Shellwords.escape(args.to_json)}]"],
+      sidecar_containers: sidecar_containers,
     )
   end
 
-  def create_long_running_rails_job(name, command)
+  def create_long_running_rails_job(name, command, sidecar_containers: nil)
+    sidecar_containers = Array.wrap(sidecar_containers)
+
     job = K8s::Resource.new(
       apiVersion: "batch/v1",
       kind: "Job",
@@ -65,7 +68,7 @@ class Infrastructure::KubernetesClient
                 volumeMounts: @rails_pod_template_data[:rails_volume_mounts],
                 securityContext: { capabilities: { add: ["SYS_PTRACE"] } },
               },
-            ],
+            ] + sidecar_containers,
             volumes: @rails_pod_template_data[:rails_volumes],
             restartPolicy: "Never",
           },

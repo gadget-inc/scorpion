@@ -3,13 +3,22 @@ module Crawler
   class ExecuteCrawl
     include SemanticLogger::Loggable
 
-    def self.run_in_background(connection)
-      args = [{ connection_id: connection.id }]
+    def self.run_in_background(property, reason)
+      args = [{ property_id: property.id, reason: reason }]
       if Rails.env.production?
-        KubernetesClient.client.run_background_job_in_k8s(Infrastructure::SyncSingerConnectionJob, args)
+        KubernetesClient.client.run_background_job_in_k8s(
+          Crawler::ExecuteCrawlJob,
+          args,
+          sidecar_containers: [
+            {
+              name: "scorpion-crawler",
+              image: "gcr.io/superpro-production/scorpion-crawler:latest",
+              env: { "NODE_ENV" => "production" },
+            },
+          ],
+        )
       else
-        raise NotImplementedError
-        # Infrastructure::SyncSingerConnectionJob.enqueue(*args)
+        Crawler::ExecuteCrawlJob.enqueue(*args)
       end
     end
 
