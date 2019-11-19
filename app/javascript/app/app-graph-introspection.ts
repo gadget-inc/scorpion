@@ -14,26 +14,7 @@
       }
       const result: IntrospectionResultData = {
   "__schema": {
-    "types": [
-      {
-        "kind": "UNION",
-        "name": "ConnectionIntegrationUnion",
-        "possibleTypes": [
-          {
-            "name": "PlaidItem"
-          },
-          {
-            "name": "ShopifyShop"
-          },
-          {
-            "name": "GoogleAnalyticsCredential"
-          },
-          {
-            "name": "FacebookAdAccount"
-          }
-        ]
-      }
-    ]
+    "types": []
   }
 };
       export default result;

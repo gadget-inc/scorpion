@@ -10,4 +10,4 @@ export REVISION=${REVISION:-$GIT_SHA}
 DEPLOY_COMMAND="bundle exec kubernetes-deploy"
 
 # deploy application to it's namespace
-bundle exec kubernetes-deploy --template-dir=config/deploy/$ENVIRONMENT core-production $CLUSTER
+bundle exec kubernetes-deploy --template-dir=config/deploy/$ENVIRONMENT scorpion-production $CLUSTER

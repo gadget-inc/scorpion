@@ -9,7 +9,7 @@ user = User.new(full_name: "Smart Developer", email: "dev@superpro.io", password
 user.skip_confirmation!
 user.save!
 
-FactoryBot.create :account, creator: user, business_epoch: 30.days.ago
+FactoryBot.create :account, creator: user
 
 # Enable all feature flags for developers
 BaseClientSideAppSettings::EXPORTED_FLAGS.each do |flag|

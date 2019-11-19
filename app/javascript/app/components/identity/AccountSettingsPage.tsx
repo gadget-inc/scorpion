@@ -11,7 +11,6 @@ gql`
     account: currentAccount {
       id
       name
-      businessEpoch
     }
   }
 
@@ -20,7 +19,6 @@ gql`
       account {
         id
         name
-        businessEpoch
       }
       errors {
         fullMessage
@@ -32,7 +30,6 @@ gql`
 interface AccountSettingsFormValues {
   account: {
     name: string;
-    businessEpoch: string;
   };
 }
 
@@ -67,17 +64,11 @@ export default (_props: {}) => {
     <Page.Layout title="Account Settings">
       <Page.Load component={GetAccountForSettingsComponent} require={["account"]}>
         {data => (
-          <SuperForm<AccountSettingsFormValues>
-            initialValues={{ account: { name: data.account.name, businessEpoch: data.account.businessEpoch } }}
-            onSubmit={handleSubmit}
-          >
+          <SuperForm<AccountSettingsFormValues> initialValues={{ account: { name: data.account.name } }} onSubmit={handleSubmit}>
             {() => (
               <Box gap="small">
                 <FieldBox path="account.name" label="Account Name">
                   <Input path="account.name" />
-                </FieldBox>
-                <FieldBox path="account.businessEpoch" label="Business Start Date">
-                  <SuperDatePicker path="account.businessEpoch" />
                 </FieldBox>
                 <p>Scorpion will gather data and set up analysis to start from this date forward.</p>
                 <Row>

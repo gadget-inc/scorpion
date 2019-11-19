@@ -11,11 +11,6 @@ class App::ClientSideAppController < AppAreaController
     @settings = base_settings.merge(
       accountId: current_account.id,
       baseUrl: app_root_path(current_account),
-      plaid: {
-        publicKey: Rails.configuration.plaid.public_key,
-        env: Rails.configuration.plaid.env,
-        webhookUrl: connections_plaid_webhook_url,
-      },
       reportingCurrency: currency_details,
     )
   end

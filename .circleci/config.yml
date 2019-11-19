@@ -182,7 +182,7 @@ jobs:
 
   lint_kubernetes:
     docker:
-      - image: scorpion/deploy-container
+      - image: superpro/deploy-container
     working_directory: ~/repo
     steps:
       - checkout
@@ -194,7 +194,7 @@ jobs:
 
   deploy:
     docker:
-      - image: scorpion/deploy-container
+      - image: superpro/deploy-container
     working_directory: ~/repo
     steps:
       - gcp-cli/initialize

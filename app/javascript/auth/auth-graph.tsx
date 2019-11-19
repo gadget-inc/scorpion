@@ -25,7 +25,6 @@ export type Scalars = {
 export type Account = {
    __typename?: 'Account',
   appUrl: Scalars['String'],
-  businessEpoch: Scalars['ISO8601DateTime'],
   businessLines: Array<BusinessLine>,
   createdAt: Scalars['ISO8601DateTime'],
   creator: User,
@@ -45,8 +44,6 @@ export type AccountAttributes = {
   mutationClientId?: Maybe<Scalars['MutationClientId']>,
   /** Name to set on the account */
   name: Scalars['String'],
-  /** Date at which the business started doing business */
-  businessEpoch?: Maybe<Scalars['ISO8601DateTime']>,
 };
 
 export type AuthMutation = {
