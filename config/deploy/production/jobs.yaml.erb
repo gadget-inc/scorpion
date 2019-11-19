@@ -13,7 +13,7 @@ spec:
       labels:
         service: jobs
     spec:
-      serviceAccountName: core-production
+      serviceAccountName: scorpion-production
       containers:
         - name: jobs
           image: "gcr.io/superpro-production/scorpion-core:<%= current_sha %>"
