@@ -534,7 +534,9 @@ CREATE TABLE public.properties (
     crawl_roots character varying[] NOT NULL,
     allowed_domains character varying[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    discarded_at timestamp without time zone
 );
 
 
@@ -1185,6 +1187,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191009141154'),
 ('20191115002426'),
 ('20191115143608'),
-('20191115145123');
+('20191115145123'),
+('20191120173522');
 
 

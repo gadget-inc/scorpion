@@ -6,6 +6,7 @@ FactoryBot.define do
     name { "Example" }
     crawl_roots { ["google.com"] }
     allowed_domains { ["google.com"] }
+    enabled { true }
 
     factory :sole_destroyer_property do
       crawl_roots { ["https://sole-destroyer.myshopify.com"] }

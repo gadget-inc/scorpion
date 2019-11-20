@@ -1,11 +1,2 @@
-"Infrastructure::PeriodicSyncAllConnectionsJob":
+"Infrastructure::PeriodicEnqueueCrawlsJob":
   cron: "0 * * * *"
-
-"Infrastructure::PeriodicSyncAllGlobalConnectionsJob":
-  cron: "30 * * * *"
-
-"Infrastructure::PeriodicShopifyScriptTagSetupJob":
-  cron: "@daily"
-
-"Infrastructure::TruncateSingerConnectionSyncAttemptsJob":
-  cron: "@daily"

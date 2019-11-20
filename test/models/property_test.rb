@@ -7,6 +7,8 @@
 #  id              :bigint           not null, primary key
 #  allowed_domains :string           not null, is an Array
 #  crawl_roots     :string           not null, is an Array
+#  discarded_at    :datetime
+#  enabled         :boolean          default(TRUE), not null
 #  name            :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
