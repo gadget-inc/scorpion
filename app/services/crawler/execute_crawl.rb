@@ -16,6 +16,16 @@ module Crawler
               name: "scorpion-crawler",
               image: "gcr.io/superpro-production/scorpion-crawler:latest",
               env: [{ name: "NODE_ENV", value: "production" }, { name: "PORT", value: "3005" }],
+              resources: {
+                requests: {
+                  memory: "256Mi",
+                  cpu: "2",
+                },
+                limits: {
+                  memory: "256Mi",
+                  cpu: "2",
+                },
+              },
             },
           ],
         )

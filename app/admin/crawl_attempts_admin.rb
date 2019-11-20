@@ -5,6 +5,26 @@ Trestle.resource(:crawl_attempts) do
     item :crawl_attempts, icon: "fa fa-spider"
   end
 
+  scopes do
+    scope :all, -> { CrawlAttempt.order("created_at DESC") }, default: true
+    scope :failed, -> { CrawlAttempt.where("succeeded IS NULL or succeeded = false").order("created_at DESC") }
+  end
+
+  table do
+    column :id
+    column :account
+    column :property
+    column :succeeded
+    column :started_at
+    column :started_reason
+    column :last_progress_at
+    column :finished_at
+    column :failure_reason
+    column :links do |attempt|
+      link_to "Logs", CrawlAttemptHelper.logs_url(attempt), target: "_blank", rel: "noopener"
+    end
+  end
+
   # Customize the table columns shown on the index view.
   #
   # table do
