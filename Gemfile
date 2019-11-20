@@ -70,8 +70,8 @@ gem "honeycomb-beeline", '~> 1.2.0', require: false # needs custom requiring in 
 gem 'k8s-client'
 
 # Admin
-gem 'trestle'
-gem 'trestle-omniauth'
+gem 'trestle', '~> 0.9.0'
+gem 'trestle-omniauth', '~> 0.2.0'  #, path: "~/Code/trestle-omniauth"
 
 group :development, :test, :integration_test do
   gem 'awesome_print'
