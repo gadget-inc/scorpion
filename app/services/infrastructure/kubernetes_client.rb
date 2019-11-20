@@ -34,7 +34,7 @@ class Infrastructure::KubernetesClient
 
     create_long_running_rails_job(
       "zzjob-#{class_name.gsub(/[^A-Za-z0-9]/, "-").downcase}-#{SecureRandom.hex(5)}",
-      ["bundle", "exec", "rake", "job:run_inline[#{Shellwords.escape(class_name)}, #{Shellwords.escape(args.to_json)}]"],
+      ["bundle", "exec", "rake", "job:run_inline", "--", "--job-class", class_name, "--args", args.to_json],
       sidecar_containers: sidecar_containers,
     )
   end
