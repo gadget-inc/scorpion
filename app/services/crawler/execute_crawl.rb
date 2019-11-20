@@ -19,12 +19,10 @@ module Crawler
               ports: [{ containerPort: 3005 }],
               resources: {
                 requests: {
-                  memory: "256Mi",
-                  cpu: "2",
+                  memory: "350Mi",
                 },
                 limits: {
-                  memory: "256Mi",
-                  cpu: "2",
+                  memory: "350Mi",
                 },
               },
             },
