@@ -8,14 +8,14 @@ module Crawler
     def self.run_in_background(property, reason)
       args = [{ property_id: property.id, reason: reason }]
       if Rails.env.production?
-        KubernetesClient.client.run_background_job_in_k8s(
+        Infrastructure::KubernetesClient.client.run_background_job_in_k8s(
           Crawler::ExecuteCrawlJob,
           args,
           sidecar_containers: [
             {
               name: "scorpion-crawler",
               image: "gcr.io/superpro-production/scorpion-crawler:latest",
-              env: { "NODE_ENV" => "production", "PORT" => "3005" },
+              env: [{ name: "NODE_ENV", value: "production" }, { name: "PORT", value: "3005" }],
             },
           ],
         )
