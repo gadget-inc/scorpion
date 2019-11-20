@@ -33,7 +33,7 @@ module Crawler
       attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, started_at: Time.now.utc, last_progress_at: Time.now.utc)
 
       logger.tagged property_id: property.id, crawl_attempt_id: attempt_record.id do
-        begin
+        logger.silence(:info) do
           logger.info "Beginning crawl for property"
 
           CrawlerClient.client.crawl(
@@ -50,6 +50,9 @@ module Crawler
                 attempt_record.update!(last_progress_at: Time.now.utc)
                 @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
               end
+            end,
+            on_log: proc do |log|
+              logger.info("remote crawler log", log)
             end,
           )
         rescue StandardError => e

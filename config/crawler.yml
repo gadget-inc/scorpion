@@ -1,8 +1,10 @@
 development:
+  # 3001 is the default port the development server runs on, 3002 is the port the docker-compose'd server runs on
   api_url: http://localhost:3001
+  # api_url: http://localhost:3002
 test:
-  api_url: http://localhost:3001
+  api_url: http://localhost:3002
 integration_test:
-  api_url: http://localhost:3001
+  api_url: http://localhost:3002
 production:
   api_url: http://localhost:3005

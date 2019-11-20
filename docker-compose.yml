@@ -40,3 +40,11 @@ services:
       - redis-data:/var/lib/redis:delegated
     restart: on-failure
     command: redis-server --appendonly yes
+
+  scorpion-crawler:
+    image: gcr.io/superpro-production/scorpion-crawler:latest
+    ports:
+      - 3002:3002
+    restart: on-failure
+    environment:
+      PORT: "3002"

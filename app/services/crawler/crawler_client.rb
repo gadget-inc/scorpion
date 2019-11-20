@@ -12,7 +12,7 @@ class Crawler::CrawlerClient
     @auth_token = auth_token
   end
 
-  def crawl(property, crawl_options: {}, on_result:, on_error:)
+  def crawl(property, crawl_options: {}, on_result:, on_error:, on_log: nil)
     got_success_message = false
     RestClient::Request.execute(
       method: :post,
@@ -37,6 +37,10 @@ class Crawler::CrawlerClient
 
           if blob["tag"] == "crawl_error"
             on_error.call(blob)
+          end
+
+          if blob["tag"] == "log" && !on_log.nil?
+            on_log.call(blob.except("tag"))
           end
 
           if blob["tag"] == "system"
