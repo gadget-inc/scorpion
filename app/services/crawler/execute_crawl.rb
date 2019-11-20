@@ -5,9 +5,9 @@ module Crawler
 
     DEFAULT_CRAWL_OPTIONS = { maxDepth: 30 }.freeze
 
-    def self.run_in_background(property, reason)
+    def self.run_in_background(property, reason, force_kubernetes: false)
       args = [{ property_id: property.id, reason: reason }]
-      if Rails.env.production?
+      if Rails.env.production? || force_kubernetes
         Infrastructure::KubernetesClient.client.run_background_job_in_k8s(
           Crawler::ExecuteCrawlJob,
           args,
@@ -16,7 +16,7 @@ module Crawler
               name: "scorpion-crawler",
               image: "gcr.io/superpro-production/scorpion-crawler:latest",
               env: [{ name: "NODE_ENV", value: "production" }, { name: "PORT", value: "3005" }],
-              ports: [{ containerPort: "3005" }],
+              ports: [{ containerPort: 3005 }],
               resources: {
                 requests: {
                   memory: "256Mi",

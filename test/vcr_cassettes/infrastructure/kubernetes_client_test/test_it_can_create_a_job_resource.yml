@@ -9,19 +9,15 @@ http_interactions:
     headers:
       Accept:
       - application/json
-      Authorization:
-      - "<AUTHORIZATION>"
   response:
     status:
       code: 200
       message: OK
     headers:
-      Audit-Id:
-      - 84c0af82-4f52-484c-84d2-82eba2f2db8d
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Sep 2019 18:50:03 GMT
+      - Wed, 20 Nov 2019 22:33:59 GMT
       Content-Length:
       - '361'
     body:
@@ -30,19 +26,17 @@ http_interactions:
 
 '
     http_version: 
-  recorded_at: Wed, 04 Sep 2019 18:50:03 GMT
+  recorded_at: Wed, 20 Nov 2019 22:33:59 GMT
 - request:
     method: post
-    uri: https://<KUBE_CLUSTER_ADDRESS>/apis/batch/v1/namespaces/test/jobs
+    uri: https://<KUBE_CLUSTER_ADDRESS>/apis/batch/v1/namespaces/docker/jobs
     body:
       encoding: UTF-8
-      string: '{"apiVersion":"batch/v1","kind":"Job","metadata":{"name":"foo-1567623003","namespace":"test"},"spec":{"completions":1,"parallelism":1,"backoffLimit":0,"template":{"metadata":{"name":"foo-1567623003"},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
+      string: '{"apiVersion":"batch/v1","kind":"Job","metadata":{"name":"foo-1574289239","namespace":"docker"},"spec":{"completions":1,"parallelism":1,"backoffLimit":0,"ttlSecondsAfterFinished":259200,"template":{"metadata":{"name":"foo-1574289239"},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
         world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"volumeMounts":[],"securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"volumes":[],"restartPolicy":"Never"}}}}'
     headers:
       Accept:
       - application/json
-      Authorization:
-      - "<AUTHORIZATION>"
       Content-Type:
       - application/json
   response:
@@ -50,20 +44,18 @@ http_interactions:
       code: 201
       message: Created
     headers:
-      Audit-Id:
-      - a9274451-64c7-44aa-b830-50232b020208
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Sep 2019 18:50:03 GMT
+      - Wed, 20 Nov 2019 22:33:59 GMT
       Content-Length:
-      - '1169'
+      - '1171'
     body:
       encoding: ASCII-8BIT
-      string: '{"kind":"Job","apiVersion":"batch/v1","metadata":{"name":"foo-1567623003","namespace":"test","selfLink":"/apis/batch/v1/namespaces/test/jobs/foo-1567623003","uid":"ce465cfe-cf44-11e9-8fe2-42010a800110","resourceVersion":"20717586","creationTimestamp":"2019-09-04T18:50:03Z","labels":{"controller-uid":"ce465cfe-cf44-11e9-8fe2-42010a800110","job-name":"foo-1567623003"}},"spec":{"parallelism":1,"completions":1,"backoffLimit":0,"selector":{"matchLabels":{"controller-uid":"ce465cfe-cf44-11e9-8fe2-42010a800110"}},"template":{"metadata":{"name":"foo-1567623003","creationTimestamp":null,"labels":{"controller-uid":"ce465cfe-cf44-11e9-8fe2-42010a800110","job-name":"foo-1567623003"}},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
+      string: '{"kind":"Job","apiVersion":"batch/v1","metadata":{"name":"foo-1574289239","namespace":"docker","selfLink":"/apis/batch/v1/namespaces/docker/jobs/foo-1574289239","uid":"d842593d-0be5-11ea-82b8-025000000001","resourceVersion":"497571","creationTimestamp":"2019-11-20T22:33:59Z","labels":{"controller-uid":"d842593d-0be5-11ea-82b8-025000000001","job-name":"foo-1574289239"}},"spec":{"parallelism":1,"completions":1,"backoffLimit":0,"selector":{"matchLabels":{"controller-uid":"d842593d-0be5-11ea-82b8-025000000001"}},"template":{"metadata":{"name":"foo-1574289239","creationTimestamp":null,"labels":{"controller-uid":"d842593d-0be5-11ea-82b8-025000000001","job-name":"foo-1574289239"}},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
         world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always","securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"restartPolicy":"Never","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler"}}},"status":{}}
 
 '
     http_version: 
-  recorded_at: Wed, 04 Sep 2019 18:50:03 GMT
+  recorded_at: Wed, 20 Nov 2019 22:33:59 GMT
 recorded_with: VCR 5.0.0

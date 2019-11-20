@@ -6,7 +6,7 @@ development: &development
     rails_volume_mounts: []
     rails_volumes: []
   rails_image: hello-world
-  namespace: "test"
+  namespace: "docker"
   kube_config: "~/.kube/config"
 test:
   <<: *development
