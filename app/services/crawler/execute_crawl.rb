@@ -30,7 +30,7 @@ module Crawler
     end
 
     def crawl(property, reason)
-      attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, started_at: Time.now.utc, last_progress_at: Time.now.utc)
+      attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, started_at: Time.now.utc, last_progress_at: Time.now.utc, running: true)
 
       logger.tagged property_id: property.id, crawl_attempt_id: attempt_record.id do
         logger.silence(:info) do
@@ -56,12 +56,12 @@ module Crawler
             end,
           )
         rescue StandardError => e
-          attempt_record.update!(finished_at: Time.now.utc, succeeded: false, failure_reason: e.message)
+          attempt_record.update!(finished_at: Time.now.utc, succeeded: false, failure_reason: e.message, running: false)
           raise
         end
 
         logger.info "Crawl completed successfully"
-        attempt_record.update!(finished_at: Time.now.utc, succeeded: true)
+        attempt_record.update!(finished_at: Time.now.utc, succeeded: true, running: false)
       end
     end
 
