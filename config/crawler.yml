@@ -7,4 +7,4 @@ test:
 integration_test:
   api_url: http://localhost:3002
 production:
-  api_url: http://localhost:3005
+  api_url: http://127.0.0.1:3005
