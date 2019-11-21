@@ -72,6 +72,7 @@ class Infrastructure::KubernetesClient
             volumes: @rails_pod_template_data[:rails_volumes],
             restartPolicy: "Never",
             priorityClassName: "standard-job",
+            schedulerName: "kube-batch",
           },
         },
       },
