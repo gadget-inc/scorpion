@@ -15,23 +15,40 @@ Trestle.resource(:properties) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |app|
-  #   text_field :name
-  #
-  #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
-  #   end
-  # end
+  form do |property|
+    tab :results, badge: property.crawl_attempts.size do
+      table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
+        column :id
+        column :started_at, link: true
+        column :started_reason
+        column :running, align: :center
+        column :succeeded, align: :center
+        column :failure_reason
+        actions
+      end
+    end
 
-  # By default, all parameters passed to the update and create actions will be
-  # permitted. If you do not have full trust in your users, you should explicitly
-  # define the list of permitted parameters.
-  #
-  # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-  #
-  # params do |params|
-  #   params.require(:app).permit(:name, ...)
-  # end
+    tab :property do
+      text_field :name
+      select :crawl_roots, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
+      select :allowed_domains, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
+    end
+
+    sidebar do
+      link_to("Crawl now", admin.path(:crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
+    end
+  end
+
+  controller do
+    def crawl
+      property = admin.find_instance(params)
+      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger")
+      flash[:message] = "Property crawl enqueued"
+      redirect_to admin.path(:show, id: property)
+    end
+  end
+
+  routes do
+    post :crawl, on: :member
+  end
 end

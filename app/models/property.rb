@@ -26,4 +26,5 @@ class Property < ApplicationRecord
   include Discard::Model
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
+  has_many :crawl_attempts, dependent: :destroy
 end
