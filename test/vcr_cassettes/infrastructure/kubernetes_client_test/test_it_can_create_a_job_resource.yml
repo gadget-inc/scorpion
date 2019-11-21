@@ -17,7 +17,7 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 21 Nov 2019 15:48:21 GMT
+      - Thu, 21 Nov 2019 21:31:02 GMT
       Content-Length:
       - '361'
     body:
@@ -26,14 +26,14 @@ http_interactions:
 
 '
     http_version: 
-  recorded_at: Thu, 21 Nov 2019 15:48:21 GMT
+  recorded_at: Thu, 21 Nov 2019 21:31:02 GMT
 - request:
     method: post
     uri: https://<KUBE_CLUSTER_ADDRESS>/apis/batch/v1/namespaces/docker/jobs
     body:
       encoding: UTF-8
-      string: '{"apiVersion":"batch/v1","kind":"Job","metadata":{"name":"foo-1574351301","namespace":"docker"},"spec":{"completions":1,"parallelism":1,"backoffLimit":0,"ttlSecondsAfterFinished":259200,"template":{"metadata":{"name":"foo-1574351301"},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
-        world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"volumeMounts":[],"securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"volumes":[],"restartPolicy":"Never","priorityClassName":"standard-job"}}}}'
+      string: '{"apiVersion":"batch/v1","kind":"Job","metadata":{"name":"foo-1574371862","namespace":"docker","annotations":{"scheduling.k8s.io/group-name":"foo-1574371862-group"}},"spec":{"completions":1,"parallelism":1,"backoffLimit":0,"ttlSecondsAfterFinished":259200,"template":{"metadata":{"name":"foo-1574371862"},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
+        world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"volumeMounts":[],"securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"volumes":[],"restartPolicy":"Never","priorityClassName":"standard-job","schedulerName":"kube-batch"}}}}'
     headers:
       Accept:
       - application/json
@@ -47,15 +47,71 @@ http_interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 21 Nov 2019 15:48:21 GMT
+      - Thu, 21 Nov 2019 21:31:02 GMT
       Content-Length:
-      - '1206'
+      - '1269'
     body:
       encoding: ASCII-8BIT
-      string: '{"kind":"Job","apiVersion":"batch/v1","metadata":{"name":"foo-1574351301","namespace":"docker","selfLink":"/apis/batch/v1/namespaces/docker/jobs/foo-1574351301","uid":"5889f833-0c76-11ea-82b8-025000000001","resourceVersion":"573687","creationTimestamp":"2019-11-21T15:48:21Z","labels":{"controller-uid":"5889f833-0c76-11ea-82b8-025000000001","job-name":"foo-1574351301"}},"spec":{"parallelism":1,"completions":1,"backoffLimit":0,"selector":{"matchLabels":{"controller-uid":"5889f833-0c76-11ea-82b8-025000000001"}},"template":{"metadata":{"name":"foo-1574351301","creationTimestamp":null,"labels":{"controller-uid":"5889f833-0c76-11ea-82b8-025000000001","job-name":"foo-1574351301"}},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
-        world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always","securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"restartPolicy":"Never","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"default-scheduler","priorityClassName":"standard-job"}}},"status":{}}
+      string: '{"kind":"Job","apiVersion":"batch/v1","metadata":{"name":"foo-1574371862","namespace":"docker","selfLink":"/apis/batch/v1/namespaces/docker/jobs/foo-1574371862","uid":"37841912-0ca6-11ea-9f44-025000000001","resourceVersion":"598823","creationTimestamp":"2019-11-21T21:31:02Z","labels":{"controller-uid":"37841912-0ca6-11ea-9f44-025000000001","job-name":"foo-1574371862"},"annotations":{"scheduling.k8s.io/group-name":"foo-1574371862-group"}},"spec":{"parallelism":1,"completions":1,"backoffLimit":0,"selector":{"matchLabels":{"controller-uid":"37841912-0ca6-11ea-9f44-025000000001"}},"template":{"metadata":{"name":"foo-1574371862","creationTimestamp":null,"labels":{"controller-uid":"37841912-0ca6-11ea-9f44-025000000001","job-name":"foo-1574371862"}},"spec":{"containers":[{"name":"execute-job","image":"hello-world","command":["echo","hello
+        world"],"env":[{"name":"TEST_ENV_VAR","value":"FOO"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","imagePullPolicy":"Always","securityContext":{"capabilities":{"add":["SYS_PTRACE"]}}}],"restartPolicy":"Never","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{},"schedulerName":"kube-batch","priorityClassName":"standard-job"}}},"status":{}}
 
 '
     http_version: 
-  recorded_at: Thu, 21 Nov 2019 15:48:21 GMT
+  recorded_at: Thu, 21 Nov 2019 21:31:02 GMT
+- request:
+    method: get
+    uri: https://<KUBE_CLUSTER_ADDRESS>/apis/scheduling.incubator.k8s.io/v1alpha1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Nov 2019 21:31:02 GMT
+      Content-Length:
+      - '513'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"kind":"APIResourceList","apiVersion":"v1","groupVersion":"scheduling.incubator.k8s.io/v1alpha1","resources":[{"name":"podgroups","singularName":"podgroup","namespaced":true,"kind":"PodGroup","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"storageVersionHash":"QwvDfHorYBo="},{"name":"queues","singularName":"queue","namespaced":<AUTHORIZATION>,"kind":"Queue","verbs":["delete","deletecollection","get","list","patch","create","update","watch"],"storageVersionHash":"n9QQ2izH0ac="}]}
+
+'
+    http_version: 
+  recorded_at: Thu, 21 Nov 2019 21:31:02 GMT
+- request:
+    method: post
+    uri: https://<KUBE_CLUSTER_ADDRESS>/apis/scheduling.incubator.k8s.io/v1alpha1/namespaces/docker/podgroups
+    body:
+      encoding: UTF-8
+      string: '{"apiVersion":"scheduling.incubator.k8s.io/v1alpha1","kind":"PodGroup","metadata":{"name":"foo-1574371862-group","namespace":"docker"},"spec":{"minMember":1}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 21 Nov 2019 21:31:02 GMT
+      Content-Length:
+      - '394'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"apiVersion":"scheduling.incubator.k8s.io/v1alpha1","kind":"PodGroup","metadata":{"creationTimestamp":"2019-11-21T21:31:02Z","generation":1,"name":"foo-1574371862-group","namespace":"docker","resourceVersion":"598825","selfLink":"/apis/scheduling.incubator.k8s.io/v1alpha1/namespaces/docker/podgroups/foo-1574371862-group","uid":"37896899-0ca6-11ea-9f44-025000000001"},"spec":{"minMember":1}}
+
+'
+    http_version: 
+  recorded_at: Thu, 21 Nov 2019 21:31:02 GMT
 recorded_with: VCR 5.0.0

@@ -41,6 +41,7 @@ class Infrastructure::KubernetesClient
 
   def create_long_running_rails_job(name, command, sidecar_containers: nil)
     sidecar_containers = Array.wrap(sidecar_containers)
+    scheduling_group_name = "#{name}-group"
 
     job = K8s::Resource.new(
       apiVersion: "batch/v1",
@@ -48,6 +49,9 @@ class Infrastructure::KubernetesClient
       metadata: {
         name: name,
         namespace: Rails.configuration.kubernetes.namespace,
+        annotations: {
+          "scheduling.k8s.io/group-name" => scheduling_group_name,
+        },
       },
       spec: {
         completions: 1,
@@ -79,5 +83,20 @@ class Infrastructure::KubernetesClient
     )
 
     @client.api("batch/v1").resource("jobs", namespace: Rails.configuration.kubernetes.namespace).create_resource(job)
+
+    # kube-batch thing
+    pod_group = K8s::Resource.new(
+      apiVersion: "scheduling.incubator.k8s.io/v1alpha1",
+      kind: "PodGroup",
+      metadata: {
+        name: scheduling_group_name,
+        namespace: Rails.configuration.kubernetes.namespace,
+      },
+      spec: {
+        minMember: 1,
+      },
+    )
+
+    @client.api("scheduling.incubator.k8s.io/v1alpha1").resource("podgroups", namespace: Rails.configuration.kubernetes.namespace).create_resource(pod_group)
   end
 end
