@@ -581,6 +581,7 @@ GEM
     unicode-display_width (1.6.0)
     uniform_notifier (1.12.1)
     vcr (5.0.0)
+    wait (0.5.3)
     warden (1.2.8)
       rack (>= 2.0.6)
     warden-jwt_auth (0.4.0)
@@ -695,6 +696,7 @@ DEPENDENCIES
   trestle (~> 0.9.0)
   trestle-omniauth (~> 0.2.0)
   vcr
+  wait
   web-console
   webmock
   webpacker

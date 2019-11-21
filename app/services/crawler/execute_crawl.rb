@@ -39,6 +39,8 @@ module Crawler
     end
 
     def crawl(property, reason)
+      CrawlerClient.client.block_until_available
+
       attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, started_at: Time.now.utc, last_progress_at: Time.now.utc, running: true)
 
       logger.tagged property_id: property.id, crawl_attempt_id: attempt_record.id do

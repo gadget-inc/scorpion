@@ -12,6 +12,10 @@ class Crawler::CrawlerClient
     @auth_token = auth_token
   end
 
+  def block_until_available
+    Infrastructure::ServiceAvailability.block_until_available(@base_url)
+  end
+
   def crawl(property, crawl_options: {}, on_result:, on_error:, on_log: nil)
     got_success_message = false
     RestClient::Request.execute(
