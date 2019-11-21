@@ -71,6 +71,7 @@ class Infrastructure::KubernetesClient
             ] + sidecar_containers,
             volumes: @rails_pod_template_data[:rails_volumes],
             restartPolicy: "Never",
+            priorityClassName: "standard-job",
           },
         },
       },
