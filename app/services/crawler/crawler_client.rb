@@ -13,7 +13,7 @@ class Crawler::CrawlerClient
   end
 
   def block_until_available
-    Infrastructure::ServiceAvailability.block_until_available(@base_url)
+    Infrastructure::ServiceAvailability.block_until_available(@base_url, timeout: 120)
   end
 
   def crawl(property, crawl_options: {}, on_result:, on_error:, on_log: nil)

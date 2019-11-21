@@ -7,7 +7,7 @@ module Infrastructure::ServiceAvailability
   end
 
   def self.test(host, port)
-    Socket.tcp(host, port, connect_timeout: 5) { }
+    Socket.tcp(host, port, connect_timeout: 3) { }
     true
   rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::EADDRNOTAVAIL
     false
