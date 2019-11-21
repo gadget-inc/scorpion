@@ -3,12 +3,16 @@ development:
   # api_url: http://127.0.0.1:3001
   api_url: http://localhost:3002
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
+  run_as_kubernetes_job: false
 test:
   api_url: http://127.0.0.1:3002
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
+  run_as_kubernetes_job: false
 integration_test:
   api_url: http://127.0.0.1:3002
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
+  run_as_kubernetes_job: false
 production:
-  api_url: http://127.0.0.1:3005
+  api_url: http://web.scorpion-crawler-production.svc.cluster.local
+  run_as_kubernetes_job: false
   container_image: gcr.io/superpro-production/scorpion-crawler:latest

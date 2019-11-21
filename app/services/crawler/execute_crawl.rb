@@ -7,7 +7,7 @@ module Crawler
 
     def self.run_in_background(property, reason, force_kubernetes: false)
       args = [{ property_id: property.id, reason: reason }]
-      if Rails.env.production? || force_kubernetes
+      if Rails.configuration.crawler[:run_as_kubernetes_job] || force_kubernetes
         Infrastructure::KubernetesClient.client.run_background_job_in_k8s(
           Crawler::ExecuteCrawlJob,
           args,
@@ -39,7 +39,9 @@ module Crawler
     end
 
     def crawl(property, reason)
-      CrawlerClient.client.block_until_available
+      if Rails.configuration.crawler[:run_as_kubernetes_job]
+        CrawlerClient.client.block_until_available
+      end
 
       attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, started_at: Time.now.utc, last_progress_at: Time.now.utc, running: true)
 
