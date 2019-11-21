@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
 class Crawler::CrawlerClient
+  include SemanticLogger::Loggable
+
   class UncleanExitException < RuntimeError; end
 
   def self.client
-    @client ||= self.new(Rails.configuration.crawler[:api_url], Rails.configuration.crawler[:auth_token])
+    @client ||= self.new(Rails.configuration.crawler[:api_url])
   end
 
-  def initialize(base_api_url, auth_token)
+  def initialize(base_api_url)
     @base_url = base_api_url
-    @auth_token = auth_token
   end
 
   def block_until_available
+    logger.debug("Checking for crawler service availability ...", uri: @base_url)
     Infrastructure::ServiceAvailability.block_until_available(@base_url, timeout: 120)
   end
 

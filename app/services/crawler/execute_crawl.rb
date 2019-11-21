@@ -14,7 +14,7 @@ module Crawler
           sidecar_containers: [
             {
               name: "scorpion-crawler",
-              image: "gcr.io/superpro-production/scorpion-crawler:latest",
+              image: Rails.configuration.crawler[:container_image],
               env: [{ name: "NODE_ENV", value: "production" }, { name: "PORT", value: "3005" }],
               ports: [{ containerPort: 3005 }],
               resources: {

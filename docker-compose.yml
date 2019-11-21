@@ -42,7 +42,7 @@ services:
     command: redis-server --appendonly yes
 
   scorpion-crawler:
-    image: gcr.io/superpro-production/scorpion-crawler:latest
+    image: gcr.io/superpro-production/scorpion-crawler:1b3f7c2b208434ccf08b6d5204321438982b2b87
     ports:
       - 3002:3002
     restart: on-failure
