@@ -41,5 +41,6 @@ namespace :job do
 
     Rails.logger.info "Running job inline", job_class: options[:job_class], args: options[:args]
     options[:job_class].run(*options[:args])
+    true
   end
 end
