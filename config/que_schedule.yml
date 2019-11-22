@@ -1,2 +1,2 @@
 "Infrastructure::PeriodicEnqueueCrawlsJob":
-  cron: "0 * * * *"
+  cron: "0 */6 * * *"
