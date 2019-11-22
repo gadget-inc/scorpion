@@ -6,11 +6,12 @@ class Crawler::CrawlerClient
   class UncleanExitException < RuntimeError; end
 
   def self.client
-    @client ||= self.new(Rails.configuration.crawler[:api_url])
+    @client ||= self.new(Rails.configuration.crawler[:api_url], Rails.configuration.crawler[:auth_token])
   end
 
-  def initialize(base_api_url)
+  def initialize(base_api_url, auth_token)
     @base_url = base_api_url
+    @auth_token = auth_token
   end
 
   def block_until_available
