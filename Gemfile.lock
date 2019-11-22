@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/chanks/que.git
-  revision: 5ddddd5ebac6153d7a683ef08c86bced8e03fb51
-  ref: 5ddddd5ebac6153d7a683ef08c86bced8e03fb51
-  specs:
-    que (1.0.0.beta3)
-
-GIT
   remote: https://github.com/mokhan/flipper.git
   revision: 09358caf7abb135550e6b4378b98c41efff0f8ce
   branch: rails-6
@@ -22,6 +15,13 @@ GIT
       flipper (~> 0.16.2)
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, < 2.1.0)
+
+GIT
+  remote: https://github.com/que-rb/que.git
+  revision: 53106609b24d7e8bc231ae3883f69dca8c989d9d
+  ref: 53106609b24d7e8bc231ae3883f69dca8c989d9d
+  specs:
+    que (1.0.0.beta3)
 
 GIT
   remote: https://github.com/superpro-inc/que-locks.git

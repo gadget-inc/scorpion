@@ -55,7 +55,7 @@ gem "lru_redux"
 gem "marginalia"
 gem "mini_magick"
 gem "oj"
-gem "que", github: "chanks/que", ref: "5ddddd5ebac6153d7a683ef08c86bced8e03fb51"
+gem "que", github: "que-rb/que", ref: "53106609b24d7e8bc231ae3883f69dca8c989d9d"
 gem "que-scheduler"
 gem "que-locks", github: "superpro-inc/que-locks", ref: "f2b72a0a5cfd8ed553530d998431017ac9fc8bb8", require: "que/locks"
 gem 'que-web'
