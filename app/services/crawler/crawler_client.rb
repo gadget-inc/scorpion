@@ -56,7 +56,11 @@ class Crawler::CrawlerClient
 
           if blob["tag"] == "system"
             if !blob["success"].nil? && !blob["success"]
-              raise UncleanExitException, "Crawl did not succeed! Remote error: #{blob["error"] && blob["error"]["message"] || "unknown"} "
+              error = blob["error"]
+              if error.respond_to?(:key?) && error.key?("message")
+                error = error["message"]
+              end
+              raise UncleanExitException, "Crawl did not succeed! Remote error: #{error || "unknown"}"
             else
               got_success_message = true
             end
