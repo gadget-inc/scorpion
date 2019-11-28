@@ -14,6 +14,7 @@ Trestle.resource(:crawl_attempts) do
     column :id
     column :account
     column :property
+    column :crawl_type, link: true
     column :succeeded
     column :started_at
     column :started_reason
