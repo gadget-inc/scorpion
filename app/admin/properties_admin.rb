@@ -36,28 +36,21 @@ Trestle.resource(:properties) do
     end
 
     sidebar do
-      link_to("Crawl page info now", admin.path(:page_info_crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
-      link_to("Crawl screenshots now", admin.path(:screenshots_crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
+      concat link_to("Crawl page info now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_page_info"), method: :post, class: "btn btn-block btn-primary")
+      concat link_to("Crawl screenshots now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_screenshots"), method: :post, class: "btn btn-block btn-primary")
     end
   end
 
   controller do
-    def page_info_crawl
+    def enqueue_crawl
       property = admin.find_instance(params)
-      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", :collect_page_info)
-      flash[:message] = "Property page info crawl enqueued"
-      redirect_to admin.path(:show, id: property)
-    end
-
-    def page_info_crawl
-      property = admin.find_instance(params)
-      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", :collect_screenshots)
-      flash[:message] = "Property screenshots crawl enqueued"
+      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", params[:crawl_type].to_sym)
+      flash[:message] = "Property #{params[:crawl_type]} crawl enqueued"
       redirect_to admin.path(:show, id: property)
     end
   end
 
   routes do
-    post :crawl, on: :member
+    post :enqueue_crawl, on: :member
   end
 end
