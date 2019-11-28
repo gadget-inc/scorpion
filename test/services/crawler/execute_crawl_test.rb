@@ -11,11 +11,12 @@ module Crawler
 
     test "it crawls a test shop" do
       execute = ExecuteCrawl.new(@property.account, maxDepth: 1)
-      execute.crawl(@property, "test")
+      execute.collect_page_info_crawl(@property, "test")
     end
 
-    test "it can run the background job in k8s" do
-      ExecuteCrawl.run_in_background(@property, "test", force_kubernetes: true)
+    test "it gets screenshots for a test shop" do
+      execute = ExecuteCrawl.new(@property.account, maxDepth: 1)
+      execute.collect_screenshots_crawl(@property, "test")
     end
   end
 end

@@ -19,22 +19,40 @@ class Crawler::CrawlerClient
     Infrastructure::ServiceAvailability.block_until_available(@base_url, timeout: 120)
   end
 
-  def crawl(property, on_result:, on_error:, on_log: nil, trace_context: nil, crawl_options: {})
+  def crawl(property, **args)
+    request("/crawl", {
+      property: {
+        id: property.id.to_s,
+        crawlRoots: property.crawl_roots,
+        allowedDomains: property.allowed_domains,
+      },
+    }, **args)
+  end
+
+  def screenshots(property, pages, **args)
+    request("/screenshots", {
+      property: {
+        id: property.id.to_s,
+        allowedDomains: property.allowed_domains,
+      },
+      pages: pages,
+    }, **args)
+  end
+
+  protected
+
+  def request(method, payload, on_result:, on_error:, on_log: nil, trace_context: nil, crawl_options: nil)
     got_success_message = false
     trace_context ||= {}
+    crawl_options ||= {}
 
     RestClient::Request.execute(
       method: :post,
-      url: @base_url + "/crawl",
+      url: @base_url + method,
       payload: {
-        property: {
-          id: property.id.to_s,
-          crawlRoots: property.crawl_roots,
-          allowedDomains: property.allowed_domains,
-        },
         traceContext: trace_context,
         crawlOptions: crawl_options,
-      }.to_json,
+      }.merge!(payload).to_json,
       headers: { :Authorization => "Bearer #{@auth_token}", content_type: :json },
       read_timeout: nil,
       block_response: proc { |response|

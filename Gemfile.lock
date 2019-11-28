@@ -609,6 +609,7 @@ GEM
     yajl-ruby (1.4.1)
     yaml-safe_load_stream (0.1.1)
     yard (0.9.20)
+    zaru (0.3.0)
     zeitwerk (2.2.1)
 
 PLATFORMS
@@ -700,6 +701,7 @@ DEPENDENCIES
   web-console
   webmock
   webpacker
+  zaru
 
 RUBY VERSION
    ruby 2.6.2p47

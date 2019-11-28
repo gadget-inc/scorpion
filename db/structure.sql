@@ -400,7 +400,8 @@ CREATE TABLE public.crawl_attempts (
     finished_at timestamp without time zone,
     failure_reason character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    crawl_type character varying DEFAULT 'collect_page_info'::character varying
 );
 
 
@@ -557,6 +558,41 @@ CREATE SEQUENCE public.properties_id_seq
 --
 
 ALTER SEQUENCE public.properties_id_seq OWNED BY public.properties.id;
+
+
+--
+-- Name: property_screenshots; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.property_screenshots (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    crawl_attempt_id bigint NOT NULL,
+    url character varying NOT NULL,
+    result jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: property_screenshots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.property_screenshots_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: property_screenshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.property_screenshots_id_seq OWNED BY public.property_screenshots.id;
 
 
 --
@@ -769,6 +805,13 @@ ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.p
 
 
 --
+-- Name: property_screenshots id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_screenshots ALTER COLUMN id SET DEFAULT nextval('public.property_screenshots_id_seq'::regclass);
+
+
+--
 -- Name: que_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -863,6 +906,14 @@ ALTER TABLE ONLY public.properties
 
 
 --
+-- Name: property_screenshots property_screenshots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_screenshots
+    ADD CONSTRAINT property_screenshots_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: que_jobs que_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -936,6 +987,13 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_crawl_attempts_on_account_id_and_crawl_type_and_succeeded; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crawl_attempts_on_account_id_and_crawl_type_and_succeeded ON public.crawl_attempts USING btree (account_id, crawl_type, succeeded);
 
 
 --
@@ -1072,6 +1130,14 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 
 --
+-- Name: property_screenshots fk_rails_4a374db287; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_screenshots
+    ADD CONSTRAINT fk_rails_4a374db287 FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
+
+
+--
 -- Name: crawl_pages fk_rails_4b8453ebe7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1120,6 +1186,14 @@ ALTER TABLE ONLY public.crawl_pages
 
 
 --
+-- Name: property_screenshots fk_rails_b3b3e6b860; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_screenshots
+    ADD CONSTRAINT fk_rails_b3b3e6b860 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: crawl_pages fk_rails_ba2ea33cd5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1141,6 +1215,14 @@ ALTER TABLE ONLY public.accounts
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: property_screenshots fk_rails_ed7e666442; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_screenshots
+    ADD CONSTRAINT fk_rails_ed7e666442 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -1188,6 +1270,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191115002426'),
 ('20191115143608'),
 ('20191115145123'),
-('20191120173522');
+('20191120173522'),
+('20191128164154'),
+('20191128165018');
 
 

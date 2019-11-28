@@ -19,6 +19,7 @@ Trestle.resource(:properties) do
     tab :results, badge: property.crawl_attempts.size do
       table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
         column :id
+        column :crawl_type, link: true
         column :started_at, link: true
         column :started_reason
         column :running, align: :center
@@ -35,15 +36,23 @@ Trestle.resource(:properties) do
     end
 
     sidebar do
-      link_to("Crawl now", admin.path(:crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
+      link_to("Crawl page info now", admin.path(:page_info_crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
+      link_to("Crawl screenshots now", admin.path(:screenshots_crawl, id: property.id), method: :post, class: "btn btn-block btn-primary")
     end
   end
 
   controller do
-    def crawl
+    def page_info_crawl
       property = admin.find_instance(params)
-      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger")
-      flash[:message] = "Property crawl enqueued"
+      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", :collect_page_info)
+      flash[:message] = "Property page info crawl enqueued"
+      redirect_to admin.path(:show, id: property)
+    end
+
+    def page_info_crawl
+      property = admin.find_instance(params)
+      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", :collect_screenshots)
+      flash[:message] = "Property screenshots crawl enqueued"
       redirect_to admin.path(:show, id: property)
     end
   end

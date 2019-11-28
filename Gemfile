@@ -69,6 +69,7 @@ gem "sentry-raven"
 gem "honeycomb-beeline", '~> 1.2.0', require: false # needs custom requiring in order to set up middleware properly, see initializer
 gem 'k8s-client'
 gem 'wait'
+gem 'zaru'
 
 # Admin
 gem 'trestle', '~> 0.9.0'
