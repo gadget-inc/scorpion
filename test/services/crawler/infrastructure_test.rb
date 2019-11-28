@@ -3,7 +3,7 @@
 require "test_helper"
 
 module Crawler
-  class ExecuteCrawlTest < ActiveSupport::TestCase
+  class InfrastructureTest < ActiveSupport::TestCase
     setup do
       @property = create(:sole_destroyer_property)
       CrawlerClient.client.stubs(:block_until_available).returns(true)
