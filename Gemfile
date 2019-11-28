@@ -72,7 +72,7 @@ gem 'wait'
 gem 'zaru'
 
 # Admin
-gem 'trestle', '~> 0.9.0'
+gem 'trestle', '~> 0.9.1'
 gem 'trestle-omniauth', '~> 0.2.0'  #, path: "~/Code/trestle-omniauth"
 
 group :development, :test, :integration_test do
