@@ -21,5 +21,17 @@ module Crawler
         Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob.run
       end
     end
+
+    test "it marks crawl attempts whos workers were killed as failed" do
+      attempt = create(:crawl_attempt, last_progress_at: 1.hour.ago, started_at: 1.hour.ago, running: true)
+      assert attempt.running
+
+      Infrastructure::PeriodicMarkFailedCrawlAttemptsJob.run
+      attempt.reload
+
+      assert_not attempt.succeeded
+      assert_not attempt.running
+      assert attempt.finished_at.present?
+    end
   end
 end

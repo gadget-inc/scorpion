@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob < Que::Job
+  self.exclusive_execution_lock = true
+
   def run
     Property.kept.where(enabled: true).find_each do |property|
       Crawler::ExecuteCrawl.run_in_background(property, "scheduled", :collect_page_info)

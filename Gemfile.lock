@@ -23,16 +23,6 @@ GIT
   specs:
     que (1.0.0.beta3)
 
-GIT
-  remote: https://github.com/superpro-inc/que-locks.git
-  revision: f2b72a0a5cfd8ed553530d998431017ac9fc8bb8
-  ref: f2b72a0a5cfd8ed553530d998431017ac9fc8bb8
-  specs:
-    que-locks (0.1.0)
-      neatjson
-      que (>= 0.10)
-      xxhash
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -414,6 +404,10 @@ GEM
     public_suffix (4.0.1)
     puma (4.2.1)
       nio4r (~> 2.0)
+    que-locks (0.2.0)
+      neatjson
+      que (~> 1.0.0.beta3)
+      xxhash
     que-scheduler (3.2.7)
       activesupport (>= 4.0)
       backports (~> 3.10)
@@ -668,7 +662,7 @@ DEPENDENCIES
   pry-byebug
   puma (~> 4.2)
   que!
-  que-locks!
+  que-locks
   que-scheduler
   que-web
   rack-cors

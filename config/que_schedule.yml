@@ -3,3 +3,6 @@
 
 "Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob":
   cron: "0 0 * * *"
+
+"Infrastructure::PeriodicMarkFailedCrawlAttemptsJob":
+  cron: "0 * * * *"
