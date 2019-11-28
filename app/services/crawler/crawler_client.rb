@@ -19,8 +19,10 @@ class Crawler::CrawlerClient
     Infrastructure::ServiceAvailability.block_until_available(@base_url, timeout: 120)
   end
 
-  def crawl(property, crawl_options: {}, on_result:, on_error:, on_log: nil)
+  def crawl(property, on_result:, on_error:, on_log: nil, trace_context: nil, crawl_options: {})
     got_success_message = false
+    trace_context ||= {}
+
     RestClient::Request.execute(
       method: :post,
       url: @base_url + "/crawl",
@@ -30,6 +32,7 @@ class Crawler::CrawlerClient
           crawlRoots: property.crawl_roots,
           allowedDomains: property.allowed_domains,
         },
+        traceContext: trace_context,
         crawlOptions: crawl_options,
       }.to_json,
       headers: { :Authorization => "Bearer #{@auth_token}", content_type: :json },

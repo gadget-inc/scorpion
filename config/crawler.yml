@@ -1,7 +1,7 @@
 development:
   # 3001 is the default port the development server runs on, 3002 is the port the docker-compose'd server runs on
   # api_url: http://127.0.0.1:3001
-  api_url: http://localhost:3002
+  api_url: http://localhost:3001
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
   run_as_kubernetes_job: false
 test:

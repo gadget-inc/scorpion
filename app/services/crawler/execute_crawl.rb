@@ -51,7 +51,8 @@ module Crawler
 
           CrawlerClient.client.crawl(
             property,
-            crawl_options: crawl_options,
+            crawl_options: @crawl_options,
+            trace_context: { crawlAttemptId: attempt_record.id },
             on_result: proc do |result|
               CrawlAttempt.transaction do
                 attempt_record.update!(last_progress_at: Time.now.utc)
@@ -76,9 +77,6 @@ module Crawler
         logger.info "Crawl completed successfully"
         attempt_record.update!(finished_at: Time.now.utc, succeeded: true, running: false)
       end
-    end
-
-    def crawl_options
     end
   end
 end
