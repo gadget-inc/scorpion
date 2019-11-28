@@ -3,7 +3,8 @@
 <div class="main-content-area">
   <div class="main-content-container">
     <div class="main-content">
-      <%= button_to "Run Global Enqueue Crawls Job", run_periodic_enqueue_crawls_path, method: :post %>
+      <%= button_to "Run Global Enqueue Collect Page Info Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: {crawl_type: "collect_page_info"} %>
+      <%= button_to "Run Global Enqueue Collect Screenshot Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: {crawl_type: "collect_screenshots"} %>
     </div>
   </div>
 </div>
