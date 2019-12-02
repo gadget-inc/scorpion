@@ -1,5 +1,5 @@
 "Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob":
-  cron: "0 */3 * * *"
+  cron: "0 */12 * * *"
 
 "Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob":
   cron: "0 0 * * *"
