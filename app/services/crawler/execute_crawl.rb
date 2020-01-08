@@ -14,6 +14,8 @@ module Crawler
                     Crawler::ExecuteCollectScreenshotsCrawlJob
                   when :collect_page_info
                     Crawler::ExecuteCollectPageInfoCrawlJob
+                  when :collect_lighthouse
+                    Crawler::ExecuteCollectLighthouseCrawlJob
                   else
                     raise "Unknown crawl type #{type}"
                   end
@@ -82,6 +84,32 @@ module Crawler
             CrawlAttempt.transaction do
               attempt_record.update!(last_progress_at: Time.now.utc)
               logger.info("remote crawler error", error_result)
+            end
+          end,
+          on_log: proc do |log|
+            logger.info("remote crawler log", log)
+          end,
+        )
+      end
+    end
+
+    def collect_lighthouse_crawl(property, reason)
+      attempt_crawl(property, reason, :collect_lighthouse) do |attempt_record|
+        CrawlerClient.client.lighthouse(
+          property,
+          property.crawl_roots,
+          crawl_options: crawl_options,
+          trace_context: { crawlAttemptId: attempt_record.id },
+          on_result: proc do |result|
+            CrawlAttempt.transaction do
+              attempt_record.update!(last_progress_at: Time.now.utc)
+              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: result["url"], result: result)
+            end
+          end,
+          on_error: proc do |error_result|
+            CrawlAttempt.transaction do
+              attempt_record.update!(last_progress_at: Time.now.utc)
+              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
             end
           end,
           on_log: proc do |log|

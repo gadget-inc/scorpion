@@ -4,5 +4,8 @@
 "Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob":
   cron: "0 0 * * *"
 
+"Infrastructure::PeriodicEnqueueCollectLighthouseCrawlsJob":
+  cron: "0 6 * * *"
+
 "Infrastructure::PeriodicMarkFailedCrawlAttemptsJob":
   cron: "0 * * * *"

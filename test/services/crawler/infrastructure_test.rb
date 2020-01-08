@@ -22,6 +22,12 @@ module Crawler
       end
     end
 
+    test "it crawls all shops for lighthouses in the background" do
+      with_synchronous_jobs do
+        Infrastructure::PeriodicEnqueueCollectLighthouseCrawlsJob.run
+      end
+    end
+
     test "it marks crawl attempts whos workers were killed as failed" do
       attempt = create(:crawl_attempt, last_progress_at: 1.hour.ago, started_at: 1.hour.ago, running: true)
       assert attempt.running

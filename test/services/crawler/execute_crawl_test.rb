@@ -18,5 +18,10 @@ module Crawler
       execute = ExecuteCrawl.new(@property.account, maxDepth: 1)
       execute.collect_screenshots_crawl(@property, "test")
     end
+
+    test "it gets lighthouses for a test shop" do
+      execute = ExecuteCrawl.new(@property.account, maxDepth: 0)
+      execute.collect_lighthouse_crawl(@property, "test")
+    end
   end
 end

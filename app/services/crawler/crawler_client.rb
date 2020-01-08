@@ -39,6 +39,16 @@ class Crawler::CrawlerClient
     }, **args)
   end
 
+  def lighthouse(property, pages, **args)
+    request("/lighthouse", {
+      property: {
+        id: property.id.to_s,
+        allowedDomains: property.allowed_domains,
+      },
+      pages: pages,
+    }, **args)
+  end
+
   protected
 
   def request(method, payload, on_result:, on_error:, on_log: nil, trace_context: nil, crawl_options: nil)
