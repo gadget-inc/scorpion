@@ -6,6 +6,7 @@
 #
 #  id              :bigint           not null, primary key
 #  allowed_domains :string           not null, is an Array
+#  ambient         :boolean          default(FALSE)
 #  crawl_roots     :string           not null, is an Array
 #  discarded_at    :datetime
 #  enabled         :boolean          default(TRUE), not null
@@ -24,6 +25,9 @@
 class Property < ApplicationRecord
   include AccountScoped
   include Discard::Model
+
+  scope :for_purposeful_crawls, -> { kept.where(enabled: true, ambient: false) }
+  scope :for_ambient_crawls, -> { kept.where(enabled: true, ambient: true) }
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
   has_many :crawl_attempts, dependent: :destroy

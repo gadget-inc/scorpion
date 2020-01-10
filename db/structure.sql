@@ -537,7 +537,8 @@ CREATE TABLE public.properties (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     enabled boolean DEFAULT true NOT NULL,
-    discarded_at timestamp without time zone
+    discarded_at timestamp without time zone,
+    ambient boolean DEFAULT false
 );
 
 
@@ -1272,6 +1273,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191115145123'),
 ('20191120173522'),
 ('20191128164154'),
-('20191128165018');
+('20191128165018'),
+('20200110170018');
 
 
