@@ -132,7 +132,7 @@
     "eslint-plugin-cypress": "^2.2.1",
     "eslint-plugin-lodash": "^6.0.0",
     "eslint-plugin-react": "^7.12.4",
-    "eslint-plugin-react-hooks": "^2.2.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "jest": "^24.1.0",
     "jest-junit": "^9.0.0",
     "prettier": "^1.16.4",
