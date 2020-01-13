@@ -50,6 +50,7 @@ gem 'flipper-ui'
 gem "google-cloud-storage", require: false
 gem "health_check"
 gem 'hiredis'
+gem 'image_processing'
 gem 'json-schema'
 gem "lru_redux"
 gem "marginalia"

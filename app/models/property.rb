@@ -31,4 +31,6 @@ class Property < ApplicationRecord
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
   has_many :crawl_attempts, dependent: :destroy
+  has_many :property_screenshots, dependent: :destroy
+  has_many :property_timeline_entries, dependent: :destroy
 end

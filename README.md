@@ -60,7 +60,7 @@ Run these three (most do it in separate terminal windows) processes, and then vi
 You can also run a jobs server to execute background jobs enqueued locally in the foreground for testing and debugging. Use:
 
 ```
-bundle exec que -q default -q mailers
+bundle exec que -q default -q mailers -q crawls
 ```
 
 to execute Que, our jobs system.
