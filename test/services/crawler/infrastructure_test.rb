@@ -5,8 +5,8 @@ require "test_helper"
 module Crawler
   class InfrastructureTest < ActiveSupport::TestCase
     setup do
-      setup_property = create(:sole_destroyer_property)
-      ambient_property = create(:ambient_homesick_property)
+      create(:sole_destroyer_property)
+      create(:ambient_homesick_property)
       CrawlerClient.client.stubs(:block_until_available).returns(true)
       ExecuteCrawl.any_instance.stubs(:crawl_options).returns(maxDepth: 1)  # so e2e crawling tests don't take forever
     end

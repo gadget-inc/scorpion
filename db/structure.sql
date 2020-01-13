@@ -10,19 +10,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: gapfillinternal(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.gapfillinternal(s anyelement, v anyelement) RETURNS anyelement
-    LANGUAGE plpgsql IMMUTABLE
-    AS $$
-BEGIN
-  RETURN COALESCE(v,s);
-END;
-$$;
-
-
---
 -- Name: que_validate_tags(jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -77,6 +64,19 @@ WITH (fillfactor='90');
 --
 
 COMMENT ON TABLE public.que_jobs IS '4';
+
+
+--
+-- Name: gapfillinternal(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.gapfillinternal(s anyelement, v anyelement) RETURNS anyelement
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+BEGIN
+  RETURN COALESCE(v,s);
+END;
+$$;
 
 
 --
@@ -597,6 +597,41 @@ ALTER SEQUENCE public.property_screenshots_id_seq OWNED BY public.property_scree
 
 
 --
+-- Name: property_timeline_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.property_timeline_entries (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    entry_at timestamp without time zone NOT NULL,
+    entry_type character varying NOT NULL,
+    entry jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: property_timeline_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.property_timeline_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: property_timeline_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.property_timeline_entries_id_seq OWNED BY public.property_timeline_entries.id;
+
+
+--
 -- Name: que_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -813,6 +848,13 @@ ALTER TABLE ONLY public.property_screenshots ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: property_timeline_entries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_timeline_entries ALTER COLUMN id SET DEFAULT nextval('public.property_timeline_entries_id_seq'::regclass);
+
+
+--
 -- Name: que_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -912,6 +954,14 @@ ALTER TABLE ONLY public.properties
 
 ALTER TABLE ONLY public.property_screenshots
     ADD CONSTRAINT property_screenshots_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: property_timeline_entries property_timeline_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_timeline_entries
+    ADD CONSTRAINT property_timeline_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -1274,6 +1324,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191120173522'),
 ('20191128164154'),
 ('20191128165018'),
-('20200110170018');
+('20200110170018'),
+('20200113162215');
 
 

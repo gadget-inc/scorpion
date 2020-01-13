@@ -31,5 +31,8 @@ class CrawlAttempt < ApplicationRecord
   include AccountScoped
 
   belongs_to :property, optional: false
+  has_many :crawl_pages, dependent: :destroy
+  has_many :property_screenshots, dependent: :destroy
+
   enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
 end

@@ -22,8 +22,9 @@
 
 class PropertyScreenshot < ApplicationRecord
   include AccountScoped
-  belongs_to :property, optional: false
-  belongs_to :crawl_attempt, optional: false
+
+  belongs_to :property, optional: false, inverse_of: :property_screenshots
+  belongs_to :crawl_attempt, optional: false, inverse_of: :property_screenshots
 
   has_one_attached :image
 end
