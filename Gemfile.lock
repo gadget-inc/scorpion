@@ -422,7 +422,7 @@ GEM
       que (~> 1.0.0.beta3)
       sinatra
     raabro (1.1.6)
-    rack (2.0.7)
+    rack (2.1.1)
     rack-cors (1.0.3)
     rack-protection (2.0.7)
       rack
