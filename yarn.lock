@@ -1064,6 +1064,16 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.4.tgz#622a72bebd1e3f48d921563b4b60a762295a81fc"
   integrity sha512-6PYY5DVdAY1ifaQW6XYTnOMihmBVT27elqSjEoodchsGjzYlEsTQMcEhSud99kVawatyTZRTiVkJ/c6lwbQ7nA==
 
+"@fixings/eslint-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@fixings/eslint-config/-/eslint-config-1.0.0.tgz#018dc4481a782df4b4e22f58754fc75be85b7886"
+  integrity sha512-fxmUFrXIkFDdy6ZWvKeluDIaW4js6+jWADApb5AMR+yO0qG3kQtLHzTN90zSoHzehSk2nV/yXWz4ZlFWUsCB8Q==
+
+"@fixings/prettier-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@fixings/prettier-config/-/prettier-config-1.0.0.tgz#6b99f00ff19414a8c5080dffeaac8fb0b2c58853"
+  integrity sha512-6NptIeK7r5IP+AatuakwOnBD+3KvMLZ6xX3J1Yp0oXdeFoN4zVDQ3bPFsgh/DfOD9XMe2bn+1+JgNfDkfHX3vA==
+
 "@graphql-codegen/add@^1.8.2":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/add/-/add-1.8.3.tgz#669d83dc0a1cf98f0584e29486df97b634296050"

@@ -41,11 +41,6 @@ Rails.application.configure do
   # Raises error for missing translations.
   config.action_view.raise_on_missing_translations = true
 
-  STDOUT.sync = true
-  if SemanticLogger.appenders.all? { |appender| appender.instance_variable_get(:@log) != STDOUT }
-    config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
-  end
-
   config.x.domains.app = "app.supo.dev"
   config.x.domains.admin = "admin.supo.dev"
   config.x.domains.assets = "assets.supo.dev"

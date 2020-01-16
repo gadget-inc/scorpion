@@ -39,9 +39,6 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", :debug).to_sym
 
-  # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
-
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :que
   config.active_job.queue_name_prefix = "scorpion_production"
@@ -67,12 +64,6 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-
-  # Use semantic_logger logging setup to STDOUT
-  STDOUT.sync = true
-  config.rails_semantic_logger.add_file_appender = false
-  config.rails_semantic_logger.format = :json
-  config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

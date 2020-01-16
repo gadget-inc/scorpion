@@ -11,7 +11,7 @@ module BaseClientSideAppSettings
       {
         devMode: Rails.env.development?,
         clientSessionId: SecureRandom.uuid,
-        release: AppRelease.current,
+        release: Fixings::AppRelease.current,
         sentryDsn: ENV["FRONTEND_SENTRY_DSN"],
         authDomain: "https://#{Rails.configuration.x.domains.app}",
         analytics: {

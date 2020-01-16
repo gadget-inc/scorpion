@@ -54,26 +54,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Whitelist docker-for-mac ips for web console
-  config.web_console.permissions = ["172.18.0.0/16", "172.19.0.0/16"]
-
   # Development happens on a real domain that resolves to localhost through an nginx
   config.force_ssl = true
 
   config.cache_store = :redis_cache_store, { url: "redis://localhost:6379/0" }
   config.session_store :cache_store, key: "scorpion_dev_sessions"
-
-  # Always log to stdout in development. Rails somehow magically makes this happen for the webserver but not for other processes
-  # like the jobs server
-  STDOUT.sync = true
-  if SemanticLogger.appenders.all? { |appender| appender.instance_variable_get(:@log) != STDOUT }
-    config.semantic_logger.add_appender(io: STDOUT, level: config.log_level, formatter: config.rails_semantic_logger.format)
-  end
-
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.rails_logger = true
-  end
 
   config.x.domains.app = "app.supo.dev"
   config.x.domains.admin = "admin.supo.dev"

@@ -14,9 +14,9 @@ gem 'graphql'
 gem 'graphql-batch', require: "graphql/batch"
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.3'
-gem 'rack-cors'
 gem 'rails', '6.0.1'
 gem 'webpacker'
+gem 'fixings', '0.1.1'
 
 # Functionality
 gem 'money-rails'
@@ -34,39 +34,24 @@ gem 'omniauth-google-oauth2'
 gem 'google-api-client'
 
 # Performance & Infrastructure
-gem 'active_record_query_trace'
 gem 'analytics-ruby', '~> 2.2.7', require: 'segment/analytics'
-gem "annotate"
-gem 'ar_transaction_changes'
 gem "asset_sync"
 gem "fog-google", '~> 1.9.1'
-gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem "bullet", "~> 6.0.2"
-gem "flipper", '~> 0.16', github: 'mokhan/flipper', branch: 'rails-6'
-gem 'flipper-active_record', '~> 0.16', github: 'mokhan/flipper', branch: 'rails-6'
-gem 'flipper-active_support_cache_store', '~> 0.16', github: 'mokhan/flipper', branch: 'rails-6'
-gem 'flipper-ui'
 gem "google-cloud-storage", require: false
-gem "health_check"
 gem 'hiredis'
 gem 'image_processing'
 gem 'json-schema'
 gem "lru_redux"
-gem "marginalia"
 gem "mini_magick"
-gem "oj"
 gem "que", github: "que-rb/que", ref: "53106609b24d7e8bc231ae3883f69dca8c989d9d"
 gem "que-scheduler"
 gem "que-locks"
 gem 'que-web'
-gem 'rails-middleware-extensions'
-gem 'rails_semantic_logger'
 gem 'redis', '~> 4.1'
 gem 'request_store'
 gem "safely"
 gem "scenic"
-gem "sentry-raven"
 gem "honeycomb-beeline", '~> 1.2.0', require: false # needs custom requiring in order to set up middleware properly, see initializer
 gem 'k8s-client'
 gem 'wait'
@@ -114,3 +99,4 @@ group :development, :deploy do
   gem 'kubernetes-deploy'
   gem 'ejson'
 end
+gem "irb", "~> 1.2"
