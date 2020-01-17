@@ -524,6 +524,43 @@ ALTER SEQUENCE public.flipper_gates_id_seq OWNED BY public.flipper_gates.id;
 
 
 --
+-- Name: misspelled_words; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.misspelled_words (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    crawl_attempt_id bigint NOT NULL,
+    word character varying NOT NULL,
+    seen_on_pages character varying[],
+    count integer NOT NULL,
+    suggestions character varying[],
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: misspelled_words_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.misspelled_words_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: misspelled_words_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.misspelled_words_id_seq OWNED BY public.misspelled_words.id;
+
+
+--
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -834,6 +871,13 @@ ALTER TABLE ONLY public.flipper_gates ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: misspelled_words id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.misspelled_words ALTER COLUMN id SET DEFAULT nextval('public.misspelled_words_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -941,6 +985,14 @@ ALTER TABLE ONLY public.flipper_gates
 
 
 --
+-- Name: misspelled_words misspelled_words_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.misspelled_words
+    ADD CONSTRAINT misspelled_words_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1041,10 +1093,17 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 
 
 --
--- Name: index_crawl_attempts_on_account_id_and_crawl_type_and_succeeded; Type: INDEX; Schema: public; Owner: -
+-- Name: index_crawl_attempts_on_success_and_finished; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_crawl_attempts_on_account_id_and_crawl_type_and_succeeded ON public.crawl_attempts USING btree (account_id, crawl_type, succeeded);
+CREATE INDEX index_crawl_attempts_on_success_and_finished ON public.crawl_attempts USING btree (property_id, crawl_type, succeeded, finished_at);
+
+
+--
+-- Name: index_crawl_pages_on_attempt_and_error; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crawl_pages_on_attempt_and_error ON public.crawl_pages USING btree (crawl_attempt_id, (((result -> 'error'::text) IS NULL)));
 
 
 --
@@ -1181,6 +1240,22 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 
 --
+-- Name: misspelled_words fk_rails_06162183a8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.misspelled_words
+    ADD CONSTRAINT fk_rails_06162183a8 FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
+
+
+--
+-- Name: property_timeline_entries fk_rails_4557f1e5ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_timeline_entries
+    ADD CONSTRAINT fk_rails_4557f1e5ee FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: property_screenshots fk_rails_4a374db287; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1253,6 +1328,14 @@ ALTER TABLE ONLY public.crawl_pages
 
 
 --
+-- Name: misspelled_words fk_rails_bf785ef47b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.misspelled_words
+    ADD CONSTRAINT fk_rails_bf785ef47b FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: accounts fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1261,11 +1344,27 @@ ALTER TABLE ONLY public.accounts
 
 
 --
+-- Name: property_timeline_entries fk_rails_c205c2d0e4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_timeline_entries
+    ADD CONSTRAINT fk_rails_c205c2d0e4 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: misspelled_words fk_rails_d52ce14c82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.misspelled_words
+    ADD CONSTRAINT fk_rails_d52ce14c82 FOREIGN KEY (property_id) REFERENCES public.properties(id);
 
 
 --
@@ -1325,6 +1424,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191128164154'),
 ('20191128165018'),
 ('20200110170018'),
-('20200113162215');
+('20200113162215'),
+('20200117184240'),
+('20200117224731'),
+('20200117225107');
 
 

@@ -13,6 +13,10 @@
 #  crawl_attempt_id :bigint           not null
 #  property_id      :bigint           not null
 #
+# Indexes
+#
+#  index_crawl_pages_on_attempt_and_error  (crawl_attempt_id, (((result -> 'error'::text) IS NULL)))
+#
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)

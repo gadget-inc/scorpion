@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Timeline
-  include SemanticLogger::Loggable
-
   class Producer
+    include SemanticLogger::Loggable
+
     def initialize(property)
       @property = property
     end

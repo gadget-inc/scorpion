@@ -16,6 +16,8 @@ module Crawler
                     Crawler::ExecuteCollectPageInfoCrawlJob
                   when :collect_lighthouse
                     Crawler::ExecuteCollectLighthouseCrawlJob
+                  when :collect_text_blocks
+                    Crawler::ExecuteCollectLighthouseCrawlJob
                   else
                     raise "Unknown crawl type #{type}"
                   end
@@ -32,26 +34,7 @@ module Crawler
 
     def collect_page_info_crawl(property, reason)
       attempt_crawl(property, reason, :collect_page_info) do |attempt_record|
-        CrawlerClient.client.crawl(
-          property,
-          crawl_options: crawl_options,
-          trace_context: { crawlAttemptId: attempt_record.id },
-          on_result: proc do |result|
-            CrawlAttempt.transaction do
-              attempt_record.update!(last_progress_at: Time.now.utc)
-              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: result["url"], result: result)
-            end
-          end,
-          on_error: proc do |error_result|
-            CrawlAttempt.transaction do
-              attempt_record.update!(last_progress_at: Time.now.utc)
-              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
-            end
-          end,
-          on_log: proc do |log|
-            logger.info("remote crawler log", log)
-          end,
-        )
+        CrawlerClient.client.crawl(property, **default_crawl_arguments(property, attempt_record))
       end
     end
 
@@ -60,8 +43,7 @@ module Crawler
         CrawlerClient.client.screenshots(
           property,
           property.crawl_roots,
-          crawl_options: crawl_options,
-          trace_context: { crawlAttemptId: attempt_record.id },
+          **default_crawl_arguments(property, attempt_record),
           on_result: proc do |result|
             CrawlAttempt.transaction do
               attempt_record.update!(last_progress_at: Time.now.utc)
@@ -86,9 +68,6 @@ module Crawler
               logger.info("remote crawler error", error_result)
             end
           end,
-          on_log: proc do |log|
-            logger.info("remote crawler log", log)
-          end,
         )
       end
     end
@@ -98,23 +77,16 @@ module Crawler
         CrawlerClient.client.lighthouse(
           property,
           property.crawl_roots,
-          crawl_options: crawl_options,
-          trace_context: { crawlAttemptId: attempt_record.id },
-          on_result: proc do |result|
-            CrawlAttempt.transaction do
-              attempt_record.update!(last_progress_at: Time.now.utc)
-              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: result["url"], result: result)
-            end
-          end,
-          on_error: proc do |error_result|
-            CrawlAttempt.transaction do
-              attempt_record.update!(last_progress_at: Time.now.utc)
-              @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
-            end
-          end,
-          on_log: proc do |log|
-            logger.info("remote crawler log", log)
-          end,
+          **default_crawl_arguments(property, attempt_record),
+        )
+      end
+    end
+
+    def collect_text_blocks_crawl(property, reason)
+      attempt_crawl(property, reason, :collect_text_blocks) do |attempt_record|
+        CrawlerClient.client.text_blocks(
+          property,
+          **default_crawl_arguments(property, attempt_record),
         )
       end
     end
@@ -140,6 +112,30 @@ module Crawler
         logger.info "Crawl completed successfully"
         attempt_record.update!(finished_at: Time.now.utc, succeeded: true, running: false)
       end
+
+      attempt_record
+    end
+
+    def default_crawl_arguments(property, attempt_record)
+      {
+        crawl_options: crawl_options,
+        trace_context: { crawlAttemptId: attempt_record.id },
+        on_result: proc do |result|
+          CrawlAttempt.transaction do
+            attempt_record.update!(last_progress_at: Time.now.utc)
+            @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: result["url"], result: result)
+          end
+        end,
+        on_error: proc do |error_result|
+          CrawlAttempt.transaction do
+            attempt_record.update!(last_progress_at: Time.now.utc)
+            @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
+          end
+        end,
+        on_log: proc do |log|
+          logger.info("remote crawler log", log)
+        end,
+      }
     end
   end
 end

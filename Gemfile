@@ -16,12 +16,15 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.3'
 gem 'rails', '6.0.1'
 gem 'webpacker'
-gem 'fixings', '0.1.1'
+gem 'fixings', '0.1.2'
 
 # Functionality
 gem 'money-rails'
 gem 'rrule'
 gem 'rails-i18n'
+gem 'hunspell'
+gem 'ffi-hunspell', require: "ffi/hunspell"
+gem 'cld3'
 
 # Integrations
 gem 'omniauth'
@@ -73,6 +76,7 @@ group :development, :test, :integration_test do
   gem 'rcodetools'
   gem 'rufo'
   gem 'subprocess'
+  gem 'irb'
 end
 
 group :development do
@@ -96,7 +100,6 @@ group :test do
 end
 
 group :development, :deploy do
-  gem 'kubernetes-deploy'
+  gem 'krane'
   gem 'ejson'
 end
-gem "irb", "~> 1.2"

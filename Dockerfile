@@ -10,6 +10,8 @@ WORKDIR /app
 COPY config/deploy/install-imagemagick7.sh /app/install-imagemagick7.sh
 RUN bash /app/install-imagemagick7.sh
 
+RUN apt-get install -qy libprotobuf-dev protobuf-compiler libhunspell-dev
+
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install -j 20 --without development test deploy --deployment

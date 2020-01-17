@@ -7,7 +7,6 @@ export CLUSTER="gke_superpro-production_us-central1-a_alpha"
 
 GIT_SHA=$(git rev-parse HEAD)
 export REVISION=${REVISION:-$GIT_SHA}
-DEPLOY_COMMAND="bundle exec kubernetes-deploy"
 
 # deploy application to it's namespace
-bundle exec kubernetes-deploy --template-dir=config/deploy/$ENVIRONMENT scorpion-production $CLUSTER
+bundle exec krane render -f ./deploy/$ENVIRONMENT --current-sha=$REVISION | bundle exec krane deploy scorpion-production $CLUSTER --stdin -f ./deploy/$ENVIRONMENT/secrets.ejson

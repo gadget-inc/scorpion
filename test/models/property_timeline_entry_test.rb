@@ -13,6 +13,11 @@
 #  account_id  :bigint           not null
 #  property_id :bigint           not null
 #
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (property_id => properties.id)
+#
 
 require "test_helper"
 

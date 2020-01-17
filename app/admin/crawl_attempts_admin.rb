@@ -7,6 +7,9 @@ Trestle.resource(:crawl_attempts) do
 
   scopes do
     scope :all, -> { CrawlAttempt.order("created_at DESC") }, default: true
+    scope :ambient, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: true }) }
+    scope :specific, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: false }) }
+    scope :spelling, -> { CrawlAttempt.type_collect_text_blocks }
     scope :failed, -> { CrawlAttempt.where("succeeded IS NULL or succeeded = false").order("created_at DESC") }
   end
 
@@ -26,33 +29,77 @@ Trestle.resource(:crawl_attempts) do
     end
   end
 
-  # Customize the table columns shown on the index view.
-  #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  form do |crawl_attempt|
+    tab :pages, badge: crawl_attempt.crawl_pages.size do
+      table crawl_attempt.crawl_pages.order("id ASC") do
+        column :id
+        column :url
+        column :error do |page|
+          page.result["error"].present?
+        end
+        column :result do |page|
+          tag.pre do
+            tag.code do
+              page.result.to_s.truncate(100)
+            end
+          end
+        end
+      end
+    end
 
-  # Customize the form fields shown on the new/edit views.
-  #
-  # form do |app|
-  #   text_field :name
-  #
-  #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
-  #   end
-  # end
+    if crawl_attempt.type_collect_text_blocks?
+      tab :spelling do
+        table crawl_attempt.misspelled_words.order("word ASC") do
+          column :word
+          column :suggestions
+          column :count
+          column :seen_on_pages do |word|
+            links = word.seen_on_pages.first(8).map { |url| tag.a(href: url) { url } }
+            if word.seen_on_pages.size > 8
+              links << tag.p { "and #{word.seen_on_pages.size - 8} more" }
+            end
+            links
+          end
+        end
+      end
+    end
 
-  # By default, all parameters passed to the update and create actions will be
-  # permitted. If you do not have full trust in your users, you should explicitly
-  # define the list of permitted parameters.
-  #
-  # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-  #
-  # params do |params|
-  #   params.require(:app).permit(:name, ...)
-  # end
+    if crawl_attempt.type_collect_screenshots?
+      tab :screenshots do
+        table crawl_attempt.property_screenshots.order("id ASC") do
+          column :id
+          column :url
+          column :image do |screenshot|
+            if screenshot.image
+              image_tag Rails.application.routes.url_helpers.rails_blob_path(screenshot.image, host: Rails.configuration.x.domains.admin)
+            end
+          end
+        end
+      end
+    end
+
+    tab :form do
+      text_field :failure_reason
+      text_field :crawl_type
+    end
+
+    sidebar do
+      if crawl_attempt.type_collect_text_blocks?
+        concat link_to("Reprocess spelling", admin.path(:reprocess_spelling, id: crawl_attempt.id), method: :post, class: "btn btn-block btn-primary")
+      end
+    end
+  end
+
+  controller do
+    def reprocess_spelling
+      crawl_attempt = admin.find_instance(params)
+      SpellCheck::Producer.new(crawl_attempt).produce!
+      flash[:message] = "Crawl attempt spelling reprocessed"
+      redirect_to admin.path(:show, id: crawl_attempt)
+    end
+  end
+
+  routes do
+    post :reprocess_spelling, on: :member
+  end
 end

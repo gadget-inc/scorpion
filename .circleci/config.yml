@@ -64,6 +64,7 @@ jobs:
       - run: &ruby_dependencies
           name: Install Ruby dependencies
           command: |
+            sudo apt-get install -y libprotobuf-dev protobuf-compiler libhunspell-dev
             bundle install --jobs=4 --retry=3 --path vendor/bundle
             mkdir ~/.kube
             cp .circleci/kube-config ~/.kube/config
@@ -189,8 +190,12 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache: *ruby_dependencies_restore_cache
-      - run: *ruby_dependencies
+      - run: &ruby_deploy_dependencies
+          name: Install Ruby deploy dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --without default development test production integration_test
+            mkdir ~/.kube
+            cp .circleci/kube-config ~/.kube/config
       - run:
           name: Lint rendered Kubernetes templates
           command: bin/kubernetes-lint
@@ -202,12 +207,7 @@ jobs:
     steps:
       - gcp-cli/initialize
       - checkout
-      - run:
-          name: Install Ruby deploy dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --without default development test production integration_test
-            mkdir ~/.kube
-            cp .circleci/kube-config ~/.kube/config
+      - run: *ruby_deploy_dependencies
       - run:
           name: Configure gcloud k8s context
           command: gcloud container clusters get-credentials alpha

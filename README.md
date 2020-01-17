@@ -14,7 +14,7 @@
 
 Install homebrew deps for your host:
 
-    brew install postgres nss mkcert
+    brew install postgres nss mkcert hunspell protobuf
 
 Configure [`mkcert`](https://github.com/FiloSottile/mkcert) for your local machine and generate a development SSL certificate:
 

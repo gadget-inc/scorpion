@@ -21,35 +21,39 @@ class Crawler::CrawlerClient
 
   def crawl(property, **args)
     request("/crawl", {
-      property: {
-        id: property.id.to_s,
-        crawlRoots: property.crawl_roots,
-        allowedDomains: property.allowed_domains,
-      },
+      property: property_blob(property),
     }, **args)
   end
 
   def screenshots(property, pages, **args)
     request("/screenshots", {
-      property: {
-        id: property.id.to_s,
-        allowedDomains: property.allowed_domains,
-      },
+      property: property_blob(property),
       pages: pages,
     }, **args)
   end
 
   def lighthouse(property, pages, **args)
     request("/lighthouse", {
-      property: {
-        id: property.id.to_s,
-        allowedDomains: property.allowed_domains,
-      },
+      property: property_blob(property),
       pages: pages,
     }, **args)
   end
 
+  def text_blocks(property, **args)
+    request("/text_blocks", {
+      property: property_blob(property),
+    }, **args)
+  end
+
   protected
+
+  def property_blob(property)
+    {
+      id: property.id.to_s,
+      crawlRoots: property.crawl_roots,
+      allowedDomains: property.allowed_domains,
+    }
+  end
 
   def request(method, payload, on_result:, on_error:, on_log: nil, trace_context: nil, crawl_options: nil)
     got_success_message = false

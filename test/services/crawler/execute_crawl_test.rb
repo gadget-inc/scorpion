@@ -23,5 +23,10 @@ module Crawler
       execute = ExecuteCrawl.new(@property.account, maxDepth: 0)
       execute.collect_lighthouse_crawl(@property, "test")
     end
+
+    test "it gets text blocks for a test shop" do
+      execute = ExecuteCrawl.new(@property.account, maxDepth: 0)
+      execute.collect_text_blocks_crawl(@property, "test")
+    end
   end
 end

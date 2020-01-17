@@ -19,7 +19,7 @@
 #
 # Indexes
 #
-#  index_crawl_attempts_on_account_id_and_crawl_type_and_succeeded  (account_id,crawl_type,succeeded)
+#  index_crawl_attempts_on_success_and_finished  (property_id,crawl_type,succeeded,finished_at)
 #
 # Foreign Keys
 #
@@ -33,6 +33,7 @@ class CrawlAttempt < ApplicationRecord
   belongs_to :property, optional: false
   has_many :crawl_pages, dependent: :destroy
   has_many :property_screenshots, dependent: :destroy
+  has_many :misspelled_words, dependent: :destroy
 
-  enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
+  enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse", collect_text_blocks: "collect_text_blocks" }, _prefix: :type
 end

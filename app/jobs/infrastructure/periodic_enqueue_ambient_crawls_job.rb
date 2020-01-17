@@ -6,6 +6,7 @@ class Infrastructure::PeriodicEnqueueAmbientCrawlsJob < Que::Job
   def run
     Property.for_ambient_crawls.find_each do |property|
       Crawler::ExecuteCrawl.run_in_background(property, "scheduled", :collect_lighthouse)
+      Crawler::ExecuteCrawl.run_in_background(property, "scheduled", :collect_text_blocks)
     end
   end
 
