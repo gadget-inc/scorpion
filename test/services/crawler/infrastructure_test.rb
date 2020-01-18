@@ -35,8 +35,8 @@ module Crawler
       end
     end
 
-    test "it crawls all ambient properties for lighthouses in the background" do
-      assert_difference "CrawlAttempt.all.size" do
+    test "it crawls all ambient properties for lighthouses and spelling in the background" do
+      assert_difference "CrawlAttempt.all.size", 2 do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueAmbientCrawlsJob.run
         end

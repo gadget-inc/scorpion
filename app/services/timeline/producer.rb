@@ -27,7 +27,7 @@ module Timeline
           Dir.mktmpdir do |diff_dir|
             diff_file = File.join(diff_dir, "diff.png")
             compare = MiniMagick::Tool::Compare.new(whiny: false)
-            compare.metric("SSIM")
+            compare.metric("RMSE")
             compare << previous_file.path
             compare << current_file.path
             compare << diff_file
@@ -40,7 +40,7 @@ module Timeline
               score = stderr.chomp.to_f
             end
 
-            if score < 1
+            if score > 5
               entry = @property.property_timeline_entries.create!(
                 account_id: @property.account_id,
                 entry_at: current_screenshot.created_at,

@@ -2,15 +2,12 @@
 FROM node:11.15.0-stretch as nodejs
 
 # Get all the ruby dependencies installed as they are needed for both building assets and the final output container
-FROM ruby:2.6.2-stretch as ruby_environment
+FROM ruby:2.6.4-stretch as ruby_environment
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY config/deploy/install-imagemagick7.sh /app/install-imagemagick7.sh
-RUN bash /app/install-imagemagick7.sh
-
-RUN apt-get install -qy libprotobuf-dev protobuf-compiler libhunspell-dev
+RUN apt-get update && apt-get install -qy libprotobuf-dev protobuf-compiler libhunspell-dev imagemagick
 
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock

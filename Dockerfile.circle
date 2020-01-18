@@ -1,0 +1,18 @@
+# Container that ruby / cypress tests run in on CircleCI
+# Not used in prod
+FROM circleci/ruby:2.6.4-node
+
+USER root
+RUN apt-get update && apt-get install -qy libprotobuf-dev protobuf-compiler libhunspell-dev postgresql-client xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libnss3-tools nginx imagemagick
+
+RUN wget -O mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.3.0/mkcert-v1.3.0-linux-amd64 \
+  && chmod +x mkcert \
+  && mv mkcert /usr/local/bin \
+  && mkcert -install \
+  && mkcert -cert-file /etc/nginx/server.crt -key-file /etc/nginx/server.key supo.dev "*.supo.dev"
+
+RUN mkdir ~/.kube
+COPY .circleci/kube-config ~/.kube/config
+COPY .circleci/nginx.conf /etc/nginx/sites-enabled/default
+
+USER circleci
