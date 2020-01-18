@@ -343,9 +343,9 @@ Devise.setup do |config|
   # devise-jwt setup https://github.com/waiting-for-dev/devise-jwt
   config.jwt do |jwt|
     jwt.secret = if Rails.env.production?
-                   ENV.fetch("APP_JWT_SECRET")
-                 else
-                   "secret-in-development"
-                 end
+        ENV.fetch("APP_JWT_SECRET")
+      else
+        "secret-in-development"
+      end
   end
 end

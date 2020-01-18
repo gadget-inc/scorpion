@@ -18,10 +18,10 @@ class AppAreaController < ApplicationController
     end
 
     account = if account_id.present?
-                current_user.permissioned_accounts.kept.find(account_id)
-              else
-                current_user.permissioned_accounts.kept.first!
-              end
+        current_user.permissioned_accounts.kept.find(account_id)
+      else
+        current_user.permissioned_accounts.kept.first!
+      end
 
     @current_account = account
     session[:current_account_id] = @current_account.id

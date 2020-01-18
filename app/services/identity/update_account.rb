@@ -13,9 +13,9 @@ class Identity::UpdateAccount
     end
 
     if success
-      return account, nil
+      [account, nil]
     else
-      return nil, account.errors
+      [nil, account.errors]
     end
   end
 end

@@ -30,7 +30,7 @@ jobs:
 
   lint_javascript:
     docker:
-      - image: circleci/node:11.15
+      - image: circleci/node:13.6
     working_directory: ~/repo
     steps:
       - checkout
@@ -64,7 +64,8 @@ jobs:
       - run: &ruby_dependencies
           name: Install Ruby dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle config set path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
       - save_cache:
           paths:
             - ~/repo/vendor/bundle
@@ -110,7 +111,7 @@ jobs:
 
   test_javascript:
     docker:
-      - image: circleci/node:11.15
+      - image: circleci/node:13.6
     working_directory: ~/repo
     steps:
       - checkout

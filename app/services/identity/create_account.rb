@@ -13,9 +13,9 @@ class Identity::CreateAccount
     success = new_account.save
 
     if success
-      return new_account, nil
+      [new_account, nil]
     else
-      return nil, new_account.errors
+      [nil, new_account.errors]
     end
   end
 end

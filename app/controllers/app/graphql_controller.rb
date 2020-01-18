@@ -21,10 +21,10 @@ class App::GraphQLController < AppAreaController
   def set_fake_env
     if current_user.nil?
       @current_account = if params[:account_id].blank?
-                           Account.first
-                         else
-                           Account.find(params[:account_id])
-                         end
+          Account.first
+        else
+          Account.find(params[:account_id])
+        end
 
       @current_user = @current_account.permissioned_users.first
     end

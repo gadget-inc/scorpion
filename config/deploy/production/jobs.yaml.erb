@@ -25,15 +25,15 @@ spec:
             - default
             - -q
             - mailers
-          env: <%= partial 'rails_environment', expose_contents_as_variable: true %>
-          volumeMounts: <%= partial 'rails_volume_mounts' %>
+          env: <%= partial "rails_environment", expose_contents_as_variable: true %>
+          volumeMounts: <%= partial "rails_volume_mounts" %>
           resources: {}
           securityContext:
             capabilities:
               add:
                 - SYS_PTRACE
       restartPolicy: Always
-      volumes: <%= partial 'rails_volumes' %>
+      volumes: <%= partial "rails_volumes" %>
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -59,12 +59,12 @@ spec:
             - que
             - -q
             - crawls
-          env: <%= partial 'rails_environment', expose_contents_as_variable: true %>
-          volumeMounts: <%= partial 'rails_volume_mounts' %>
+          env: <%= partial "rails_environment", expose_contents_as_variable: true %>
+          volumeMounts: <%= partial "rails_volume_mounts" %>
           resources: {}
           securityContext:
             capabilities:
               add:
                 - SYS_PTRACE
       restartPolicy: Always
-      volumes: <%= partial 'rails_volumes' %>
+      volumes: <%= partial "rails_volumes" %>

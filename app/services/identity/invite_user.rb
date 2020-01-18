@@ -23,9 +23,9 @@ class Identity::InviteUser
     end
 
     if success
-      return user, nil
+      [user, nil]
     else
-      return nil, user ? user.errors : nil
+      [nil, user ? user.errors : nil]
     end
   end
 end

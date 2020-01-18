@@ -18,13 +18,13 @@ module SpellCheck
         struct = self.cld3.find_language(text)
 
         code = case struct.language
-               when :en
-                 fewest_mispellings(text, %w[en-CA en-US en-GB])
-               when :pt
-                 fewest_mispellings(text, %w[pt pt-BR])
-               when :de, :es, :fr, :ko
-                 struct.language.to_s
-               end
+          when :en
+            fewest_mispellings(text, %w[en-CA en-US en-GB])
+          when :pt
+            fewest_mispellings(text, %w[pt pt-BR])
+          when :de, :es, :fr, :ko
+            struct.language.to_s
+          end
 
         code
       end

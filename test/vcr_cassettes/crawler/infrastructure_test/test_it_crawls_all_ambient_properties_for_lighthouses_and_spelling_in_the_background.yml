@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://127.0.0.1:3001/lighthouse
+    body:
+      encoding: UTF-8
+      string: '{"traceContext":{"crawlAttemptId":72},"crawlOptions":{"maxDepth":1},"property":{"id":"86","crawlRoots":["https://homesick.com"],"allowedDomains":["homesick.com"]},"pages":["https://homesick.com"]}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin18.6.0 x86_64) ruby/2.6.4p104
+      Authorization:
+      - "<AUTHORIZATION>"
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '196'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      X-Powered-By:
+      - Express
+      X-Request-Id:
+      - a5e3cfca-5843-45a8-9f6a-a860a8a9d68e
+      Content-Type:
+      - application/ndjson
+      Date:
+      - Sat, 18 Jan 2020 21:13:16 GMT
+      Connection:
+      - keep-alive
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {"tag":"log","started":true}
+        {"tag":"log","progress":{"processed":0,"pending":1,"averageProcessingTime":0,"successRate":0}}
+        {"tag":"crawl_error","url":"https://homesick.com","error":{"name":"Error","message":"Unexpected server response: 403","stack":"Error: Unexpected server response: 403\n    at ClientRequest.req.on (/Users/airhorns/Code/scorpion-crawler/node_modules/ws/lib/websocket.js:579:7)\n    at ClientRequest.emit (events.js:193:13)\n    at ClientRequest.EventEmitter.emit (domain.js:504:23)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:560:23)\n    at HTTPParser.parserOnHeadersComplete (_http_common.js:113:17)\n    at TLSSocket.socketOnData (_http_client.js:447:22)\n    at TLSSocket.emit (events.js:193:13)\n    at TLSSocket.EventEmitter.emit (domain.js:504:23)\n    at addChunk (_stream_readable.js:295:12)\n    at readableAddChunk (_stream_readable.js:276:11)"}}
+        {"tag":"system","finished":true,"success":true}
+    http_version: 
+  recorded_at: Sat, 18 Jan 2020 21:13:22 GMT
+- request:
+    method: post
+    uri: http://127.0.0.1:3001/lighthouse
+    body:
+      encoding: UTF-8
+      string: '{"traceContext":{"crawlAttemptId":73},"crawlOptions":{"maxDepth":1},"property":{"id":"86","crawlRoots":["https://homesick.com"],"allowedDomains":["homesick.com"]},"pages":["https://homesick.com"]}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin18.6.0 x86_64) ruby/2.6.4p104
+      Authorization:
+      - "<AUTHORIZATION>"
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '196'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      X-Powered-By:
+      - Express
+      X-Request-Id:
+      - 5a0bcc9f-5b6c-43b2-ade4-9f0d03d30b07
+      Content-Type:
+      - application/ndjson
+      Date:
+      - Sat, 18 Jan 2020 21:13:22 GMT
+      Connection:
+      - keep-alive
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {"tag":"log","started":true}
+        {"tag":"log","progress":{"processed":0,"pending":1,"averageProcessingTime":0,"successRate":0}}
+        {"tag":"crawl_error","url":"https://homesick.com","error":{"name":"Error","message":"Unexpected server response: 403","stack":"Error: Unexpected server response: 403\n    at ClientRequest.req.on (/Users/airhorns/Code/scorpion-crawler/node_modules/ws/lib/websocket.js:579:7)\n    at ClientRequest.emit (events.js:193:13)\n    at ClientRequest.EventEmitter.emit (domain.js:504:23)\n    at HTTPParser.parserOnIncomingClient [as onIncoming] (_http_client.js:560:23)\n    at HTTPParser.parserOnHeadersComplete (_http_common.js:113:17)\n    at TLSSocket.socketOnData (_http_client.js:447:22)\n    at TLSSocket.emit (events.js:193:13)\n    at TLSSocket.EventEmitter.emit (domain.js:504:23)\n    at addChunk (_stream_readable.js:295:12)\n    at readableAddChunk (_stream_readable.js:276:11)"}}
+        {"tag":"system","finished":true,"success":true}
+    http_version: 
+  recorded_at: Sat, 18 Jan 2020 21:13:29 GMT
+recorded_with: VCR 5.0.0

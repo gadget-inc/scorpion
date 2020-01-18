@@ -2,7 +2,7 @@
 
 module GraphiQL
   module Rails
-    class EditorsController < ActionController::Base
+    class EditorsController < ApplicationController
       helper_method :graphql_endpoint_path
 
       def graphql_endpoint_path

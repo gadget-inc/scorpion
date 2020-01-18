@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render :partial => 'head_common' %>
+    <%= render :partial => "head_common" %>
   </head>
 
   <body>
     <%= yield %>
-    <%= javascript_packs_with_chunks_tag 'auth' %>
+    <%= javascript_packs_with_chunks_tag "auth" %>
   </body>
 </html>

@@ -7,13 +7,13 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
   controller do
     def run_periodic_enqueue_crawls
       job = case params[:crawl_type]
-            when "collect_page_info"
-              Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob
-            when "collect_screenshots"
-              Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob
-            else
-              raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
-            end
+        when "collect_page_info"
+          Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob
+        when "collect_screenshots"
+          Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob
+        else
+          raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
+        end
       job.enqueue
       flash[:message] = "Global #{job.name} job enqueued"
       redirect_to admin.path

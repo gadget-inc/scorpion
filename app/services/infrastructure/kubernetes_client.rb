@@ -16,12 +16,12 @@ class Infrastructure::KubernetesClient
     @rails_pod_template_data = Rails.configuration.kubernetes.pod_template_data
 
     @client = if Rails.configuration.kubernetes.key?(:kube_config)
-                K8s::Client.config(K8s::Config.load_file(File.expand_path(Rails.configuration.kubernetes.kube_config)))
-              elsif Rails.configuration.kubernetes.key?(:in_cluster_config) && Rails.configuration.kubernetes.in_cluster_config
-                K8s::Client.in_cluster_config
-              else
-                raise "No configuration options for ruby kubernetes client specified. Please add a kube_config location or specify in_cluster_config: true"
-              end
+        K8s::Client.config(K8s::Config.load_file(File.expand_path(Rails.configuration.kubernetes.kube_config)))
+      elsif Rails.configuration.kubernetes.key?(:in_cluster_config) && Rails.configuration.kubernetes.in_cluster_config
+        K8s::Client.in_cluster_config
+      else
+        raise "No configuration options for ruby kubernetes client specified. Please add a kube_config location or specify in_cluster_config: true"
+      end
   end
 
   def run_background_job_in_k8s(job_class, args, sidecar_containers: nil)

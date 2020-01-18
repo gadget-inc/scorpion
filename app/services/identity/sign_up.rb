@@ -22,9 +22,9 @@ class Identity::SignUp
     end
 
     if success
-      return new_user, new_account, nil
+      [new_user, new_account, nil]
     else
-      return nil, nil, errors
+      [nil, nil, errors]
     end
   end
 end

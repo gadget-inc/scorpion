@@ -35,10 +35,10 @@ class SpellCheck::BlobProcessor
     word.gsub!(LTRIM, "")
 
     word = if (match = LETTERS_ONLY.match(word))
-             match[0]
-           else
-             ""
-           end
+        match[0]
+      else
+        ""
+      end
 
     word.gsub!(DIGITS, "")
     word.gsub!(SLASH, " ")

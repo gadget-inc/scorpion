@@ -40,8 +40,8 @@ spec:
             - "3000"
             - -b
             - 0.0.0.0
-          env: <%= partial 'rails_environment', expose_contents_as_variable: true %>
-          volumeMounts: <%= partial 'rails_volume_mounts' %>
+          env: <%= partial "rails_environment", expose_contents_as_variable: true %>
+          volumeMounts: <%= partial "rails_volume_mounts" %>
           image: gcr.io/superpro-production/scorpion-core:<%= current_sha %>
           ports:
             - containerPort: 3000
@@ -57,5 +57,5 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 10
-      volumes: <%= partial 'rails_volumes' %>
+      volumes: <%= partial "rails_volumes" %>
       restartPolicy: Always

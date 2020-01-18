@@ -10,17 +10,17 @@ module Crawler
 
     def self.run_in_background(property, reason, type)
       job_class = case type
-                  when :collect_screenshots
-                    Crawler::ExecuteCollectScreenshotsCrawlJob
-                  when :collect_page_info
-                    Crawler::ExecuteCollectPageInfoCrawlJob
-                  when :collect_lighthouse
-                    Crawler::ExecuteCollectLighthouseCrawlJob
-                  when :collect_text_blocks
-                    Crawler::ExecuteCollectLighthouseCrawlJob
-                  else
-                    raise "Unknown crawl type #{type}"
-                  end
+        when :collect_screenshots
+          Crawler::ExecuteCollectScreenshotsCrawlJob
+        when :collect_page_info
+          Crawler::ExecuteCollectPageInfoCrawlJob
+        when :collect_lighthouse
+          Crawler::ExecuteCollectLighthouseCrawlJob
+        when :collect_text_blocks
+          Crawler::ExecuteCollectLighthouseCrawlJob
+        else
+          raise "Unknown crawl type #{type}"
+        end
 
       job_class.enqueue(property_id: property.id, reason: reason)
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TestSupportController < ActionController::Base
+class TestSupportController < ActionController::Base # rubocop:disable Rails/ApplicationController
   skip_before_action :verify_authenticity_token
 
   def force_login

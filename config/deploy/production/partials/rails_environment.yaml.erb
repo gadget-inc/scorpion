@@ -29,7 +29,7 @@
 <% if locals[:expose_contents_as_variable] %>
 - name: RAILS_POD_TEMPLATE_YAML
   value: |
-    rails_environment: <%= partial 'rails_environment', expose_contents_as_variable: false %>
-    rails_volumes: <%= partial 'rails_volumes' %>
-    rails_volume_mounts: <%= partial 'rails_volume_mounts' %>
+    rails_environment: <%= partial "rails_environment", expose_contents_as_variable: false %>
+    rails_volumes: <%= partial "rails_volumes" %>
+    rails_volume_mounts: <%= partial "rails_volume_mounts" %>
 <% end %>
