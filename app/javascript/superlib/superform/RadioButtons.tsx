@@ -7,9 +7,9 @@ import { useSuperForm } from ".";
 type AcceptedRadioButtonGroupProps = Omit<RadioButtonGroupProps, "name" | "value">;
 
 export type RadioButtonsProps = AcceptedRadioButtonGroupProps & FieldProps;
-export const FixedTypeRadioButtonGroup: React.ComponentClass<
-  RadioButtonGroupProps & BoxProps & JSX.IntrinsicElements["div"]
-> = (RadioButtonGroup as unknown) as any;
+export const FixedTypeRadioButtonGroup: React.ComponentClass<RadioButtonGroupProps &
+  BoxProps &
+  JSX.IntrinsicElements["div"]> = (RadioButtonGroup as unknown) as any;
 
 export const RadioButtons = <T extends DocType>(props: RadioButtonsProps) => {
   const form = useSuperForm<T>();

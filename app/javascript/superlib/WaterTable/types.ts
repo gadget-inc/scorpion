@@ -24,4 +24,4 @@ export interface WaterTableColumnSpec<Record extends WaterTableRecord> {
 }
 
 export type GrommetSize = "none" | "xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge" | string;
-export type GrommetGlobalSize = keyof (typeof base)["global"]["size"];
+export type GrommetGlobalSize = keyof typeof base["global"]["size"];

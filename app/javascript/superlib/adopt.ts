@@ -41,27 +41,24 @@ export const adopt = <Map extends AdoptMap>(map: Map): ComposedAdoptedComponent<
     return props.children(props.result);
   };
 
-  const Result = Object.entries(map).reduce(
-    (next: React.ComponentType<any>, [key, entry]) => {
-      let component: React.ComponentType<ChildrenRenderProps>;
-      let props: any;
+  const Result = Object.entries(map).reduce((next: React.ComponentType<any>, [key, entry]) => {
+    let component: React.ComponentType<ChildrenRenderProps>;
+    let props: any;
 
-      if (isComponentSpec(entry)) {
-        component = entry.component;
-        props = entry.props;
-      } else {
-        component = entry;
-        props = {};
-      }
+    if (isComponentSpec(entry)) {
+      component = entry.component;
+      props = entry.props;
+    } else {
+      component = entry;
+      props = {};
+    }
 
-      return (carriedProps: { result: Partial<AdoptionResult<Map>>; children: (result: AdoptionResult<Map>) => React.ReactNode }) =>
-        React.createElement(component, props, (resultForKey: any) => {
-          const result = { ...carriedProps.result, [key]: resultForKey };
-          return React.createElement(next, { result }, carriedProps.children);
-        });
-    },
-    Final as any
-  );
+    return (carriedProps: { result: Partial<AdoptionResult<Map>>; children: (result: AdoptionResult<Map>) => React.ReactNode }) =>
+      React.createElement(component, props, (resultForKey: any) => {
+        const result = { ...carriedProps.result, [key]: resultForKey };
+        return React.createElement(next, { result }, carriedProps.children);
+      });
+  }, Final as any);
 
   (Result as any).displayName = `Adoption(${Object.values(map)
     .map(entry => (isComponentSpec(entry) ? getDisplayName(entry.component) : getDisplayName(entry)))
