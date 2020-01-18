@@ -6,9 +6,9 @@ module Crawler
   class InfrastructureTest < ActiveSupport::TestCase
     setup do
       create(:sole_destroyer_property)
-      create(:ambient_homesick_property)
+      @ambient_homesick = create(:ambient_homesick_property)
       CrawlerClient.client.stubs(:block_until_available).returns(true)
-      ExecuteCrawl.any_instance.stubs(:crawl_options).returns(maxDepth: 1)  # so e2e crawling tests don't take forever
+      ExecuteCrawl.any_instance.stubs(:crawl_options).returns(maxDepth: 0)  # so e2e crawling tests don't take forever
     end
 
     test "it crawls all shops for page info in the background" do
@@ -53,6 +53,18 @@ module Crawler
       assert_not attempt.succeeded
       assert_not attempt.running
       assert attempt.finished_at.present?
+    end
+
+    test "it crawls then processes text blocks for spelling" do
+      assert_difference "CrawlAttempt.all.size" do
+        with_synchronous_jobs do
+          Crawler::ExecuteCollectTextBlocksCrawlJob.run(property_id: @ambient_homesick.id, reason: "test")
+        end
+      end
+
+      attempt = @ambient_homesick.crawl_attempts.order("created_at DESC").first!
+      assert attempt.succeeded
+      assert_not attempt.misspelled_words.empty?
     end
   end
 end

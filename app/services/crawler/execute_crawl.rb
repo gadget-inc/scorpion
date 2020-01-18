@@ -17,7 +17,7 @@ module Crawler
         when :collect_lighthouse
           Crawler::ExecuteCollectLighthouseCrawlJob
         when :collect_text_blocks
-          Crawler::ExecuteCollectLighthouseCrawlJob
+          Crawler::ExecuteCollectTextBlocksCrawlJob
         else
           raise "Unknown crawl type #{type}"
         end
