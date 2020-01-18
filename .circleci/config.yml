@@ -174,7 +174,8 @@ jobs:
       - run: &ruby_deploy_dependencies
           name: Install Ruby deploy dependencies
           command: |
-            bundle install --jobs=4 --retry=3 --without default development test production integration_test
+            bundle config set without 'default development test production integration_test'
+            bundle install --jobs=4 --retry=3
             mkdir ~/.kube
             cp .circleci/kube-config ~/.kube/config
       - run:

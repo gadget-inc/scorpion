@@ -39,9 +39,9 @@ gem 'google-api-client'
 # Performance & Infrastructure
 gem 'analytics-ruby', '~> 2.2.7', require: 'segment/analytics'
 gem "asset_sync"
-gem "fog-google", '~> 1.9.1'
+gem "fog-google", '~> 1.9.1', github: 'fog/fog-google'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem "google-cloud-storage", require: false
+gem "google-cloud-storage", '~> 1.25.1', require: false
 gem 'hiredis'
 gem 'image_processing'
 gem 'json-schema'
@@ -84,7 +84,6 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'solargraph'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
@@ -100,6 +99,6 @@ group :test do
 end
 
 group :development, :deploy do
-  gem 'krane'
+  gem 'krane', github: 'airhorns/krane', ref: 'googleauth-0.9'
   gem 'ejson'
 end

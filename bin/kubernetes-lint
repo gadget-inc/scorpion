@@ -4,7 +4,7 @@ export REVISION=deadbeef
 
 for template in config/deploy/production/*.{yaml,erb}; do
   echo "Linting $(basename $template) ..."
-  contents=$(bundle exec kubernetes-render --template-dir=config/deploy/production $(basename $template))
+  contents=$(bundle exec krane render --current-sha=$REVISION -f $template)
   if [[ $contents != *"kubeval-ignore"* ]]; then
     echo "$contents" | kubeval --filename=$template
   else
