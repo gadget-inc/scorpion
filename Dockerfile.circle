@@ -7,12 +7,14 @@ RUN apt-get update && apt-get install -qy libprotobuf-dev protobuf-compiler libh
 
 RUN wget -O mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.3.0/mkcert-v1.3.0-linux-amd64 \
   && chmod +x mkcert \
-  && mv mkcert /usr/local/bin \
-  && mkcert -install \
-  && mkcert -cert-file /etc/nginx/server.crt -key-file /etc/nginx/server.key supo.dev "*.supo.dev"
+  && mv mkcert /usr/local/bin
 
-RUN mkdir ~/.kube
-COPY .circleci/kube-config ~/.kube/config
 COPY .circleci/nginx.conf /etc/nginx/sites-enabled/default
 
 USER circleci
+
+RUN mkdir ~/.kube
+COPY .circleci/kube-config ~/.kube/config
+
+RUN mkcert -install \
+    && mkcert -cert-file ~/server.crt -key-file ~/server.key supo.dev "*.supo.dev"
