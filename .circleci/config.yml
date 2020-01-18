@@ -52,26 +52,23 @@ jobs:
 
   lint_ruby:
     docker:
-      - image: circleci/ruby:2.6.2-node
+      - image: superpro/scorpion-test:latest
     working_directory: ~/repo
     steps:
       - checkout
       - restore_cache: &ruby_dependencies_restore_cache
           keys:
-            - ruby-v1-dependencies-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - ruby-v1-dependencies-{{ .Branch }}-
-            - ruby-v1-dependencies-
+            - ruby-v2-dependencies-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - ruby-v2-dependencies-{{ .Branch }}-
+            - ruby-v2-dependencies-
       - run: &ruby_dependencies
           name: Install Ruby dependencies
           command: |
-            sudo apt-get install -y libprotobuf-dev protobuf-compiler libhunspell-dev
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-            mkdir ~/.kube
-            cp .circleci/kube-config ~/.kube/config
       - save_cache:
           paths:
             - ~/repo/vendor/bundle
-          key: ruby-v1-dependencies-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: ruby-v2-dependencies-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - run:
           name: Run rufo linter
           command: bundle exec rufo --check app config lib test
@@ -81,7 +78,7 @@ jobs:
 
   test_ruby:
     docker: &backend_docker_setup
-      - image: circleci/ruby:2.6.2-node
+      - image: superpro/scorpion-test:latest
         environment:
           SECRET_KEY_BASE: value-needed-to-boot-app
           REDIS_URL: redis://localhost:6379/1
@@ -93,9 +90,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Upgrade imagemagick
-          command: sudo bash config/deploy/install-imagemagick7.sh
       - restore_cache: *ruby_dependencies_restore_cache
       - run: *ruby_dependencies
       - restore_cache: *node_dependencies_restore_cache
@@ -105,9 +99,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: Load schema
-          command: |
-            sudo apt update && sudo apt install postgresql-client
-            bundle exec rake db:prepare --trace
+          command: bundle exec rake db:prepare --trace
       - run:
           name: Run tests
           command: |
@@ -140,18 +132,6 @@ jobs:
       - restore_cache: *node_dependencies_restore_cache
       - run: *node_dependencies
       - run:
-          name: Install cypress apt dependencies
-          command: sudo apt update && sudo apt install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
-      - run:
-          name: Configure nginx & setup SSL
-          command: |
-            sudo apt install libnss3-tools nginx postgresql-client
-            sudo cp .circleci/nginx.conf /etc/nginx/sites-enabled/default
-            wget -O mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.3.0/mkcert-v1.3.0-linux-amd64
-            chmod +x mkcert
-            ./mkcert -install
-            ./mkcert -cert-file .circleci/server.crt -key-file .circleci/server.key supo.dev "*.supo.dev"
-      - run:
           name: Set up database
           command: RAILS_ENV=integration_test bin/rails db:prepare
       - run:
@@ -177,7 +157,7 @@ jobs:
             # this test requires a running dev server to introspect the GraphQL schema so we run it here where that's all set up
             # because this test hits the running dev server through nginx, it needs SSL to be ok with the mkcert'd SSL cert
             # see https://github.com/FiloSottile/mkcert#using-the-root-with-nodejs
-            export NODE_EXTRA_CA_CERTS="$(./mkcert -CAROOT)/rootCA.pem"
+            export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
             bundle exec rake test TEST=test/integration/uncommitted_changes_test.rb
       - store_test_results:
           path: test/results
