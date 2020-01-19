@@ -161,3 +161,14 @@ Once you have a running server in the integration test environment, you can run 
     yarn run open-cypress
 
 And test away!
+
+# Production
+
+Scorpion runs in production in Kubernetes in GCP, deployed automatically by CircleCI.
+
+- The deploy is executed by `krane`, see `config/deploy/deploy.sh`
+
+There's some handy scripts in the `bin` folder for accessing production and debugging:
+
+- `bin/prodconsole` opens a Rails console in a production k8s pod. Careful -- this accesses live data and has full permissions, AKA god mode!
+- `bin/prodshell` opens a bash shell in a production k8s pod.
