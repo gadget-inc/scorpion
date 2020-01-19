@@ -6,7 +6,7 @@ module Crawler
   class ExecuteCrawl
     include SemanticLogger::Loggable
 
-    DEFAULT_CRAWL_OPTIONS = { maxDepth: 30 }.freeze
+    DEFAULT_CRAWL_OPTIONS = { maxDepth: 4 }.freeze
 
     def self.run_in_background(property, reason, type)
       job_class = case type
