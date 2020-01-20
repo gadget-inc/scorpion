@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Crawler::ExecuteCollectTextBlocksCrawlJob < Que::Job
-  self.maximum_retry_count = 0
+  self.maximum_retry_count = 1
   self.exclusive_execution_lock = true
   self.queue = "crawls"
 
