@@ -81,7 +81,7 @@
     "is-hotkey": "^0.1.4",
     "is-image": "^3.0.0",
     "is-url": "^1.2.4",
-    "json-schema-to-typescript": "^7.1.0",
+    "json-schema-to-typescript": "^8.0.1",
     "lodash": "^4.17.11",
     "luxon": "^1.21.3",
     "memoize-one": "^5.0.4",
