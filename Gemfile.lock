@@ -468,7 +468,7 @@ GEM
       que (~> 1.0.0.beta3)
       sinatra
     raabro (1.1.6)
-    rack (2.1.1)
+    rack (2.1.2)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-protection (2.0.8.1)
@@ -566,7 +566,7 @@ GEM
       concurrent-ruby (~> 1.0)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
-    shopify_api (8.1.0)
+    shopify_api (9.0.0)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
       rack
