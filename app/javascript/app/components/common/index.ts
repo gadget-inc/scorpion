@@ -1,4 +1,4 @@
-if ((window as any).SUPERPRO_ENTRYPOINT != "app") {
+if ((window as any).SCORPION_ENTRYPOINT != "app") {
   throw new Error("Edit scope code being required outside of edit code! Other bundles shouldn't include this stuff!");
 }
 

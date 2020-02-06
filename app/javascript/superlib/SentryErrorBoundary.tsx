@@ -3,16 +3,16 @@ import * as Sentry from "@sentry/browser";
 
 const globalVar = typeof window === "undefined" ? { environment: "unknown", entrypoint: "unknown" } : (window as any);
 // Only send sentry errors in prod, modify but don't commit this code if you want to test sentry things
-if (globalVar.SUPERPRO_ENVIRONMENT === "production") {
+if (globalVar.SCORPION_ENVIRONMENT === "production") {
   Sentry.init({
     dsn: globalVar.INJECTED_SETTINGS.sentryDsn,
     release: globalVar.INJECTED_SETTINGS.release,
-    environment: globalVar.SUPERPRO_ENVIRONMENT
+    environment: globalVar.SCORPION_ENVIRONMENT
   });
 }
 
 Sentry.configureScope(scope => {
-  scope.setTag("entrypoint", globalVar.SUPERPRO_ENTRYPOINT);
+  scope.setTag("entrypoint", globalVar.SCORPION_ENTRYPOINT);
 });
 
 export class SentryErrorBoundary extends React.Component<{}, { error?: Error; eventId?: string }> {

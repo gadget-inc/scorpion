@@ -14,6 +14,6 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def self.admin_searchable(*attrs)
-    pg_search_scope :admin_search, against: attrs, using: [:tsearch, :trigram, :dmetaphone]
+    pg_search_scope :admin_search, against: attrs, using: %i[tsearch trigram dmetaphone]
   end
 end
