@@ -8,6 +8,7 @@ FactoryBot.define do
     allowed_domains { ["google.com"] }
     enabled { true }
     ambient { false }
+    internal_tags { [] }
 
     factory :sole_destroyer_property do
       crawl_roots { ["https://sole-destroyer.myshopify.com"] }
@@ -18,6 +19,7 @@ FactoryBot.define do
       crawl_roots { ["https://homesick.com"] }
       allowed_domains { ["homesick.com"] }
       ambient { true }
+      internal_tags { ["test_crawl"] }
     end
   end
 end
