@@ -3,7 +3,8 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
   include ArTransactionChanges
-  include PgSearch
+  include PgSearch::Model
+
   def self.remove_blanks_for_array_assignment(*attrs)
     attrs.each do |attr|
       define_method("#{attr}=".to_sym) do |value|
