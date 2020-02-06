@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://127.0.0.1:3001/interaction/shopify_browse_add
+    body:
+      encoding: UTF-8
+      string: '{"traceContext":{},"crawlOptions":{},"property":{"id":"6","crawlRoots":["https://homesick.com"],"allowedDomains":["homesick.com"]},"startPage":"https://homesick.com"}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
+      Authorization:
+      - "<AUTHORIZATION>"
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '166'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 202
+      message: Accepted
+    headers:
+      X-Powered-By:
+      - Express
+      X-Request-Id:
+      - 6a7b986f-999d-49e9-85a0-974c913a58eb
+      Content-Type:
+      - application/ndjson
+      Date:
+      - Tue, 04 Feb 2020 00:16:00 GMT
+      Connection:
+      - keep-alive
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {"tag":"log","message":"INTERACTION START","args":[]}
+        {"tag":"log","message":"GROUP START Navigate to product page","args":[]}
+        {"tag":"log","message":"Found product link on homepage, navigating to PDP","args":[{"href":"/products/new-jersey-candle"}]}
+        {"tag":"log","message":"URL assertion passed","args":[{"pattern":"/products","url":"https://homesick.com/products/new-jersey-candle"}]}
+        {"tag":"log","message":"GROUP END Navigate to product page","args":[]}
+        {"tag":"log","message":"GROUP START Submit add-to-cart form on product page","args":[]}
+        {"tag":"log","message":"GROUP START Navigate to or present cart for checking out","args":[]}
+        {"tag":"log","message":"Beginning cart->checkout form detection","args":[]}
+        {"tag":"log","message":"Detected cart->checkout submit button as present","args":[]}
+        {"tag":"log","message":"Detected immediately present cart->checkout form after add to cart form submit","args":[]}
+        {"tag":"log","message":"GROUP END Navigate to or present cart for checking out","args":[]}
+        {"tag":"log","message":"GROUP END Submit add-to-cart form on product page","args":[]}
+        {"tag":"log","message":"GROUP START Submit cart->checkout form","args":[]}
+        {"tag":"log","message":"URL assertion passed","args":[{"pattern":{},"url":"https://homesick.com/9876688/checkouts/480d3c2de3805fea8653ff32a4dbe95b?_ga=2.107533378.1375180211.1580775362-442439734.1580775362&locale=en"}]}
+        {"tag":"log","message":"GROUP END Submit cart->checkout form","args":[]}
+        {"tag":"interaction_result","success":true}
+        {"tag":"system","finished":true,"success":true,"error":null}
+    http_version: 
+  recorded_at: Tue, 04 Feb 2020 00:16:16 GMT
+recorded_with: VCR 5.0.0

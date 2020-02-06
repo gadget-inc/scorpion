@@ -1,12 +1,9 @@
 # frozen_string_literal: true
-
-Trestle.resource(:accounts) do
+Trestle.resource(:runs, scope: CrawlTest) do
   menu do
-    item :accounts, icon: "fa fa-star"
-  end
-
-  search do |query|
-    query ? collection.admin_search(query) : collection
+    group :crawl_testing, priority: 50 do
+      item :runs, icon: "fa fa-star"
+    end
   end
 
   # Customize the table columns shown on the index view.
@@ -19,12 +16,12 @@ Trestle.resource(:accounts) do
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |app|
+  # form do |run|
   #   text_field :name
   #
   #   row do
-  #     col(xs: 6) { datetime_field :updated_at }
-  #     col(xs: 6) { datetime_field :created_at }
+  #     col { datetime_field :updated_at }
+  #     col { datetime_field :created_at }
   #   end
   # end
 
@@ -36,6 +33,6 @@ Trestle.resource(:accounts) do
   #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
   #
   # params do |params|
-  #   params.require(:app).permit(:name, ...)
+  #   params.require(:run).permit(:name, ...)
   # end
 end

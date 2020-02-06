@@ -37,6 +37,8 @@ class Account < ApplicationRecord
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
 
+  admin_searchable :name, :internal_tags
+
   def flipper_id
     @flipper_id ||= "account-#{id}"
   end

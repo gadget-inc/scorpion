@@ -62,7 +62,8 @@ Rails.application.configure do
 
   config.x.domains.app = "app.supo.dev"
   config.x.domains.admin = "admin.supo.dev"
-  config.action_controller.asset_host = "assets.supo.dev"
+  config.x.domains.assets = "assets.supo.dev"
+  config.action_controller.asset_host = config.x.domains.assets
   config.hosts << ".supo.dev"
   config.action_mailer.default_url_options = { host: config.x.domains.app }
 end

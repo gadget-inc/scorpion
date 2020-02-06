@@ -51,6 +51,7 @@ module Scorpion
 
     config.x.domains.app = "should set in the environments"
     config.x.domains.admin = "should be set in the environments"
+    config.x.domains.assets = "should be set in the environments"
 
     config.admin = config_for(:admin)
     config.shopify = config_for(:shopify)
@@ -61,5 +62,12 @@ module Scorpion
     config.log_tags ||= {}
     config.log_tags[:user_id] = ->(request) { request.session[:current_user_id] }
     config.log_tags[:account_id] = ->(request) { request.session[:current_account_id] }
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins "*"
+        resource "*", headers: :any, methods: [:get], if: proc { |env| env["HTTP_HOST"] == Rails.configuration.x.domains.assets }
+      end
+    end
   end
 end

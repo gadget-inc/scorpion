@@ -10,6 +10,7 @@
 #  crawl_roots     :string           not null, is an Array
 #  discarded_at    :datetime
 #  enabled         :boolean          default(TRUE), not null
+#  internal_tags   :string           default([]), is an Array
 #  name            :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

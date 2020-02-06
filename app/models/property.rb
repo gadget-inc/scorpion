@@ -10,6 +10,7 @@
 #  crawl_roots     :string           not null, is an Array
 #  discarded_at    :datetime
 #  enabled         :boolean          default(TRUE), not null
+#  internal_tags   :string           default([]), is an Array
 #  name            :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -28,9 +29,15 @@ class Property < ApplicationRecord
 
   scope :for_purposeful_crawls, -> { kept.where(enabled: true, ambient: false) }
   scope :for_ambient_crawls, -> { kept.where(enabled: true, ambient: true) }
+  scope :for_crawl_testing, -> { for_ambient_crawls.where("internal_tags && ?", "{test_crawl}") }
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
   has_many :crawl_attempts, dependent: :destroy
   has_many :property_screenshots, dependent: :destroy
   has_many :property_timeline_entries, dependent: :destroy
+
+  # for trestle's array assignment
+  remove_blanks_for_array_assignment :allowed_domains, :crawl_roots, :internal_tags
+
+  admin_searchable :name, :allowed_domains, :internal_tags
 end

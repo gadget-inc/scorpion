@@ -5,13 +5,31 @@ Trestle.resource(:properties) do
     item :properties, icon: "fa fa-boxes"
   end
 
-  # Customize the table columns shown on the index view.
-  #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  scopes do
+    scope :all, -> { Property.includes(:account).order("created_at DESC") }, default: true
+    scope :ambient, -> { Property.includes(:account).order("created_at DESC").where(ambient: true) }
+  end
+
+  search do |query|
+    query ? collection.admin_search(query) : collection
+  end
+
+  table do
+    column :id
+    column :enabled
+    column :ambient
+    column :name
+    column :internal_tags
+    column :crawl_roots do |property|
+      property.crawl_roots.map do |root|
+        tag.a(href: root) { root }
+      end
+    end
+
+    column :account
+    column :created_at, align: :center
+    actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #
@@ -44,10 +62,11 @@ Trestle.resource(:properties) do
       end
     end
 
-    tab :property do
+    tab :edit_details do
       text_field :name
       select :crawl_roots, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :allowed_domains, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
+      select :internal_tags, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
     end
 
     sidebar do

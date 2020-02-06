@@ -58,6 +58,8 @@ spec:
             - que
             - -q
             - crawls
+            - -q
+            - crawl_tests
           env: <%= partial "rails_environment", expose_contents_as_variable: true %>
           volumeMounts: <%= partial "rails_volume_mounts" %>
           resources: {}

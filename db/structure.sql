@@ -10,6 +10,34 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: fuzzystrmatch; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION fuzzystrmatch; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION fuzzystrmatch IS 'determine similarities and distance between strings';
+
+
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
 -- Name: que_validate_tags(jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -77,6 +105,17 @@ BEGIN
   RETURN COALESCE(v,s);
 END;
 $$;
+
+
+--
+-- Name: pg_search_dmetaphone(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pg_search_dmetaphone(text) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+  SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ')
+$_$;
 
 
 --
@@ -460,6 +499,79 @@ ALTER SEQUENCE public.crawl_pages_id_seq OWNED BY public.crawl_pages.id;
 
 
 --
+-- Name: crawl_test_cases; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crawl_test_cases (
+    id bigint NOT NULL,
+    crawl_test_run_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    started_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    running boolean DEFAULT false NOT NULL,
+    successful boolean,
+    logs jsonb DEFAULT '[]'::jsonb NOT NULL,
+    error jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: crawl_test_cases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crawl_test_cases_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crawl_test_cases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crawl_test_cases_id_seq OWNED BY public.crawl_test_cases.id;
+
+
+--
+-- Name: crawl_test_runs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crawl_test_runs (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    endpoint character varying NOT NULL,
+    started_by character varying NOT NULL,
+    running boolean DEFAULT false NOT NULL,
+    successful boolean,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: crawl_test_runs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crawl_test_runs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crawl_test_runs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crawl_test_runs_id_seq OWNED BY public.crawl_test_runs.id;
+
+
+--
 -- Name: flipper_features; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -575,7 +687,8 @@ CREATE TABLE public.properties (
     updated_at timestamp(6) without time zone NOT NULL,
     enabled boolean DEFAULT true NOT NULL,
     discarded_at timestamp without time zone,
-    ambient boolean DEFAULT false
+    ambient boolean DEFAULT false,
+    internal_tags character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -857,6 +970,20 @@ ALTER TABLE ONLY public.crawl_pages ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: crawl_test_cases id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_cases ALTER COLUMN id SET DEFAULT nextval('public.crawl_test_cases_id_seq'::regclass);
+
+
+--
+-- Name: crawl_test_runs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_runs ALTER COLUMN id SET DEFAULT nextval('public.crawl_test_runs_id_seq'::regclass);
+
+
+--
 -- Name: flipper_features id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -966,6 +1093,22 @@ ALTER TABLE ONLY public.crawl_attempts
 
 ALTER TABLE ONLY public.crawl_pages
     ADD CONSTRAINT crawl_pages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crawl_test_cases crawl_test_cases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_cases
+    ADD CONSTRAINT crawl_test_cases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crawl_test_runs crawl_test_runs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_runs
+    ADD CONSTRAINT crawl_test_runs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1107,6 +1250,13 @@ CREATE INDEX index_crawl_pages_on_attempt_and_error ON public.crawl_pages USING 
 
 
 --
+-- Name: index_crawl_test_cases_on_property_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_crawl_test_cases_on_property_id ON public.crawl_test_cases USING btree (property_id);
+
+
+--
 -- Name: index_flipper_features_on_key; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1245,6 +1395,14 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 ALTER TABLE ONLY public.misspelled_words
     ADD CONSTRAINT fk_rails_06162183a8 FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
+
+
+--
+-- Name: crawl_test_cases fk_rails_3aed4e771e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_cases
+    ADD CONSTRAINT fk_rails_3aed4e771e FOREIGN KEY (crawl_test_run_id) REFERENCES public.crawl_test_runs(id);
 
 
 --
@@ -1427,6 +1585,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200113162215'),
 ('20200117184240'),
 ('20200117224731'),
-('20200117225107');
+('20200117225107'),
+('20200203221825'),
+('20200203221906'),
+('20200204015906'),
+('20200204154329'),
+('20200204154515');
 
 

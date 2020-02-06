@@ -45,8 +45,6 @@ class Crawler::CrawlerClient
     }, **args)
   end
 
-  protected
-
   def property_blob(property)
     {
       id: property.id.to_s,
@@ -73,11 +71,11 @@ class Crawler::CrawlerClient
         Infrastructure::LineWiseHttpResponseReader.new(response).each_line do |line|
           blob = JSON.parse(line)
 
-          if blob["tag"] == "crawl_result"
+          if blob["tag"] == "crawl_result" || blob["tag"] == "interaction_result"
             on_result.call(blob["result"])
           end
 
-          if blob["tag"] == "crawl_error"
+          if blob["tag"] == "crawl_error" || blob["tag"] == "interaction_error"
             on_error.call(blob)
           end
 
