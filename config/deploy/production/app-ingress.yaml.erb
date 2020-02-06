@@ -9,11 +9,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: scorpion.superpro.io-production
+    - secretName: scorpion.gadget.dev-production
       hosts:
-        - scorpion.superpro.io
+        - scorpion.gadget.dev
   rules:
-    - host: scorpion.superpro.io
+    - host: scorpion.gadget.dev
       http:
         paths:
           - backend:
@@ -29,11 +29,11 @@ metadata:
     kubernetes.io/ingress.class: gce
 spec:
   tls:
-    - secretName: scorpion-assets.superpro.io-production
+    - secretName: scorpion-assets.gadget.dev-production
       hosts:
-        - scorpion-assets.superpro.io
+        - scorpion-assets.gadget.dev
   rules:
-    - host: scorpion-assets.superpro.io
+    - host: scorpion-assets.gadget.dev
       http:
         paths:
           - backend:
@@ -50,11 +50,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10M
 spec:
   tls:
-    - secretName: scorpion-admin.superpro.io-production
+    - secretName: scorpion-admin.gadget.dev-production
       hosts:
-        - scorpion-admin.superpro.io
+        - scorpion-admin.gadget.dev
   rules:
-    - host: scorpion-admin.superpro.io
+    - host: scorpion-admin.gadget.dev
       http:
         paths:
           - backend:

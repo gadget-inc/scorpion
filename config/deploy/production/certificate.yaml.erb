@@ -3,53 +3,53 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: scorpion.superpro.io-production
+  name: scorpion.gadget.dev-production
 spec:
-  secretName: scorpion.superpro.io-production
+  secretName: scorpion.gadget.dev-production
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - "scorpion.superpro.io"
+    - "scorpion.gadget.dev"
   acme:
     config:
       - dns01:
           provider: gke-clouddns
         domains:
-          - "scorpion.superpro.io"
+          - "scorpion.gadget.dev"
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: scorpion-admin.superpro.io-production
+  name: scorpion-admin.gadget.dev-production
 spec:
-  secretName: scorpion-admin.superpro.io-production
+  secretName: scorpion-admin.gadget.dev-production
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - "scorpion-admin.superpro.io"
+    - "scorpion-admin.gadget.dev"
   acme:
     config:
       - dns01:
           provider: gke-clouddns
         domains:
-          - "scorpion-admin.superpro.io"
+          - "scorpion-admin.gadget.dev"
 ---
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: scorpion-assets.superpro.io-production
+  name: scorpion-assets.gadget.dev-production
 spec:
-  secretName: scorpion-assets.superpro.io-production
+  secretName: scorpion-assets.gadget.dev-production
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   dnsNames:
-    - "scorpion-assets.superpro.io"
+    - "scorpion-assets.gadget.dev"
   acme:
     config:
       - dns01:
           provider: gke-clouddns
         domains:
-          - "scorpion-assets.superpro.io"
+          - "scorpion-assets.gadget.dev"

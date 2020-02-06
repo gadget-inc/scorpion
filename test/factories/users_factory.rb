@@ -11,7 +11,7 @@ FactoryBot.define do
     end
 
     factory :cypress_user do
-      email { "cypress@superpro.io" }
+      email { "cypress@gadget.dev" }
       full_name { "Cypress Test User" }
     end
   end

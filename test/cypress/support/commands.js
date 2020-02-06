@@ -7,7 +7,7 @@ Cypress.Commands.add("cleanServer", () =>
   })
 );
 
-Cypress.Commands.add("login", (email = "cypress@superpro.io") =>
+Cypress.Commands.add("login", (email = "cypress@gadget.dev") =>
   cy.request({
     method: "POST",
     url: "/test_support/force_login",

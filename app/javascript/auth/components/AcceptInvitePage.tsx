@@ -70,7 +70,7 @@ export default class AcceptInvitePage extends React.Component<RouteComponentProp
                 return (
                   <Alert
                     type="error"
-                    message="This invite code was not found. It may have expired. If you believe this is an error, please contact the account owner, or message us at support@superpro.io."
+                    message="This invite code was not found. It may have expired. If you believe this is an error, please contact the account owner, or message us at support@gadget.dev."
                   />
                 );
               } else {

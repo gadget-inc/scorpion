@@ -47,7 +47,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: "apikey",
     password: ENV["SENDGRID_APIKEY"],
-    domain: "superpro.io",
+    domain: "gadget.dev",
     address: "smtp.sendgrid.net",
     port: 587,
     authentication: :plain,
@@ -71,8 +71,8 @@ Rails.application.configure do
   # Don't run yarn for prod commands since it can change whats installed depending on the environment, and we're in docker where it shouldn't matter.
   config.webpacker.check_yarn_integrity = false
 
-  config.x.domains.app = "scorpion.superpro.io"
-  config.x.domains.admin = "scorpion-admin.superpro.io"
-  config.action_controller.asset_host = "scorpion-assets.superpro.io"
+  config.x.domains.app = "scorpion.gadget.dev"
+  config.x.domains.admin = "scorpion-admin.gadget.dev"
+  config.action_controller.asset_host = "scorpion-assets.gadget.dev"
   config.action_mailer.default_url_options = { host: config.x.domains.app, protocol: "https" }
 end
