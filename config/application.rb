@@ -66,7 +66,9 @@ module Scorpion
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins "*"
-        resource "*", headers: :any, methods: [:get], if: proc { |env| env["HTTP_HOST"] == Rails.configuration.x.domains.assets }
+        resource "*", headers: :any, methods: [:get], if: proc do |env|
+          env["HTTP_HOST"] == Rails.configuration.x.domains.assets
+        end
       end
     end
   end

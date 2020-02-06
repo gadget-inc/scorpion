@@ -52,5 +52,6 @@ Rails.application.configure do
   config.x.domains.app = "test-app.supo.dev"
   config.x.domains.admin = "test-admin.supo.dev"
   config.x.domains.assets = "test-assets.supo.dev"
+  config.action_controller.asset_host = config.x.domains.assets
   config.hosts << ".supo.dev"
 end
