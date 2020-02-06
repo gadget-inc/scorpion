@@ -73,6 +73,7 @@ Rails.application.configure do
 
   config.x.domains.app = "scorpion.gadget.dev"
   config.x.domains.admin = "scorpion-admin.gadget.dev"
-  config.action_controller.asset_host = "scorpion-assets.gadget.dev"
+  config.x.domains.assets = "scorpion-assets.gadget.dev"
+  config.action_controller.asset_host = config.x.domains.assets
   config.action_mailer.default_url_options = { host: config.x.domains.app, protocol: "https" }
 end
