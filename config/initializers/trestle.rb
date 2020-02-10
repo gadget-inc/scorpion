@@ -5,7 +5,7 @@ Trestle.configure do |config|
   #
   # Set the page title shown in the main header within the admin.
   #
-  config.site_title = "Scorpion"
+  config.site_title = "Scorpion #{Rails.env.to_s.capitalize}"
 
   # Specify a custom image to be used in place of the site title for mobile and
   # expanded/desktop navigation. These images should be placed within your
@@ -61,17 +61,18 @@ Trestle.configure do |config|
 
   # Add an explicit menu block to be added to the admin navigation.
   #
-  # config.menu do
-  #   group "Custom Group" do
-  #     item "Custom Link", "/admin/custom", icon: "fa fa-car", badge: { text: "NEW!", class: "label-success" }, priority: :first
-  #   end
-  # end
+  config.menu do
+    group "Linkies", priority: 100 do
+      item :flipper, "/admin/flipper", icon: "fa fa-flag"
+      item :que, "/admin/que", icon: "fa fa-box"
+    end
+  end
 
   # == Extension Options
   #
   # Specify helper modules to expose to the admin.
   #
-  # config.helper :all
+  config.helper :all
 
   # Register callbacks to run before, after or around all Trestle actions.
   #
@@ -103,7 +104,7 @@ Trestle.configure do |config|
   # Specify the parameters that should persist across requests when
   # paginating or reordering. Defaults to [:sort, :order, :scope].
   #
-  # config.persistent_params << :query
+  config.persistent_params << :query
 
   # Customize the default adapter class used by all admin resources.
   # See the documentation on Trestle::Adapters::Adapter for details on

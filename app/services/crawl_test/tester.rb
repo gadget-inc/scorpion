@@ -44,7 +44,7 @@ module CrawlTest
     def execute_case(test_case)
       logger.tagged test_case_id: test_case.id do
         logger.silence(:info) do
-          test_case.update!(finished_at: Time.now.utc, successful: true, running: false)
+          test_case.update!(started_at: Time.now.utc, running: true)
           logger.info "Beginning crawl for test case"
 
           client = ::Crawler::CrawlerClient.client

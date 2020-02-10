@@ -33,8 +33,12 @@ Trestle.resource(:runs, scope: CrawlTest) do
           column :property, link: true
           column :started_at, link: true
           column :finished_at
-          column :running, align: :center
-          column :successful, align: :center
+          column :successful do |test_case|
+            outcome_tag(test_case.successful)
+          end
+          column :running do |test_case|
+            running_tag(test_case.running)
+          end
           actions do |toolbar, instance, _admin|
             toolbar.link "Logs", admin_url_for(instance, anchor: "!tab-logs"), style: :primary, icon: "fa fa-scroll"
           end
