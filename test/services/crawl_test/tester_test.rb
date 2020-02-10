@@ -8,6 +8,12 @@ module CrawlTest
       @ambient_homesick = create(:ambient_homesick_property)
     end
 
+    test "raises if no properties are found for criteria" do
+      assert_raises do
+        Tester.new.enqueue_run(endpoint: "/test", user: "harry", property_limit: 10, property_criteria: "notfound")
+      end
+    end
+
     test "enqueues test cases and jobs for the ambient properties" do
       Tester.new.enqueue_run(endpoint: "/test", user: "harry", property_limit: 10, property_criteria: "test_crawl")
 

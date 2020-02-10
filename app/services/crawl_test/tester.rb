@@ -12,7 +12,15 @@ module CrawlTest
 
     def enqueue_run(name: nil, endpoint:, user:, property_limit: 50, property_criteria: nil)
       run = Run.create!(name: name || self.class.generate_name, running: false, started_by: user, endpoint: endpoint, property_criteria: property_criteria, property_limit: property_limit)
-      properties = ::Property.for_crawl_testing.order("id ASC").limit(property_limit)
+
+      properties = ::Property.for_ambient_crawls.order("id ASC").limit(property_limit)
+      if property_criteria.present?
+        properties = properties.admin_search(property_criteria)
+      end
+
+      if properties.empty?
+        throw "No properties to run test run on"
+      end
 
       now = Time.now.utc
       cases = properties.map do |property|

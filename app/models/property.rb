@@ -29,7 +29,6 @@ class Property < ApplicationRecord
 
   scope :for_purposeful_crawls, -> { kept.where(enabled: true, ambient: false) }
   scope :for_ambient_crawls, -> { kept.where(enabled: true, ambient: true) }
-  scope :for_crawl_testing, -> { for_ambient_crawls.where("internal_tags && ?", "{test_crawl}") }
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
   has_many :crawl_attempts, dependent: :destroy
