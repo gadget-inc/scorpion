@@ -23,11 +23,13 @@ Trestle.resource(:cases, scope: CrawlTest) do
 
   form do |test_case|
     tab :details do
-      check_box :running, disabled: true
-      check_box :successful, disabled: true
-      text_field :created_at, disabled: true
-      text_field :started_at, disabled: true
-      text_field :finished_at, disabled: true
+      static_field :property, admin_link_to(test_case.property.name, test_case.property)
+      static_field :crawl_test_run, admin_link_to(test_case.crawl_test_run.name, test_case.crawl_test_run)
+      static_field :running
+      static_field :successful
+      static_field :created_at
+      static_field :started_at
+      static_field :finished_at
     end
 
     tab :logs do

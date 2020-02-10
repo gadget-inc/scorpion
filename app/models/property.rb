@@ -35,6 +35,7 @@ class Property < ApplicationRecord
   has_many :property_screenshots, dependent: :destroy
   has_many :property_timeline_entries, dependent: :destroy
 
+  has_many :crawl_test_cases, class_name: "CrawlTest::Case", dependent: :destroy
   # for trestle's array assignment
   remove_blanks_for_array_assignment :allowed_domains, :crawl_roots, :internal_tags
 

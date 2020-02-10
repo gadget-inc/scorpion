@@ -34,7 +34,7 @@ Trestle.resource(:properties) do
   # Customize the form fields shown on the new/edit views.
   #
   form do |property|
-    tab :results, badge: property.crawl_attempts.size do
+    tab :crawl_attempts, badge: property.crawl_attempts.size do
       table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
         column :id
         column :crawl_type, link: true
@@ -43,6 +43,17 @@ Trestle.resource(:properties) do
         column :running, align: :center
         column :succeeded, align: :center
         column :failure_reason
+        actions
+      end
+    end
+
+    tab :interaction_test_cases, badge: property.crawl_test_cases.size do
+      table property.crawl_test_cases.includes(:crawl_test_runs).order("id DESC"), admin: :crawl_test_cases do
+        column :id
+        column :crawl_test_run
+        column :started_at, link: true
+        column :running, align: :center
+        column :successful, align: :center
         actions
       end
     end
@@ -64,9 +75,12 @@ Trestle.resource(:properties) do
 
     tab :edit_details do
       text_field :name
+      check_box :ambient
       select :crawl_roots, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :allowed_domains, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :internal_tags, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
+      static_field :created_at
+      static_field :updated_at
     end
 
     sidebar do
