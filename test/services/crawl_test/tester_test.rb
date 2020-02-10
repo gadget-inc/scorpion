@@ -9,7 +9,7 @@ module CrawlTest
     end
 
     test "enqueues test cases and jobs for the ambient properties" do
-      Tester.new.enqueue_run(endpoint: "/test", user: "harry", limit: 10)
+      Tester.new.enqueue_run(endpoint: "/test", user: "harry", property_limit: 10, property_criteria: "test_crawl")
 
       test_case = Case.where(property_id: @ambient_homesick.id).first
       assert test_case
@@ -23,19 +23,19 @@ module CrawlTest
       assert_not test_run.successful
     end
 
-    # test "can execute test cases" do
-    #   tester = Tester.new
-    #   tester.enqueue_run(endpoint: "/interaction/shopify_browse_add", user: "harry", limit: 10)
+    test "can execute test cases" do
+      tester = Tester.new
+      tester.enqueue_run(endpoint: "/interaction/shopify_browse_add", user: "harry", property_limit: 10)
 
-    #   test_case = Case.where(property_id: @ambient_homesick.id).first
-    #   assert test_case
+      test_case = Case.where(property_id: @ambient_homesick.id).first
+      assert test_case
 
-    #   tester.execute_case(test_case)
+      tester.execute_case(test_case)
 
-    #   test_case.reload
-    #   assert test_case.successful
-    #   assert_not test_case.running
-    #   assert test_case.finished_at
-    # end
+      test_case.reload
+      assert test_case.successful
+      assert_not test_case.running
+      assert test_case.finished_at
+    end
   end
 end

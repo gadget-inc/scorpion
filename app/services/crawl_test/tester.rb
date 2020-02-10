@@ -6,9 +6,13 @@ module CrawlTest
   class Tester
     include SemanticLogger::Loggable
 
-    def enqueue_run(name: nil, endpoint:, user:, limit: 50)
-      run = Run.create!(name: name || generate_name, running: false, started_by: user, endpoint: endpoint)
-      properties = ::Property.for_crawl_testing.order("id ASC").limit(limit)
+    def self.generate_name
+      [Faker::ElectricalComponents.active, Faker::ElectricalComponents.passive, Faker::ElectricalComponents.electromechanical, Faker::Appliance.brand, Faker::Hacker.noun, Faker::Hacker.verb, Faker::House.furniture, Faker::House.room].sample(2).join("-").parameterize
+    end
+
+    def enqueue_run(name: nil, endpoint:, user:, property_limit: 50, property_criteria: nil)
+      run = Run.create!(name: name || self.class.generate_name, running: false, started_by: user, endpoint: endpoint, property_criteria: property_criteria, property_limit: property_limit)
+      properties = ::Property.for_crawl_testing.order("id ASC").limit(property_limit)
 
       now = Time.now.utc
       cases = properties.map do |property|
@@ -25,6 +29,8 @@ module CrawlTest
       case_returns.each do |case_return|
         ExecuteTestCaseJob.enqueue(crawl_test_case_id: case_return["id"])
       end
+
+      run
     end
 
     def execute_case(test_case)
@@ -67,12 +73,6 @@ module CrawlTest
           raise
         end
       end
-    end
-
-    private
-
-    def generate_name
-      [Faker::ElectricalComponents.active, Faker::ElectricalComponents.passive, Faker::ElectricalComponents.electromechanical, Faker::Appliance.brand, Faker::Hacker.noun, Faker::Hacker.verb, Faker::House.furniture, Faker::House.room].sample(2).join("-").parameterize
     end
   end
 end

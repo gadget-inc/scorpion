@@ -548,7 +548,9 @@ CREATE TABLE public.crawl_test_runs (
     running boolean DEFAULT false NOT NULL,
     successful boolean,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    property_criteria character varying,
+    property_limit integer DEFAULT 50 NOT NULL
 );
 
 
@@ -1590,6 +1592,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200203221906'),
 ('20200204015906'),
 ('20200204154329'),
-('20200204154515');
+('20200204154515'),
+('20200210194743'),
+('20200210202750');
 
 

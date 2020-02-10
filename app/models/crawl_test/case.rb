@@ -25,7 +25,7 @@
 #
 
 class CrawlTest::Case < ApplicationRecord
-  belongs_to :crawl_test_run, class_name: "CrawlTest::Run", optional: false
+  belongs_to :crawl_test_run, class_name: "CrawlTest::Run", optional: false, foreign_key: :crawl_test_run_id, inverse_of: :crawl_test_cases
   belongs_to :property, optional: false
 
   has_one_attached :screenshot

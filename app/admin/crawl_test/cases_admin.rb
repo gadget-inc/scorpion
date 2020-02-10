@@ -22,6 +22,14 @@ Trestle.resource(:cases, scope: CrawlTest) do
   end
 
   form do |test_case|
+    tab :details do
+      check_box :running, disabled: true
+      check_box :successful, disabled: true
+      text_field :created_at, disabled: true
+      text_field :started_at, disabled: true
+      text_field :finished_at, disabled: true
+    end
+
     tab :logs do
       tag.div do
         concat tag.h3 "Logs (#{test_case.logs.size} total)"
@@ -51,26 +59,4 @@ Trestle.resource(:cases, scope: CrawlTest) do
       end
     end
   end
-
-  # Customize the form fields shown on the new/edit views.
-  #
-  # form do |case|
-  #   text_field :name
-  #
-  #   row do
-  #     col { datetime_field :updated_at }
-  #     col { datetime_field :created_at }
-  #   end
-  # end
-
-  # By default, all parameters passed to the update and create actions will be
-  # permitted. If you do not have full trust in your users, you should explicitly
-  # define the list of permitted parameters.
-  #
-  # For further information, see the Rails documentation on Strong Parameters:
-  #   http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-  #
-  # params do |params|
-  #   params.require(:case).permit(:name, ...)
-  # end
 end
