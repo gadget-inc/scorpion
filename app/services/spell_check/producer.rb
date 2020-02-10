@@ -68,10 +68,15 @@ module SpellCheck
         .map { |result| result.result["textElements"] || [] }
         .flatten
         .map { |element| element["text"] }
+        .filter(&:present?)
         .reduce { |a, b| a + "\n" + b }
 
       logger.info "Detecting language"
-      LanguageDetector.code_for_text(sample_text)
+      if sample_text.present?
+        LanguageDetector.code_for_text(sample_text)
+      else
+        "en-US"
+      end
     end
   end
 end
