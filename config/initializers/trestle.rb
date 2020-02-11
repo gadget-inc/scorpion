@@ -129,6 +129,5 @@ Trestle.configure do |config|
   #
   # config.debug_form_errors = true
 
-  config.omniauth.provider :developer if Rails.env.development?
   config.omniauth.provider :google_oauth2, Rails.application.config.admin[:google_oauth_client_id], Rails.application.config.admin[:google_oauth_client_secret]
 end

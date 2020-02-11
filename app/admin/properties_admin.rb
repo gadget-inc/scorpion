@@ -48,7 +48,7 @@ Trestle.resource(:properties) do
     end
 
     tab :interaction_test_cases, badge: property.crawl_test_cases.size do
-      table property.crawl_test_cases.includes(:crawl_test_runs).order("id DESC"), admin: :crawl_test_cases do
+      table property.crawl_test_cases.includes(:crawl_test_run).order("id DESC"), admin: :crawl_test_cases do
         column :id
         column :crawl_test_run
         column :started_at, link: true

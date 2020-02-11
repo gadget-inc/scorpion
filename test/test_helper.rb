@@ -24,6 +24,8 @@ VCR.configure do |config|
   config.fixings_query_matcher_param_exclusions << "appsecret_proof"
 end
 
+OmniAuth.config.test_mode = true
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include GraphQLTestHelper
@@ -31,6 +33,10 @@ class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   if ENV["CI"] || ENV["PARALLEL"]
     parallelize(workers: :number_of_processors)
+  end
+
+  teardown do
+    OmniAuth.config.mock_auth[:shopify] = nil
   end
 
   def with_synchronous_jobs

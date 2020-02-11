@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-OmniAuth.config.logger = Rails.logger
+OmniAuth.config.logger = SemanticLogger[OmniAuth]
 
 HOST_CONSTRAINT_SETUP = lambda do |env|
   req = Rack::Request.new(env)
