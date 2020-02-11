@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "json/add/exception"
+
 Trestle.resource(:cases, scope: CrawlTest) do
   remove_action :destroy, :create
 
