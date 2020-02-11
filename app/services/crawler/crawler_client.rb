@@ -3,7 +3,8 @@
 class Crawler::CrawlerClient
   include SemanticLogger::Loggable
 
-  class UncleanExitException < RuntimeError; end
+  class CrawlSystemError < RuntimeError; end
+  class CrawlExecutionError < RuntimeError; end
 
   def self.client
     @client ||= self.new(Rails.configuration.crawler[:api_url], Rails.configuration.crawler[:auth_token])
@@ -84,7 +85,7 @@ class Crawler::CrawlerClient
           end
 
           if blob["tag"] == "system_error"
-            raise UncleanExitException, "Crawl errored out! Remote error: #{blob["message"]}"
+            raise CrawlSystemError, "Crawl errored out! Remote error: #{blob["message"]}"
           end
 
           if blob["tag"] == "system"
@@ -93,7 +94,7 @@ class Crawler::CrawlerClient
               if error.respond_to?(:key?) && error.key?("message")
                 error = error["message"]
               end
-              raise UncleanExitException, "Crawl did not succeed! Remote error: #{error || "unknown"}"
+              raise CrawlExecutionError, "Crawl did not succeed! Remote error: #{error || "unknown"}"
             else
               got_success_message = true
             end
@@ -103,7 +104,7 @@ class Crawler::CrawlerClient
     )
 
     if !got_success_message
-      raise UncleanExitException, "Crawler response ended prematurely without signalling success"
+      raise CrawlSystemError, "Crawler response ended prematurely without signalling success"
     end
   end
 end
