@@ -33,7 +33,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { host: "test-emails.supo.dev" }
+  config.action_mailer.default_url_options = { host: "test-emails.ggt.dev" }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -41,9 +41,9 @@ Rails.application.configure do
   # Raises error for missing translations.
   config.action_view.raise_on_missing_translations = true
 
-  config.x.domains.app = "app.supo.dev"
-  config.x.domains.admin = "admin.supo.dev"
-  config.x.domains.assets = "assets.supo.dev"
+  config.x.domains.app = "app.ggt.dev"
+  config.x.domains.admin = "admin.ggt.dev"
+  config.x.domains.assets = "assets.ggt.dev"
   config.action_controller.asset_host = config.x.domains.assets
-  config.hosts << ".supo.dev"
+  config.hosts << ".ggt.dev"
 end

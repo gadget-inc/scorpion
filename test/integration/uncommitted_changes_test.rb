@@ -30,7 +30,7 @@ class UncommittedChangesTest < ActiveSupport::TestCase
 
   def dev_server_running?
     @dev_server_running ||= begin
-        TCPSocket.new("app.supo.dev", 443)
+        TCPSocket.new("app.ggt.dev", 443)
         true
       rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
         false

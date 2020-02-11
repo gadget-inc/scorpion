@@ -11,7 +11,7 @@ describe("Password reset", function() {
     cy.contains("An email has been sent");
 
     cy.getLastEmail().then(email => {
-      const link = email.body.raw_source.match(/href=".*?app\.supo\.dev([^"]*)/)[1];
+      const link = email.body.raw_source.match(/href=".*?app\.ggt\.dev([^"]*)/)[1];
       cy.visit(link);
 
       cy.get("#password").type("a-new-password");

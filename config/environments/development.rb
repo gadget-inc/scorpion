@@ -60,10 +60,10 @@ Rails.application.configure do
   config.cache_store = :redis_cache_store, { url: "redis://localhost:6379/0" }
   config.session_store :cache_store, key: "scorpion_dev_sessions"
 
-  config.x.domains.app = "app.supo.dev"
-  config.x.domains.admin = "admin.supo.dev"
-  config.x.domains.assets = "assets.supo.dev"
+  config.x.domains.app = "app.ggt.dev"
+  config.x.domains.admin = "admin.ggt.dev"
+  config.x.domains.assets = "assets.ggt.dev"
   config.action_controller.asset_host = config.x.domains.assets
-  config.hosts << ".supo.dev"
+  config.hosts << ".ggt.dev"
   config.action_mailer.default_url_options = { host: config.x.domains.app }
 end

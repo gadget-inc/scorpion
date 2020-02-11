@@ -19,7 +19,7 @@ Install homebrew deps for your host:
 Configure [`mkcert`](https://github.com/FiloSottile/mkcert) for your local machine and generate a development SSL certificate:
 
     mkcert -install
-    mkcert -cert-file config/docker-compose/server.crt -key-file config/docker-compose/server.key supo.dev "*.supo.dev"
+    mkcert -cert-file config/docker-compose/server.crt -key-file config/docker-compose/server.key ggt.dev "*.ggt.dev"
 
 Install gems
 
@@ -53,7 +53,7 @@ You need to be running 3 processes to run a local instance of Scorpion:
 - `bin/rails server`: Runs the Ruby server process to render pages requested by the browser
 - `bin/webpack-dev-server`: Runs a Node server process to compile, serve, and cache assets (almost all JavaScript) to the browser with much faster re-compile speeds. We keep this one separate because it is very sensitive to the performance hit of running inside docker, and affects developer iteration speed a lot.
 
-Run these three (most do it in separate terminal windows) processes, and then visit https://app.supo.dev, which will point to your local Scorpion instance.
+Run these three (most do it in separate terminal windows) processes, and then visit https://app.ggt.dev, which will point to your local Scorpion instance.
 
 #### Auxiliary Development Services
 
