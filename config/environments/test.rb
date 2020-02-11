@@ -49,9 +49,9 @@ Rails.application.configure do
   # Raises error for missing translations.
   config.action_view.raise_on_missing_translations = true
 
-  config.x.domains.app = "test-app.supo.dev"
-  config.x.domains.admin = "test-admin.supo.dev"
-  config.x.domains.assets = "test-assets.supo.dev"
+  config.x.domains.app = "test-app.ggt.dev"
+  config.x.domains.admin = "test-admin.ggt.dev"
+  config.x.domains.assets = "test-assets.ggt.dev"
   config.action_controller.asset_host = config.x.domains.assets
-  config.hosts << ".supo.dev"
+  config.hosts << ".ggt.dev"
 end
