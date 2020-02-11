@@ -18,27 +18,17 @@ module CrawlTest
         properties = properties.admin_search(property_criteria)
       end
 
-      if properties.empty?
-        throw "No properties to run test run on"
-      end
-
-      now = Time.now.utc
-      cases = properties.map do |property|
-        {
-          property_id: property.id,
-          crawl_test_run_id: run.id,
-          running: false,
-          created_at: now,
-          updated_at: now,
-        }
-      end
-
-      case_returns = Case.insert_all!(cases)
-      case_returns.each do |case_return|
-        ExecuteTestCaseJob.enqueue(crawl_test_case_id: case_return["id"])
-      end
+      create_cases(run, properties)
 
       run
+    end
+
+    def reenqueue_run(run:, user:, name: nil)
+      new_run = Run.create!(name: name || self.class.generate_name, running: false, started_by: user, endpoint: run.endpoint, property_criteria: run.property_criteria, property_limit: run.property_limit)
+
+      create_cases(new_run, run.properties)
+
+      new_run
     end
 
     def execute_case(test_case)
@@ -80,6 +70,30 @@ module CrawlTest
           test_case.update!(finished_at: Time.now.utc, successful: false, error: e, running: false)
           raise
         end
+      end
+    end
+
+    private
+
+    def create_cases(run, properties)
+      if properties.empty?
+        throw "No properties to run test run on"
+      end
+
+      now = Time.now.utc
+      cases = properties.map do |property|
+        {
+          property_id: property.id,
+          crawl_test_run_id: run.id,
+          running: false,
+          created_at: now,
+          updated_at: now,
+        }
+      end
+
+      case_returns = Case.insert_all!(cases)
+      case_returns.each do |case_return|
+        ExecuteTestCaseJob.enqueue(crawl_test_case_id: case_return["id"])
       end
     end
   end

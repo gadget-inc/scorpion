@@ -6,6 +6,10 @@ Trestle.resource(:runs, scope: CrawlTest) do
     end
   end
 
+  scopes do
+    scope :all, -> { CrawlTest::Run.order("id DESC") }, default: true
+  end
+
   # Customize the table columns shown on the index view.
   #
   # table do
@@ -50,6 +54,10 @@ Trestle.resource(:runs, scope: CrawlTest) do
         text_field :endpoint, disabled: true
         text_field :started_by, disabled: true
       end
+
+      sidebar do
+        link_to("Rerun", admin.path(:rerun, id: run.id), method: :post, class: "btn btn-block btn-primary")
+      end
     end
   end
 
@@ -81,8 +89,15 @@ Trestle.resource(:runs, scope: CrawlTest) do
       end
     end
 
-    def logs
-      @instance = admin.find_instance(params)
+    def rerun
+      existing_run = admin.find_instance(params)
+      new_run = CrawlTest::Tester.new.reenqueue_run(run: existing_run, user: current_user["info"]["email"])
+      flash[:message] = "Crawl test re-enqueued"
+      redirect_to admin.path(:show, id: new_run)
     end
+  end
+
+  routes do
+    post :rerun, on: :member
   end
 end
