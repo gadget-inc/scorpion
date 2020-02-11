@@ -17,6 +17,10 @@ module SpellCheck
       def code_for_text(text)
         struct = self.cld3.find_language(text)
 
+        if struct.nil?
+          return "en-US"
+        end
+
         code = case struct.language
           when :en
             fewest_mispellings(text, %w[en-CA en-US en-GB])
