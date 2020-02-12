@@ -2,7 +2,7 @@
 require "json/add/exception"
 
 Trestle.resource(:cases, scope: CrawlTest) do
-  remove_action :destroy, :create
+  remove_action :destroy, :create, :update # lol
 
   menu do
     group :crawl_testing, priority: 50 do
