@@ -71,10 +71,10 @@ Trestle.resource(:cases, scope: CrawlTest) do
     end
 
     tab :failure_html do
-      row do
-        col do
-          link_to("Raw", admin.path(:raw_html, id: test_case.id))
-        end
+      if test_case.last_html.present?
+        link_to("Render raw HTML at failure time", admin.path(:raw_html, id: test_case.id))
+      else
+        content_tag(:span, "No raw HTML captured", class: "blank")
       end
     end
   end
@@ -82,7 +82,7 @@ Trestle.resource(:cases, scope: CrawlTest) do
   controller do
     def raw_html
       test_case = admin.find_instance(params)
-      render html: test_case.last_html.html_safe, layout: false # rubocop:disable Rails/OutputSafety
+      render html: test_case.last_html.try(:html_safe?), layout: false
     end
   end
 
