@@ -17,7 +17,7 @@
           column(run.name, header: header) do |property_row|
             test_case = property_row[:cases][run.id]
             if test_case
-              outcome_tag(test_case.successful)
+              admin_link_to(outcome_tag(test_case.successful), test_case)
             else
               content_tag(:span, "not run", class: "blank")
             end
