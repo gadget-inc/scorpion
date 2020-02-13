@@ -1,10 +1,28 @@
 <% content_for(:title, "Dashboard") %>
-<%= render "header" %>
 
-<div class="main-content-area">
-  <div class="main-content-container">
-    <div class="main-content">
-    <h3>Hi</h3>
-    </div>
-  </div>
-</div>
+<%= render layout: "layout" do %>
+<%= begin
+      dashboard = @dashboard
+      get_header = Proc.new do |run|
+        content_tag(:div) do
+          concat admin_link_to(run.name, run)
+          concat content_tag(:div, autoformat_value(run.created_at))
+        end
+      end
+      table collection: @dashboard.property_rows, admin: :dashboard do
+        column(:property) { |row| row[:property] }
+    
+        dashboard.runs.each_with_index do |run|
+          header = get_header.call(run)
+          column(run.name, header: header) do |property_row|
+            test_case = property_row[:cases][run.id]
+            if test_case
+              outcome_tag(test_case.successful)
+            else
+              content_tag(:span, "not run", class: "blank")
+            end
+          end
+        end
+      end
+    end %>
+<% end %>

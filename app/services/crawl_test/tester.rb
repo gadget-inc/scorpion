@@ -44,6 +44,7 @@ module CrawlTest
           client.request(
             test_case.crawl_test_run.endpoint,
             { property: client.property_blob(test_case.property), startPage: test_case.property.crawl_roots[0] },
+            trace_context: { "testRunId" => test_case.crawl_test_run.id, "testCaseId" => test_case.id },
             on_result: proc do |result|
               if result.key?("screenshot")
                 test_case.screenshot.attach(
