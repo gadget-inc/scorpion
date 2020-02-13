@@ -513,7 +513,8 @@ CREATE TABLE public.crawl_test_cases (
     logs jsonb DEFAULT '[]'::jsonb NOT NULL,
     error jsonb,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    last_html text
 );
 
 
@@ -1594,6 +1595,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200204154329'),
 ('20200204154515'),
 ('20200210194743'),
-('20200210202750');
+('20200210202750'),
+('20200213161513');
 
 

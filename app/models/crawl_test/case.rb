@@ -6,6 +6,7 @@
 #  id                :bigint           not null, primary key
 #  error             :jsonb
 #  finished_at       :datetime
+#  last_html         :text
 #  logs              :jsonb            not null
 #  running           :boolean          default(FALSE), not null
 #  started_at        :datetime

@@ -53,6 +53,10 @@ module CrawlTest
                   identify: false,
                 )
               end
+
+              if result.key?("html")
+                test_case.update!(last_html: result["html"])
+              end
             end,
             on_error: proc do |err|
               error = err

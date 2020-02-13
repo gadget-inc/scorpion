@@ -63,8 +63,8 @@ Trestle.configure do |config|
   #
   config.menu do
     group "Linkies", priority: 100 do
-      item :flipper, "/admin/flipper", icon: "fa fa-flag"
-      item :que, "/admin/que", icon: "fa fa-box"
+      item :flipper, "/flipper", icon: "fa fa-flag"
+      item :que, "/que", icon: "fa fa-box"
     end
   end
 

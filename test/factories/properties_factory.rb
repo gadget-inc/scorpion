@@ -21,5 +21,12 @@ FactoryBot.define do
       ambient { true }
       internal_tags { ["test_crawl"] }
     end
+
+    factory :ambient_failure_property do
+      crawl_roots { ["https://bape.com"] }
+      allowed_domains { ["bape.com"] }
+      ambient { true }
+      internal_tags { ["test_crawl"] }
+    end
   end
 end

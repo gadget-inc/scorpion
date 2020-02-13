@@ -1,6 +1,6 @@
 development: &development
-  google_oauth_client_id: 441963534992-8di7bhmba2fkj0tu2g6necfhkl59eump.apps.googleusercontent.com
-  google_oauth_client_secret: XrrhqUSHMNfgRLh3wibm9B9E
+  google_oauth_client_id: 54509442376-tv6n71fsltf4ehj3f0jt7udvvdg9ia1d.apps.googleusercontent.com
+  google_oauth_client_secret: Y1dxD9aoLI1BLTz0enr-V-RV # not sensitive as project (gadget-admin-development) has no permissions to anything
 test:
   <<: *development
 integration_test:

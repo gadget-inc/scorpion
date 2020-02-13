@@ -69,5 +69,24 @@ Trestle.resource(:cases, scope: CrawlTest) do
         image_tag Rails.application.routes.url_helpers.rails_blob_path(test_case.screenshot, host: Rails.configuration.x.domains.admin)
       end
     end
+
+    tab :failure_html do
+      row do
+        col do
+          link_to("Raw", admin.path(:raw_html, id: test_case.id))
+        end
+      end
+    end
+  end
+
+  controller do
+    def raw_html
+      test_case = admin.find_instance(params)
+      render html: test_case.last_html.html_safe, layout: false # rubocop:disable Rails/OutputSafety
+    end
+  end
+
+  routes do
+    get :raw_html, on: :member
   end
 end
