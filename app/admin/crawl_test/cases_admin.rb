@@ -47,7 +47,7 @@ Trestle.resource(:cases, scope: CrawlTest) do
           concat(tag.p do
             tag.span { log["message"] } +
             tag.code(style: "margin-left: 1rem") do
-              log["args"].inspect
+              log["metadata"].inspect
             end
           end)
         end
