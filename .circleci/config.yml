@@ -87,6 +87,7 @@ jobs:
         environment:
           POSTGRES_USER: scorpion
           POSTGRES_DB: scorpion_test
+          POSTGRES_HOST_AUTH_METHOD: trust
       - image: circleci/redis:4-alpine
     working_directory: ~/repo
     steps:
