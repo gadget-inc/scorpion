@@ -1,8 +1,9 @@
 # Alias the node container matching the same linux distro as `nodejs`
-FROM node:13.6-stretch as nodejs
+FROM node:13.6-buster as nodejs
 
 # Get all the ruby dependencies installed as they are needed for both building assets and the final output container
 FROM ruby:2.7-buster as ruby_environment
+RUN gem install bundler
 
 RUN mkdir /app
 WORKDIR /app
@@ -11,7 +12,7 @@ RUN apt-get update && apt-get install -qy libprotobuf-dev protobuf-compiler libh
 
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
-RUN bundle install -j 20 --without development test deploy --deployment
+RUN bundle config set deployment 'true' && bundle config set without 'development test deploy' && bundle install --jobs=10 --retry=3
 
 COPY --from=nodejs /usr/local/bin/node /usr/local/bin/
 COPY --from=nodejs /usr/local/lib/node_modules /usr/local/lib/node_modules
