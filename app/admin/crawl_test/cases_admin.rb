@@ -82,7 +82,7 @@ Trestle.resource(:cases, scope: CrawlTest) do
   controller do
     def raw_html
       test_case = admin.find_instance(params)
-      render html: test_case.last_html.try(:html_safe?), layout: false
+      render html: test_case.last_html.try(:html_safe), layout: false
     end
   end
 
