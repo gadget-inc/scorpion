@@ -20,6 +20,22 @@ FactoryBot.define do
       allowed_domains { ["homesick.com"] }
       ambient { true }
       internal_tags { ["test_crawl"] }
+      internal_test_options do
+        {
+          "retryStrategies": [
+            {
+              "name": "example retry strat",
+              "config": {
+                "type": "container_button",
+                "selectors": {
+                  "container": "#country-reveal:humanVisible",
+                  "closeButton": "#country-reveal .country-close:humanVisible",
+                },
+              },
+            },
+          ],
+        }
+      end
     end
 
     factory :ambient_failure_property do

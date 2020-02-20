@@ -19,6 +19,11 @@ class Admin::PropertiesAdminTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "can visit new" do
+    get "/properties/new"
+    assert_response :success
+  end
+
   test "can visit the show and edit" do
     get "/properties/#{@property.id}"
     assert_response :success

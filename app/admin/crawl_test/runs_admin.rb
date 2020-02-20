@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 Trestle.resource(:runs, scope: CrawlTest) do
+  remove_action :update
+
   menu do
     group :crawl_testing, priority: 50 do
       item :runs, icon: "fa fa-star"
@@ -77,7 +79,7 @@ Trestle.resource(:runs, scope: CrawlTest) do
         endpoint: instance.endpoint,
         user: current_user["info"]["email"],
         property_limit: instance.property_limit,
-        property_criteria: params[:property_criteria],
+        property_criteria: instance.property_criteria,
       )
 
       respond_to do |format|

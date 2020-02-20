@@ -691,7 +691,8 @@ CREATE TABLE public.properties (
     enabled boolean DEFAULT true NOT NULL,
     discarded_at timestamp without time zone,
     ambient boolean DEFAULT false,
-    internal_tags character varying[] DEFAULT '{}'::character varying[]
+    internal_tags character varying[] DEFAULT '{}'::character varying[],
+    internal_test_options jsonb
 );
 
 
@@ -1596,6 +1597,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200204154515'),
 ('20200210194743'),
 ('20200210202750'),
-('20200213161513');
+('20200213161513'),
+('20200220191400');
 
 

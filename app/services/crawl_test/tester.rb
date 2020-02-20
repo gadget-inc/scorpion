@@ -43,7 +43,7 @@ module CrawlTest
 
           client.request(
             test_case.crawl_test_run.endpoint,
-            { property: client.property_blob(test_case.property), startPage: test_case.property.crawl_roots[0] },
+            test_request_body(test_case),
             trace_context: { "testRunId" => test_case.crawl_test_run.id, "testCaseId" => test_case.id },
             on_result: proc do |result|
               if result.key?("screenshot")
@@ -100,6 +100,20 @@ module CrawlTest
       case_returns.each do |case_return|
         ExecuteTestCaseJob.enqueue(crawl_test_case_id: case_return["id"])
       end
+    end
+
+    def test_request_body(test_case)
+      client = ::Crawler::CrawlerClient.client
+
+      body = {}
+      if test_case.property.internal_test_options
+        body.merge!(test_case.property.internal_test_options)
+      end
+
+      body[:property] = client.property_blob(test_case.property)
+      body[:startPage] = test_case.property.crawl_roots[0]
+
+      body
     end
   end
 end

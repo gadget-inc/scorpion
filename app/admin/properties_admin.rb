@@ -31,61 +31,72 @@ Trestle.resource(:properties) do
     actions
   end
 
-  # Customize the form fields shown on the new/edit views.
-  #
+  build_instance do |attrs, _params|
+    instance = Property.new(attrs)
+    instance.ambient ||= true
+    instance.creator_id ||= User.first.id
+    instance.account_id ||= Account.first.id
+    instance
+  end
+
   form do |property|
-    tab :crawl_attempts, badge: property.crawl_attempts.size do
-      table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
-        column :id
-        column :crawl_type, link: true
-        column :started_at, link: true
-        column :started_reason
-        column :running, align: :center
-        column :succeeded, align: :center
-        column :failure_reason
-        actions
+    if !property.new_record?
+      sidebar do
+        concat link_to("Crawl page info now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_page_info"), method: :post, class: "btn btn-block btn-primary")
+        concat link_to("Crawl screenshots now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_screenshots"), method: :post, class: "btn btn-block btn-primary")
       end
-    end
 
-    tab :interaction_test_cases, badge: property.crawl_test_cases.size do
-      table property.crawl_test_cases.includes(:crawl_test_run).order("id DESC"), admin: :crawl_test_cases do
-        column :id
-        column :crawl_test_run
-        column :started_at, link: true
-        column :running, align: :center
-        column :successful, align: :center
-        actions
-      end
-    end
-
-    tab :timeline do
-      table property.property_timeline_entries.order("entry_at DESC") do
-        column :id
-        column :entry_type
-        column :entry_at
-        column :entry
-        column :image do |entry|
-          if entry.image
-            image_tag Rails.application.routes.url_helpers.rails_blob_path(entry.image, host: Rails.configuration.x.domains.admin)
-          end
+      tab :crawl_attempts, badge: property.crawl_attempts.size do
+        table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
+          column :id
+          column :crawl_type, link: true
+          column :started_at, link: true
+          column :started_reason
+          column :running, align: :center
+          column :succeeded, align: :center
+          column :failure_reason
+          actions
         end
-        actions
+      end
+
+      tab :interaction_test_cases, badge: property.crawl_test_cases.size do
+        table property.crawl_test_cases.includes(:crawl_test_run).order("id DESC"), admin: :crawl_test_cases do
+          column :id
+          column :crawl_test_run
+          column :started_at, link: true
+          column :running, align: :center
+          column :successful, align: :center
+          actions
+        end
+      end
+
+      tab :timeline do
+        table property.property_timeline_entries.order("entry_at DESC") do
+          column :id
+          column :entry_type
+          column :entry_at
+          column :entry
+          column :image do |entry|
+            if entry.image
+              image_tag Rails.application.routes.url_helpers.rails_blob_path(entry.image, host: Rails.configuration.x.domains.admin)
+            end
+          end
+          actions
+        end
       end
     end
 
-    tab :edit_details do
+    tab :property_details do
       text_field :name
+      select :account_id, Account.all
+      select :creator_id, User.all
       check_box :ambient
       select :crawl_roots, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :allowed_domains, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :internal_tags, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
+      json_text_area :internal_test_options
       static_field :created_at
       static_field :updated_at
-    end
-
-    sidebar do
-      concat link_to("Crawl page info now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_page_info"), method: :post, class: "btn btn-block btn-primary")
-      concat link_to("Crawl screenshots now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_screenshots"), method: :post, class: "btn btn-block btn-primary")
     end
   end
 
