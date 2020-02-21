@@ -23,5 +23,15 @@ module CrawlTest
     def runs
       @runs ||= @run_scope.includes(crawl_test_cases: :property).order("id DESC").limit(@limit)
     end
+
+    def pass_ratio(run)
+      cases = run.crawl_test_cases
+      if !cases.empty?
+        successful_count = cases.filter(&:successful).count
+        successful_count / cases.size
+      else
+        0
+      end
+    end
   end
 end
