@@ -11,6 +11,10 @@
       end
       table collection: @dashboard.property_rows, admin: :dashboard do
         column(:property) { |row| row[:property] }
+        column(:customizations) do |row|
+          customizations = row[:property].internal_test_options.try(:keys) || []
+          safe_join customizations.map { |name| content_tag(:span, name, class: "badge badge-light") }
+        end
     
         dashboard.runs.each_with_index do |run|
           header = get_header.call(run)
