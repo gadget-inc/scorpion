@@ -64,8 +64,7 @@ module CrawlTest
               success = false
             end,
             on_log: proc do |log|
-              test_case.logs << log
-              test_case.save!
+              CrawlTest::CaseLog.create!(crawl_test_case_id: test_case.id, message: log["message"], metadata: log["metadata"])
             end,
           )
 

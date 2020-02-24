@@ -499,6 +499,39 @@ ALTER SEQUENCE public.crawl_pages_id_seq OWNED BY public.crawl_pages.id;
 
 
 --
+-- Name: crawl_test_case_logs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.crawl_test_case_logs (
+    id bigint NOT NULL,
+    crawl_test_case_id bigint NOT NULL,
+    message character varying NOT NULL,
+    metadata jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: crawl_test_case_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.crawl_test_case_logs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: crawl_test_case_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.crawl_test_case_logs_id_seq OWNED BY public.crawl_test_case_logs.id;
+
+
+--
 -- Name: crawl_test_cases; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -510,7 +543,6 @@ CREATE TABLE public.crawl_test_cases (
     finished_at timestamp without time zone,
     running boolean DEFAULT false NOT NULL,
     successful boolean,
-    logs jsonb DEFAULT '[]'::jsonb NOT NULL,
     error jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
@@ -974,6 +1006,13 @@ ALTER TABLE ONLY public.crawl_pages ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: crawl_test_case_logs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_case_logs ALTER COLUMN id SET DEFAULT nextval('public.crawl_test_case_logs_id_seq'::regclass);
+
+
+--
 -- Name: crawl_test_cases id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1097,6 +1136,14 @@ ALTER TABLE ONLY public.crawl_attempts
 
 ALTER TABLE ONLY public.crawl_pages
     ADD CONSTRAINT crawl_pages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: crawl_test_case_logs crawl_test_case_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_case_logs
+    ADD CONSTRAINT crawl_test_case_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -1394,6 +1441,14 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 
 --
+-- Name: crawl_test_case_logs fk_rails_037f41b748; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.crawl_test_case_logs
+    ADD CONSTRAINT fk_rails_037f41b748 FOREIGN KEY (crawl_test_case_id) REFERENCES public.crawl_test_cases(id);
+
+
+--
 -- Name: misspelled_words fk_rails_06162183a8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1598,6 +1653,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200210194743'),
 ('20200210202750'),
 ('20200213161513'),
-('20200220191400');
+('20200220191400'),
+('20200224224023'),
+('20200224225719');
 
 

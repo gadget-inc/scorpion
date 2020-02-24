@@ -7,7 +7,6 @@
 #  error             :jsonb
 #  finished_at       :datetime
 #  last_html         :text
-#  logs              :jsonb            not null
 #  running           :boolean          default(FALSE), not null
 #  started_at        :datetime
 #  successful        :boolean
@@ -28,6 +27,7 @@
 class CrawlTest::Case < ApplicationRecord
   belongs_to :crawl_test_run, class_name: "CrawlTest::Run", optional: false, foreign_key: :crawl_test_run_id, inverse_of: :crawl_test_cases
   belongs_to :property, optional: false
+  has_many :logs, class_name: "CrawlTest::CaseLog", foreign_key: :crawl_test_case_id, inverse_of: :crawl_test_case, dependent: :destroy
 
   has_one_attached :screenshot
 end

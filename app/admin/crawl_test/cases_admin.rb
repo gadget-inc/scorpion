@@ -45,9 +45,9 @@ Trestle.resource(:cases, scope: CrawlTest) do
         concat tag.h3 "Logs (#{test_case.logs.size} total)"
         test_case.logs.map do |log|
           concat(tag.p do
-            tag.span { log["message"] } +
+            tag.span { log.message } +
             tag.code(style: "margin-left: 1rem") do
-              log["metadata"].inspect
+              log.metadata.inspect
             end
           end)
         end
