@@ -154,7 +154,7 @@ GEM
       rake (>= 10.4, < 14.0)
     ar_transaction_changes (1.1.4)
       activerecord (>= 4.2.4)
-    asset_sync (2.9.0)
+    asset_sync (2.9.1)
       activemodel (>= 4.1.0)
       fog-core
       mime-types (>= 2.99)
@@ -231,7 +231,7 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.2)
       tzinfo
-    excon (0.71.1)
+    excon (0.72.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.1.1)
