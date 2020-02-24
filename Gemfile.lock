@@ -64,13 +64,13 @@ GIT
 
 GIT
   remote: https://github.com/fog/fog-google.git
-  revision: abb11e9c72ef65a65d25ccff7f126691076bc227
+  revision: 91d9046fc65ef4ccb739fd20579f4aa0b99ab411
   specs:
     fog-google (1.9.1)
       fog-core (<= 2.3.0)
       fog-json (~> 1.2)
       fog-xml (~> 0.1.0)
-      google-api-client (>= 0.23, < 0.34)
+      google-api-client (>= 0.32, < 0.34)
 
 GIT
   remote: https://github.com/que-rb/que.git
@@ -231,7 +231,7 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.2)
       tzinfo
-    excon (0.71.1)
+    excon (0.72.0)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
     factory_bot_rails (5.1.1)
