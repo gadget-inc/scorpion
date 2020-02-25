@@ -13,6 +13,9 @@
     
       table collection: @dashboard.property_rows, admin: :dashboard do
         column(:property) { |row| row[:property] }
+        column(:internal_tags) do |row|
+          safe_join row[:property].internal_tags.map { |tag| content_tag(:span, tag, class: "badge badge-secondary") }
+        end
         column(:customizations) do |row|
           customizations = row[:property].internal_test_options.try(:keys) || []
           safe_join customizations.map { |name| content_tag(:span, name, class: "badge badge-light") }
