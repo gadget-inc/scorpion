@@ -39,7 +39,7 @@ module ShopifyAuthenticated
       @shop_session = details[:api_session]
       @current_provider_identity = details[:identity]
       @current_account = @current_user.permissioned_accounts.first
-      @current_shop = ShopifyShop.where(account_id: @current_account.id).first
+      @current_shop = ShopifyShop.kept.where(account_id: @current_account.id).first
     end
 
     @shop_session

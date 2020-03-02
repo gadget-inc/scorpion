@@ -5,7 +5,7 @@ module ShopifyData
 
     def run(shop_domain:)
       Rails.logger.info("Sync events webhook")
-      shop = ShopifyShop.find_by(domain: shop_domain)
+      shop = ShopifyShop.kept.find_by(domain: shop_domain)
       ShopifyData::EventsSync.new(shop).run
     end
   end

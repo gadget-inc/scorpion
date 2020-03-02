@@ -4,18 +4,19 @@
 #
 # Table name: shopify_shops
 #
-#  id          :bigint           not null, primary key
-#  api_token   :string           not null
-#  domain      :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  account_id  :bigint           not null
-#  creator_id  :bigint
-#  property_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  api_token    :string           not null
+#  discarded_at :datetime
+#  domain       :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  account_id   :bigint           not null
+#  creator_id   :bigint
+#  property_id  :bigint           not null
 #
 # Indexes
 #
-#  index_shopify_shops_on_domain  (domain) UNIQUE
+#  index_shopify_shops_on_discarded_at_and_domain  (discarded_at,domain)
 #
 # Foreign Keys
 #
@@ -26,6 +27,7 @@
 
 class ShopifyShop < ApplicationRecord
   include AccountScoped
+  include Discard::Model
 
   validates :api_token, presence: true
   validates :api_version, presence: true

@@ -4,7 +4,7 @@ namespace :dev do
   task :env_vars => :environment do
     SemanticLogger.default_level = :warn
 
-    shop = ShopifyShop.first
+    shop = ShopifyShop.kept.first
 
     env = {
       SHOPIFY_SHOP_OAUTH_DOMAIN: shop.domain,

@@ -959,7 +959,8 @@ CREATE TABLE public.shopify_shops (
     account_id bigint NOT NULL,
     creator_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    discarded_at timestamp without time zone
 );
 
 
@@ -1469,10 +1470,10 @@ CREATE UNIQUE INDEX index_que_scheduler_audit_on_scheduler_job_id ON public.que_
 
 
 --
--- Name: index_shopify_shops_on_domain; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopify_shops_on_discarded_at_and_domain; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_shopify_shops_on_domain ON public.shopify_shops USING btree (domain);
+CREATE INDEX index_shopify_shops_on_discarded_at_and_domain ON public.shopify_shops USING btree (discarded_at, domain);
 
 
 --
@@ -1805,6 +1806,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200302134427'),
 ('20200302135549'),
 ('20200302153310'),
-('20200302194320');
+('20200302194320'),
+('20200302205817');
 
 
