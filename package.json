@@ -82,7 +82,7 @@
     "react-dom": "^16.11.0",
     "react-gravatar": "^2.6.3",
     "react-helmet": "^5.2.1",
-    "react-loads": "^8.4.0",
+    "react-loads": "^9.1.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-select": "^3.0.4",
