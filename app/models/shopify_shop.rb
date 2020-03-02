@@ -34,6 +34,8 @@ class ShopifyShop < ApplicationRecord
   belongs_to :property
   belongs_to :creator, class_name: "User", optional: false
 
+  has_many :data_events, class_name: "ShopifyData::Event", dependent: :destroy
+
   def api_version
     ShopifyApp.configuration.api_version
   end

@@ -6,7 +6,7 @@
 #
 #  id            :bigint           not null, primary key
 #  discarded_at  :datetime
-#  internal_tags :string           default([]), not null, is an Array
+#  internal_tags :string           default("{}"), not null, is an Array
 #  name          :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

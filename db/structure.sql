@@ -907,6 +907,47 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: shopify_data_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_events (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    shopify_shop_id bigint NOT NULL,
+    event_id bigint NOT NULL,
+    subject_id bigint NOT NULL,
+    verb character varying NOT NULL,
+    path character varying,
+    author character varying,
+    body character varying,
+    description character varying,
+    arguments character varying,
+    shopify_created_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_events_id_seq OWNED BY public.shopify_data_events.id;
+
+
+--
 -- Name: shopify_shops; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1123,6 +1164,13 @@ ALTER TABLE ONLY public.que_jobs ALTER COLUMN id SET DEFAULT nextval('public.que
 
 
 --
+-- Name: shopify_data_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_events ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_events_id_seq'::regclass);
+
+
+--
 -- Name: shopify_shops id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1309,6 +1357,14 @@ ALTER TABLE ONLY public.que_values
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: shopify_data_events shopify_data_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_events
+    ADD CONSTRAINT shopify_data_events_pkey PRIMARY KEY (id);
 
 
 --
@@ -1579,11 +1635,27 @@ ALTER TABLE ONLY public.properties
 
 
 --
+-- Name: shopify_data_events fk_rails_7d54c4df71; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_events
+    ADD CONSTRAINT fk_rails_7d54c4df71 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: crawl_attempts fk_rails_93ab1bfe63; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.crawl_attempts
     ADD CONSTRAINT fk_rails_93ab1bfe63 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
+-- Name: shopify_data_events fk_rails_a18d4c7a4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_events
+    ADD CONSTRAINT fk_rails_a18d4c7a4f FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
 
 
 --
@@ -1732,6 +1804,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200224225719'),
 ('20200302134427'),
 ('20200302135549'),
-('20200302153310');
+('20200302153310'),
+('20200302194320');
 
 

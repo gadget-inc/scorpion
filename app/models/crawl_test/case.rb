@@ -7,7 +7,7 @@
 #  error             :jsonb
 #  finished_at       :datetime
 #  last_html         :text
-#  running           :boolean          default(FALSE), not null
+#  running           :boolean          default("false"), not null
 #  started_at        :datetime
 #  successful        :boolean
 #  created_at        :datetime         not null

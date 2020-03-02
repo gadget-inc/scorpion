@@ -39,6 +39,7 @@ class ActiveSupport::TestCase
 
   teardown do
     OmniAuth.config.mock_auth[:shopify] = nil
+    Timecop.return
   end
 
   def with_synchronous_jobs

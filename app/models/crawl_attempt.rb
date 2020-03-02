@@ -8,7 +8,7 @@
 #  failure_reason   :string
 #  finished_at      :datetime
 #  last_progress_at :datetime
-#  running          :boolean          default(FALSE), not null
+#  running          :boolean          default("false"), not null
 #  started_at       :datetime
 #  started_reason   :string           not null
 #  succeeded        :boolean

@@ -13,6 +13,21 @@ ShopifyApp.configure do |config|
   config.after_authenticate_job = false
   config.api_version = "2020-01"
   config.session_repository = "Infrastructure::ShopifyUserSessionRepository"
+
+  config.webhook_jobs_namespace = "shopify_data"
+  config.webhooks = [
+    { topic: "app/uninstalled", address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/app_uninstalled", format: "json" },
+  ] + [
+    "products/create",
+    "products/update",
+    "products/delete",
+    "collections/create",
+    "collections/update",
+    "collections/delete",
+    "shop/update",
+  ].map do |topic|
+    { topic: topic, address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/sync_events", format: "json" }
+  end
 end
 
 ShopifyAPI::Base.api_version = "2020-01"

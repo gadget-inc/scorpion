@@ -1,0 +1,1615 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?created_at_min=2020-02-23%2000:00:00%20UTC&limit=5
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:37 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d28b52a5df38a0feeb8ab494dc2c62b471583181577; expires=Wed, 01-Apr-20
+        20:39:37 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwibGFzdF9pZCI6NDE2OTMwNjI2OTI5OTUsImxhc3RfdmFsdWUiOiI0MTY5MzA2MjY5Mjk5NSIsImRpcmVjdGlvbiI6Im5leHQifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 146f153d-fc68-43c0-8ce7-2d5a23b24c71
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=146f153d-fc68-43c0-8ce7-2d5a23b24c71'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=146f153d-fc68-43c0-8ce7-2d5a23b24c71
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56dded9cab24f999-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693053124739,"subject_id":4596503314563,"created_at":"2020-03-02T15:36:31-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        |AUTHENTIC | LO PRO | BURGANDY\/WHITE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503314563\"\u003eVANS
+        |AUTHENTIC | LO PRO | BURGANDY\/WHITE\u003c\/a\u003e.","author":"Simple Sample
+        Data","description":"Simple Sample Data created a new product: VANS |AUTHENTIC
+        | LO PRO | BURGANDY\/WHITE.","path":"\/admin\/products\/4596503314563"},{"id":41693054992515,"subject_id":4596503412867,"created_at":"2020-03-02T15:36:36-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | AUTHENTIC | (MULTI EYELETS) | GRADIENT\/CRIMSON","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503412867\"\u003eVANS
+        | AUTHENTIC | (MULTI EYELETS) | GRADIENT\/CRIMSON\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: VANS
+        | AUTHENTIC | (MULTI EYELETS) | GRADIENT\/CRIMSON.","path":"\/admin\/products\/4596503412867"},{"id":41693057351811,"subject_id":4596503445635,"created_at":"2020-03-02T15:36:41-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | AUTHENTIC (BUTTERFLY) TRUE | WHITE \/ BLACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503445635\"\u003eVANS
+        | AUTHENTIC (BUTTERFLY) TRUE | WHITE \/ BLACK\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: VANS
+        | AUTHENTIC (BUTTERFLY) TRUE | WHITE \/ BLACK.","path":"\/admin\/products\/4596503445635"},{"id":41693059874947,"subject_id":4596503511171,"created_at":"2020-03-02T15:36:46-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | \nERA 59 MOROCCAN | GEO\/DRESS BLUES","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503511171\"\u003eVANS
+        | \nERA 59 MOROCCAN | GEO\/DRESS BLUES\u003c\/a\u003e.","author":"Simple Sample
+        Data","description":"Simple Sample Data created a new product: VANS | \nERA
+        59 MOROCCAN | GEO\/DRESS BLUES.","path":"\/admin\/products\/4596503511171"},{"id":41693062692995,"subject_id":4596503642243,"created_at":"2020-03-02T15:36:52-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | SK8-HI DECON (CUTOUT)| LEAVES\/WHITE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503642243\"\u003eVANS
+        | SK8-HI DECON (CUTOUT)| LEAVES\/WHITE\u003c\/a\u003e.","author":"Simple Sample
+        Data","description":"Simple Sample Data created a new product: VANS | SK8-HI
+        DECON (CUTOUT)| LEAVES\/WHITE.","path":"\/admin\/products\/4596503642243"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwibGFzdF9pZCI6NDE2OTMwNjI2OTI5OTUsImxhc3RfdmFsdWUiOiI0MTY5MzA2MjY5Mjk5NSIsImRpcmVjdGlvbiI6Im5leHQifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=dded6084790207ebce7ee44d060b05d1a1583181578; expires=Wed, 01-Apr-20
+        20:39:38 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMDY2NjkwNjkxLCJsYXN0X3ZhbHVlIjoiNDE2OTMwNjY2OTA2OTEifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMDgxMDc1ODQzLCJsYXN0X3ZhbHVlIjoiNDE2OTMwODEwNzU4NDMifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 37659928-b323-40dd-b823-1d1e3e25c775
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=37659928-b323-40dd-b823-1d1e3e25c775'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=37659928-b323-40dd-b823-1d1e3e25c775
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56dded9edd23f979-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693066690691,"subject_id":4596503806083,"created_at":"2020-03-02T15:36:57-05:00","subject_type":"Product","verb":"create","arguments":["PALLADIUM
+        | PALLATECH HI TX | CHEVRON","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503806083\"\u003ePALLADIUM
+        | PALLATECH HI TX | CHEVRON\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: PALLADIUM | PALLATECH HI TX | CHEVRON.","path":"\/admin\/products\/4596503806083"},{"id":41693071147139,"subject_id":4596503871619,"created_at":"2020-03-02T15:37:02-05:00","subject_type":"Product","verb":"create","arguments":["ASICS
+        TIGER | GEL-LYTE V ''30 YEARS OF GEL'' PACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503871619\"\u003eASICS
+        TIGER | GEL-LYTE V \u0026#39;30 YEARS OF GEL\u0026#39; PACK\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: ASICS
+        TIGER | GEL-LYTE V ''30 YEARS OF GEL'' PACK.","path":"\/admin\/products\/4596503871619"},{"id":41693073539203,"subject_id":4596503969923,"created_at":"2020-03-02T15:37:07-05:00","subject_type":"Product","verb":"create","arguments":["PUMA
+        | SUEDE CLASSIC REGAL","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596503969923\"\u003ePUMA
+        | SUEDE CLASSIC REGAL\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: PUMA | SUEDE CLASSIC REGAL.","path":"\/admin\/products\/4596503969923"},{"id":41693076357251,"subject_id":4596504133763,"created_at":"2020-03-02T15:37:12-05:00","subject_type":"Product","verb":"create","arguments":["SUPRA
+        | MENS VAIDER","api_client_id",1608003],"body":null,"message":"Simple Sample
+        Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504133763\"\u003eSUPRA
+        | MENS VAIDER\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: SUPRA | MENS VAIDER.","path":"\/admin\/products\/4596504133763"},{"id":41693081075843,"subject_id":4596504232067,"created_at":"2020-03-02T15:37:18-05:00","subject_type":"Product","verb":"create","arguments":["ADIDAS
+        | SUPERSTAR 80S","api_client_id",1608003],"body":null,"message":"Simple Sample
+        Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504232067\"\u003eADIDAS
+        | SUPERSTAR 80S\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: ADIDAS | SUPERSTAR 80S.","path":"\/admin\/products\/4596504232067"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMDgxMDc1ODQzLCJsYXN0X3ZhbHVlIjoiNDE2OTMwODEwNzU4NDMifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d746592a8ddefb6d6a62a4dd041afb4761583181578; expires=Wed, 01-Apr-20
+        20:39:38 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMDg1MTM5MDc1LCJsYXN0X3ZhbHVlIjoiNDE2OTMwODUxMzkwNzUifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMDk4MjQ2Mjc1LCJsYXN0X3ZhbHVlIjoiNDE2OTMwOTgyNDYyNzUifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 543e5b69-2251-471e-a701-e4c58f191b28
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=543e5b69-2251-471e-a701-e4c58f191b28'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=543e5b69-2251-471e-a701-e4c58f191b28
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddeda0dfeac54c-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693085139075,"subject_id":4596504395907,"created_at":"2020-03-02T15:37:24-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | ERA 59 (DESERT COWBOY)","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504395907\"\u003eVANS
+        | ERA 59 (DESERT COWBOY)\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: VANS | ERA 59 (DESERT COWBOY).","path":"\/admin\/products\/4596504395907"},{"id":41693087465603,"subject_id":4596504526979,"created_at":"2020-03-02T15:37:28-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | SH-8 HI","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504526979\"\u003eVANS
+        | SH-8 HI\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: VANS | SH-8 HI.","path":"\/admin\/products\/4596504526979"},{"id":41693091037315,"subject_id":4596504690819,"created_at":"2020-03-02T15:37:34-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | OLD SKOOL (BUTTERFLY) TRUE WHITE | BLACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504690819\"\u003eVANS
+        | OLD SKOOL (BUTTERFLY) TRUE WHITE | BLACK\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: VANS
+        | OLD SKOOL (BUTTERFLY) TRUE WHITE | BLACK.","path":"\/admin\/products\/4596504690819"},{"id":41693093724291,"subject_id":4596504887427,"created_at":"2020-03-02T15:37:39-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        | CLASSIC SLIP-ON (PERFORATED SUEDE)","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596504887427\"\u003eVANS
+        | CLASSIC SLIP-ON (PERFORATED SUEDE)\u003c\/a\u003e.","author":"Simple Sample
+        Data","description":"Simple Sample Data created a new product: VANS | CLASSIC
+        SLIP-ON (PERFORATED SUEDE).","path":"\/admin\/products\/4596504887427"},{"id":41693098246275,"subject_id":4596505116803,"created_at":"2020-03-02T15:37:45-05:00","subject_type":"Product","verb":"create","arguments":["TIMBERLAND
+        | MENS 6 INCH PREMIUM BOOT","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505116803\"\u003eTIMBERLAND
+        | MENS 6 INCH PREMIUM BOOT\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: TIMBERLAND | MENS 6 INCH PREMIUM BOOT.","path":"\/admin\/products\/4596505116803"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMDk4MjQ2Mjc1LCJsYXN0X3ZhbHVlIjoiNDE2OTMwOTgyNDYyNzUifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d02107ba1692170f57317f461e19e9a131583181578; expires=Wed, 01-Apr-20
+        20:39:38 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTAwODAyMTc5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxMDA4MDIxNzkifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTEzMTg4NDgzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxMTMxODg0ODMifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 9d6fa087-18eb-45e6-bd87-e7202e0fc216
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=9d6fa087-18eb-45e6-bd87-e7202e0fc216'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=9d6fa087-18eb-45e6-bd87-e7202e0fc216
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddeda31e75cac8-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693100802179,"subject_id":4596505215107,"created_at":"2020-03-02T15:37:51-05:00","subject_type":"Product","verb":"create","arguments":["NIKE
+        | CRACKLE PRINT TB TEE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505215107\"\u003eNIKE
+        | CRACKLE PRINT TB TEE\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: NIKE | CRACKLE PRINT TB TEE.","path":"\/admin\/products\/4596505215107"},{"id":41693103587459,"subject_id":4596505378947,"created_at":"2020-03-02T15:37:55-05:00","subject_type":"Product","verb":"create","arguments":["DR
+        MARTENS | 1461 DMC 3-EYE SHOE | BLACK SMOOTH","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505378947\"\u003eDR
+        MARTENS | 1461 DMC 3-EYE SHOE | BLACK SMOOTH\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: DR MARTENS
+        | 1461 DMC 3-EYE SHOE | BLACK SMOOTH.","path":"\/admin\/products\/4596505378947"},{"id":41693106602115,"subject_id":4596505510019,"created_at":"2020-03-02T15:38:01-05:00","subject_type":"Product","verb":"create","arguments":["DR
+        MARTENS | CAVENDISH 3-EYE SHOE BLACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505510019\"\u003eDR
+        MARTENS | CAVENDISH 3-EYE SHOE BLACK\u003c\/a\u003e.","author":"Simple Sample
+        Data","description":"Simple Sample Data created a new product: DR MARTENS
+        | CAVENDISH 3-EYE SHOE BLACK.","path":"\/admin\/products\/4596505510019"},{"id":41693109289091,"subject_id":4596505673859,"created_at":"2020-03-02T15:38:07-05:00","subject_type":"Product","verb":"create","arguments":["DR
+        MARTENS | 1460Z DMC 8-EYE BOOT | CHERRY SMOOTH","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505673859\"\u003eDR
+        MARTENS | 1460Z DMC 8-EYE BOOT | CHERRY SMOOTH\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: DR MARTENS
+        | 1460Z DMC 8-EYE BOOT | CHERRY SMOOTH.","path":"\/admin\/products\/4596505673859"},{"id":41693113188483,"subject_id":4596505837699,"created_at":"2020-03-02T15:38:13-05:00","subject_type":"Product","verb":"create","arguments":["CONVERSE
+        | CHUCK TAYLOR ALL STAR LO","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505837699\"\u003eCONVERSE
+        | CHUCK TAYLOR ALL STAR LO\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: CONVERSE | CHUCK TAYLOR ALL STAR LO.","path":"\/admin\/products\/4596505837699"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTEzMTg4NDgzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxMTMxODg0ODMifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=db865b90ac0bea43f7fb52f62eca939e51583181579; expires=Wed, 01-Apr-20
+        20:39:39 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTE2MzAxNDQzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxMTYzMDE0NDMifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTI4Nzg2MDUxLCJsYXN0X3ZhbHVlIjoiNDE2OTMxMjg3ODYwNTEifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 18c20f29-23d0-4e64-8f64-3a7c2e051989
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=18c20f29-23d0-4e64-8f64-3a7c2e051989'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=18c20f29-23d0-4e64-8f64-3a7c2e051989
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddeda4f86acacc-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693116301443,"subject_id":4596505936003,"created_at":"2020-03-02T15:38:19-05:00","subject_type":"Product","verb":"create","arguments":["CONVERSE
+        | CHUCK TAYLOR ALL STAR II HI","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596505936003\"\u003eCONVERSE
+        | CHUCK TAYLOR ALL STAR II HI\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: CONVERSE | CHUCK TAYLOR ALL STAR II HI.","path":"\/admin\/products\/4596505936003"},{"id":41693120069763,"subject_id":4596506001539,"created_at":"2020-03-02T15:38:26-05:00","subject_type":"Product","verb":"create","arguments":["CONVERSE
+        | TODDLER CHUCK TAYLOR ALL STAR AXEL MID","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506001539\"\u003eCONVERSE
+        | TODDLER CHUCK TAYLOR ALL STAR AXEL MID\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: CONVERSE
+        | TODDLER CHUCK TAYLOR ALL STAR AXEL MID.","path":"\/admin\/products\/4596506001539"},{"id":41693125476483,"subject_id":4596506132611,"created_at":"2020-03-02T15:38:33-05:00","subject_type":"Product","verb":"create","arguments":["NIKE
+        | TODDLER ROSHE ONE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506132611\"\u003eNIKE
+        | TODDLER ROSHE ONE\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: NIKE | TODDLER ROSHE ONE.","path":"\/admin\/products\/4596506132611"},{"id":41693127639171,"subject_id":4596506263683,"created_at":"2020-03-02T15:38:38-05:00","subject_type":"Product","verb":"create","arguments":["ADIDAS
+        | KID''S STAN SMITH","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506263683\"\u003eADIDAS
+        | KID\u0026#39;S STAN SMITH\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: ADIDAS | KID''S STAN SMITH.","path":"\/admin\/products\/4596506263683"},{"id":41693128786051,"subject_id":4596506296451,"created_at":"2020-03-02T15:38:40-05:00","subject_type":"Product","verb":"create","arguments":["VANS
+        APPAREL AND ACCESSORIES | CLASSIC SUPER NO SHOW SOCKS 3 PACK WHITE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506296451\"\u003eVANS
+        APPAREL AND ACCESSORIES | CLASSIC SUPER NO SHOW SOCKS 3 PACK WHITE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: VANS
+        APPAREL AND ACCESSORIES | CLASSIC SUPER NO SHOW SOCKS 3 PACK WHITE.","path":"\/admin\/products\/4596506296451"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTI4Nzg2MDUxLCJsYXN0X3ZhbHVlIjoiNDE2OTMxMjg3ODYwNTEifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d22ae89c0c348408f91527dfaa8293db71583181579; expires=Wed, 01-Apr-20
+        20:39:39 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 2/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTMwNzg0ODk5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxMzA3ODQ4OTkifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTM4NjQ5MjE5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxMzg2NDkyMTkifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - d7d4126b-d2b1-4104-9f6e-fe9ef94f31ca
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=d7d4126b-d2b1-4104-9f6e-fe9ef94f31ca'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=d7d4126b-d2b1-4104-9f6e-fe9ef94f31ca
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddeda74adeab82-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693130784899,"subject_id":4596506361987,"created_at":"2020-03-02T15:38:44-05:00","subject_type":"Product","verb":"create","arguments":["HERSCHEL
+        | IONA","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506361987\"\u003eHERSCHEL
+        | IONA\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: HERSCHEL | IONA.","path":"\/admin\/products\/4596506361987"},{"id":41693132193923,"subject_id":4596506525827,"created_at":"2020-03-02T15:38:47-05:00","subject_type":"Product","verb":"create","arguments":["FLEX
+        FIT | MINI OTTOMAN BLACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506525827\"\u003eFLEX
+        FIT | MINI OTTOMAN BLACK\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: FLEX FIT | MINI OTTOMAN BLACK.","path":"\/admin\/products\/4596506525827"},{"id":41693133832323,"subject_id":4596506656899,"created_at":"2020-03-02T15:38:52-05:00","subject_type":"Product","verb":"create","arguments":["NIKE
+        | SWOOSH PRO FLAT PEAK CAP","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506656899\"\u003eNIKE
+        | SWOOSH PRO FLAT PEAK CAP\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: NIKE | SWOOSH PRO FLAT PEAK CAP.","path":"\/admin\/products\/4596506656899"},{"id":41693134487683,"subject_id":4596506787971,"created_at":"2020-03-02T15:38:55-05:00","subject_type":"Product","verb":"create","arguments":["ADIDAS
+        | CLASSIC BACKPACK","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506787971\"\u003eADIDAS
+        | CLASSIC BACKPACK\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new product: ADIDAS | CLASSIC BACKPACK.","path":"\/admin\/products\/4596506787971"},{"id":41693138649219,"subject_id":4596506919043,"created_at":"2020-03-02T15:38:58-05:00","subject_type":"Product","verb":"create","arguments":["ADIDAS
+        | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new product: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/products\/4596506919043\"\u003eADIDAS
+        | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new product: ADIDAS
+        | CLASSIC BACKPACK | LEGEND INK MULTICOLOUR.","path":"\/admin\/products\/4596506919043"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTM4NjQ5MjE5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxMzg2NDkyMTkifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d793e8daf3c9a4b96a33cec173397048c1583181579; expires=Wed, 01-Apr-20
+        20:39:39 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTQwMTg5MzE1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDAxODkzMTUifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQxNjMxMTA3LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDE2MzExMDcifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - bf0e426d-3e1c-4248-b285-37526a529c4e
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=bf0e426d-3e1c-4248-b285-37526a529c4e'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=bf0e426d-3e1c-4248-b285-37526a529c4e
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedaa8f8071b9-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693140189315,"subject_id":172662587523,"created_at":"2020-03-02T15:38:59-05:00","subject_type":"Collection","verb":"create","arguments":["VANS","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662587523\"\u003eVANS\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: VANS.","path":"\/admin\/collections\/172662587523"},{"id":41693140287619,"subject_id":172662587523,"created_at":"2020-03-02T15:38:59-05:00","subject_type":"Collection","verb":"published","arguments":["VANS","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662587523\"\u003eVANS\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: VANS.","path":"\/admin\/collections\/172662587523"},{"id":41693141008515,"subject_id":172662620291,"created_at":"2020-03-02T15:39:00-05:00","subject_type":"Collection","verb":"create","arguments":["ADIDAS","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662620291\"\u003eADIDAS\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: ADIDAS.","path":"\/admin\/collections\/172662620291"},{"id":41693141041283,"subject_id":172662620291,"created_at":"2020-03-02T15:39:00-05:00","subject_type":"Collection","verb":"published","arguments":["ADIDAS","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662620291\"\u003eADIDAS\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: ADIDAS.","path":"\/admin\/collections\/172662620291"},{"id":41693141631107,"subject_id":172662653059,"created_at":"2020-03-02T15:39:02-05:00","subject_type":"Collection","verb":"create","arguments":["NIKE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662653059\"\u003eNIKE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: NIKE.","path":"\/admin\/collections\/172662653059"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQxNjMxMTA3LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDE2MzExMDcifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d29911cbbaa7b8a4bb52cc51503ce112e1583181580; expires=Wed, 01-Apr-20
+        20:39:40 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTQxNjk2NjQzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDE2OTY2NDMifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQ2MjUxMzk1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDYyNTEzOTUifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 35e8be1d-353e-4b51-aace-5b00fac9e9ff
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=35e8be1d-353e-4b51-aace-5b00fac9e9ff'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=35e8be1d-353e-4b51-aace-5b00fac9e9ff
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedad2cd3256b-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693141696643,"subject_id":172662653059,"created_at":"2020-03-02T15:39:02-05:00","subject_type":"Collection","verb":"published","arguments":["NIKE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662653059\"\u003eNIKE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: NIKE.","path":"\/admin\/collections\/172662653059"},{"id":41693143138435,"subject_id":172662685827,"created_at":"2020-03-02T15:39:03-05:00","subject_type":"Collection","verb":"create","arguments":["CONVERSE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662685827\"\u003eCONVERSE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: CONVERSE.","path":"\/admin\/collections\/172662685827"},{"id":41693143335043,"subject_id":172662685827,"created_at":"2020-03-02T15:39:03-05:00","subject_type":"Collection","verb":"published","arguments":["CONVERSE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662685827\"\u003eCONVERSE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: CONVERSE.","path":"\/admin\/collections\/172662685827"},{"id":41693146087555,"subject_id":172662718595,"created_at":"2020-03-02T15:39:05-05:00","subject_type":"Collection","verb":"create","arguments":["ASICS
+        TIGER","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662718595\"\u003eASICS
+        TIGER\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new collection: ASICS TIGER.","path":"\/admin\/collections\/172662718595"},{"id":41693146251395,"subject_id":172662718595,"created_at":"2020-03-02T15:39:05-05:00","subject_type":"Collection","verb":"published","arguments":["ASICS
+        TIGER","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662718595\"\u003eASICS
+        TIGER\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data published a collection: ASICS TIGER.","path":"\/admin\/collections\/172662718595"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQ2MjUxMzk1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDYyNTEzOTUifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d6051a9120635d2d21ea6f611ee0e8b941583181580; expires=Wed, 01-Apr-20
+        20:39:40 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTQ3NzI1OTU1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDc3MjU5NTUifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQ5MTAyMjExLCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDkxMDIyMTEifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 29b507f8-0e3b-4b60-b734-72ad5bf7d4e9
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=29b507f8-0e3b-4b60-b734-72ad5bf7d4e9'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=29b507f8-0e3b-4b60-b734-72ad5bf7d4e9
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedafa9b1715f-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693147725955,"subject_id":172662751363,"created_at":"2020-03-02T15:39:06-05:00","subject_type":"Collection","verb":"create","arguments":["PALLADUIM","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662751363\"\u003ePALLADUIM\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: PALLADUIM.","path":"\/admin\/collections\/172662751363"},{"id":41693147889795,"subject_id":172662751363,"created_at":"2020-03-02T15:39:06-05:00","subject_type":"Collection","verb":"published","arguments":["PALLADUIM","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662751363\"\u003ePALLADUIM\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: PALLADUIM.","path":"\/admin\/collections\/172662751363"},{"id":41693148676227,"subject_id":172662784131,"created_at":"2020-03-02T15:39:07-05:00","subject_type":"Collection","verb":"create","arguments":["PUMA","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662784131\"\u003ePUMA\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: PUMA.","path":"\/admin\/collections\/172662784131"},{"id":41693148807299,"subject_id":172662784131,"created_at":"2020-03-02T15:39:07-05:00","subject_type":"Collection","verb":"published","arguments":["PUMA","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662784131\"\u003ePUMA\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: PUMA.","path":"\/admin\/collections\/172662784131"},{"id":41693149102211,"subject_id":172662849667,"created_at":"2020-03-02T15:39:08-05:00","subject_type":"Collection","verb":"create","arguments":["SUPRA","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662849667\"\u003eSUPRA\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: SUPRA.","path":"\/admin\/collections\/172662849667"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTQ5MTAyMjExLCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDkxMDIyMTEifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=daa57dba7d357f875c54199e6d0a3dee31583181581; expires=Wed, 01-Apr-20
+        20:39:41 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 3/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTQ5MTY3NzQ3LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNDkxNjc3NDcifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTUwNzczMzc5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTA3NzMzNzkifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 3fbdd73a-b0c8-45d9-b588-ce1e686aa20b
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=3fbdd73a-b0c8-45d9-b588-ce1e686aa20b'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=3fbdd73a-b0c8-45d9-b588-ce1e686aa20b
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedb1ea5ce1da-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693149167747,"subject_id":172662849667,"created_at":"2020-03-02T15:39:08-05:00","subject_type":"Collection","verb":"published","arguments":["SUPRA","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662849667\"\u003eSUPRA\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: SUPRA.","path":"\/admin\/collections\/172662849667"},{"id":41693149724803,"subject_id":172662882435,"created_at":"2020-03-02T15:39:09-05:00","subject_type":"Collection","verb":"create","arguments":["TIMBERLAND","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662882435\"\u003eTIMBERLAND\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: TIMBERLAND.","path":"\/admin\/collections\/172662882435"},{"id":41693149823107,"subject_id":172662882435,"created_at":"2020-03-02T15:39:10-05:00","subject_type":"Collection","verb":"published","arguments":["TIMBERLAND","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662882435\"\u003eTIMBERLAND\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: TIMBERLAND.","path":"\/admin\/collections\/172662882435"},{"id":41693150740611,"subject_id":172662915203,"created_at":"2020-03-02T15:39:11-05:00","subject_type":"Collection","verb":"create","arguments":["DR
+        MARTENS","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662915203\"\u003eDR
+        MARTENS\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data created a new collection: DR MARTENS.","path":"\/admin\/collections\/172662915203"},{"id":41693150773379,"subject_id":172662915203,"created_at":"2020-03-02T15:39:11-05:00","subject_type":"Collection","verb":"published","arguments":["DR
+        MARTENS","api_client_id",1608003],"body":null,"message":"Simple Sample Data
+        published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662915203\"\u003eDR
+        MARTENS\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple
+        Sample Data published a collection: DR MARTENS.","path":"\/admin\/collections\/172662915203"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTUwNzczMzc5LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTA3NzMzNzkifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d7c1bcd4caa63cfb64879b8da64a0ce801583181581; expires=Wed, 01-Apr-20
+        20:39:41 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTUxNjkwODgzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTE2OTA4ODMifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTU0NzcxMDc1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTQ3NzEwNzUifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - 15a3232f-c9f8-4579-85d0-a7af6ab3cda4
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=15a3232f-c9f8-4579-85d0-a7af6ab3cda4'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=15a3232f-c9f8-4579-85d0-a7af6ab3cda4
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedb3abf7cab8-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693151690883,"subject_id":172662947971,"created_at":"2020-03-02T15:39:12-05:00","subject_type":"Collection","verb":"create","arguments":["HERSCHEL","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662947971\"\u003eHERSCHEL\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: HERSCHEL.","path":"\/admin\/collections\/172662947971"},{"id":41693151821955,"subject_id":172662947971,"created_at":"2020-03-02T15:39:12-05:00","subject_type":"Collection","verb":"published","arguments":["HERSCHEL","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662947971\"\u003eHERSCHEL\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: HERSCHEL.","path":"\/admin\/collections\/172662947971"},{"id":41693153427587,"subject_id":172662980739,"created_at":"2020-03-02T15:39:13-05:00","subject_type":"Collection","verb":"create","arguments":["FLEX
+        FIT","api_client_id",1608003],"body":null,"message":"Simple Sample Data created
+        a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662980739\"\u003eFLEX
+        FIT\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple Sample
+        Data created a new collection: FLEX FIT.","path":"\/admin\/collections\/172662980739"},{"id":41693153493123,"subject_id":172662980739,"created_at":"2020-03-02T15:39:13-05:00","subject_type":"Collection","verb":"published","arguments":["FLEX
+        FIT","api_client_id",1608003],"body":null,"message":"Simple Sample Data published
+        a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172662980739\"\u003eFLEX
+        FIT\u003c\/a\u003e.","author":"Simple Sample Data","description":"Simple Sample
+        Data published a collection: FLEX FIT.","path":"\/admin\/collections\/172662980739"},{"id":41693154771075,"subject_id":172663013507,"created_at":"2020-03-02T15:39:15-05:00","subject_type":"Collection","verb":"create","arguments":["MEN","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663013507\"\u003eMEN\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: MEN.","path":"\/admin\/collections\/172663013507"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTU0NzcxMDc1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTQ3NzEwNzUifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d4bf918275f2ce5c8d64c3a3013a5dc0c1583181581; expires=Wed, 01-Apr-20
+        20:39:41 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTU0ODAzODQzLCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTQ4MDM4NDMifQ>;
+        rel="previous", <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTU2NTczMzE1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTY1NzMzMTUifQ>;
+        rel="next"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - d0dda50c-1109-4e12-8ba8-f55af97ecf40
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=d0dda50c-1109-4e12-8ba8-f55af97ecf40'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=d0dda50c-1109-4e12-8ba8-f55af97ecf40
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedb638cfc508-ORD
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693154803843,"subject_id":172663013507,"created_at":"2020-03-02T15:39:16-05:00","subject_type":"Collection","verb":"published","arguments":["MEN","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663013507\"\u003eMEN\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: MEN.","path":"\/admin\/collections\/172663013507"},{"id":41693155983491,"subject_id":172663046275,"created_at":"2020-03-02T15:39:17-05:00","subject_type":"Collection","verb":"create","arguments":["WOMEN","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663046275\"\u003eWOMEN\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: WOMEN.","path":"\/admin\/collections\/172663046275"},{"id":41693156114563,"subject_id":172663046275,"created_at":"2020-03-02T15:39:17-05:00","subject_type":"Collection","verb":"published","arguments":["WOMEN","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663046275\"\u003eWOMEN\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: WOMEN.","path":"\/admin\/collections\/172663046275"},{"id":41693156540547,"subject_id":172663079043,"created_at":"2020-03-02T15:39:19-05:00","subject_type":"Collection","verb":"create","arguments":["KID","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663079043\"\u003eKID\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: KID.","path":"\/admin\/collections\/172663079043"},{"id":41693156573315,"subject_id":172663079043,"created_at":"2020-03-02T15:39:19-05:00","subject_type":"Collection","verb":"published","arguments":["KID","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663079043\"\u003eKID\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: KID.","path":"\/admin\/collections\/172663079043"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+- request:
+    method: get
+    uri: https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoibmV4dCIsImxhc3RfaWQiOjQxNjkzMTU2NTczMzE1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTY1NzMzMTUifQ
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.0.0 ActiveResource/5.1.0 Ruby/2.7.0
+      X-Shopify-Access-Token:
+      - "<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>"
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Mar 2020 20:39:42 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d1dba017f83b90dd6650ac50f4b04645b1583181582; expires=Wed, 01-Apr-20
+        20:39:42 GMT; path=/; domain=.myshopify.com; HttpOnly; SameSite=Lax
+      X-Sorting-Hat-Podid:
+      - '130'
+      X-Sorting-Hat-Shopid:
+      - '33682423939'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '33682423939'
+      X-Shardid:
+      - '130'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '3500207'
+      X-Stats-Apipermissionid:
+      - '224696107139'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 4/40
+      X-Shopify-Api-Version:
+      - 2020-01
+      Link:
+      - <https://<SHOPIFY_SHOP_OAUTH_DOMAIN>/admin/api/2020-01/events.json?limit=5&page_info=eyJjcmVhdGVkX2F0X21pbiI6IjIwMjAtMDItMjMgMDA6MDA6MDAgVVRDIiwiZGlyZWN0aW9uIjoicHJldiIsImxhc3RfaWQiOjQxNjkzMTU3NTU2MzU1LCJsYXN0X3ZhbHVlIjoiNDE2OTMxNTc1NTYzNTUifQ>;
+        rel="previous"
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Request-Id:
+      - '04713976-a458-408c-9abd-38e72c3575c2'
+      X-Shopify-Stage:
+      - canary
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopify.cn
+        https://checkout.shopifycs.com https://js-agent.newrelic.com https://bam.nr-data.net
+        https://api.stripe.com https://mpsnare.iesnare.com https://appcenter.intuit.com
+        https://www.paypal.com https://js.braintreegateway.com https://c.paypal.com
+        https://maps.googleapis.com https://www.google-analytics.com https://v.shopify.com
+        https://widget.intercom.io https://js.intercomcdn.com ''self'' ''unsafe-inline''
+        ''unsafe-eval''; upgrade-insecure-requests; report-uri /csp-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=04713976-a458-408c-9abd-38e72c3575c2'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=index&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fevents&source%5Bsection%5D=admin_api&source%5Buuid%5D=04713976-a458-408c-9abd-38e72c3575c2
+      X-Dc:
+      - gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"failure_fraction":0.01,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifycloud.com/v1/reports/nel/20190325/shopify"}]}'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-25=":443"; ma=86400, h3-24=":443"; ma=86400, h3-23=":443";
+        ma=86400
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 56ddedb7ff4dab3a-YYZ
+    body:
+      encoding: ASCII-8BIT
+      string: '{"events":[{"id":41693157556355,"subject_id":172663144579,"created_at":"2020-03-02T15:39:20-05:00","subject_type":"Collection","verb":"create","arguments":["SALE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data created a new collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663144579\"\u003eSALE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data created a new collection: SALE.","path":"\/admin\/collections\/172663144579"},{"id":41693157621891,"subject_id":172663144579,"created_at":"2020-03-02T15:39:20-05:00","subject_type":"Collection","verb":"published","arguments":["SALE","api_client_id",1608003],"body":null,"message":"Simple
+        Sample Data published a collection: \u003ca href=\"https:\/\/<SHOPIFY_SHOP_OAUTH_DOMAIN>\/admin\/collections\/172663144579\"\u003eSALE\u003c\/a\u003e.","author":"Simple
+        Sample Data","description":"Simple Sample Data published a collection: SALE.","path":"\/admin\/collections\/172663144579"}]}'
+    http_version: null
+  recorded_at: Sun, 01 Mar 2020 00:00:00 GMT
+recorded_with: VCR 5.1.0

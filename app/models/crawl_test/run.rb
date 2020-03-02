@@ -7,8 +7,8 @@
 #  endpoint          :string           not null
 #  name              :string           not null
 #  property_criteria :string
-#  property_limit    :integer          default(50), not null
-#  running           :boolean          default(FALSE), not null
+#  property_limit    :integer          default("50"), not null
+#  running           :boolean          default("false"), not null
 #  started_by        :string           not null
 #  successful        :boolean
 #  created_at        :datetime         not null

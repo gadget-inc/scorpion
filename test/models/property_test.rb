@@ -6,11 +6,11 @@
 #
 #  id                    :bigint           not null, primary key
 #  allowed_domains       :string           not null, is an Array
-#  ambient               :boolean          default(FALSE)
+#  ambient               :boolean          default("false")
 #  crawl_roots           :string           not null, is an Array
 #  discarded_at          :datetime
-#  enabled               :boolean          default(TRUE), not null
-#  internal_tags         :string           default([]), is an Array
+#  enabled               :boolean          default("true"), not null
+#  internal_tags         :string           default("{}"), is an Array
 #  internal_test_options :jsonb
 #  name                  :string           not null
 #  created_at            :datetime         not null

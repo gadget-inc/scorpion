@@ -694,6 +694,7 @@ DEPENDENCIES
   redis (~> 4.1)
   request_store
   rest-client
+  retriable (~> 3.1)
   rubocop
   rubocop-performance
   rubocop-rails

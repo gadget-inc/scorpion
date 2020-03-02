@@ -7,8 +7,8 @@
 #  id            :bigint           not null, primary key
 #  email         :string           not null
 #  full_name     :string
-#  internal_tags :string           default([]), not null, is an Array
-#  sign_in_count :integer          default(0), not null
+#  internal_tags :string           default("{}"), not null, is an Array
+#  sign_in_count :integer          default("0"), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
