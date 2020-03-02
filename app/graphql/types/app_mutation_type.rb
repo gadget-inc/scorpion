@@ -2,7 +2,6 @@
 
 class Types::AppMutationType < Types::BaseObject
   # Identity
-  field :invite_user, mutation: Mutations::Identity::InviteUser
   field :update_account, mutation: Mutations::Identity::UpdateAccount
 
   # Infrastructure

@@ -1,7 +1,7 @@
 // THIS IS A GENERATED FILE! You shouldn't edit it manually. Regenerate it using `yarn generate-graphql`.
 import gql from 'graphql-tag';
-import * as React from 'react';
 import * as ApolloReactCommon from '@apollo/react-common';
+import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
@@ -40,7 +40,6 @@ export type AppMutation = {
    __typename: 'AppMutation',
   attachDirectUploadedFile?: Maybe<AttachDirectUploadedFilePayload>,
   attachRemoteUrl?: Maybe<AttachRemoteUrlPayload>,
-  inviteUser?: Maybe<InviteUserPayload>,
   updateAccount?: Maybe<UpdateAccountPayload>,
 };
 
@@ -56,11 +55,6 @@ export type AppMutationAttachRemoteUrlArgs = {
   url: Scalars['String'],
   attachmentContainerId: Scalars['ID'],
   attachmentContainerType: AttachmentContainerEnum
-};
-
-
-export type AppMutationInviteUserArgs = {
-  user: UserInviteAttributes
 };
 
 
@@ -115,12 +109,6 @@ export type BusinessLine = {
   name: Scalars['String'],
 };
 
-export type InviteUserPayload = {
-   __typename: 'InviteUserPayload',
-  errors?: Maybe<Array<MutationError>>,
-  success: Scalars['Boolean'],
-};
-
 
 
 export type MutationError = {
@@ -173,97 +161,6 @@ export type UserEdge = {
   node?: Maybe<User>,
 };
 
-export type UserInviteAttributes = {
-  mutationClientId?: Maybe<Scalars['MutationClientId']>,
-  email: Scalars['String'],
-};
-
-export type SiderInfoQueryVariables = {};
-
-
-export type SiderInfoQuery = (
-  { __typename: 'AppQuery' }
-  & { currentUser: (
-    { __typename: 'User' }
-    & Pick<User, 'email' | 'fullName' | 'authAreaUrl'>
-    & { accounts: Array<(
-      { __typename: 'Account' }
-      & Pick<Account, 'id'>
-    )> }
-    & UserCardFragment
-  ), currentAccount: (
-    { __typename: 'Account' }
-    & Pick<Account, 'name'>
-  ) }
-);
-
-export type UserCardFragment = (
-  { __typename: 'User' }
-  & Pick<User, 'id' | 'email' | 'primaryTextIdentifier'>
-);
-
-export type GetAccountForSettingsQueryVariables = {};
-
-
-export type GetAccountForSettingsQuery = (
-  { __typename: 'AppQuery' }
-  & { account: (
-    { __typename: 'Account' }
-    & Pick<Account, 'id' | 'name'>
-  ) }
-);
-
-export type UpdateAccountSettingsMutationVariables = {
-  attributes: AccountAttributes
-};
-
-
-export type UpdateAccountSettingsMutation = (
-  { __typename: 'AppMutation' }
-  & { updateAccount: Maybe<(
-    { __typename: 'UpdateAccountPayload' }
-    & { account: Maybe<(
-      { __typename: 'Account' }
-      & Pick<Account, 'id' | 'name'>
-    )>, errors: Maybe<Array<(
-      { __typename: 'MutationError' }
-      & Pick<MutationError, 'fullMessage'>
-    )>> }
-  )> }
-);
-
-export type InviteNewUserMutationVariables = {
-  user: UserInviteAttributes
-};
-
-
-export type InviteNewUserMutation = (
-  { __typename: 'AppMutation' }
-  & { inviteUser: Maybe<(
-    { __typename: 'InviteUserPayload' }
-    & Pick<InviteUserPayload, 'success'>
-    & { errors: Maybe<Array<(
-      { __typename: 'MutationError' }
-      & Pick<MutationError, 'fullMessage'>
-    )>> }
-  )> }
-);
-
-export type GetUsersForSettingsQueryVariables = {};
-
-
-export type GetUsersForSettingsQuery = (
-  { __typename: 'AppQuery' }
-  & { users: (
-    { __typename: 'UserConnection' }
-    & { nodes: Array<(
-      { __typename: 'User' }
-      & Pick<User, 'id' | 'fullName' | 'email' | 'pendingInvitation'>
-      & UserCardFragment
-    )> }
-  ) }
-);
-
 export type AttachUploadToContainerMutationVariables = {
   directUploadSignedId: Scalars['String'],
   attachmentContainerId: Scalars['ID'],
@@ -302,228 +199,7 @@ export type AttachRemoteUrlToContainerMutation = (
   )> }
 );
 
-export const UserCardFragmentDoc = gql`
-    fragment UserCard on User {
-  id
-  email
-  primaryTextIdentifier
-}
-    `;
-export const SiderInfoDocument = gql`
-    query SiderInfo {
-  currentUser {
-    email
-    fullName
-    authAreaUrl
-    ...UserCard
-    accounts {
-      id
-    }
-  }
-  currentAccount {
-    name
-  }
-}
-    ${UserCardFragmentDoc}`;
-export type SiderInfoComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<SiderInfoQuery, SiderInfoQueryVariables>, 'query'>;
 
-    export const SiderInfoComponent = (props: SiderInfoComponentProps) => (
-      <ApolloReactComponents.Query<SiderInfoQuery, SiderInfoQueryVariables> query={SiderInfoDocument} {...props} />
-    );
-    
-
-/**
- * __useSiderInfoQuery__
- *
- * To run a query within a React component, call `useSiderInfoQuery` and pass it any options that fit your needs.
- * When your component renders, `useSiderInfoQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSiderInfoQuery({
- *   variables: {
- *   },
- * });
- */
-export function useSiderInfoQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SiderInfoQuery, SiderInfoQueryVariables>) {
-        return ApolloReactHooks.useQuery<SiderInfoQuery, SiderInfoQueryVariables>(SiderInfoDocument, baseOptions);
-      }
-export function useSiderInfoLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SiderInfoQuery, SiderInfoQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<SiderInfoQuery, SiderInfoQueryVariables>(SiderInfoDocument, baseOptions);
-        }
-export type SiderInfoQueryHookResult = ReturnType<typeof useSiderInfoQuery>;
-export type SiderInfoLazyQueryHookResult = ReturnType<typeof useSiderInfoLazyQuery>;
-export type SiderInfoQueryResult = ApolloReactCommon.QueryResult<SiderInfoQuery, SiderInfoQueryVariables>;
-export const GetAccountForSettingsDocument = gql`
-    query GetAccountForSettings {
-  account: currentAccount {
-    id
-    name
-  }
-}
-    `;
-export type GetAccountForSettingsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>, 'query'>;
-
-    export const GetAccountForSettingsComponent = (props: GetAccountForSettingsComponentProps) => (
-      <ApolloReactComponents.Query<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables> query={GetAccountForSettingsDocument} {...props} />
-    );
-    
-
-/**
- * __useGetAccountForSettingsQuery__
- *
- * To run a query within a React component, call `useGetAccountForSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccountForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAccountForSettingsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAccountForSettingsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>(GetAccountForSettingsDocument, baseOptions);
-      }
-export function useGetAccountForSettingsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>(GetAccountForSettingsDocument, baseOptions);
-        }
-export type GetAccountForSettingsQueryHookResult = ReturnType<typeof useGetAccountForSettingsQuery>;
-export type GetAccountForSettingsLazyQueryHookResult = ReturnType<typeof useGetAccountForSettingsLazyQuery>;
-export type GetAccountForSettingsQueryResult = ApolloReactCommon.QueryResult<GetAccountForSettingsQuery, GetAccountForSettingsQueryVariables>;
-export const UpdateAccountSettingsDocument = gql`
-    mutation UpdateAccountSettings($attributes: AccountAttributes!) {
-  updateAccount(attributes: $attributes) {
-    account {
-      id
-      name
-    }
-    errors {
-      fullMessage
-    }
-  }
-}
-    `;
-export type UpdateAccountSettingsMutationFn = ApolloReactCommon.MutationFunction<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables>;
-export type UpdateAccountSettingsComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables>, 'mutation'>;
-
-    export const UpdateAccountSettingsComponent = (props: UpdateAccountSettingsComponentProps) => (
-      <ApolloReactComponents.Mutation<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables> mutation={UpdateAccountSettingsDocument} {...props} />
-    );
-    
-
-/**
- * __useUpdateAccountSettingsMutation__
- *
- * To run a mutation, you first call `useUpdateAccountSettingsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateAccountSettingsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateAccountSettingsMutation, { data, loading, error }] = useUpdateAccountSettingsMutation({
- *   variables: {
- *      attributes: // value for 'attributes'
- *   },
- * });
- */
-export function useUpdateAccountSettingsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables>) {
-        return ApolloReactHooks.useMutation<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables>(UpdateAccountSettingsDocument, baseOptions);
-      }
-export type UpdateAccountSettingsMutationHookResult = ReturnType<typeof useUpdateAccountSettingsMutation>;
-export type UpdateAccountSettingsMutationResult = ApolloReactCommon.MutationResult<UpdateAccountSettingsMutation>;
-export type UpdateAccountSettingsMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateAccountSettingsMutation, UpdateAccountSettingsMutationVariables>;
-export const InviteNewUserDocument = gql`
-    mutation InviteNewUser($user: UserInviteAttributes!) {
-  inviteUser(user: $user) {
-    success
-    errors {
-      fullMessage
-    }
-  }
-}
-    `;
-export type InviteNewUserMutationFn = ApolloReactCommon.MutationFunction<InviteNewUserMutation, InviteNewUserMutationVariables>;
-export type InviteNewUserComponentProps = Omit<ApolloReactComponents.MutationComponentOptions<InviteNewUserMutation, InviteNewUserMutationVariables>, 'mutation'>;
-
-    export const InviteNewUserComponent = (props: InviteNewUserComponentProps) => (
-      <ApolloReactComponents.Mutation<InviteNewUserMutation, InviteNewUserMutationVariables> mutation={InviteNewUserDocument} {...props} />
-    );
-    
-
-/**
- * __useInviteNewUserMutation__
- *
- * To run a mutation, you first call `useInviteNewUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInviteNewUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [inviteNewUserMutation, { data, loading, error }] = useInviteNewUserMutation({
- *   variables: {
- *      user: // value for 'user'
- *   },
- * });
- */
-export function useInviteNewUserMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<InviteNewUserMutation, InviteNewUserMutationVariables>) {
-        return ApolloReactHooks.useMutation<InviteNewUserMutation, InviteNewUserMutationVariables>(InviteNewUserDocument, baseOptions);
-      }
-export type InviteNewUserMutationHookResult = ReturnType<typeof useInviteNewUserMutation>;
-export type InviteNewUserMutationResult = ApolloReactCommon.MutationResult<InviteNewUserMutation>;
-export type InviteNewUserMutationOptions = ApolloReactCommon.BaseMutationOptions<InviteNewUserMutation, InviteNewUserMutationVariables>;
-export const GetUsersForSettingsDocument = gql`
-    query GetUsersForSettings {
-  users {
-    nodes {
-      id
-      fullName
-      email
-      pendingInvitation
-      ...UserCard
-    }
-  }
-}
-    ${UserCardFragmentDoc}`;
-export type GetUsersForSettingsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>, 'query'>;
-
-    export const GetUsersForSettingsComponent = (props: GetUsersForSettingsComponentProps) => (
-      <ApolloReactComponents.Query<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables> query={GetUsersForSettingsDocument} {...props} />
-    );
-    
-
-/**
- * __useGetUsersForSettingsQuery__
- *
- * To run a query within a React component, call `useGetUsersForSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUsersForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetUsersForSettingsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetUsersForSettingsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>) {
-        return ApolloReactHooks.useQuery<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>(GetUsersForSettingsDocument, baseOptions);
-      }
-export function useGetUsersForSettingsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>(GetUsersForSettingsDocument, baseOptions);
-        }
-export type GetUsersForSettingsQueryHookResult = ReturnType<typeof useGetUsersForSettingsQuery>;
-export type GetUsersForSettingsLazyQueryHookResult = ReturnType<typeof useGetUsersForSettingsLazyQuery>;
-export type GetUsersForSettingsQueryResult = ApolloReactCommon.QueryResult<GetUsersForSettingsQuery, GetUsersForSettingsQueryVariables>;
 export const AttachUploadToContainerDocument = gql`
     mutation AttachUploadToContainer($directUploadSignedId: String!, $attachmentContainerId: ID!, $attachmentContainerType: AttachmentContainerEnum!) {
   attachDirectUploadedFile(directUploadSignedId: $directUploadSignedId, attachmentContainerId: $attachmentContainerId, attachmentContainerType: $attachmentContainerType) {
