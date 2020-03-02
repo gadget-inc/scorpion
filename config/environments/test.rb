@@ -52,6 +52,7 @@ Rails.application.configure do
   config.x.domains.app = "test-app.ggt.dev"
   config.x.domains.admin = "test-admin.ggt.dev"
   config.x.domains.assets = "test-assets.ggt.dev"
+  config.x.domains.webhooks = "test-webhooks.ggt.dev"
   config.action_controller.asset_host = config.x.domains.assets
   config.hosts << ".ggt.dev"
 end

@@ -44,6 +44,7 @@ Rails.application.configure do
   config.x.domains.app = "app.ggt.dev"
   config.x.domains.admin = "admin.ggt.dev"
   config.x.domains.assets = "assets.ggt.dev"
+  config.x.domains.webhooks = ENV.fetch("WEBHOOK_HOST", config.x.domains.app)
   config.action_controller.asset_host = config.x.domains.assets
   config.hosts << ".ggt.dev"
 end
