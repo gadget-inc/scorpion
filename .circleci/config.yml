@@ -124,47 +124,47 @@ jobs:
       - store_test_results:
           path: test/reports
 
-  test_cypress:
-    docker: *backend_docker_setup
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache: *ruby_dependencies_restore_cache
-      - run: *ruby_dependencies
-      - restore_cache: *node_dependencies_restore_cache
-      - run: *node_dependencies
-      - run:
-          name: Set up database
-          command: RAILS_ENV=integration_test bin/rails db:prepare
-      - run:
-          name: Compile assets for Cypress
-          command: RAILS_ENV=integration_test NODE_ENV=production bin/webpack
-      - run:
-          name: Run NGINX
-          command: sudo nginx -g 'daemon off;'
-          background: true
-      - run:
-          name: Run Rails server
-          command: RAILS_ENV=integration_test bin/rails server
-          background: true
-      - run:
-          name: Wait for server
-          command: dockerize -wait tcp://localhost:3000 -timeout 1m
-      - run:
-          name: Run cypress tests
-          command: yarn run cypress run --project ./test --reporter junit --reporter-options "mochaFile=test/results/cypress-test-output.xml"
-      - run:
-          name: Run uncommitted changes tests
-          command: |
-            # this test requires a running dev server to introspect the GraphQL schema so we run it here where that's all set up
-            # because this test hits the running dev server through nginx, it needs SSL to be ok with the mkcert'd SSL cert
-            # see https://github.com/FiloSottile/mkcert#using-the-root-with-nodejs
-            export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
-            bundle exec rake test TEST=test/integration/uncommitted_changes_test.rb
-      - store_test_results:
-          path: test/results
-      - store_artifacts:
-          path: test/cypress
+  # test_cypress:
+  #   docker: *backend_docker_setup
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - restore_cache: *ruby_dependencies_restore_cache
+  #     - run: *ruby_dependencies
+  #     - restore_cache: *node_dependencies_restore_cache
+  #     - run: *node_dependencies
+  #     - run:
+  #         name: Set up database
+  #         command: RAILS_ENV=integration_test bin/rails db:prepare
+  #     - run:
+  #         name: Compile assets for Cypress
+  #         command: RAILS_ENV=integration_test NODE_ENV=production bin/webpack
+  #     - run:
+  #         name: Run NGINX
+  #         command: sudo nginx -g 'daemon off;'
+  #         background: true
+  #     - run:
+  #         name: Run Rails server
+  #         command: RAILS_ENV=integration_test bin/rails server
+  #         background: true
+  #     - run:
+  #         name: Wait for server
+  #         command: dockerize -wait tcp://localhost:3000 -timeout 1m
+  #     - run:
+  #         name: Run cypress tests
+  #         command: yarn run cypress run --project ./test --reporter junit --reporter-options "mochaFile=test/results/cypress-test-output.xml"
+  #     - run:
+  #         name: Run uncommitted changes tests
+  #         command: |
+  #           # this test requires a running dev server to introspect the GraphQL schema so we run it here where that's all set up
+  #           # because this test hits the running dev server through nginx, it needs SSL to be ok with the mkcert'd SSL cert
+  #           # see https://github.com/FiloSottile/mkcert#using-the-root-with-nodejs
+  #           export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
+  #           bundle exec rake test TEST=test/integration/uncommitted_changes_test.rb
+  #     - store_test_results:
+  #         path: test/results
+  #     - store_artifacts:
+  #         path: test/cypress
 
   lint_kubernetes:
     docker:
@@ -204,7 +204,7 @@ workflows:
     jobs:
       - build_docker:
           context: superpro-gke
-      - test_cypress
+      # - test_cypress
       - test_ruby
       - test_javascript
       - lint_ruby
@@ -219,7 +219,7 @@ workflows:
             - lint_javascript
             - lint_kubernetes
             - build_docker
-            - test_cypress
+            # - test_cypress
           filters:
             branches:
               only: master
