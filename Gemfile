@@ -62,9 +62,10 @@ gem "wait"
 gem "zaru"
 
 # Admin
-gem "trestle", github: "airhorns/trestle", ref: "json-text-area"
+gem "trestle"
 gem "trestle-omniauth", "~> 0.2.0"  #, path: "~/Code/trestle-omniauth"
 gem "trestle-search"
+gem "trestle-jsoneditor"
 gem "pg_search"
 
 group :development, :test, :integration_test do

@@ -94,7 +94,7 @@ Trestle.resource(:properties) do
       select :crawl_roots, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :allowed_domains, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
       select :internal_tags, nil, {}, multiple: true, data: { tags: true, select_on_close: true }
-      json_text_area :internal_test_options
+      json_editor :internal_test_options
       static_field :created_at
       static_field :updated_at
     end
