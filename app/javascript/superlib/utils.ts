@@ -3,7 +3,6 @@ import memoizeOne from "memoize-one";
 import queryString from "query-string";
 import { DateTime } from "luxon";
 import { ExecutionResult } from "@apollo/react-common";
-import { SuperFormController, DocType, SuperFormErrors } from "./superform";
 import { RouteComponentProps } from "react-router";
 export type AssertedKeys<T, K extends keyof T> = { [Key in K]: NonNullable<T[Key]> } & T;
 
@@ -135,31 +134,6 @@ export const mutationSuccess = <
   }
 
   return;
-};
-
-export const applyResponseErrors = <T extends DocType>(
-  errors: (ScorpionStyleGraphQLError | ScorpionStyleRESTError)[],
-  form: SuperFormController<T>
-) => {
-  const errorsObject: SuperFormErrors<T> = {};
-  errors.forEach(error => {
-    if ((error as ScorpionStyleGraphQLError).mutationClientId) {
-      set(
-        errorsObject,
-        `${(error as ScorpionStyleGraphQLError).mutationClientId}.${(error as ScorpionStyleGraphQLError).relativeField}`,
-        error.message
-      );
-    } else if ((error as ScorpionStyleRESTError).mutation_client_id) {
-      set(
-        errorsObject,
-        `${(error as ScorpionStyleRESTError).mutation_client_id}.${(error as ScorpionStyleRESTError).relative_field}`,
-        error.message
-      );
-    } else {
-      console.warn("Received error from server response without a mutationClientId for client side association", error);
-    }
-  });
-  form.setErrors(errorsObject);
 };
 
 export const RelayConnectionQueryUpdater = memoizeOne((connectionName: string) => (previousResult: any, { fetchMoreResult }: any) => {

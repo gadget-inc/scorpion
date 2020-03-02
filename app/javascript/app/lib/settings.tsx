@@ -5,11 +5,6 @@ export interface SettingsBag {
   accountId: number;
   baseUrl: string;
   devMode: boolean;
-  plaid: {
-    publicKey: string;
-    env: string;
-    webhookUrl: string;
-  };
   reportingCurrency: {
     id: string;
     isoCode: string;
@@ -24,7 +19,11 @@ export interface SettingsBag {
     group: any;
     groupTraits: any;
   };
+  shopify: {
+    apiKey: string;
+    shopOrigin: string;
+  };
 }
 
-export const SettingsContext = React.createContext<SettingsBag>({} as SettingsBag);
 export const Settings: SettingsBag = (window as any).INJECTED_SETTINGS;
+export const SettingsContext = React.createContext<SettingsBag>(Settings);

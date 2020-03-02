@@ -5,9 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7"
 
 # Core web app
-gem "devise", "~> 4.7.1"
-gem "devise_invitable"
-gem "devise-jwt"
 gem "discard"
 gem "graphiql-rails"
 gem "graphql"
@@ -20,8 +17,6 @@ gem "rack-cors"
 gem "fixings", github: "airhorns/fixings"
 
 # Functionality
-gem "money-rails"
-gem "rrule"
 gem "rails-i18n"
 gem "hunspell"
 gem "ffi-hunspell", require: "ffi/hunspell"
@@ -29,7 +24,7 @@ gem "cld3"
 
 # Integrations
 gem "omniauth"
-
+gem "shopify_app"
 gem "omniauth-shopify-oauth2"
 gem "shopify_api"
 
@@ -81,6 +76,7 @@ group :development, :test, :integration_test do
   gem "rufo"
   gem "subprocess"
   gem "irb"
+  gem "dotenv-rails"
 end
 
 group :development do

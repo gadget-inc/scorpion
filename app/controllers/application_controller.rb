@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   around_action :set_instrumentation_context
   after_action :track_server_side_page_view
 
+  attr_reader :current_user, :current_account
+
   private
 
   # Handle form data, JSON body, or a blank value

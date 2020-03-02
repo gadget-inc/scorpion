@@ -1,0 +1,3 @@
+ignores: ["eslint", "eslint-plugin-*", "eslint-config-*", "@typescript-eslint/*", "babel-*", "@babel/*", "jest-*", "@graphql-codegen/*", "@types/*", "ts-node", "*-loader", "tslib", "@fixings/*", "webpack-dev-server"]
+skip-missing: true
+ignore-dirs: ["tmp", "public", "storage", ".vscode"]

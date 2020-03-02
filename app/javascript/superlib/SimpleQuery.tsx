@@ -1,9 +1,8 @@
 import * as React from "react";
 import * as ApolloReactComponents from "@apollo/react-components";
 import { AssertedKeys, assertKeys } from "./utils";
-import { Alert } from "./Alert";
+import { Banner } from "@shopify/polaris";
 import { PageLoadSpin } from "./Spin";
-import { Omit } from "type-zoo";
 import { QueryResult } from "@apollo/react-common";
 import { isEqual } from "lodash";
 
@@ -62,13 +61,21 @@ export class SimpleQuery<
 
     if (result.error || !result.data) {
       console.error("Error loading data from backend", result.error);
-      return <Alert message="There was an internal error. Please refresh the page and try again." type="error" />;
+      return (
+        <Banner status="critical" title="Internal Error">
+          <p>There was an error loading data. Please try again.</p>
+        </Banner>
+      );
     }
 
     // Handle 404s from the server for nullable queries
     const data = assertKeys(result.data, this.props.require || []);
     if (!data) {
-      return <Alert message="Data Not Found" type="error" />;
+      return (
+        <Banner status="critical" title="Data not found">
+          <p>There was an error loading data as it could not be found.</p>
+        </Banner>
+      );
     }
 
     return this.props.children && this.props.children(data, result);

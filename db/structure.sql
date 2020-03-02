@@ -907,6 +907,76 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: shopify_shops; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_shops (
+    id bigint NOT NULL,
+    domain character varying NOT NULL,
+    api_token character varying NOT NULL,
+    property_id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    creator_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_shops_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_shops_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_shops_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_shops_id_seq OWNED BY public.shopify_shops.id;
+
+
+--
+-- Name: user_provider_identities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_provider_identities (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    provider_name character varying NOT NULL,
+    provider_id character varying NOT NULL,
+    provider_details jsonb DEFAULT '{}'::jsonb NOT NULL,
+    discarded_at timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_provider_identities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_provider_identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_provider_identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_provider_identities_id_seq OWNED BY public.user_provider_identities.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -914,32 +984,9 @@ CREATE TABLE public.users (
     id bigint NOT NULL,
     full_name character varying,
     email character varying NOT NULL,
-    encrypted_password character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
     sign_in_count integer DEFAULT 0 NOT NULL,
-    current_sign_in_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone,
-    current_sign_in_ip inet,
-    last_sign_in_ip inet,
-    confirmation_token character varying,
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying,
-    failed_attempts integer DEFAULT 0 NOT NULL,
-    unlock_token character varying,
-    locked_at timestamp without time zone,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    invitation_token character varying,
-    invitation_created_at timestamp without time zone,
-    invitation_sent_at timestamp without time zone,
-    invitation_accepted_at timestamp without time zone,
-    invitation_limit integer,
-    invited_by_type character varying,
-    invited_by_id bigint,
-    invitations_count integer DEFAULT 0,
     internal_tags character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
@@ -1073,6 +1120,20 @@ ALTER TABLE ONLY public.property_timeline_entries ALTER COLUMN id SET DEFAULT ne
 --
 
 ALTER TABLE ONLY public.que_jobs ALTER COLUMN id SET DEFAULT nextval('public.que_jobs_id_seq'::regclass);
+
+
+--
+-- Name: shopify_shops id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_shops ALTER COLUMN id SET DEFAULT nextval('public.shopify_shops_id_seq'::regclass);
+
+
+--
+-- Name: user_provider_identities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_provider_identities ALTER COLUMN id SET DEFAULT nextval('public.user_provider_identities_id_seq'::regclass);
 
 
 --
@@ -1251,11 +1312,34 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: shopify_shops shopify_shops_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_shops
+    ADD CONSTRAINT shopify_shops_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_provider_identities user_provider_identities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_provider_identities
+    ADD CONSTRAINT user_provider_identities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_identity_lookup; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_identity_lookup ON public.user_provider_identities USING btree (discarded_at, provider_name, provider_id);
 
 
 --
@@ -1329,10 +1413,10 @@ CREATE UNIQUE INDEX index_que_scheduler_audit_on_scheduler_job_id ON public.que_
 
 
 --
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_shopify_shops_on_domain; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+CREATE UNIQUE INDEX index_shopify_shops_on_domain ON public.shopify_shops USING btree (domain);
 
 
 --
@@ -1340,48 +1424,6 @@ CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btre
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_invitation_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_invitation_token ON public.users USING btree (invitation_token);
-
-
---
--- Name: index_users_on_invitations_count; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invitations_count ON public.users USING btree (invitations_count);
-
-
---
--- Name: index_users_on_invited_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invited_by_id ON public.users USING btree (invited_by_id);
-
-
---
--- Name: index_users_on_invited_by_type_and_invited_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_invited_by_type_and_invited_by_id ON public.users USING btree (invited_by_type, invited_by_id);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
-
-
---
--- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unlock_token);
 
 
 --
@@ -1457,6 +1499,14 @@ ALTER TABLE ONLY public.misspelled_words
 
 
 --
+-- Name: shopify_shops fk_rails_24f3150cd2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_shops
+    ADD CONSTRAINT fk_rails_24f3150cd2 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: crawl_test_cases fk_rails_3aed4e771e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1473,6 +1523,14 @@ ALTER TABLE ONLY public.property_timeline_entries
 
 
 --
+-- Name: shopify_shops fk_rails_484f3cc7d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_shops
+    ADD CONSTRAINT fk_rails_484f3cc7d7 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: property_screenshots fk_rails_4a374db287; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1486,6 +1544,14 @@ ALTER TABLE ONLY public.property_screenshots
 
 ALTER TABLE ONLY public.crawl_pages
     ADD CONSTRAINT fk_rails_4b8453ebe7 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
+-- Name: shopify_shops fk_rails_55ea274344; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_shops
+    ADD CONSTRAINT fk_rails_55ea274344 FOREIGN KEY (creator_id) REFERENCES public.users(id);
 
 
 --
@@ -1577,6 +1643,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: user_provider_identities fk_rails_d0ae084ed3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_provider_identities
+    ADD CONSTRAINT fk_rails_d0ae084ed3 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: misspelled_words fk_rails_d52ce14c82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1655,6 +1729,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200213161513'),
 ('20200220191400'),
 ('20200224224023'),
-('20200224225719');
+('20200224225719'),
+('20200302134427'),
+('20200302135549'),
+('20200302153310');
 
 

@@ -1,6 +1,6 @@
 development: &development
-  api_key: ec73ddc52ad0abfeaa2d6cf74d542041
-  api_secret_key: 9e43d7c621f3dffa76931f63a6ca03e9
+  api_key: 8a5aa96b600d51166889f492778e3242
+  api_secret_key: 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
 test:
   <<: *development
 integration_test:

@@ -38,7 +38,6 @@ describe("Inviting and accepting", function() {
     cy.contains("User invited!");
 
     cy.getLastEmail().then(email => {
-      cy.setAccountFlipperFlag("gate.productAccess", false);
       const link = getEmailBody(email).match(/href=".*?app\.ggt\.dev([^"]+)/)[1];
       cy.expect(link).to.not.be.undefined;
       cy.clearCookies();

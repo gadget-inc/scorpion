@@ -9,11 +9,48 @@ HOST_CONSTRAINT_SETUP = lambda do |env|
   end
 end
 
-# This is the omniauth config that the *users* of scorpion might interact with
-# To OAuth against say Google's services for Scorpion to extract data from google, they'd oauth here.
-# There's other auth mechanisms for the app, including another Omniauth instance using google_oauth2 config, but for the admin system, that only Scorpion employees might use.
-Rails.application.config.middleware.use OmniAuth::Builder do
-  options path_prefix: "/connection_auth"
+SHOPIFY_SCOPE = "read_products,read_content,read_themes,read_locations,write_script_tags,read_shipping"
 
-  provider :shopify, Rails.configuration.shopify[:api_key], Rails.configuration.shopify[:api_secret_key], :scope => "read_analytics,read_assigned_fulfillment_orders,read_content,read_customers,read_discounts,read_draft_orders,read_fulfillments,read_gift_cards,read_inventory,read_locations,read_marketing_events,read_merchant_managed_fulfillment_orders,read_online_store_pages,read_order_edits,read_orders,read_all_orders,read_price_rules,read_product_listings,read_products,write_script_tags,read_shipping,read_third_party_fulfillment_orders"
+module OmniAuth::Strategies
+  class ShopifyOffline < Shopify
+    def name
+      :shopify_offline
+    end
+  end
+end
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  # frozen_string_literal: true
+
+  shopify_strategy_setup = lambda { |env|
+    strategy = env["omniauth.strategy"]
+
+    shopify_auth_params = strategy.session["shopify.omniauth_params"]&.with_indifferent_access
+    shop = if shopify_auth_params.present?
+        "https://#{shopify_auth_params[:shop]}"
+      else
+        ""
+      end
+
+    strategy.options[:client_options][:site] = shop
+    strategy.options[:old_client_secret] = ShopifyApp.configuration.old_secret
+  }
+
+  # We use two omniauth providers, one for user authentication, and one for shop wide authentication to get an offline access token
+  provider :shopify_offline,
+    ShopifyApp.configuration.api_key,
+    ShopifyApp.configuration.secret,
+    name: "shopify_offline",
+    scope: ShopifyApp.configuration.scope,
+    per_user_permissions: false,
+    setup: shopify_strategy_setup,
+    callback_path: "/shopify_auth/auth/shopify_offline/callback"
+
+  provider :shopify,
+    ShopifyApp.configuration.api_key,
+    ShopifyApp.configuration.secret,
+    scope: ShopifyApp.configuration.scope,
+    per_user_permissions: true,
+    setup: shopify_strategy_setup,
+    callback_path: "/shopify_auth/auth/shopify/callback"
 end

@@ -1,16 +1,6 @@
 import React from "react";
-import { Box } from "grommet";
-import { withTheme } from "styled-components";
-import Loader from "react-loader-spinner";
+import { Spinner } from "@shopify/polaris";
 
-export const Spin = withTheme((props: { theme: any; width?: number; height?: number }) => {
-  return (
-    <Loader type="Audio" color={(props.theme && props.theme.global.colors.brand) || "black"} width={props.width} height={props.height} />
-  );
-});
+export const Spin = Spinner;
 
-export const PageLoadSpin = () => (
-  <Box fill justify="center" align="center">
-    <Spin />
-  </Box>
-);
+export const PageLoadSpin = () => <Spin />;
