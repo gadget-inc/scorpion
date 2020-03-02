@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "debug-test": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "generate-graphql": "gql-gen --config app-gql-gen.yml && gql-gen --config auth-gql-gen.yml",
+    "generate-graphql": "gql-gen --config app-gql-gen.yml",
     "lint": "tsc --noEmit && prettier --check \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx app/javascript",
     "lintfix": "prettier --write \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx --fix app/javascript",
     "test": "jest",

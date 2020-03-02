@@ -2,7 +2,7 @@
 
 class App::GraphQLController < AppAreaController
   skip_before_action :verify_authenticity_token, if: :trusted_dev_request?
-  skip_before_action :authenticate_user!, if: :trusted_dev_request?
+  skip_around_action :shopify_session, if: :trusted_dev_request?
   prepend_before_action :set_fake_env, if: :trusted_dev_request?
 
   def execute
