@@ -6,7 +6,6 @@ Rails.logger = ActiveSupport::Logger.new(STDOUT)
 Rails.logger.info("Starting seed")
 
 user = User.new(full_name: "Smart Developer", email: "dev@gadget.dev", internal_tags: ["staff"])
-user.skip_confirmation!
 user.save!
 
 account = FactoryBot.create :account, creator: user

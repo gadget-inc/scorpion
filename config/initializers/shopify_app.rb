@@ -2,7 +2,7 @@
 
 ShopifyApp.configure do |config|
   config.application_name = "Scorpion"
-  config.root_url = "/shopify_auth"
+  config.root_url = "/shopify"
   config.api_key = Rails.configuration.shopify.api_key
   config.secret = Rails.configuration.shopify.api_secret_key
   config.old_secret = ""

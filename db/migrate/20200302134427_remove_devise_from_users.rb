@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-# rubocop:disable:file Rails/BulkChangeTable
+
 class RemoveDeviseFromUsers < ActiveRecord::Migration[6.0]
   def change
+    # rubocop:disable Rails/BulkChangeTable
     remove_column :users, :confirmation_sent_at, :datetime
     remove_column :users, :confirmation_token, :string
     remove_column :users, :confirmed_at, :datetime
@@ -25,5 +26,6 @@ class RemoveDeviseFromUsers < ActiveRecord::Migration[6.0]
     remove_column :users, :reset_password_token, :string
     remove_column :users, :unconfirmed_email, :string
     remove_column :users, :unlock_token, :string
+    # rubocop:enable Rails/BulkChangeTable
   end
 end

@@ -27,8 +27,8 @@ Rails.application.routes.draw do
   end
 
   constraints host: Rails.configuration.x.domains.app do
-    mount ShopifyApp::Engine, at: "/shopify_auth"
-    get "/shopify_auth/auth/shopify_offline/callback", to: "shopify_app/callback#offline_callback"
+    mount ShopifyApp::Engine, at: "/shopify"
+    get "/shopify/auth/shopify_offline/callback", to: "shopify_app/callback#offline_callback"
 
     scope module: :app do
       mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql", as: "app_graphiql"

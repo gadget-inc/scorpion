@@ -44,7 +44,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: ShopifyApp.configuration.scope,
     per_user_permissions: false,
     setup: shopify_strategy_setup,
-    callback_path: "/shopify_auth/auth/shopify_offline/callback"
+    callback_path: "/shopify/auth/shopify_offline/callback"
 
   provider :shopify,
     ShopifyApp.configuration.api_key,
@@ -52,5 +52,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     scope: ShopifyApp.configuration.scope,
     per_user_permissions: true,
     setup: shopify_strategy_setup,
-    callback_path: "/shopify_auth/auth/shopify/callback"
+    callback_path: "/shopify/auth/shopify/callback"
 end

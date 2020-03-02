@@ -27,8 +27,7 @@ class SpellCheck::BlobProcessor
       .reject { |word| word.ends_with?("...") }
       .reject { |word| word.match(URI::DEFAULT_PARSER.make_regexp) || word.match(URI::MailTo::EMAIL_REGEXP) }
       .group_by { |word| word }
-      .map { |word, group| [word, group.count] }
-      .to_h
+      .transform_values(&:count)
   end
 
   def normalize_word(word)
