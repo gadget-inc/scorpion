@@ -1,11 +1,15 @@
 <% content_for(:title, "Infrastructure") %>
 <%= render layout: "layout" do %>
-<div class="main-content-area">
-  <div class="main-content-container">
-    <div class="main-content">
-      <%= button_to "Run Global Enqueue Collect Page Info Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_page_info" } %>
-      <%= button_to "Run Global Enqueue Collect Screenshot Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_screenshots" } %>
-    </div>
+  <div class="mb-4">
+    <%= button_to "Run Global Enqueue Collect Page Info Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_page_info" }, class: "btn btn-primary" %>
+    <p>Crawl all active properties for page info</p>
   </div>
-</div>
+  <div class="mb-4">
+    <%= button_to "Run Global Enqueue Collect Screenshot Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_screenshots" }, class: "btn btn-primary" %>
+    <p>Crawl all active properties for screenshots of their homepages</p>
+  </div>
+  <div class="mb-4">
+    <%= button_to "Run Global Reinstall Webhooks Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "reinstall_webhooks" }, class: "btn btn-primary" %>
+    <p>Recreate each webhook for eact active shopify store (useful if theyve changed to update the old stores)</p>
+  </div>
 <% end %>

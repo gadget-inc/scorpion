@@ -11,6 +11,8 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
           Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob
         when "collect_screenshots"
           Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob
+        when "reinstall_webhooks"
+          Infrastructure::ReinstallAllWebhooksJob
         else
           raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
         end
