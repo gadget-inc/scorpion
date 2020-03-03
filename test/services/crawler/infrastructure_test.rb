@@ -36,7 +36,7 @@ module Crawler
     end
 
     test "it crawls all ambient properties for lighthouses and spelling in the background" do
-      assert_difference "CrawlAttempt.all.size", 2 do
+      assert_difference "CrawlAttempt.all.size", 1 do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueAmbientCrawlsJob.run
         end
@@ -53,18 +53,6 @@ module Crawler
       assert_not attempt.succeeded
       assert_not attempt.running
       assert attempt.finished_at.present?
-    end
-
-    test "it crawls then processes text blocks for spelling" do
-      assert_difference "CrawlAttempt.all.size" do
-        with_synchronous_jobs do
-          Crawler::ExecuteCollectTextBlocksCrawlJob.run(property_id: @ambient_homesick.id, reason: "test")
-        end
-      end
-
-      attempt = @ambient_homesick.crawl_attempts.order("created_at DESC").first!
-      assert attempt.succeeded
-      assert_not attempt.misspelled_words.empty?
     end
   end
 end

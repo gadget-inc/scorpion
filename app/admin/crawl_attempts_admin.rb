@@ -9,7 +9,6 @@ Trestle.resource(:crawl_attempts) do
     scope :all, -> { CrawlAttempt.order("created_at DESC") }, default: true
     scope :ambient, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: true }) }
     scope :specific, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: false }) }
-    scope :spelling, -> { CrawlAttempt.type_collect_text_blocks }
     scope :failed, -> { CrawlAttempt.where("succeeded IS NULL or succeeded = false").order("created_at DESC") }
   end
 
@@ -47,23 +46,6 @@ Trestle.resource(:crawl_attempts) do
       end
     end
 
-    if crawl_attempt.type_collect_text_blocks?
-      tab :spelling do
-        table crawl_attempt.misspelled_words.order("word ASC") do
-          column :word
-          column :suggestions
-          column :count
-          column :seen_on_pages do |word|
-            links = word.seen_on_pages.first(8).map { |url| tag.a(href: url) { url } }
-            if word.seen_on_pages.size > 8
-              links << tag.p { "and #{word.seen_on_pages.size - 8} more" }
-            end
-            links
-          end
-        end
-      end
-    end
-
     if crawl_attempt.type_collect_screenshots?
       tab :screenshots do
         table crawl_attempt.property_screenshots.order("id ASC") do
@@ -81,21 +63,6 @@ Trestle.resource(:crawl_attempts) do
     tab :form do
       text_field :failure_reason
       text_field :crawl_type
-    end
-
-    sidebar do
-      if crawl_attempt.type_collect_text_blocks?
-        concat link_to("Reprocess spelling", admin.path(:reprocess_spelling, id: crawl_attempt.id), method: :post, class: "btn btn-block btn-primary")
-      end
-    end
-  end
-
-  controller do
-    def reprocess_spelling
-      crawl_attempt = admin.find_instance(params)
-      SpellCheck::Producer.new(crawl_attempt).produce!
-      flash[:message] = "Crawl attempt spelling reprocessed"
-      redirect_to admin.path(:show, id: crawl_attempt)
     end
   end
 

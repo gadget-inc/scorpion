@@ -33,7 +33,6 @@ class CrawlAttempt < ApplicationRecord
   belongs_to :property, optional: false
   has_many :crawl_pages, dependent: :destroy
   has_many :property_screenshots, dependent: :destroy
-  has_many :misspelled_words, dependent: :destroy
 
-  enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse", collect_text_blocks: "collect_text_blocks" }, _prefix: :type
+  enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
 end

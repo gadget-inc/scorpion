@@ -69,21 +69,6 @@ Trestle.resource(:properties) do
           actions
         end
       end
-
-      tab :timeline do
-        table property.property_timeline_entries.order("entry_at DESC") do
-          column :id
-          column :entry_type
-          column :entry_at
-          column :entry
-          column :image do |entry|
-            if entry.image
-              image_tag Rails.application.routes.url_helpers.rails_blob_path(entry.image, host: Rails.configuration.x.domains.admin)
-            end
-          end
-          actions
-        end
-      end
     end
 
     tab :property_details do

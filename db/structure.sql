@@ -412,6 +412,42 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 
 
 --
+-- Name: activity_feed_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_feed_items (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_at timestamp without time zone NOT NULL,
+    group_start timestamp without time zone,
+    group_end timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: activity_feed_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_feed_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_feed_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_feed_items_id_seq OWNED BY public.activity_feed_items.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -671,43 +707,6 @@ ALTER SEQUENCE public.flipper_gates_id_seq OWNED BY public.flipper_gates.id;
 
 
 --
--- Name: misspelled_words; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.misspelled_words (
-    id bigint NOT NULL,
-    account_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    crawl_attempt_id bigint NOT NULL,
-    word character varying NOT NULL,
-    seen_on_pages character varying[],
-    count integer NOT NULL,
-    suggestions character varying[],
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: misspelled_words_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.misspelled_words_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: misspelled_words_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.misspelled_words_id_seq OWNED BY public.misspelled_words.id;
-
-
---
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -780,41 +779,6 @@ CREATE SEQUENCE public.property_screenshots_id_seq
 --
 
 ALTER SEQUENCE public.property_screenshots_id_seq OWNED BY public.property_screenshots.id;
-
-
---
--- Name: property_timeline_entries; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.property_timeline_entries (
-    id bigint NOT NULL,
-    account_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    entry_at timestamp without time zone NOT NULL,
-    entry_type character varying NOT NULL,
-    entry jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: property_timeline_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.property_timeline_entries_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: property_timeline_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.property_timeline_entries_id_seq OWNED BY public.property_timeline_entries.id;
 
 
 --
@@ -1214,6 +1178,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: activity_feed_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_items ALTER COLUMN id SET DEFAULT nextval('public.activity_feed_items_id_seq'::regclass);
+
+
+--
 -- Name: crawl_attempts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1263,13 +1234,6 @@ ALTER TABLE ONLY public.flipper_gates ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: misspelled_words id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.misspelled_words ALTER COLUMN id SET DEFAULT nextval('public.misspelled_words_id_seq'::regclass);
-
-
---
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1281,13 +1245,6 @@ ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.p
 --
 
 ALTER TABLE ONLY public.property_screenshots ALTER COLUMN id SET DEFAULT nextval('public.property_screenshots_id_seq'::regclass);
-
-
---
--- Name: property_timeline_entries id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_timeline_entries ALTER COLUMN id SET DEFAULT nextval('public.property_timeline_entries_id_seq'::regclass);
 
 
 --
@@ -1379,6 +1336,14 @@ ALTER TABLE ONLY public.active_storage_blobs
 
 
 --
+-- Name: activity_feed_items activity_feed_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_items
+    ADD CONSTRAINT activity_feed_items_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1443,14 +1408,6 @@ ALTER TABLE ONLY public.flipper_gates
 
 
 --
--- Name: misspelled_words misspelled_words_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.misspelled_words
-    ADD CONSTRAINT misspelled_words_pkey PRIMARY KEY (id);
-
-
---
 -- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1464,14 +1421,6 @@ ALTER TABLE ONLY public.properties
 
 ALTER TABLE ONLY public.property_screenshots
     ADD CONSTRAINT property_screenshots_pkey PRIMARY KEY (id);
-
-
---
--- Name: property_timeline_entries property_timeline_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_timeline_entries
-    ADD CONSTRAINT property_timeline_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -1568,6 +1517,13 @@ ALTER TABLE ONLY public.user_provider_identities
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_feed_time_lookup; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_feed_time_lookup ON public.activity_feed_items USING btree (account_id, property_id, item_at);
 
 
 --
@@ -1726,14 +1682,6 @@ ALTER TABLE ONLY public.crawl_test_case_logs
 
 
 --
--- Name: misspelled_words fk_rails_06162183a8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.misspelled_words
-    ADD CONSTRAINT fk_rails_06162183a8 FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
-
-
---
 -- Name: shopify_data_asset_change_events fk_rails_170f55912b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1755,14 +1703,6 @@ ALTER TABLE ONLY public.shopify_shops
 
 ALTER TABLE ONLY public.crawl_test_cases
     ADD CONSTRAINT fk_rails_3aed4e771e FOREIGN KEY (crawl_test_run_id) REFERENCES public.crawl_test_runs(id);
-
-
---
--- Name: property_timeline_entries fk_rails_4557f1e5ee; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_timeline_entries
-    ADD CONSTRAINT fk_rails_4557f1e5ee FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -1870,6 +1810,14 @@ ALTER TABLE ONLY public.shopify_data_events
 
 
 --
+-- Name: activity_feed_items fk_rails_a5b0803240; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_items
+    ADD CONSTRAINT fk_rails_a5b0803240 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: crawl_pages fk_rails_b039c7a41e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1902,14 +1850,6 @@ ALTER TABLE ONLY public.crawl_pages
 
 
 --
--- Name: misspelled_words fk_rails_bf785ef47b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.misspelled_words
-    ADD CONSTRAINT fk_rails_bf785ef47b FOREIGN KEY (account_id) REFERENCES public.accounts(id);
-
-
---
 -- Name: accounts fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1923,14 +1863,6 @@ ALTER TABLE ONLY public.accounts
 
 ALTER TABLE ONLY public.shopify_data_shop_change_events
     ADD CONSTRAINT fk_rails_c1532a5a76 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
-
-
---
--- Name: property_timeline_entries fk_rails_c205c2d0e4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_timeline_entries
-    ADD CONSTRAINT fk_rails_c205c2d0e4 FOREIGN KEY (property_id) REFERENCES public.properties(id);
 
 
 --
@@ -1950,14 +1882,6 @@ ALTER TABLE ONLY public.user_provider_identities
 
 
 --
--- Name: misspelled_words fk_rails_d52ce14c82; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.misspelled_words
-    ADD CONSTRAINT fk_rails_d52ce14c82 FOREIGN KEY (property_id) REFERENCES public.properties(id);
-
-
---
 -- Name: property_screenshots fk_rails_ed7e666442; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1971,6 +1895,14 @@ ALTER TABLE ONLY public.property_screenshots
 
 ALTER TABLE ONLY public.shopify_data_themes
     ADD CONSTRAINT fk_rails_f0bb1ceed4 FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
+-- Name: activity_feed_items fk_rails_f2fd5f3d4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_items
+    ADD CONSTRAINT fk_rails_f2fd5f3d4f FOREIGN KEY (property_id) REFERENCES public.properties(id);
 
 
 --
@@ -2045,6 +1977,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200302233227'),
 ('20200302234933'),
 ('20200303162726'),
-('20200303162955');
+('20200303162955'),
+('20200303203040'),
+('20200303213348'),
+('20200303213840');
 
 

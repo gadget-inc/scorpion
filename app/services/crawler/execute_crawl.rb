@@ -16,8 +16,6 @@ module Crawler
           Crawler::ExecuteCollectPageInfoCrawlJob
         when :collect_lighthouse
           Crawler::ExecuteCollectLighthouseCrawlJob
-        when :collect_text_blocks
-          Crawler::ExecuteCollectTextBlocksCrawlJob
         else
           raise "Unknown crawl type #{type}"
         end
@@ -77,15 +75,6 @@ module Crawler
         CrawlerClient.client.lighthouse(
           property,
           property.crawl_roots,
-          **default_crawl_arguments(property, attempt_record),
-        )
-      end
-    end
-
-    def collect_text_blocks_crawl(property, reason)
-      attempt_crawl(property, reason, :collect_text_blocks) do |attempt_record|
-        CrawlerClient.client.text_blocks(
-          property,
           **default_crawl_arguments(property, attempt_record),
         )
       end
