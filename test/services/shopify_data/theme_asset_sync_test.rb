@@ -10,9 +10,14 @@ module ShopifyData
       Timecop.freeze(Time.utc(2020, 3))
     end
 
+    test "the truth" do
+      assert true
+    end
+
     test "it can sync theme assets" do
       shopify_theme_id = @shop.with_shopify_session do
-        ShopifyAPI::Theme.find(:all)[0].id
+        themes = ShopifyAPI::Theme.find(:all)
+        themes.to_a[0].id
       end
 
       assert @shop.data_themes.empty?
@@ -31,7 +36,8 @@ module ShopifyData
 
     test "it picks up changes in assets" do
       shopify_theme_id = @shop.with_shopify_session do
-        ShopifyAPI::Theme.find(:all)[0].id
+        themes = ShopifyAPI::Theme.find(:all)
+        themes.to_a[0].id
       end
 
       @shop.with_shopify_session do

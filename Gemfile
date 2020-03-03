@@ -97,6 +97,7 @@ group :test do
   gem "mocha"
   gem "webmock"
   gem "vcr"
+  gem "test-prof"
 end
 
 group :development, :deploy do

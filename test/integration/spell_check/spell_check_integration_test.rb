@@ -8,6 +8,7 @@ class SpellCheck::SpellCheckIntegrationtest < ActiveSupport::TestCase
   end
 
   test "there's spelling errors identified in the crawl" do
+    skip "not using spell check right now and its VERY slow"
     attempt_record = @crawler.collect_text_blocks_crawl(@property, "test")
     assert attempt_record.succeeded
     producer = SpellCheck::Producer.new(attempt_record)
