@@ -16,8 +16,8 @@ ShopifyApp.configure do |config|
 
   config.webhook_jobs_namespace = "shopify_data"
   config.webhooks = [
-    { topic: "app/uninstalled", address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/app_uninstalled", format: "json" },
-    { topic: "shop/update", address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/shop_updated", format: "json" },
+    { topic: "app/uninstalled", address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/app_uninstalled", format: "json" },
+    { topic: "shop/update", address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/shop_updated", format: "json" },
   ] + [
     "products/create",
     "products/update",
@@ -27,14 +27,14 @@ ShopifyApp.configure do |config|
     "collections/delete",
     "shop/update",
   ].map do |topic|
-    { topic: topic, address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/sync_events", format: "json" }
+    { topic: topic, address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/sync_events", format: "json" }
   end + [
     "themes/create",
     "themes/publish",
     "themes/update",
     "themes/delete",
   ].map do |topic|
-    { topic: topic, address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/sync_theme", format: "json" }
+    { topic: topic, address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/sync_theme", format: "json" }
   end
 end
 
