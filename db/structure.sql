@@ -982,6 +982,41 @@ ALTER SEQUENCE public.shopify_data_events_id_seq OWNED BY public.shopify_data_ev
 
 
 --
+-- Name: shopify_data_shop_change_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_shop_change_events (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    shopify_shop_id bigint NOT NULL,
+    record_attribute character varying NOT NULL,
+    old_value jsonb,
+    new_value jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_shop_change_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_shop_change_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_shop_change_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_shop_change_events_id_seq OWNED BY public.shopify_data_shop_change_events.id;
+
+
+--
 -- Name: shopify_data_themes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1033,7 +1068,32 @@ CREATE TABLE public.shopify_shops (
     creator_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    discarded_at timestamp without time zone
+    discarded_at timestamp without time zone,
+    myshopify_domain character varying DEFAULT 'unknown'::character varying NOT NULL,
+    country_code character varying,
+    country_name character varying,
+    currency character varying,
+    timezone character varying,
+    customer_email character varying,
+    source character varying,
+    latitude character varying,
+    longitude character varying,
+    money_format character varying,
+    money_with_currency_format character varying,
+    cookie_consent_level character varying,
+    password_enabled boolean,
+    has_storefront boolean,
+    multi_location_enabled boolean,
+    setup_required boolean,
+    pre_launch_enabled boolean,
+    requires_extra_payments_agreement boolean,
+    taxes_included boolean,
+    tax_shipping boolean,
+    enabled_presentment_currencies character varying,
+    plan_name character varying DEFAULT 'unknown'::character varying NOT NULL,
+    plan_display_name character varying DEFAULT 'unknown'::character varying NOT NULL,
+    weight_unit character varying,
+    shopify_updated_at timestamp without time zone
 );
 
 
@@ -1252,6 +1312,13 @@ ALTER TABLE ONLY public.shopify_data_events ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: shopify_data_shop_change_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_shop_change_events ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_shop_change_events_id_seq'::regclass);
+
+
+--
 -- Name: shopify_data_themes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1461,6 +1528,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 ALTER TABLE ONLY public.shopify_data_events
     ADD CONSTRAINT shopify_data_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shopify_data_shop_change_events shopify_data_shop_change_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_shop_change_events
+    ADD CONSTRAINT shopify_data_shop_change_events_pkey PRIMARY KEY (id);
 
 
 --
@@ -1747,6 +1822,14 @@ ALTER TABLE ONLY public.properties
 
 
 --
+-- Name: shopify_data_shop_change_events fk_rails_6ebe32fa34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_shop_change_events
+    ADD CONSTRAINT fk_rails_6ebe32fa34 FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
 -- Name: shopify_data_themes fk_rails_7b8a247913; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1832,6 +1915,14 @@ ALTER TABLE ONLY public.misspelled_words
 
 ALTER TABLE ONLY public.accounts
     ADD CONSTRAINT fk_rails_c0b1e2d9f4 FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
+-- Name: shopify_data_shop_change_events fk_rails_c1532a5a76; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_shop_change_events
+    ADD CONSTRAINT fk_rails_c1532a5a76 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -1952,6 +2043,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200302194320'),
 ('20200302205817'),
 ('20200302233227'),
-('20200302234933');
+('20200302234933'),
+('20200303162726'),
+('20200303162955');
 
 

@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require "retriable"
-
 module ShopifyData
   # Knows how to fetch all the new Shopify events since the last time it ran and save them to the database
   class EventsSync

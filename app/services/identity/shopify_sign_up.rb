@@ -41,6 +41,7 @@ GRAPHQL
 
         ShopifyShop.create!(
           domain: domain,
+          myshopify_domain: shop_details.data.shop.myshopify_domain,
           api_token: token,
           creator: creator,
           property: new_property,
@@ -48,6 +49,9 @@ GRAPHQL
         )
       end
     end
+
+    # Fetch all the data for the rest of the columns in a background job
+    ShopifyData::ShopUpdatedJob.enqueue(shop_domain: domain)
 
     new_account
   end

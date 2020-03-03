@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require "retriable"
-
 module ShopifyData
   # Knows how to fetch all the new and changed assets for a theme since last time, as well as theme data itself, and save them to the database
   class ThemeAssetSync

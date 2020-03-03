@@ -9,7 +9,7 @@ module ShopifyApp
       params.permit!
       job_args = { shop_domain: shop_domain }
       case webhook_job_klass
-      when ShopifyData::SyncEventsJob
+      when ShopifyData::SyncEventsJob, ShopifyData::ShopUpdatedJOb
         nil
       when ShopifyData::SyncThemeJob
         job_args[:theme_id] = webhook_params.to_h[:id]
