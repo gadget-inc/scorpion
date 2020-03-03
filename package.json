@@ -94,7 +94,8 @@
     "tslib": "^1.9.3",
     "typescript": "^3.7.2",
     "url-join": "^4.0.1",
-    "use-react-router": "^1.0.7"
+    "use-react-router": "^1.0.7",
+    "webpack": "^4.42.0"
   },
   "devDependencies": {
     "@fixings/eslint-config": "^2.0.0",
