@@ -981,6 +981,42 @@ ALTER SEQUENCE public.shopify_data_shop_change_events_id_seq OWNED BY public.sho
 
 
 --
+-- Name: shopify_data_theme_change_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_theme_change_events (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    shopify_shop_id bigint NOT NULL,
+    shopify_data_theme_id bigint NOT NULL,
+    record_attribute character varying NOT NULL,
+    new_value jsonb,
+    old_value jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_theme_change_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_theme_change_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_theme_change_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_theme_change_events_id_seq OWNED BY public.shopify_data_theme_change_events.id;
+
+
+--
 -- Name: shopify_data_themes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -996,7 +1032,9 @@ CREATE TABLE public.shopify_data_themes (
     shopify_updated_at timestamp without time zone NOT NULL,
     asset_change_tracker jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    processing boolean,
+    previewable boolean
 );
 
 
@@ -1276,6 +1314,13 @@ ALTER TABLE ONLY public.shopify_data_shop_change_events ALTER COLUMN id SET DEFA
 
 
 --
+-- Name: shopify_data_theme_change_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_theme_change_events ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_theme_change_events_id_seq'::regclass);
+
+
+--
 -- Name: shopify_data_themes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1488,6 +1533,14 @@ ALTER TABLE ONLY public.shopify_data_shop_change_events
 
 
 --
+-- Name: shopify_data_theme_change_events shopify_data_theme_change_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_theme_change_events
+    ADD CONSTRAINT shopify_data_theme_change_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: shopify_data_themes shopify_data_themes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1531,6 +1584,13 @@ CREATE INDEX idx_feed_time_lookup ON public.activity_feed_items USING btree (acc
 --
 
 CREATE INDEX idx_identity_lookup ON public.user_provider_identities USING btree (discarded_at, provider_name, provider_id);
+
+
+--
+-- Name: idx_theme_changes_cursor_lookup; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_theme_changes_cursor_lookup ON public.shopify_data_theme_change_events USING btree (account_id, shopify_shop_id, created_at);
 
 
 --
@@ -1730,11 +1790,27 @@ ALTER TABLE ONLY public.crawl_pages
 
 
 --
+-- Name: shopify_data_theme_change_events fk_rails_4fcb6b6291; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_theme_change_events
+    ADD CONSTRAINT fk_rails_4fcb6b6291 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: shopify_shops fk_rails_55ea274344; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.shopify_shops
     ADD CONSTRAINT fk_rails_55ea274344 FOREIGN KEY (creator_id) REFERENCES public.users(id);
+
+
+--
+-- Name: shopify_data_theme_change_events fk_rails_58f303623f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_theme_change_events
+    ADD CONSTRAINT fk_rails_58f303623f FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
 
 
 --
@@ -1874,6 +1950,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: shopify_data_theme_change_events fk_rails_cae8a8e7c5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_theme_change_events
+    ADD CONSTRAINT fk_rails_cae8a8e7c5 FOREIGN KEY (shopify_data_theme_id) REFERENCES public.shopify_data_themes(id);
+
+
+--
 -- Name: user_provider_identities fk_rails_d0ae084ed3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1980,6 +2064,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303162955'),
 ('20200303203040'),
 ('20200303213348'),
-('20200303213840');
+('20200303213840'),
+('20200303215736'),
+('20200303221947');
 
 

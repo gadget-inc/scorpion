@@ -3,6 +3,10 @@ module ShopifyData
   # Knows how to fetch all the new and changed assets for a theme since last time, as well as theme data itself, and save them to the database
   class ThemeAssetSync
     include ShopifyApiRetries
+
+    SYNC_THEME_ATTRIBUTES = %i[processing previewable name role theme_store_id].freeze
+    THEME_CHANGE_TRACKED_ATTRIBUTES = %i[name role previewable].freeze
+
     attr_reader :shop
 
     def initialize(shop)
@@ -18,12 +22,13 @@ module ShopifyData
         tracker = initial_tracker(data_theme)
 
         new_assets = with_retries { ShopifyAPI::Asset.find(:all, params: { theme_id: shopify_theme_id }) }
-        changes, tracker = changed_assets(tracker, new_assets)
+        asset_changes, tracker = changed_assets(tracker, new_assets)
 
         ActiveRecord::Base.transaction do
           data_theme.asset_change_tracker = tracker
           data_theme.save!
-          insert_change_events(data_theme, changes)
+          insert_asset_change_events!(data_theme, asset_changes)
+          insert_theme_change_events!(data_theme)
         end
       end
     end
@@ -32,11 +37,11 @@ module ShopifyData
       data_theme = @shop.data_themes.find_or_initialize_by(theme_id: api_theme.id)
       data_theme.shopify_shop = @shop
       data_theme.account = @account
-      data_theme.name = api_theme.name
-      data_theme.role = api_theme.role
       data_theme.shopify_created_at = api_theme.created_at
       data_theme.shopify_updated_at = api_theme.updated_at
-      data_theme.theme_store_id = api_theme.theme_store_id
+      SYNC_THEME_ATTRIBUTES.each do |attribute|
+        data_theme[attribute] = api_theme.send(attribute)
+      end
 
       data_theme
     end
@@ -82,12 +87,19 @@ module ShopifyData
       [changes, tracker]
     end
 
-    def insert_change_events(data_theme, changes)
-      changes.each do |change|
+    def insert_asset_change_events!(data_theme, asset_changes)
+      asset_changes.each do |change|
         change[:shopify_data_theme_id] = data_theme.id
       end
+      if !asset_changes.empty?
+        ShopifyData::AssetChangeEvent.insert_all!(asset_changes)
+      end
+    end
+
+    def insert_theme_change_events!(data_theme)
+      changes = theme_change_event_attributes(data_theme)
       if !changes.empty?
-        ShopifyData::AssetChangeEvent.insert_all!(changes)
+        ShopifyData::ThemeChangeEvent.insert_all!(changes)
       end
     end
 
@@ -108,6 +120,22 @@ module ShopifyData
         "content_type" => asset_blob.content_type,
         "public_url" => asset_blob.public_url,
       }
+    end
+
+    def theme_change_event_attributes(theme_record)
+      relevant_changes = theme_record.changes.symbolize_keys.slice(*THEME_CHANGE_TRACKED_ATTRIBUTES)
+      relevant_changes.map do |attribute, (old_value, new_value)|
+        {
+          account_id: @account.id,
+          shopify_shop_id: @shop.id,
+          shopify_data_theme_id: theme_record.id,
+          record_attribute: attribute,
+          old_value: old_value,
+          new_value: new_value,
+          created_at: @now,
+          updated_at: @now,
+        }
+      end
     end
   end
 end

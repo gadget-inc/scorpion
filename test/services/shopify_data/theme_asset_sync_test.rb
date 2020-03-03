@@ -10,8 +10,32 @@ module ShopifyData
       Timecop.freeze(Time.utc(2020, 3))
     end
 
-    test "the truth" do
-      assert true
+    test "it can sync theme attribute changes" do
+      shopify_theme_id = @shop.with_shopify_session do
+        themes = ShopifyAPI::Theme.find(:all)
+        theme = themes[0]
+        theme.name = "Main Theme"
+        theme.save!
+        theme.id
+      end
+
+      assert @shop.data_themes.empty?
+
+      @sync.run(shopify_theme_id)
+      assert_equal 1, @shop.data_themes.size
+      data_theme = @shop.data_themes.first
+
+      assert_equal "Main Theme", data_theme.name
+
+      @shop.with_shopify_session do
+        theme = ShopifyAPI::Theme.find(shopify_theme_id)
+        theme.name = "A New Name"
+        theme.save!
+      end
+
+      @sync.run(shopify_theme_id)
+      assert_equal 1, @shop.data_themes.size
+      assert_equal "A New Name", data_theme.reload.name
     end
 
     test "it can sync theme assets" do

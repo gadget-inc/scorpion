@@ -6,6 +6,8 @@
 #  id                   :bigint           not null, primary key
 #  asset_change_tracker :jsonb            not null
 #  name                 :string           not null
+#  previewable          :boolean
+#  processing           :boolean
 #  role                 :string           not null
 #  shopify_created_at   :datetime         not null
 #  shopify_updated_at   :datetime         not null

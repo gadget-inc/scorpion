@@ -63,6 +63,7 @@ class ShopifyShop < ApplicationRecord
 
   has_many :data_events, class_name: "ShopifyData::Event", dependent: :destroy
   has_many :data_themes, class_name: "ShopifyData::Theme", dependent: :destroy
+  has_many :data_theme_change_events, class_name: "ShopifyData::ThemeChangeEvent", dependent: :destroy
   has_many :data_asset_change_events, class_name: "ShopifyData::AssetChangeEvent", dependent: :destroy
   has_many :data_shop_change_events, class_name: "ShopifyData::ShopChangeEvent", dependent: :destroy
 

@@ -7,6 +7,8 @@
 #  id                   :bigint           not null, primary key
 #  asset_change_tracker :jsonb            not null
 #  name                 :string           not null
+#  previewable          :boolean
+#  processing           :boolean
 #  role                 :string           not null
 #  shopify_created_at   :datetime         not null
 #  shopify_updated_at   :datetime         not null
@@ -26,5 +28,6 @@ class ShopifyData::Theme < ApplicationRecord
   include AccountScoped
   include ShopifyShopScoped
 
+  has_many :theme_change_events, foreign_key: :shopify_data_theme_id, dependent: :destroy, inverse_of: :theme
   has_many :asset_change_events, foreign_key: :shopify_data_theme_id, dependent: :destroy, inverse_of: :theme
 end
