@@ -33,9 +33,10 @@ class ActiveSupport::TestCase
   include GraphQLTestHelper
 
   # Run tests in parallel with specified workers
-  if ENV["CI"] || ENV["PARALLEL"]
-    parallelize(workers: :number_of_processors)
-  end
+  # Disabled cause it's broken
+  # if ENV["CI"] || ENV["PARALLEL"]
+  #   parallelize(workers: :number_of_processors)
+  # end
 
   teardown do
     OmniAuth.config.mock_auth[:shopify] = nil
