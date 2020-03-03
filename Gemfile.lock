@@ -137,7 +137,7 @@ GEM
       zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    analytics-ruby (2.2.7)
+    analytics-ruby (2.2.8)
     annotate (3.1.0)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -641,7 +641,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  analytics-ruby (~> 2.2.7)
+  analytics-ruby (~> 2.2.8)
   asset_sync
   awesome_print
   bootsnap (>= 1.1.0)
