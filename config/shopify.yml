@@ -6,5 +6,5 @@ test:
 integration_test:
   <<: *development
 production:
-  api_key: 41555d96be3e44a0e9736104a7e0f6be
+  api_key: 4b5a5282dedafbc594f179ca8fb323e3
   api_secret_key: <%= ENV['SHOPIFY_API_SECRET_KEY'] %>
