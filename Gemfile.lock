@@ -405,7 +405,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    oauth2 (1.4.2)
+    oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
       multi_json (~> 1.3)
@@ -422,7 +422,7 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
-    omniauth-shopify-oauth2 (2.2.0)
+    omniauth-shopify-oauth2 (2.2.1)
       activesupport
       omniauth-oauth2 (~> 1.5.0)
     os (1.0.1)
