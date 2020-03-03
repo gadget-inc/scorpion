@@ -1,7 +1,7 @@
 // THIS IS A GENERATED FILE! You shouldn't edit it manually. Regenerate it using `yarn generate-graphql`.
 import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/react-common';
 import * as React from 'react';
+import * as ApolloReactCommon from '@apollo/react-common';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
@@ -161,6 +161,17 @@ export type UserEdge = {
   node?: Maybe<User>,
 };
 
+export type GetCurrentUserForSettingsQueryVariables = {};
+
+
+export type GetCurrentUserForSettingsQuery = (
+  { __typename: 'AppQuery' }
+  & { currentUser: (
+    { __typename: 'User' }
+    & Pick<User, 'id' | 'fullName' | 'email'>
+  ) }
+);
+
 export type AttachUploadToContainerMutationVariables = {
   directUploadSignedId: Scalars['String'],
   attachmentContainerId: Scalars['ID'],
@@ -200,6 +211,46 @@ export type AttachRemoteUrlToContainerMutation = (
 );
 
 
+export const GetCurrentUserForSettingsDocument = gql`
+    query GetCurrentUserForSettings {
+  currentUser {
+    id
+    fullName
+    email
+  }
+}
+    `;
+export type GetCurrentUserForSettingsComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>, 'query'>;
+
+    export const GetCurrentUserForSettingsComponent = (props: GetCurrentUserForSettingsComponentProps) => (
+      <ApolloReactComponents.Query<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables> query={GetCurrentUserForSettingsDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetCurrentUserForSettingsQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentUserForSettingsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentUserForSettingsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCurrentUserForSettingsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>(GetCurrentUserForSettingsDocument, baseOptions);
+      }
+export function useGetCurrentUserForSettingsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>(GetCurrentUserForSettingsDocument, baseOptions);
+        }
+export type GetCurrentUserForSettingsQueryHookResult = ReturnType<typeof useGetCurrentUserForSettingsQuery>;
+export type GetCurrentUserForSettingsLazyQueryHookResult = ReturnType<typeof useGetCurrentUserForSettingsLazyQuery>;
+export type GetCurrentUserForSettingsQueryResult = ApolloReactCommon.QueryResult<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>;
 export const AttachUploadToContainerDocument = gql`
     mutation AttachUploadToContainer($directUploadSignedId: String!, $attachmentContainerId: ID!, $attachmentContainerType: AttachmentContainerEnum!) {
   attachDirectUploadedFile(directUploadSignedId: $directUploadSignedId, attachmentContainerId: $attachmentContainerId, attachmentContainerType: $attachmentContainerType) {
