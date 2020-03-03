@@ -7,7 +7,7 @@ ShopifyApp.configure do |config|
   config.secret = Rails.configuration.shopify.api_secret_key
   config.old_secret = ""
   config.per_user_tokens = true
-  config.scope = "read_products,read_content,read_themes,read_locations,write_script_tags,read_shipping"
+  config.scope = "read_products,read_content,write_themes,read_locations,write_script_tags,read_shipping"
 
   config.embedded_app = true
   config.after_authenticate_job = false
@@ -27,6 +27,13 @@ ShopifyApp.configure do |config|
     "shop/update",
   ].map do |topic|
     { topic: topic, address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/sync_events", format: "json" }
+  end + [
+    "themes/create",
+    "themes/publish",
+    "themes/update",
+    "themes/delete",
+  ].map do |topic|
+    { topic: topic, address: "https://#{Rails.configuration.x.domains.app}/shopify/webhooks/sync_theme", format: "json" }
   end
 end
 

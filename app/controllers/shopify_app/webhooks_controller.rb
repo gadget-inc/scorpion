@@ -7,9 +7,15 @@ module ShopifyApp
 
     def receive
       params.permit!
-      job_args = { shop_domain: shop_domain, webhook: webhook_params.to_h }
-      if webhook_job_klass == ShopifyData::SyncEventsJob
-        job_args.delete(:webhook)
+      job_args = { shop_domain: shop_domain }
+      case webhook_job_klass
+      when ShopifyData::SyncEventsJob
+        nil
+      when ShopifyData::SyncThemeJob
+        job_args[:theme_id] = webhook_params.to_h[:id]
+        job_args[:type] = params[:type]
+      else
+        job_args[:webhook] = webhook_params.to_h
       end
       webhook_job_klass.enqueue(job_args) # modified to use que job signature
       head :no_content

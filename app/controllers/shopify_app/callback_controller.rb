@@ -73,6 +73,7 @@ module ShopifyApp
 
       sign_up = Identity::ShopifySignUp.new
       sign_up.create_account_if_necessary!(session[:shopify], session[:stored_shop_auth_hash])
+      session.delete(:stored_shop_auth_hash)
     end
 
     def install_webhooks

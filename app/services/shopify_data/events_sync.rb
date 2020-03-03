@@ -4,6 +4,7 @@ require "retriable"
 module ShopifyData
   # Knows how to fetch all the new Shopify events since the last time it ran and save them to the database
   class EventsSync
+    include ShopifyApiRetries
     attr_reader :shop
 
     def initialize(shop, params = {})
@@ -54,12 +55,6 @@ module ShopifyData
 
       if !attributes.empty?
         ShopifyData::Event.insert_all!(attributes)
-      end
-    end
-
-    def with_retries
-      Retriable.retriable(on: ActiveResource::ClientError, tries: 6) do
-        yield
       end
     end
   end
