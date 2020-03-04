@@ -18,18 +18,15 @@ gem "fixings", github: "airhorns/fixings"
 
 # Functionality
 gem "rails-i18n"
-gem "hunspell"
-gem "ffi-hunspell", require: "ffi/hunspell"
-gem "cld3"
+gem "wisper"
 
 # Integrations
-gem "omniauth"
-gem "shopify_app"
-gem "omniauth-shopify-oauth2"
-gem "shopify_api"
-
 gem "rest-client"
+gem "omniauth"
+gem "omniauth-shopify-oauth2"
 gem "omniauth-google-oauth2"
+gem "shopify_app"
+gem "shopify_api"
 gem "google-api-client"
 
 # Performance & Infrastructure
@@ -39,8 +36,8 @@ gem "fog-google", "~> 1.9.1", github: "fog/fog-google"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "google-cloud-storage", "~> 1.25.1", require: false
 gem "hiredis"
-gem "image_processing"
 gem "json-schema"
+gem "image_processing"
 gem "lru_redux"
 gem "mini_magick"
 gem "retriable", "~> 3.1"
