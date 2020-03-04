@@ -2,7 +2,7 @@
 
 class AddMoreAttributesToShopifyDataThemes < ActiveRecord::Migration[6.0]
   def change
-    change_table :shopify_data_themes, bulk: true do
+    change_table :shopify_data_themes, bulk: true do |t|
       t.boolean :processing
       t.boolean :previewable
     end

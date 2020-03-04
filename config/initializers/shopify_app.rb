@@ -17,7 +17,7 @@ ShopifyApp.configure do |config|
   config.webhook_jobs_namespace = "shopify_data"
   config.webhooks = [
     { topic: "app/uninstalled", address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/app_uninstalled", format: "json" },
-    { topic: "shop/update", address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/shop_updated", format: "json" },
+    { topic: "shop/update", address: "https://#{Rails.configuration.x.domains.webhooks}/shopify/webhooks/sync_shop", format: "json" },
   ] + [
     "products/create",
     "products/update",

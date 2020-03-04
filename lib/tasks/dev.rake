@@ -19,7 +19,8 @@ namespace :dev do
       end
     end
 
-    puts
-    puts "Remember to restart spring if you're changing these variables for testing!"
+    puts "Restarting spring"
+    system "bin/spring", "stop"
+    puts "Good to go!"
   end
 end

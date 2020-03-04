@@ -8,15 +8,16 @@ module ShopifyApp
     def receive
       params.permit!
       job_args = { shop_domain: shop_domain }
-      case webhook_job_klass
-      when ShopifyData::SyncEventsJob, ShopifyData::ShopUpdatedJob
+      case webhook_job_klass_name
+      when "ShopifyData::SyncEventsJob", "ShopifyData::SyncShopJob"
         nil
-      when ShopifyData::SyncThemeJob
-        job_args[:theme_id] = webhook_params.to_h[:id]
+      when "ShopifyData::SyncThemeJob"
+        job_args[:remote_theme_id] = webhook_params.to_h[:id]
         job_args[:type] = params[:type]
       else
         job_args[:webhook] = webhook_params.to_h
       end
+
       webhook_job_klass.enqueue(job_args) # modified to use que job signature
       head :no_content
     end
@@ -28,7 +29,11 @@ module ShopifyApp
     end
 
     def webhook_job_klass
-      webhook_job_klass_name.safe_constantize || raise(ShopifyApp::MissingWebhookJobError)
+      klass = webhook_job_klass_name.safe_constantize
+      if klass.nil?
+        raise(ShopifyApp::MissingWebhookJobError)
+      end
+      klass
     end
 
     def webhook_job_klass_name(type = webhook_type)

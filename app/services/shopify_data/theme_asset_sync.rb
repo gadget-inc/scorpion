@@ -15,13 +15,13 @@ module ShopifyData
       @now = Time.now.utc
     end
 
-    def run(shopify_theme_id)
+    def run(remote_theme_id)
       @shop.with_shopify_session do
-        api_theme = with_retries { ShopifyAPI::Theme.find(shopify_theme_id) }
+        api_theme = with_retries { ShopifyAPI::Theme.find(remote_theme_id) }
         data_theme = find_or_initialize_data_theme(api_theme)
         tracker = initial_tracker(data_theme)
 
-        new_assets = with_retries { ShopifyAPI::Asset.find(:all, params: { theme_id: shopify_theme_id }) }
+        new_assets = with_retries { ShopifyAPI::Asset.find(:all, params: { theme_id: remote_theme_id }) }
         asset_changes, tracker = changed_assets(tracker, new_assets)
 
         ActiveRecord::Base.transaction do

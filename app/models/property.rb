@@ -36,8 +36,10 @@ class Property < ApplicationRecord
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
   has_many :crawl_attempts, dependent: :destroy
   has_many :property_screenshots, dependent: :destroy
+  has_many :activity_feed_items, dependent: :destroy, class_name: "Activity::FeedItem"
 
   has_many :crawl_test_cases, class_name: "CrawlTest::Case", dependent: :destroy
+
   # for trestle's array assignment
   remove_blanks_for_array_assignment :allowed_domains, :crawl_roots, :internal_tags
 

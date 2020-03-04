@@ -46,6 +46,18 @@ Trestle.resource(:properties) do
         concat link_to("Crawl screenshots now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_screenshots"), method: :post, class: "btn btn-block btn-primary")
       end
 
+      tab :activity_feed do
+        table property.activity_feed_items.order("item_at DESC") do
+          column :id
+          column :item_at
+          column :item_type
+          column :data do |item|
+            item.hacky_internal_representation["events"]
+          end
+          actions
+        end
+      end
+
       tab :crawl_attempts, badge: property.crawl_attempts.size do
         table property.crawl_attempts.order("started_at DESC"), admin: :crawl_attempts do
           column :id

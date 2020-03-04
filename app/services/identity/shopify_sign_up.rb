@@ -24,7 +24,7 @@ GRAPHQL
     domain = shop_auth_hash[:uid]
     token = shop_auth_hash[:credentials][:token]
 
-    ShopifyAPI::Session.temp(domain: domain, token: token, api_version: ShopifyApp.configuration.api_version) do
+    shop = ShopifyAPI::Session.temp(domain: domain, token: token, api_version: ShopifyApp.configuration.api_version) do
       shop_details = ShopifyAPI::GraphQL.client.query(SHOP_DETAILS_QUERY)
 
       Account.transaction do
@@ -50,8 +50,8 @@ GRAPHQL
       end
     end
 
-    # Fetch all the data for the rest of the columns in a background job
-    ShopifyData::ShopUpdatedJob.enqueue(shop_domain: domain)
+    # Fetch all the data for the rest of the shop columns and associated shop data in a background job
+    ShopifyData::AllSyncJob.enqueue(shopify_shop_id: shop.id)
 
     new_account
   end

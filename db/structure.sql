@@ -423,6 +423,7 @@ CREATE TABLE public.activity_feed_items (
     item_at timestamp without time zone NOT NULL,
     group_start timestamp without time zone,
     group_end timestamp without time zone,
+    hacky_internal_representation jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
