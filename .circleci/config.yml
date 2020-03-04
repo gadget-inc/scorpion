@@ -83,6 +83,7 @@ jobs:
         environment:
           SECRET_KEY_BASE: value-needed-to-boot-app
           REDIS_URL: redis://localhost:6379/1
+          FULL_BACKTRACE: "true"
       - image: circleci/postgres:11
         environment:
           POSTGRES_USER: scorpion
