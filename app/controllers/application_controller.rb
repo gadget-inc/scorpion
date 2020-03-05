@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  around_action :set_instrumentation_context
+  around_action :wrap_with_unit_of_work
   after_action :track_server_side_page_view
 
   attr_reader :current_user, :current_account
@@ -30,23 +30,22 @@ class ApplicationController < ActionController::Base
     (Rails.env.development? || Rails.env.integration_test?) && request.headers["HTTP_X_TRUSTED_DEV_CLIENT"].present?
   end
 
-  def set_instrumentation_context
-    Raven.tags_context(client_session_id: client_session_id)
-    Honeycomb.add_field("client_session_id", client_session_id)
+  def wrap_with_unit_of_work
+    UnitOfWork.unit("#{controller_name}##{action_name}") do |unit|
+      unit.add_tags(client_session_id: client_session_id)
 
-    if current_user.present?
-      Raven.user_context(user_id: current_user.id, email: current_user.email)
-      Honeycomb.add_field("user_id", current_user.id)
+      if current_user.present?
+        Raven.user_context(user_id: current_user.id, email: current_user.email)
+        Honeycomb.add_field("user_id", current_user.id)
+      end
+
+      current_account = respond_to?(:current_account) && current_account.present?
+      if current_account
+        unit.add_tags(account_id: current_account.id, account_name: current_account.name)
+      end
+
+      yield
     end
-
-    current_account = respond_to?(:current_account) && current_account.present?
-    if current_account
-      Raven.tags_context(account_id: current_account.id, account_name: current_account.name)
-      Honeycomb.add_field("account_id", current_account.id)
-      Honeycomb.add_field("account_name", current_account.name)
-    end
-
-    yield
   end
 
   def track_server_side_page_view

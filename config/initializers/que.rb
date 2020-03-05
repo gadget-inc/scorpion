@@ -26,3 +26,12 @@ Que.error_notifier = proc do |error, job|
   Que.logger.error(error.message, job)
   Raven.capture_exception(error, extra: { job: job })
 end
+
+UnitOfWorkMiddleware = lambda { |job, &block|
+  UnitOfWork.unit("QueJob/#{job.que_attrs[:id]}") do |unit|
+    unit.add_tags(job_id: job.que_attrs[:id])
+    block.call
+  end
+}
+
+Que.job_middleware.push(UnitOfWorkMiddleware)
