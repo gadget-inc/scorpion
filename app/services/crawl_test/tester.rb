@@ -37,7 +37,7 @@ module CrawlTest
           test_case.update!(started_at: Time.now.utc, running: true)
           logger.info "Beginning crawl for test case"
 
-          client = ::Crawler::CrawlerClient.client
+          client = ::Crawl::CrawlerClient.client
           success = true
           error = nil
 
@@ -102,7 +102,7 @@ module CrawlTest
     end
 
     def test_request_body(test_case)
-      client = ::Crawler::CrawlerClient.client
+      client = ::Crawl::CrawlerClient.client
 
       body = {}
       if test_case.property.internal_test_options

@@ -64,16 +64,16 @@ module ShopifyApp
       session[:shopify_domain] = shop_name
       session[:shopify_user] = associated_user
 
-      if ShopifyApp.configuration.per_user_tokens?
-        # Adds the user_session to the session to determine if the logged in user has changed
-        user_session = auth_hash&.extra&.session
-        raise IndexError, "Missing user session signature" if user_session.nil?
-        session[:user_session] = user_session
-      end
+      # Adds the user_session to the session to determine if the logged in user has changed
+      user_session = auth_hash&.extra&.session
+      raise IndexError, "Missing user session signature" if user_session.nil?
+      session[:user_session] = user_session
 
-      sign_up = Identity::ShopifySignUp.new
-      sign_up.create_account_if_necessary!(session[:shopify], session[:stored_shop_auth_hash])
-      session.delete(:stored_shop_auth_hash)
+      if session[:stored_shop_auth_hash]
+        sign_up = Identity::ShopifySignUp.new
+        sign_up.create_account_if_necessary!(session[:shopify], session[:stored_shop_auth_hash])
+        session.delete(:stored_shop_auth_hash)
+      end
     end
 
     def install_webhooks

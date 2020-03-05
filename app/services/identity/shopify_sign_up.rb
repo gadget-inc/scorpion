@@ -39,6 +39,14 @@ GRAPHQL
           enabled: true,
         )
 
+        new_property.key_urls.create!(
+          account_id: new_account.id,
+          creator_id: creator.id,
+          url: shop_details.data.shop.primary_domain.url,
+          page_type: "home",
+          creation_reason: "initial",
+        )
+
         ShopifyShop.create!(
           domain: domain,
           myshopify_domain: shop_details.data.shop.myshopify_domain,

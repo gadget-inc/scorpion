@@ -34,7 +34,9 @@ class Property < ApplicationRecord
   scope :for_ambient_crawls, -> { kept.where(enabled: true, ambient: true) }
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
-  has_many :crawl_attempts, dependent: :destroy
+
+  has_many :key_urls, dependent: :destroy
+  has_many :crawl_attempts, class_name: "Crawl::Attempt", dependent: :destroy
   has_many :property_screenshots, dependent: :destroy
   has_many :activity_feed_items, dependent: :destroy, class_name: "Activity::FeedItem"
 

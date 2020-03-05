@@ -7,12 +7,12 @@ module Crawler
     setup do
       create(:sole_destroyer_property)
       @ambient_homesick = create(:ambient_homesick_property)
-      CrawlerClient.client.stubs(:block_until_available).returns(true)
+      Crawl::CrawlerClient.client.stubs(:block_until_available).returns(true)
       ExecuteCrawl.any_instance.stubs(:crawl_options).returns(maxDepth: 0)  # so e2e crawling tests don't take forever
     end
 
     test "it crawls all shops for page info in the background" do
-      assert_difference "CrawlAttempt.all.size" do
+      assert_difference "Crawl::Attempt.all.size" do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob.run
         end
@@ -20,7 +20,7 @@ module Crawler
     end
 
     test "it crawls all shops for screenshots in the background" do
-      assert_difference "CrawlAttempt.all.size" do
+      assert_difference "Crawl::Attempt.all.size" do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob.run
         end
@@ -28,7 +28,7 @@ module Crawler
     end
 
     test "it crawls all shops for lighthouses in the background" do
-      assert_difference "CrawlAttempt.all.size" do
+      assert_difference "Crawl::Attempt.all.size" do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueCollectLighthouseCrawlsJob.run
         end
@@ -36,7 +36,7 @@ module Crawler
     end
 
     test "it crawls all ambient properties for lighthouses and spelling in the background" do
-      assert_difference "CrawlAttempt.all.size", 1 do
+      assert_difference "Crawl::Attempt.all.size", 1 do
         with_synchronous_jobs do
           Infrastructure::PeriodicEnqueueAmbientCrawlsJob.run
         end

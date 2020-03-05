@@ -32,18 +32,18 @@ module Crawler
 
     def collect_page_info_crawl(property, reason)
       attempt_crawl(property, reason, :collect_page_info) do |attempt_record|
-        CrawlerClient.client.crawl(property, **default_crawl_arguments(property, attempt_record))
+        Crawl::CrawlerClient.client.crawl(property, **default_crawl_arguments(property, attempt_record))
       end
     end
 
     def collect_screenshots_crawl(property, reason)
       attempt_crawl(property, reason, :collect_screenshots) do |attempt_record|
-        CrawlerClient.client.screenshots(
+        Crawl::CrawlerClient.client.screenshots(
           property,
           property.crawl_roots,
           **default_crawl_arguments(property, attempt_record),
           on_result: proc do |result|
-            CrawlAttempt.transaction do
+            Crawl::Attempt.transaction do
               attempt_record.update!(last_progress_at: Time.now.utc)
               image_data = result.delete("base64Image")
               @account.property_screenshots.create!(
@@ -61,7 +61,7 @@ module Crawler
             end
           end,
           on_error: proc do |error_result|
-            CrawlAttempt.transaction do
+            Crawl::Attempt.transaction do
               attempt_record.update!(last_progress_at: Time.now.utc)
               logger.info("remote crawler error", error_result)
             end
@@ -72,7 +72,7 @@ module Crawler
 
     def collect_lighthouse_crawl(property, reason)
       attempt_crawl(property, reason, :collect_lighthouse) do |attempt_record|
-        CrawlerClient.client.lighthouse(
+        Crawl::CrawlerClient.client.lighthouse(
           property,
           property.crawl_roots,
           **default_crawl_arguments(property, attempt_record),
@@ -84,7 +84,7 @@ module Crawler
 
     def attempt_crawl(property, reason, crawl_type)
       if Rails.configuration.crawler[:run_as_kubernetes_job]
-        CrawlerClient.client.block_until_available
+        Crawl::CrawlerClient.client.block_until_available
       end
 
       attempt_record = @account.crawl_attempts.create!(property: property, started_reason: reason, crawl_type: crawl_type, started_at: Time.now.utc, last_progress_at: Time.now.utc, running: true)
@@ -110,13 +110,13 @@ module Crawler
         crawl_options: crawl_options,
         trace_context: { crawlAttemptId: attempt_record.id },
         on_result: proc do |result|
-          CrawlAttempt.transaction do
+          Crawl::Attempt.transaction do
             attempt_record.update!(last_progress_at: Time.now.utc)
             @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: result["url"], result: result)
           end
         end,
         on_error: proc do |error_result|
-          CrawlAttempt.transaction do
+          Crawl::Attempt.transaction do
             attempt_record.update!(last_progress_at: Time.now.utc)
             @account.crawl_pages.create!(property: property, crawl_attempt: attempt_record, url: error_result["url"], result: { error: error_result })
           end

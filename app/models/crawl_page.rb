@@ -28,5 +28,5 @@ class CrawlPage < ApplicationRecord
   include AccountScoped
 
   belongs_to :property, optional: false
-  belongs_to :crawl_attempt, optional: false
+  belongs_to :crawl_attempt, class_name: "Crawl::Attempt", optional: false
 end

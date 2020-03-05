@@ -6,7 +6,7 @@ module Crawler
   class ExecuteCrawlTest < ActiveSupport::TestCase
     setup do
       @property = create(:sole_destroyer_property)
-      CrawlerClient.client.stubs(:block_until_available).returns(true)
+      Crawl::CrawlerClient.client.stubs(:block_until_available).returns(true)
     end
 
     test "it crawls a test shop" do

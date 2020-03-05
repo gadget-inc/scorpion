@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Customized session store class for the shopify_app gem that is Shop scope aware (for discards and whatever else we might need)
+# Customized session store class for the shopify_app gem that uses our own models to manage Shopify providers in the context of accounts that don't necessarily need to be tied right to Shopify.
 # Based on https://github.com/Shopify/shopify_app/blob/master/lib/shopify_app/session/session_storage.rb which is usually included right into the Shop model by ShopifyApp::SessionStorage
 module Infrastructure::ShopifyUserSessionRepository
   def self.store(auth_session, blob)

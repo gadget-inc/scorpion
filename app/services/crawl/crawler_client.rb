@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Crawler::CrawlerClient
+class Crawl::CrawlerClient
   include SemanticLogger::Loggable
 
   class CrawlSystemError < RuntimeError; end

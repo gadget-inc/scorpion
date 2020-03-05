@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-Trestle.resource(:crawl_attempts) do
+Trestle.resource(:attempts, scope: Crawl) do
   menu do
     item :crawl_attempts, icon: "fa fa-spider"
   end
 
   scopes do
-    scope :all, -> { CrawlAttempt.order("created_at DESC") }, default: true
-    scope :ambient, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: true }) }
-    scope :specific, -> { CrawlAttempt.all.joins(:property).where(properties: { ambient: false }) }
-    scope :failed, -> { CrawlAttempt.where("succeeded IS NULL or succeeded = false").order("created_at DESC") }
+    scope :all, -> { Crawl::Attempt.order("created_at DESC") }, default: true
+    scope :ambient, -> { Crawl::Attempt.all.joins(:property).where(properties: { ambient: true }) }
+    scope :specific, -> { Crawl::Attempt.all.joins(:property).where(properties: { ambient: false }) }
+    scope :failed, -> { Crawl::Attempt.where("succeeded IS NULL or succeeded = false").order("created_at DESC") }
   end
 
   table do
@@ -24,7 +24,7 @@ Trestle.resource(:crawl_attempts) do
     column :finished_at
     column :failure_reason
     column :links do |attempt|
-      link_to "Logs", CrawlAttemptHelper.logs_url(attempt), target: "_blank", rel: "noopener"
+      link_to "Logs", Crawl::AttemptHelper.logs_url(attempt), target: "_blank", rel: "noopener"
     end
   end
 

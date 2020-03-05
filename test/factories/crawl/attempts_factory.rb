@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 FactoryBot.define do
-  factory :crawl_attempt do
+  factory :crawl_attempt, class: "Crawl::Attempt" do
     association :property
     started_reason { "scheduled" }
     crawl_type { :collect_page_info }
