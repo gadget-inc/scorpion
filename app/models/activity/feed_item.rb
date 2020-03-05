@@ -4,8 +4,8 @@
 # Table name: activity_feed_items
 #
 #  id                            :bigint           not null, primary key
-#  group_end                     :datetime
-#  group_start                   :datetime
+#  group_end                     :datetime         not null
+#  group_start                   :datetime         not null
 #  hacky_internal_representation :jsonb
 #  item_at                       :datetime         not null
 #  item_type                     :string           not null

@@ -421,8 +421,8 @@ CREATE TABLE public.activity_feed_items (
     property_id bigint NOT NULL,
     item_type character varying NOT NULL,
     item_at timestamp without time zone NOT NULL,
-    group_start timestamp without time zone,
-    group_end timestamp without time zone,
+    group_start timestamp without time zone NOT NULL,
+    group_end timestamp without time zone NOT NULL,
     hacky_internal_representation jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -2067,6 +2067,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303213348'),
 ('20200303213840'),
 ('20200303215736'),
-('20200303221947');
+('20200303221947'),
+('20200305154938');
 
 

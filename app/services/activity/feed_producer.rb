@@ -20,8 +20,8 @@ module Activity
     end
 
     def produce
-      most_recent_item = @property.activity_feed_items.order("item_at DESC").first
-      high_watermark = most_recent_item.try(:group_start) || most_recent_item.try(:item_at) || EPOCH
+      most_recent_item = @property.activity_feed_items.order("group_end DESC").first
+      high_watermark = most_recent_item.try(:group_end) || EPOCH
 
       existing_group_events = []
       new_group_events = []
@@ -44,15 +44,15 @@ module Activity
       if !events.empty?
         cursors = events.map { |event| cursor_value(event) }
         max = cursors.max
+        item.group_start = cursors.min
+        item.group_end = max
         item.item_at = max
 
-        if events.size > 1
-          item.group_end = max
-          item.group_start = cursors.min
-          item.item_type = "event_group"
-        else
-          item.item_type = "event"
-        end
+        item.item_type = if events.size > 1
+            "event_group"
+          else
+            "event"
+          end
 
         item.hacky_internal_representation ||= { "events" => [] }
         item.hacky_internal_representation["events"] += events.map { |event| hacky_internal_event_representation(event) }
@@ -67,21 +67,21 @@ module Activity
       scope = descriptor[:scope] || source_class
       scope = scope.where(account_id: @account.id, shopify_shop_id: @shop.id).order({ cursor_property => :asc })
       scope = scope.where(":property > :high_watermark", property: cursor_property, high_watermark: high_watermark)
-      records = scope.to_a
+      records = scope.to_a.filter { |event| event[cursor_property] > high_watermark } # wtf
       logger.info "Retrieved records for feed", klass: source_class.name, size: records.size
       records
     end
 
     def find_group_threshold_and_split(new_events, most_recent_item)
       group_start = if most_recent_item
-          most_recent_item.group_start || most_recent_item.item_at
+          most_recent_item.group_start
         else
           EPOCH
         end
 
       # Groups should be a maximum of 8 minutes long. This will probably get fancier.
-      group_end = group_start + 8.minutes
-      events_for_existing, events_for_new = new_events.partition { |event| cursor_value(event) <= group_end }
+      threshold = group_start + 8.minutes
+      events_for_existing, events_for_new = new_events.partition { |event| cursor_value(event) <= threshold }
       [events_for_existing, events_for_new]
     end
 

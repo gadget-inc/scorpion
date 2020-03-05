@@ -11,10 +11,62 @@ module Activity
       Timecop.freeze(Time.utc(2020, 3))
     end
 
-    test "it produces feed items with no prior items" do
+    test "it produces no feed items if there are no changes" do
       @producer.produce
       @producer.produce
       assert_equal 0, @property.activity_feed_items.size
+    end
+
+    test "it produces feed items with unprocessed source data" do
+      create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Cool Shop", account: @property.account, shopify_shop: @shop)
+      create(:shopify_data_shop_change_event, record_attribute: "customer_email", new_value: "test@test.com", account: @property.account, shopify_shop: @shop)
+
+      assert_difference "Activity::FeedItem.count" do
+        @producer.produce
+      end
+
+      first_feed_item = @property.activity_feed_items.first
+      assert_equal 2, first_feed_item.hacky_internal_representation["events"].size
+
+      # travel a month ahead
+      Timecop.freeze(Time.utc(2020, 4))
+      create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Really Cool Shop", account: @property.account, shopify_shop: @shop)
+      assert_difference "Activity::FeedItem.count" do
+        @producer.produce
+      end
+
+      second_feed_item = @property.activity_feed_items.order("created_at DESC").first
+      assert_not_equal first_feed_item, second_feed_item
+      assert_operator second_feed_item.item_at, :>, first_feed_item.item_at
+      assert_equal 1, second_feed_item.hacky_internal_representation["events"].size
+      assert_equal 2, first_feed_item.reload.hacky_internal_representation["events"].size
+
+      # travel a month ahead and make sure producing again doesnt create changes
+      Timecop.freeze(Time.utc(2020, 5))
+      assert_no_difference "Activity::FeedItem.count" do
+        @producer.produce
+      end
+    end
+
+    test "it folds unprocessed source data into existing feed items if it's within the threshold" do
+      create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Cool Shop", account: @property.account, shopify_shop: @shop)
+      create(:shopify_data_shop_change_event, record_attribute: "customer_email", new_value: "test@test.com", account: @property.account, shopify_shop: @shop)
+
+      assert_difference "Activity::FeedItem.count" do
+        @producer.produce
+      end
+
+      first_feed_item = @property.activity_feed_items.first
+      assert_equal 2, first_feed_item.hacky_internal_representation["events"].size
+
+      # travel a minute ahead
+      Timecop.freeze(Time.now.utc + 1.minute)
+      create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Really Cool Shop", account: @property.account, shopify_shop: @shop)
+      assert_no_difference "Activity::FeedItem.count" do
+        @producer.produce
+      end
+
+      assert_equal 3, first_feed_item.reload.hacky_internal_representation["events"].size
     end
 
     test "it produces feed items with newly arrived items" do
