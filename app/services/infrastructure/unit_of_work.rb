@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UnitOfWork
+class Infrastructure::UnitOfWork
   thread_cattr_accessor :current
 
   class << self

@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def wrap_with_unit_of_work
-    UnitOfWork.unit("#{controller_name}##{action_name}") do |unit|
+    Infrastructure::UnitOfWork.unit("#{controller_name}##{action_name}") do |unit|
       unit.add_tags(client_session_id: client_session_id)
 
       if current_user.present?
