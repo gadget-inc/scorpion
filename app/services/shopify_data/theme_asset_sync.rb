@@ -3,6 +3,7 @@ module ShopifyData
   # Knows how to fetch all the new and changed assets for a theme since last time, as well as theme data itself, and save them to the database
   class ThemeAssetSync
     include ShopifyApiRetries
+    include Wisper::Publisher
 
     SYNC_THEME_ATTRIBUTES = %i[processing previewable name role theme_store_id].freeze
     THEME_CHANGE_TRACKED_ATTRIBUTES = %i[name role previewable].freeze
@@ -30,6 +31,8 @@ module ShopifyData
           insert_asset_change_events!(data_theme, asset_changes)
           insert_theme_change_events!(data_theme)
         end
+
+        broadcast(:shopify_theme_changed, { shopify_shop_id: @shop.id, shopify_data_theme_id: data_theme.id })
       end
     end
 

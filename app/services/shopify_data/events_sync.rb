@@ -3,6 +3,7 @@ module ShopifyData
   # Knows how to fetch all the new Shopify events since the last time it ran and save them to the database
   class EventsSync
     include ShopifyApiRetries
+    include Wisper::Publisher
     attr_reader :shop
 
     def initialize(shop, params = {})
@@ -20,6 +21,8 @@ module ShopifyData
           events = with_retries { events.fetch_next_page }
           process_events(events)
         end
+
+        broadcast(:shopify_events_changed, { shopify_shop_id: @shop.id })
       end
     end
 
