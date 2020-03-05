@@ -708,6 +708,42 @@ ALTER SEQUENCE public.flipper_gates_id_seq OWNED BY public.flipper_gates.id;
 
 
 --
+-- Name: key_urls; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.key_urls (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    creator_id bigint,
+    url character varying NOT NULL,
+    page_type character varying NOT NULL,
+    creation_reason character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: key_urls_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.key_urls_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: key_urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.key_urls_id_seq OWNED BY public.key_urls.id;
+
+
+--
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1273,6 +1309,13 @@ ALTER TABLE ONLY public.flipper_gates ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: key_urls id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.key_urls ALTER COLUMN id SET DEFAULT nextval('public.key_urls_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1451,6 +1494,14 @@ ALTER TABLE ONLY public.flipper_features
 
 ALTER TABLE ONLY public.flipper_gates
     ADD CONSTRAINT flipper_gates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: key_urls key_urls_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.key_urls
+    ADD CONSTRAINT key_urls_pkey PRIMARY KEY (id);
 
 
 --
@@ -1855,11 +1906,35 @@ ALTER TABLE ONLY public.shopify_data_themes
 
 
 --
+-- Name: key_urls fk_rails_7ba2bdd466; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.key_urls
+    ADD CONSTRAINT fk_rails_7ba2bdd466 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: shopify_data_events fk_rails_7d54c4df71; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.shopify_data_events
     ADD CONSTRAINT fk_rails_7d54c4df71 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: key_urls fk_rails_8ca3965867; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.key_urls
+    ADD CONSTRAINT fk_rails_8ca3965867 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: key_urls fk_rails_8e5b672136; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.key_urls
+    ADD CONSTRAINT fk_rails_8e5b672136 FOREIGN KEY (creator_id) REFERENCES public.users(id);
 
 
 --
@@ -2068,6 +2143,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303213840'),
 ('20200303215736'),
 ('20200303221947'),
-('20200305154938');
+('20200305154938'),
+('20200305185335');
 
 

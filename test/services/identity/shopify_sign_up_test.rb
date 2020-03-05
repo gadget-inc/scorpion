@@ -30,6 +30,10 @@ class Identity::ShopifySignUpTest < ActiveSupport::TestCase
           assert_operator 0, :<, property.crawl_roots.size
           assert_equal @user, property.creator
 
+          assert root_key_url = property.key_urls.first
+          assert_not_nil root_key_url.url
+          assert_not_nil root_key_url.creation_reason
+
           assert shop = ShopifyShop.where(property_id: property.id).first
           assert_equal ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"], shop.domain
           assert_equal ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"], shop.api_token
