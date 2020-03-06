@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Tests for if a service is up yet or not.
 module Infrastructure::ServiceAvailability
   def self.test_uri(uri)
     uri = URI.parse(uri)

@@ -3,6 +3,7 @@ require "faker"
 require "json/add/exception"
 
 module CrawlTest
+  # Manages running and re-running crawl test runs
   class Tester
     include SemanticLogger::Loggable
 

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/airhorns/fixings.git
-  revision: 6322ef04a3fd5d0668a61bf19cafe1d88617079e
+  revision: f996c886d2f74655277980d2e50703d32cee8e25
   specs:
     fixings (0.1.2)
       active_record_query_trace
@@ -406,7 +406,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    oj (3.10.3)
+    oj (3.10.5)
     omniauth (1.9.0)
       hashie (>= 3.4.6, < 3.7.0)
       rack (>= 1.6.2, < 3)
@@ -631,7 +631,7 @@ GEM
     yajl-ruby (1.4.1)
     yaml-safe_load_stream (0.1.1)
     zaru (0.3.0)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby

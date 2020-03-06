@@ -56,7 +56,7 @@ module Crawl
     def store_result(result)
       assessments = result["lighthouse"]["audits"].map do |_key, audit|
         record = base_assessment_record(audit["id"], result["url"])
-        record.score = audit["score"]
+        record.score = (audit["score"] * 100).round
         record.score_mode = audit["scoreDisplayMode"]
         record.details = { lighthouse_details: audit["details"] }
         record

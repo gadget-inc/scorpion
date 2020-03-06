@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base database record everything persisted should inherit from
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
   include ArTransactionChanges

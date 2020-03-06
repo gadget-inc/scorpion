@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Will someday implement helpers for attaching files to the right thing
 module Infrastructure::AttachmentContainerHelpers
   def attachment_container(container_class, _container_id)
     # scope = case

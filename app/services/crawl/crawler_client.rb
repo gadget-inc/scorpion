@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Wrapper for the scorpion-crawler project's REST API
 class Crawl::CrawlerClient
   include SemanticLogger::Loggable
 

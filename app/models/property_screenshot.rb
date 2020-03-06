@@ -19,7 +19,7 @@
 #  fk_rails_...  (crawl_attempt_id => crawl_attempts.id)
 #  fk_rails_...  (property_id => properties.id)
 #
-
+# Cruft left over from initial implementation. Might go away
 class PropertyScreenshot < ApplicationRecord
   include AccountScoped
 

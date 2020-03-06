@@ -22,6 +22,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (property_id => properties.id)
 #
+# Represents one decision we made about some quality of a property at a point in time. Largely immutable.
 class Assessment::Result < ApplicationRecord
   include AccountScoped
   belongs_to :property

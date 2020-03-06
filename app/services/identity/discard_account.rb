@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Implements a platform independent account discard process
 class Identity::DiscardAccount
   def initialize(user)
     @user = user

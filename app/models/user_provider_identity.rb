@@ -21,7 +21,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-
+# Represents an authorization and identification mechanism for a user implemented by someone other than us, like Shopify.
 class UserProviderIdentity < ApplicationRecord
   include Discard::Model
   belongs_to :user, optional: false

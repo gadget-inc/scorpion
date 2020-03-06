@@ -3,7 +3,6 @@
 # Rodash.get and Rodash.set
 # MIT License
 # Based on Lodash.js 4.3.0 <https://lodash.com/>
-
 class Rodash
 
   # Sets the value at `path` of `object`. If a portion of `path` doesn't exist

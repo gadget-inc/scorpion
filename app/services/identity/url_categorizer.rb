@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module Identity
-
   # Given a url we discovered on a crawl, figure out where assessments on that URL should go in the UI
   class UrlCategorizer
     def initialize(property)

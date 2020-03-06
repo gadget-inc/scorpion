@@ -24,6 +24,7 @@
 #  fk_rails_...  (shopify_data_theme_id => shopify_data_themes.id)
 #  fk_rails_...  (shopify_shop_id => shopify_shops.id)
 #
+# Represents a point in time record of a Shopify shop's theme's details being changed. Excludes asset changes
 class ShopifyData::ThemeChangeEvent < ApplicationRecord
   include AccountScoped
   include ShopifyShopScoped

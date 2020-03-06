@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# Attribute type for allowing Rails' parameters to be assigned to a JSONB column and property decoded/encoded
+# Use like so:
+#  class SomeModel
+#    attribute :internal_test_options, JsonbTypeValue.new
+#  end
 class JsonbTypeValue < ActiveModel::Type::Value
   def type
     :jsonb

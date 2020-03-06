@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module CrawlTest
+  # UI assistant class for rendering the crawl test dashboard
   class Dashboard
     def initialize(run_scope, limit: 10)
       @run_scope = run_scope

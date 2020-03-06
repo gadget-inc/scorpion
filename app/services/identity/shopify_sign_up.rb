@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Implements the process necessary to take valid Shopify OAuth credentials and save the ShopifyShop, Account, and Property details upon that shop's first arrival.
 class Identity::ShopifySignUp
   SHOP_DETAILS_QUERY = ShopifyAPI::GraphQL.client.parse <<-GRAPHQL
   {

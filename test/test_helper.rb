@@ -7,20 +7,12 @@ require "fixings/test_help"
 
 # Setup some env vars that devs might pass in for VCR to record real requests, then replace them with VCR's sensitive data filters so the cassettes are safe to commit to Git.
 # If you want to re-record VCR data, set these variables in your environment before running your tests. `bin/rake dev:env_vars` will spit as many of them as it can out from your development database to then use to create VCR fixtures.
-ENV["GA_OAUTH_ACCESS_TOKEN"] ||= "test_access_token"
-ENV["GA_OAUTH_REFRESH_TOKEN"] ||= "test_refresh_token"
 ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] ||= "test.myshopify.com"
-ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] ||= "test_access_token"
-ENV["KAFKA_SASL_PLAIN_PASSWORD"] ||= "test_kafka_password"
-ENV["FB_OAUTH_ACCESS_TOKEN"] ||= "test_access_token"
+ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] ||= "test_shopify_access_token"
 
 VCR.configure do |config|
-  config.filter_sensitive_data("<GA_OAUTH_ACCESS_TOKEN>") { ENV["GA_OAUTH_ACCESS_TOKEN"] }
-  config.filter_sensitive_data("<GA_OAUTH_REFRESH_TOKEN>") { ENV["GA_OAUTH_REFRESH_TOKEN"] }
-  config.filter_sensitive_data("<FB_OAUTH_ACCESS_TOKEN>") { ENV["FB_OAUTH_ACCESS_TOKEN"] }
   config.filter_sensitive_data("<SHOPIFY_SHOP_OAUTH_DOMAIN>") { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
   config.filter_sensitive_data("<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>") { ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] }
-  config.filter_sensitive_data("<KAFKA_SASL_PLAIN_PASSWORD>") { ENV["KAFKA_SASL_PLAIN_PASSWORD"] }
   config.filter_sensitive_data("<KUBE_CLUSTER_ADDRESS>") { "kubernetes.docker.internal:6443" }
 
   config.fixings_query_matcher_param_exclusions << "appsecret_proof"

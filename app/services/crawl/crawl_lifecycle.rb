@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Crawl
+  # Manages a CrawlAttempt record to note progress and success/failure in the event of errors
   class CrawlLifecycle
     include SemanticLogger::Loggable
     attr_reader :property, :account, :reason, :type

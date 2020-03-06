@@ -16,6 +16,7 @@
 #  fk_rails_...  (crawl_test_case_id => crawl_test_cases.id)
 #
 
+# One remote log entry in the execution of a case
 class CrawlTest::CaseLog < ApplicationRecord
   belongs_to :crawl_test_case, class_name: "CrawlTest::Case", optional: false, foreign_key: :crawl_test_case_id, inverse_of: :logs
 end

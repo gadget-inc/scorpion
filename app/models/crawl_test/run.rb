@@ -15,6 +15,7 @@
 #  updated_at        :datetime         not null
 #
 
+# One group of case executions
 class CrawlTest::Run < ApplicationRecord
   has_many :crawl_test_cases, class_name: "CrawlTest::Case", dependent: :destroy, foreign_key: :crawl_test_run_id, inverse_of: :crawl_test_run
   has_many :properties, through: :crawl_test_cases

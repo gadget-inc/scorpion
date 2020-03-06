@@ -2,6 +2,7 @@
 
 require "uri"
 
+# Implements a remote file attachement process for ActiveStorage within the context of an account
 class Infrastructure::AttachRemoteUrl
   include Infrastructure::AttachmentContainerHelpers
 

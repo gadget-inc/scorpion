@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Constant describing the information architecture that all our different assessments fall into.
 module Assessment
   Categories = { # rubocop:disable Naming/ConstantName
     home: {},

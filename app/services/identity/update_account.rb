@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Implements a platform independent account update process
 class Identity::UpdateAccount
   def initialize(account, user)
     @account = account

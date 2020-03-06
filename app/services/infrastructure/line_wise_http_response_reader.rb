@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Streaming iterator that yields full lines from an iterable HTTP response body of bytes
 class Infrastructure::LineWiseHttpResponseReader
   def initialize(response)
     @response = response

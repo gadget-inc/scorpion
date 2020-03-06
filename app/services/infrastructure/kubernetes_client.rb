@@ -3,6 +3,7 @@
 require "shellwords"
 require "securerandom"
 
+# k8s client for executing background jobs in long lived K8S pods instead of normal background jobs. Useful for jobs that need to survive deployments (usually cause they're long)
 class Infrastructure::KubernetesClient
   include SemanticLogger::Loggable
 

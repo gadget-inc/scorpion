@@ -9,3 +9,17 @@ AllCops:
 inherit_gem:
   fixings:
     - .rubocop.yml
+
+Style/Documentation:
+  Enabled: true
+  Severity: warning
+  Exclude:
+    - test/**/*
+    - db/**/*
+    - app/graphql/**/*
+    - app/helpers/**/*
+    - app/jobs/**/*
+    - app/admin/**/*
+    - app/controllers/**/*
+    - app/mailers/**/*
+    - config/**/*

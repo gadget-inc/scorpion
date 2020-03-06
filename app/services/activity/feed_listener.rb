@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module Activity
-
   # Listens for changes to all the things that might change the feed to enqueue the job to produce the feed
   class FeedListener
     def enqueue_produce_job(shopify_shop_id)

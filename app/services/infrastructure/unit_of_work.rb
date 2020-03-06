@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Wrapper object around requests and jobs providing a global context to set instrumentation values and callbacks on. Useful for doing work at the end of the work unit, but only once even if multiple things merit it using :idempotency_key
 class Infrastructure::UnitOfWork
   thread_cattr_accessor :current
 

@@ -28,24 +28,7 @@ Trestle.resource(:attempts, scope: Crawl) do
     end
   end
 
-  form do |crawl_attempt|
-    tab :pages, badge: crawl_attempt.crawl_pages.size do
-      table crawl_attempt.crawl_pages.order("id ASC") do
-        column :id
-        column :url
-        column :error do |page|
-          page.result["error"].present?
-        end
-        column :result do |page|
-          tag.pre do
-            tag.code do
-              page.result.to_s.truncate(100)
-            end
-          end
-        end
-      end
-    end
-
+  form do |_crawl_attempt|
     tab :form do
       text_field :failure_reason
       text_field :crawl_type

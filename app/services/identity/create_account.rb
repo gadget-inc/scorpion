@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Implements a platform independent account creation process.
 class Identity::CreateAccount
   def initialize(creator)
     @creator = creator

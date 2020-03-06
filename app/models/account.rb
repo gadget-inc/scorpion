@@ -20,6 +20,7 @@
 #
 #  fk_rails_...  (creator_id => users.id)
 #
+# Root object grouping together access and settings for a bunch of properties. The billing entity.
 class Account < ApplicationRecord
   include Discard::Model
   include MutationClientId
@@ -32,7 +33,6 @@ class Account < ApplicationRecord
 
   has_many :properties, inverse_of: :account, dependent: :destroy
   has_many :crawl_attempts, class_name: "Crawl::Attempt", inverse_of: :account, dependent: :destroy
-  has_many :crawl_pages, inverse_of: :account, dependent: :destroy
   has_many :property_screenshots, inverse_of: :account, dependent: :destroy
   has_many :assessment_results, class_name: "Assessment::Result", inverse_of: :account, dependent: :destroy
 

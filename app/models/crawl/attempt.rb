@@ -25,14 +25,13 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (property_id => properties.id)
-#
 
 module Crawl
+  # Represents the infrastructure concerns around making a batch of assessments. A successful crawl is one where nothing we have responsibility for broke, which means a crawl can succeed and produce a lot of assessments / errors. A failure is when our infrastructure gets in the way of making assessments.
   class Attempt < ApplicationRecord
     include AccountScoped
 
     belongs_to :property, optional: false
-    has_many :crawl_pages, dependent: :destroy
     has_many :property_screenshots, dependent: :destroy
 
     enum crawl_type: { interaction: "interaction", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
