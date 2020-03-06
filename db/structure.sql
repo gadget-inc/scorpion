@@ -541,41 +541,6 @@ ALTER SEQUENCE public.crawl_attempts_id_seq OWNED BY public.crawl_attempts.id;
 
 
 --
--- Name: crawl_pages; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.crawl_pages (
-    id bigint NOT NULL,
-    account_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    crawl_attempt_id bigint NOT NULL,
-    url character varying NOT NULL,
-    result jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: crawl_pages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.crawl_pages_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: crawl_pages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.crawl_pages_id_seq OWNED BY public.crawl_pages.id;
-
-
---
 -- Name: crawl_test_case_logs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1314,13 +1279,6 @@ ALTER TABLE ONLY public.crawl_attempts ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- Name: crawl_pages id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.crawl_pages ALTER COLUMN id SET DEFAULT nextval('public.crawl_pages_id_seq'::regclass);
-
-
---
 -- Name: crawl_test_case_logs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1501,14 +1459,6 @@ ALTER TABLE ONLY public.assessment_results
 
 ALTER TABLE ONLY public.crawl_attempts
     ADD CONSTRAINT crawl_attempts_pkey PRIMARY KEY (id);
-
-
---
--- Name: crawl_pages crawl_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.crawl_pages
-    ADD CONSTRAINT crawl_pages_pkey PRIMARY KEY (id);
 
 
 --
@@ -1736,13 +1686,6 @@ CREATE INDEX index_crawl_attempts_on_success_and_finished ON public.crawl_attemp
 
 
 --
--- Name: index_crawl_pages_on_attempt_and_error; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_crawl_pages_on_attempt_and_error ON public.crawl_pages USING btree (crawl_attempt_id, (((result -> 'error'::text) IS NULL)));
-
-
---
 -- Name: index_crawl_test_cases_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1897,14 +1840,6 @@ ALTER TABLE ONLY public.property_screenshots
 
 
 --
--- Name: crawl_pages fk_rails_4b8453ebe7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.crawl_pages
-    ADD CONSTRAINT fk_rails_4b8453ebe7 FOREIGN KEY (property_id) REFERENCES public.properties(id);
-
-
---
 -- Name: shopify_data_theme_change_events fk_rails_4fcb6b6291; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2041,14 +1976,6 @@ ALTER TABLE ONLY public.activity_feed_items
 
 
 --
--- Name: crawl_pages fk_rails_b039c7a41e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.crawl_pages
-    ADD CONSTRAINT fk_rails_b039c7a41e FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
-
-
---
 -- Name: property_screenshots fk_rails_b3b3e6b860; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2062,14 +1989,6 @@ ALTER TABLE ONLY public.property_screenshots
 
 ALTER TABLE ONLY public.shopify_data_asset_change_events
     ADD CONSTRAINT fk_rails_b95a651ac0 FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
-
-
---
--- Name: crawl_pages fk_rails_ba2ea33cd5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.crawl_pages
-    ADD CONSTRAINT fk_rails_ba2ea33cd5 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2217,6 +2136,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200305154938'),
 ('20200305185335'),
 ('20200306143046'),
-('20200306163244');
+('20200306163244'),
+('20200306213109');
 
 
