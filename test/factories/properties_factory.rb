@@ -10,6 +10,10 @@ FactoryBot.define do
     ambient { false }
     internal_tags { [] }
 
+    after(:build) do |property|
+      property.key_urls << build(:key_url, property: property, account: property.account, url: property.crawl_roots[0])
+    end
+
     factory :sole_destroyer_property do
       crawl_roots { ["https://sole-destroyer.myshopify.com"] }
       allowed_domains { ["sole-destroyer.myshopify.com"] }
@@ -43,6 +47,11 @@ FactoryBot.define do
       allowed_domains { ["bape.com"] }
       ambient { true }
       internal_tags { ["test_crawl"] }
+    end
+
+    factory :doesnt_exist_property do
+      crawl_roots { ["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"] }
+      allowed_domains { ["this-domain-doesnt-exist.kdjflksj3333flskj.com"] }
     end
   end
 end

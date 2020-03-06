@@ -34,6 +34,7 @@ class Account < ApplicationRecord
   has_many :crawl_attempts, class_name: "Crawl::Attempt", inverse_of: :account, dependent: :destroy
   has_many :crawl_pages, inverse_of: :account, dependent: :destroy
   has_many :property_screenshots, inverse_of: :account, dependent: :destroy
+  has_many :assessment_results, class_name: "Assessment::Result", inverse_of: :account, dependent: :destroy
 
   belongs_to :creator, class_name: "User", inverse_of: :created_accounts
 

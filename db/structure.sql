@@ -38,6 +38,30 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 
 --
+-- Name: gapfillinternal(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.gapfillinternal(s anyelement, v anyelement) RETURNS anyelement
+    LANGUAGE plpgsql IMMUTABLE
+    AS $$
+BEGIN
+  RETURN COALESCE(v,s);
+END;
+$$;
+
+
+--
+-- Name: pg_search_dmetaphone(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.pg_search_dmetaphone(text) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+  SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ')
+$_$;
+
+
+--
 -- Name: que_validate_tags(jsonb); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -92,30 +116,6 @@ WITH (fillfactor='90');
 --
 
 COMMENT ON TABLE public.que_jobs IS '4';
-
-
---
--- Name: gapfillinternal(anyelement, anyelement); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.gapfillinternal(s anyelement, v anyelement) RETURNS anyelement
-    LANGUAGE plpgsql IMMUTABLE
-    AS $$
-BEGIN
-  RETURN COALESCE(v,s);
-END;
-$$;
-
-
---
--- Name: pg_search_dmetaphone(text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.pg_search_dmetaphone(text) RETURNS text
-    LANGUAGE sql IMMUTABLE STRICT
-    AS $_$
-  SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ')
-$_$;
 
 
 --
@@ -458,6 +458,46 @@ CREATE TABLE public.ar_internal_metadata (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
+
+
+--
+-- Name: assessment_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assessment_results (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    assessment_at timestamp without time zone NOT NULL,
+    key character varying NOT NULL,
+    key_category character varying NOT NULL,
+    score integer NOT NULL,
+    score_mode character varying NOT NULL,
+    error_code character varying,
+    url character varying,
+    details jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: assessment_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.assessment_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessment_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.assessment_results_id_seq OWNED BY public.assessment_results.id;
 
 
 --
@@ -1260,6 +1300,13 @@ ALTER TABLE ONLY public.activity_feed_items ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: assessment_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results ALTER COLUMN id SET DEFAULT nextval('public.assessment_results_id_seq'::regclass);
+
+
+--
 -- Name: crawl_attempts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1438,6 +1485,14 @@ ALTER TABLE ONLY public.activity_feed_items
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: assessment_results assessment_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results
+    ADD CONSTRAINT assessment_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -1810,6 +1865,14 @@ ALTER TABLE ONLY public.shopify_shops
 
 
 --
+-- Name: assessment_results fk_rails_3425d80d39; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results
+    ADD CONSTRAINT fk_rails_3425d80d39 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: crawl_test_cases fk_rails_3aed4e771e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1959,6 +2022,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 ALTER TABLE ONLY public.shopify_data_events
     ADD CONSTRAINT fk_rails_a18d4c7a4f FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
+-- Name: assessment_results fk_rails_a301a83463; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results
+    ADD CONSTRAINT fk_rails_a301a83463 FOREIGN KEY (property_id) REFERENCES public.properties(id);
 
 
 --
@@ -2144,6 +2215,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303215736'),
 ('20200303221947'),
 ('20200305154938'),
-('20200305185335');
+('20200305185335'),
+('20200306143046');
 
 

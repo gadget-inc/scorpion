@@ -33,16 +33,24 @@ class Crawl::CrawlerClient
     }, **args)
   end
 
-  def lighthouse(property, pages, **args)
+  def lighthouse(property, pages, lighthouse_config: nil, **args)
     request("/lighthouse", {
       property: property_blob(property),
       pages: pages,
+      lighthouseConfig: lighthouse_config,
     }, **args)
   end
 
   def text_blocks(property, **args)
     request("/text_blocks", {
       property: property_blob(property),
+    }, **args)
+  end
+
+  def interaction(property, name, start_page, **args)
+    request("/interaction/#{name.underscore}", {
+      property: property_blob(property),
+      startPage: start_page,
     }, **args)
   end
 
