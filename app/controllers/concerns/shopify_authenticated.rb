@@ -44,4 +44,25 @@ module ShopifyAuthenticated
 
     @shop_session
   end
+
+  def login_again_if_different_user_or_shop
+    if ShopifyApp.configuration.per_user_tokens?
+      valid_session_data = session[:user_session].present? && params[:session].present? # session data was sent/stored correctly
+      sessions_do_not_match = session[:user_session] != params[:session] # current user is different from stored user
+
+      if valid_session_data && sessions_do_not_match
+        # TODO: figure out why this is clearing the session and causing redirect loops that falsely trigger shopify's SameSite cookie issue detection
+        # clear_session = true
+      end
+    end
+
+    if shop_session && params[:shop] && params[:shop].is_a?(String) && (shop_session.domain != params[:shop])
+      clear_session = true
+    end
+
+    if clear_session
+      clear_shop_session
+      redirect_to_login
+    end
+  end
 end

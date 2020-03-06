@@ -38,9 +38,9 @@ module.exports = function(api) {
     ].filter(Boolean),
     plugins: [
       "lodash",
+      "emotion",
       "babel-plugin-macros",
       "@babel/plugin-syntax-dynamic-import",
-      "babel-plugin-styled-components",
       isTestEnv && "babel-plugin-dynamic-import-node",
       "@babel/plugin-transform-destructuring",
       [

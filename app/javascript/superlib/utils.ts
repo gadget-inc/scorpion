@@ -4,6 +4,10 @@ import queryString from "query-string";
 import { DateTime } from "luxon";
 import { ExecutionResult } from "@apollo/react-common";
 import { RouteComponentProps } from "react-router";
+import { AppBridgeContext, IAppBridgeContext } from "@shopify/app-bridge-react/context";
+import { shouldRedirect, getWindow } from "@shopify/app-bridge/client/redirect";
+import { Redirect } from "@shopify/app-bridge/actions";
+import { useContext } from "react";
 export type AssertedKeys<T, K extends keyof T> = { [Key in K]: NonNullable<T[Key]> } & T;
 
 export function assert<T>(value: T | undefined | null): T {
@@ -21,6 +25,8 @@ export function assertKeys<T extends { [key: string]: any }, K extends keyof T>(
   }
   return object as AssertedKeys<T, K>;
 }
+
+export type PropsType<Component> = Component extends React.ComponentType<infer Props> ? Props : never;
 
 export const encodeURIParams = (params: { [key: string]: string }) =>
   Object.entries(params)
@@ -211,4 +217,19 @@ export const chauvenet = (x: number[]) => {
   }
 
   return temp;
+};
+
+export const embeddedEscapeRedirect = (app: IAppBridgeContext, url: string) => {
+  const fetchedWindow = getWindow();
+  const currentlyEmbedded = fetchedWindow && !shouldRedirect(fetchedWindow.top);
+
+  if (currentlyEmbedded) {
+    assert(app).dispatch(Redirect.toRemote({ url }));
+  } else {
+    window.location.href = url;
+  }
+};
+
+export const useAppBridge = () => {
+  return assert(useContext(AppBridgeContext));
 };

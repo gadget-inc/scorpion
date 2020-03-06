@@ -13,7 +13,7 @@ module BaseClientSideAppSettings
           clientSessionId: SecureRandom.uuid,
           release: Fixings::AppRelease.current,
           sentryDsn: ENV["FRONTEND_SENTRY_DSN"],
-          authDomain: "https://#{Rails.configuration.x.domains.app}",
+          appDomain: "https://#{Rails.configuration.x.domains.app}",
           analytics: {
             identify: current_user.try(:id),
             identifyTraits: {

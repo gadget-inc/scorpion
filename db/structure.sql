@@ -1113,7 +1113,7 @@ CREATE TABLE public.shopify_shops (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     discarded_at timestamp without time zone,
-    myshopify_domain character varying DEFAULT 'unknown'::character varying NOT NULL,
+    myshopify_domain character varying NOT NULL,
     country_code character varying,
     country_name character varying,
     currency character varying,
@@ -2137,6 +2137,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200305185335'),
 ('20200306143046'),
 ('20200306163244'),
-('20200306213109');
+('20200306213109'),
+('20200306214602');
 
 
