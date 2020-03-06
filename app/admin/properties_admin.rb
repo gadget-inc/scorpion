@@ -42,8 +42,7 @@ Trestle.resource(:properties) do
   form do |property|
     if !property.new_record?
       sidebar do
-        concat link_to("Crawl page info now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_page_info"), method: :post, class: "btn btn-block btn-primary")
-        concat link_to("Crawl screenshots now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "collect_screenshots"), method: :post, class: "btn btn-block btn-primary")
+        concat link_to("Crawl key urls now", admin.path(:enqueue_crawl, id: property.id, crawl_type: "key_urls"), method: :post, class: "btn btn-block btn-primary")
       end
 
       tab :activity_feed do
@@ -100,7 +99,12 @@ Trestle.resource(:properties) do
   controller do
     def enqueue_crawl
       property = admin.find_instance(params)
-      Crawler::ExecuteCrawl.run_in_background(property, "admin trigger", params[:crawl_type].to_sym)
+      case crawl_type
+      when "key_urls"
+        Crawl::KeyUrlsCrawlJob.enqueue(property_id: property.id, reason: "admin trigger")
+      else
+        throw "Unknown crawl type #{params[:crawl_type]} error"
+      end
       flash[:message] = "Property #{params[:crawl_type]} crawl enqueued"
       redirect_to admin.path(:show, id: property)
     end

@@ -1,11 +1,8 @@
-# "Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob":
-#   cron: "0 12 * * *"
+"Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob":
+  cron: "0 */2 * * *"
 
-# "Infrastructure::PeriodicEnqueueCollectScreenshotsCrawlsJob":
-#   cron: "0 0 * * *"
-
-# "Infrastructure::PeriodicEnqueueCollectLighthouseCrawlsJob":
-#   cron: "0 6 * * *"
+"Infrastructure::PeriodicEnqueueInteractionTestsJob":
+  cron: "30 */2 * * *"
 
 "Infrastructure::PeriodicMarkFailedCrawlAttemptsJob":
   cron: "0 * * * *"

@@ -1,12 +1,12 @@
 <% content_for(:title, "Infrastructure") %>
 <%= render layout: "layout" do %>
   <div class="mb-4">
-    <%= button_to "Run Global Enqueue Collect Page Info Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_page_info" }, class: "btn btn-primary" %>
+    <%= button_to "Run Global Enqueue Collect Key URL Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "key_urls" }, class: "btn btn-primary" %>
     <p>Crawl all active properties for page info</p>
   </div>
   <div class="mb-4">
-    <%= button_to "Run Global Enqueue Collect Screenshot Crawls Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "collect_screenshots" }, class: "btn btn-primary" %>
-    <p>Crawl all active properties for screenshots of their homepages</p>
+    <%= button_to "Run Global Enqueue Interaction Tests Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "interaction" }, class: "btn btn-primary" %>
+    <p>Run all interaction tests on all active shops</p>
   </div>
   <div class="mb-4">
     <%= button_to "Run Global Reinstall Webhooks Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "reinstall_webhooks" }, class: "btn btn-primary" %>

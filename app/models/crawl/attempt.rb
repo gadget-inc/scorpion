@@ -4,7 +4,7 @@
 # Table name: crawl_attempts
 #
 #  id               :bigint           not null, primary key
-#  crawl_type       :string           default("collect_page_info")
+#  crawl_type       :string           not null
 #  failure_reason   :string
 #  finished_at      :datetime
 #  last_progress_at :datetime
@@ -35,6 +35,6 @@ module Crawl
     has_many :crawl_pages, dependent: :destroy
     has_many :property_screenshots, dependent: :destroy
 
-    enum crawl_type: { collect_page_info: "collect_page_info", collect_screenshots: "collect_screenshots", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
+    enum crawl_type: { interaction: "interaction", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
   end
 end

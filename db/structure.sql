@@ -517,7 +517,7 @@ CREATE TABLE public.crawl_attempts (
     failure_reason character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    crawl_type character varying DEFAULT 'collect_page_info'::character varying
+    crawl_type character varying NOT NULL
 );
 
 
@@ -2216,6 +2216,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303221947'),
 ('20200305154938'),
 ('20200305185335'),
-('20200306143046');
+('20200306143046'),
+('20200306163244');
 
 

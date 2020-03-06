@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Infrastructure::PeriodicEnqueueCollectPageInfoCrawlsJob < Que::Job
+class Infrastructure::PeriodicEnqueueInteractionTestsJob < Que::Job
   self.exclusive_execution_lock = true
 
   def run
     Property.for_purposeful_crawls.find_each do |property|
-      Crawler::ExecuteCrawl.run_in_background(property, "scheduled", :collect_page_info)
+      Crawl::InteractionRunnerJob.enqueue(property_id: property.id, reason: "scheduled", interaction_id: "shopify-browse-add")
     end
   end
 

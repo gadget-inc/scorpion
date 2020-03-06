@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :crawl_attempt, class: "Crawl::Attempt" do
     association :property
     started_reason { "scheduled" }
-    crawl_type { :collect_page_info }
+    crawl_type { :collect_lighthouse }
     running { false }
 
     after :build do |attempt|

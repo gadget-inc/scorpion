@@ -13,7 +13,7 @@ module Crawl
     end
 
     def test_interaction(interaction_id)
-      @lifecycle = CrawlLifecycle.new(@property, @reason, :collect_lighthouse)
+      @lifecycle = CrawlLifecycle.new(@property, @reason, :interaction)
       @lifecycle.run do |attempt_record|
         success = true
         error = nil

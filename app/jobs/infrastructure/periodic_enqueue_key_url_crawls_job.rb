@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Infrastructure::PeriodicEnqueueCollectLighthouseCrawlsJob < Que::Job
+class Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob < Que::Job
   self.exclusive_execution_lock = true
 
   def run
     Property.for_purposeful_crawls.find_each do |property|
-      Crawler::ExecuteCrawl.run_in_background(property, "scheduled", :collect_lighthouse)
+      Crawl::KeyUrlsCrawlJob.enqueue(property_id: property.id, reason: "scheduled")
     end
   end
 

@@ -46,20 +46,6 @@ Trestle.resource(:attempts, scope: Crawl) do
       end
     end
 
-    if crawl_attempt.type_collect_screenshots?
-      tab :screenshots do
-        table crawl_attempt.property_screenshots.order("id ASC") do
-          column :id
-          column :url
-          column :image do |screenshot|
-            if screenshot.image
-              image_tag Rails.application.routes.url_helpers.rails_blob_path(screenshot.image, host: Rails.configuration.x.domains.admin)
-            end
-          end
-        end
-      end
-    end
-
     tab :form do
       text_field :failure_reason
       text_field :crawl_type

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Assessment
-  Categories = {
+  Categories = { # rubocop:disable Naming/ConstantName
     home: {},
     navigation: {},
     browsing: {},
