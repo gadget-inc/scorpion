@@ -9,7 +9,7 @@ class App::ClientSideAppController < AppAreaController
       baseUrl: app_root_path(current_account),
       shopify: {
         apiKey: Rails.configuration.shopify.api_key,
-        shopOrigin: @current_shop.domain,
+        shopOrigin: @current_shop.myshopify_domain,
       },
     )
   end

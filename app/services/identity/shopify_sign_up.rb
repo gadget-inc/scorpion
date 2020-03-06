@@ -17,7 +17,7 @@ GRAPHQL
   def create_account_if_necessary!(user_provider_identity, shop_auth_hash)
     new_account = nil
 
-    account_for_user = ShopifyShop.where(domain: user_provider_identity.provider_details["shopify_domain"]).first.try(:account)
+    account_for_user = ShopifyShop.where(myshopify_domain: user_provider_identity.provider_details["shopify_domain"]).first.try(:account)
     return account_for_user if account_for_user
 
     creator = user_provider_identity.user
@@ -48,8 +48,8 @@ GRAPHQL
         )
 
         ShopifyShop.create!(
-          domain: domain,
-          myshopify_domain: shop_details.data.shop.myshopify_domain,
+          domain: shop_details.data.shop.primary_domain.host,
+          myshopify_domain: domain,
           api_token: token,
           creator: creator,
           property: new_property,

@@ -118,7 +118,7 @@ module ShopifyApp
 
     def authenticate_in_context
       shopify_domain = (sanitized_shop_name || session[:shopify_domain])
-      url = if shopify_domain && ShopifyShop.kept.where(domain: shopify_domain).first
+      url = if shopify_domain && ShopifyShop.kept.where(myshopify_domain: shopify_domain).first
           "/auth/shopify"
         else
           "/auth/shopify_offline"

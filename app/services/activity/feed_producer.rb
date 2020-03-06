@@ -16,7 +16,7 @@ module Activity
     def initialize(property)
       @property = property
       @account = property.account
-      @shop = ShopifyShop.kept.find_by(property_id: @property.id)
+      @shop = ShopifyShop.kept.find_by!(property_id: @property.id)
     end
 
     def produce

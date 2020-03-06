@@ -7,7 +7,7 @@ namespace :dev do
     shop = ShopifyShop.kept.first
 
     env = {
-      SHOPIFY_SHOP_OAUTH_DOMAIN: shop.domain,
+      SHOPIFY_SHOP_OAUTH_DOMAIN: shop.myshopify_domain,
       SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN: shop.api_token,
     }
 

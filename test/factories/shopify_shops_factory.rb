@@ -4,7 +4,8 @@ FactoryBot.define do
     association :account
     association :property
 
-    domain { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
+    domain { "coolsite.store" }
+    myshopify_domain { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
     api_token { ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] }
 
     after(:build) do |shop|

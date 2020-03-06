@@ -20,7 +20,7 @@
 #  money_format                      :string
 #  money_with_currency_format        :string
 #  multi_location_enabled            :boolean
-#  myshopify_domain                  :string           default("unknown"), not null
+#  myshopify_domain                  :string           not null
 #  password_enabled                  :boolean
 #  plan_display_name                 :string           default("unknown"), not null
 #  plan_name                         :string           default("unknown"), not null
@@ -56,7 +56,7 @@ class ShopifyShop < ApplicationRecord
 
   validates :api_token, presence: true
   validates :api_version, presence: true
-  validates :domain, presence: true
+  validates :myshopify_domain, presence: true
 
   belongs_to :property
   belongs_to :creator, class_name: "User", optional: false
@@ -73,7 +73,7 @@ class ShopifyShop < ApplicationRecord
 
   def with_shopify_session(&block)
     ShopifyAPI::Session.temp(
-      domain: domain,
+      domain: myshopify_domain,
       token: api_token,
       api_version: api_version,
       &block

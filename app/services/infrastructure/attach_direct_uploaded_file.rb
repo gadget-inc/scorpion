@@ -16,7 +16,7 @@ class Infrastructure::AttachDirectUploadedFile
     # #attach doesn't return the attachment, so we have to do the attach, then find the attachment corresponding to the blob passed in after
     blob = ActiveStorage::Blob.find_signed(direct_upload_signed_id)
     resource.files.attach(blob)
-    attachment = resource.files_attachments.find_by(blob_id: blob.id)
+    attachment = resource.files_attachments.find_by!(blob_id: blob.id)
     [attachment, nil]
   end
 end
