@@ -18,7 +18,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (creator_id => users.id)
 #  fk_rails_...  (property_id => properties.id)
-#
+
 # Represents an important URL for a property, which implies we should assess it more often.
 class KeyUrl < ApplicationRecord
   include AccountScoped

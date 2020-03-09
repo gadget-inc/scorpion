@@ -17,7 +17,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (shopify_shop_id => shopify_shops.id)
-#
+
 # Represents a point in time record of a Shopify shop being changed
 class ShopifyData::ShopChangeEvent < ApplicationRecord
   include AccountScoped

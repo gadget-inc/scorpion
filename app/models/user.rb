@@ -15,7 +15,7 @@
 # Indexes
 #
 #  index_users_on_email  (email) UNIQUE
-#
+
 # Represents a person in the world who has access to the application. Can belong to multiple accounts and can be authenticated in a variety of ways. Or, at least should.
 class User < ApplicationRecord
   include Discard::Model

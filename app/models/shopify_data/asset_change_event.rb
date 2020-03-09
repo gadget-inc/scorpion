@@ -16,7 +16,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (shopify_data_theme_id => shopify_data_themes.id)
 #  fk_rails_...  (shopify_shop_id => shopify_shops.id)
-#
+
 # Represents a point in time record of a Shopify shop's theme asset being changed
 class ShopifyData::AssetChangeEvent < ApplicationRecord
   include AccountScoped

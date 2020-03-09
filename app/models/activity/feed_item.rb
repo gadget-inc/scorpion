@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (property_id => properties.id)
-#
+
 # Represents one item in the Feed UI. Can be composed of several actual happenings.
 class Activity::FeedItem < ApplicationRecord
   include AccountScoped

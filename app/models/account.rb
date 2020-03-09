@@ -19,7 +19,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (creator_id => users.id)
-#
+
 # Root object grouping together access and settings for a bunch of properties. The billing entity.
 class Account < ApplicationRecord
   include Discard::Model

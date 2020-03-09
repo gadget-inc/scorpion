@@ -48,7 +48,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (creator_id => users.id)
 #  fk_rails_...  (property_id => properties.id)
-#
+
 # Represents one Shopify shop and the API credentials used to fiddle with it. Stores offline access credentials.
 class ShopifyShop < ApplicationRecord
   include AccountScoped

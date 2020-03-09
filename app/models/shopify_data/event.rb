@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (shopify_shop_id => shopify_shops.id)
-#
+
 # Synced representation of the Shopify API's Event object, which is a Shopify-produced feed of stuff happening to the store.
 class ShopifyData::Event < ApplicationRecord
   include AccountScoped

@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (creator_id => users.id)
-#
+
 # Represents one end-customer facing web site that we assess. Can be multiple per account. Assumed one property is powered by one platform. Doesn't have to live at just one domain, but usually does.
 class Property < ApplicationRecord
   include AccountScoped

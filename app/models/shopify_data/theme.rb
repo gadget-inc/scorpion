@@ -23,7 +23,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (shopify_shop_id => shopify_shops.id)
-#
+
 # A synced version of a Shopify shop's theme.
 class ShopifyData::Theme < ApplicationRecord
   include AccountScoped
