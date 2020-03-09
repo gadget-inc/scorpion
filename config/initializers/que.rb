@@ -28,7 +28,7 @@ Que.error_notifier = proc do |error, job|
 end
 
 UnitOfWorkMiddleware = lambda { |job, &block|
-  Infrastructure::UnitOfWork.unit("QueJob/#{job.que_attrs[:id]}") do |unit|
+  Infrastructure::UnitOfWork.unit("QueJob/#{job.que_attrs[:job_class]}") do |unit|
     unit.add_tags(job_id: job.que_attrs[:id])
     block.call
   end
