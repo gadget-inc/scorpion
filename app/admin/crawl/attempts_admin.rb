@@ -24,7 +24,7 @@ Trestle.resource(:attempts, scope: Crawl) do
     column :finished_at
     column :failure_reason
     column :links do |attempt|
-      link_to "Logs", Crawl::AttemptHelper.logs_url(attempt), target: "_blank", rel: "noopener"
+      link_to "Logs", Admin::CrawlAttemptHelper.logs_url(attempt), target: "_blank", rel: "noopener"
     end
   end
 
