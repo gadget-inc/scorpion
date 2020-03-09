@@ -10,13 +10,28 @@ FactoryBot.define do
     ambient { false }
     internal_tags { [] }
 
-    after(:build) do |property|
-      property.key_urls << build(:key_url, property: property, account: property.account, url: property.crawl_roots[0])
+    transient do
+      create_shopify_shop { false }
     end
 
-    factory :sole_destroyer_property do
-      crawl_roots { ["https://sole-destroyer.myshopify.com"] }
-      allowed_domains { ["sole-destroyer.myshopify.com"] }
+    after(:build) do |property, evaluator|
+      property.key_urls << build(:key_url, property: property, account: property.account, url: property.crawl_roots[0])
+
+      if evaluator.create_shopify_shop
+        property.shopify_shop = build(:shopify_shop, account: property.account, property: property, domain: property.crawl_roots[0], myshopify_domain: property.crawl_roots[0])
+      end
+    end
+
+    # factory for use in tests that are VCRing against a real store. Dynamically produces the factory based on the developer's environment, or, the default ENV vars set in the test_helper.
+    factory :live_test_myshopify_property do
+      crawl_roots { ["https://#{ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"]}"] }
+      allowed_domains { [ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"]] }
+      create_shopify_shop { true }
+    end
+
+    factory :harry_test_charlie_property do
+      crawl_roots { ["https://harry-test-charlie.myshopify.com"] }
+      allowed_domains { ["harry-test-charlie.myshopify.com"] }
     end
 
     factory :ambient_homesick_property do

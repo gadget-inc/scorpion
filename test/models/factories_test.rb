@@ -15,6 +15,13 @@ class FactoriesTest < ActiveSupport::TestCase
     create(:account)
     assert_equal 1, Account.all.size
     assert_equal 1, User.all.size
+    assert_equal 0, Property.all.size
     assert_equal 0, ActionMailer::Base.deliveries.size
+  end
+
+  test "property fixtures create only one shop" do
+    create(:live_test_myshopify_property)
+    assert_equal 1, Property.all.size
+    assert_equal 1, ShopifyShop.all.size
   end
 end

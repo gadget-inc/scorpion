@@ -5,22 +5,22 @@ require "test_helper"
 module Crawl
   class InfrastructureTest < ActiveSupport::TestCase
     setup do
-      create(:sole_destroyer_property)
-      @ambient_homesick = create(:ambient_homesick_property)
+      create(:live_test_myshopify_property)
+      create(:ambient_homesick_property)
     end
 
-    test "it crawls all shops for key urls" do
-      assert_difference "Crawl::Attempt.all.size" do
+    test "it runs medium frequency enqueues for crawlable properties" do
+      assert_difference "Crawl::Attempt.all.size", 1 do
         with_synchronous_jobs do
-          Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob.run
+          Infrastructure::PeriodicMediumFrequencyEnqueueJob.run
         end
       end
     end
 
-    test "it runs interactions for all shops" do
-      assert_difference "Crawl::Attempt.all.size" do
+    test "it runs high frequency enqueues for key urls" do
+      assert_difference "Crawl::Attempt.all.size", 1 do
         with_synchronous_jobs do
-          Infrastructure::PeriodicEnqueueInteractionTestsJob.run
+          Infrastructure::PeriodicHighFrequencyEnqueueJob.run
         end
       end
     end

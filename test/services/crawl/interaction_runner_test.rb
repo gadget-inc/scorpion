@@ -5,7 +5,7 @@ require "test_helper"
 module Crawl
   class InteractionRunnerTest < ActiveSupport::TestCase
     test "it interacts against a test shop" do
-      @property = create(:sole_destroyer_property)
+      @property = create(:harry_test_charlie_property)
       @runner = InteractionRunner.new(@property, "test")
 
       assert_difference "Crawl::Attempt.count", 1 do

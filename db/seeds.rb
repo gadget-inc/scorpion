@@ -8,8 +8,7 @@ Rails.logger.info("Starting seed")
 user = User.new(full_name: "Smart Developer", email: "dev@gadget.dev", internal_tags: ["staff"])
 user.save!
 
-account = FactoryBot.create :account, creator: user
-account.properties.create!(name: "Sole Destroyer", creator: user, allowed_domains: ["sole-destroyer.myshopify.com"], crawl_roots: ["https://sole-destroyer.myshopify.com"])
+FactoryBot.create :account, creator: user
 
 # Enable all feature flags for developers
 BaseClientSideAppSettings::EXPORTED_FLAGS.each do |flag|

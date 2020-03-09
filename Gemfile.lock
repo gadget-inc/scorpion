@@ -669,6 +669,7 @@ DEPENDENCIES
   minitest-ci
   minitest-snapshots (~> 0.3.0)
   mocha
+  nokogiri
   omniauth
   omniauth-google-oauth2
   omniauth-shopify-oauth2

@@ -57,8 +57,6 @@ class Identity::ShopifySignUpTest < ActiveSupport::TestCase
       })
 
       assert property = account.properties.first
-      assert shop = ShopifyShop.where(property_id: property.id).first
-      assert shop.destroy
       assert property.destroy
     end
   end

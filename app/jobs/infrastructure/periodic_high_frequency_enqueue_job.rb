@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob < Que::Job
+class Infrastructure::PeriodicHighFrequencyEnqueueJob < Que::Job
   self.exclusive_execution_lock = true
 
   def run

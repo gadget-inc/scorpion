@@ -1,7 +1,7 @@
-"Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob":
+"Infrastructure::PeriodicHighFrequencyEnqueueJob":
   cron: "0 */2 * * *"
 
-"Infrastructure::PeriodicEnqueueInteractionTestsJob":
+"Infrastructure::PeriodicMediumFrequencyEnqueueJob":
   cron: "30 */2 * * *"
 
 "Infrastructure::PeriodicMarkFailedCrawlAttemptsJob":

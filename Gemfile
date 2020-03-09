@@ -19,6 +19,7 @@ gem "fixings", github: "airhorns/fixings"
 # Functionality
 gem "rails-i18n"
 gem "wisper"
+gem "nokogiri"
 
 # Integrations
 gem "rest-client"
