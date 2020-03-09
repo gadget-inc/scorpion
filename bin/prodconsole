@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 set -ex
-kubectl exec -i -t --namespace=scorpion-production $(kubectl get pod --namespace=scorpion-production --selector="service=web" -o jsonpath='{.items[0].metadata.name}') -- bin/rails console
+kubectl exec -i -t --namespace=scorpion-production $(kubectl get pod --namespace=scorpion-production --selector="service=web" --field-selector="status.phase=Running" -o jsonpath='{.items[0].metadata.name}') -- bin/rails console
