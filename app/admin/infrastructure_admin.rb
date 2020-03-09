@@ -7,10 +7,10 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
   controller do
     def run_periodic_enqueue_crawls
       job = case params[:crawl_type]
-        when "key_urls"
-          Infrastructure::PeriodicEnqueueKeyUrlCrawlsJob
-        when "interaction"
-          Infrastructure::PeriodicEnqueueInteractionTestsJob
+        when "high_frequency"
+          Infrastructure::PeriodicHighFrequencyEnqueueJob
+        when "medium_frequency"
+          Infrastructure::PeriodicMediumFrequencyEnqueueJob
         else
           raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
         end

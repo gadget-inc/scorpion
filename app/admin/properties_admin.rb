@@ -6,7 +6,8 @@ Trestle.resource(:properties) do
   end
 
   scopes do
-    scope :all, -> { Property.includes(:account).order("created_at DESC") }, default: true
+    scope :all, -> { Property.includes(:account).order("created_at DESC") }
+    scope :active, -> { Property.includes(:account).order("created_at DESC").where(ambient: false) }, default: true
     scope :ambient, -> { Property.includes(:account).order("created_at DESC").where(ambient: true) }
   end
 
