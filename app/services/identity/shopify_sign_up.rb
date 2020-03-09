@@ -33,19 +33,18 @@ GRAPHQL
         new_property = Property.create!(
           allowed_domains: [shop_details.data.shop.myshopify_domain, shop_details.data.shop.primary_domain.host].uniq,
           crawl_roots: [shop_details.data.shop.primary_domain.url],
+          key_urls: [KeyUrl.new(
+            account_id: new_account.id,
+            creator_id: creator.id,
+            url: shop_details.data.shop.primary_domain.url,
+            page_type: "home",
+            creation_reason: "initial",
+          )],
           name: shop_details.data.shop.name,
           creator: creator,
           account: new_account,
           ambient: false,
           enabled: true,
-        )
-
-        new_property.key_urls.create!(
-          account_id: new_account.id,
-          creator_id: creator.id,
-          url: shop_details.data.shop.primary_domain.url,
-          page_type: "home",
-          creation_reason: "initial",
         )
 
         ShopifyShop.create!(

@@ -44,4 +44,22 @@ class Identity::ShopifySignUpTest < ActiveSupport::TestCase
       end
     end
   end
+
+  # this doesn't really happen day to day because properties should be discarded so they can be un-discarded, but this is a good test of the association tree and validations
+  test "a created property can be destroyed" do
+    assert_difference "Property.count", 0 do
+      account = @creator.create_account_if_necessary!(@provider_identity, {
+        :provider => "shopify",
+        :uid => ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"],
+        :credentials => {
+          :token => ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"],
+        },
+      })
+
+      assert property = account.properties.first
+      assert shop = ShopifyShop.where(property_id: property.id).first
+      assert shop.destroy
+      assert property.destroy
+    end
+  end
 end
