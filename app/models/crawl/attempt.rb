@@ -32,7 +32,6 @@ module Crawl
     include AccountScoped
 
     belongs_to :property, optional: false
-    has_many :property_screenshots, dependent: :destroy
 
     enum crawl_type: { interaction: "interaction", collect_lighthouse: "collect_lighthouse" }, _prefix: :type
   end

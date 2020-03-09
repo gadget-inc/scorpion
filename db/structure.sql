@@ -789,41 +789,6 @@ ALTER SEQUENCE public.properties_id_seq OWNED BY public.properties.id;
 
 
 --
--- Name: property_screenshots; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.property_screenshots (
-    id bigint NOT NULL,
-    account_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    crawl_attempt_id bigint NOT NULL,
-    url character varying NOT NULL,
-    result jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: property_screenshots_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.property_screenshots_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: property_screenshots_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.property_screenshots_id_seq OWNED BY public.property_screenshots.id;
-
-
---
 -- Name: que_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1328,13 +1293,6 @@ ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.p
 
 
 --
--- Name: property_screenshots id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_screenshots ALTER COLUMN id SET DEFAULT nextval('public.property_screenshots_id_seq'::regclass);
-
-
---
 -- Name: que_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1515,14 +1473,6 @@ ALTER TABLE ONLY public.key_urls
 
 ALTER TABLE ONLY public.properties
     ADD CONSTRAINT properties_pkey PRIMARY KEY (id);
-
-
---
--- Name: property_screenshots property_screenshots_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_screenshots
-    ADD CONSTRAINT property_screenshots_pkey PRIMARY KEY (id);
 
 
 --
@@ -1832,14 +1782,6 @@ ALTER TABLE ONLY public.shopify_shops
 
 
 --
--- Name: property_screenshots fk_rails_4a374db287; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_screenshots
-    ADD CONSTRAINT fk_rails_4a374db287 FOREIGN KEY (crawl_attempt_id) REFERENCES public.crawl_attempts(id);
-
-
---
 -- Name: shopify_data_theme_change_events fk_rails_4fcb6b6291; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1976,14 +1918,6 @@ ALTER TABLE ONLY public.activity_feed_items
 
 
 --
--- Name: property_screenshots fk_rails_b3b3e6b860; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_screenshots
-    ADD CONSTRAINT fk_rails_b3b3e6b860 FOREIGN KEY (property_id) REFERENCES public.properties(id);
-
-
---
 -- Name: shopify_data_asset_change_events fk_rails_b95a651ac0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2029,14 +1963,6 @@ ALTER TABLE ONLY public.shopify_data_theme_change_events
 
 ALTER TABLE ONLY public.user_provider_identities
     ADD CONSTRAINT fk_rails_d0ae084ed3 FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: property_screenshots fk_rails_ed7e666442; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.property_screenshots
-    ADD CONSTRAINT fk_rails_ed7e666442 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2138,6 +2064,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200306143046'),
 ('20200306163244'),
 ('20200306213109'),
-('20200306214602');
+('20200306214602'),
+('20200309180051');
 
 

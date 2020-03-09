@@ -23,5 +23,5 @@
 class KeyUrl < ApplicationRecord
   include AccountScoped
 
-  belongs_to :property, optional: false, inverse_of: :key_urls
+  belongs_to :property, optional: false, inverse_of: :key_urls, validate: true
 end

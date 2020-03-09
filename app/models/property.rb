@@ -37,7 +37,6 @@ class Property < ApplicationRecord
 
   has_many :key_urls, dependent: :destroy
   has_many :crawl_attempts, class_name: "Crawl::Attempt", dependent: :destroy
-  has_many :property_screenshots, dependent: :destroy
   has_many :activity_feed_items, dependent: :destroy, class_name: "Activity::FeedItem"
   has_many :assessment_results, class_name: "Assessment::Result", inverse_of: :property, dependent: :destroy
 
@@ -47,4 +46,6 @@ class Property < ApplicationRecord
   remove_blanks_for_array_assignment :allowed_domains, :crawl_roots, :internal_tags
 
   admin_searchable :name, :allowed_domains, :internal_tags
+
+  validates :key_urls, length: { minimum: 1 }
 end
