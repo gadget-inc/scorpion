@@ -155,7 +155,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
-    browser_sniffer (1.1.3)
+    browser_sniffer (1.2.1)
     builder (3.2.4)
     bullet (6.1.0)
       activesupport (>= 3.0.0)
@@ -555,11 +555,11 @@ GEM
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
       rack
-    shopify_app (12.0.4)
-      browser_sniffer (~> 1.1.3)
+    shopify_app (12.0.7)
+      browser_sniffer (~> 1.2.0)
       omniauth-shopify-oauth2 (~> 2.2.0)
       rails (> 5.2.1)
-      shopify_api (~> 9.0)
+      shopify_api (~> 9.0.1)
     signet (0.12.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
