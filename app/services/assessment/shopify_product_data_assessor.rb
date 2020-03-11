@@ -5,6 +5,7 @@ module Assessment
   # Iterates a Shopify shop's products via the API to make assessments
   class ShopifyProductDataAssessor
     include ShopifyData::ShopifyApiRetries
+    include ScoreHelpers
 
     MINIMUM_IMAGE_COUNT = 3
     MINIMUM_IMAGE_DIMENSION = 200
@@ -15,6 +16,7 @@ module Assessment
       @shop = shop
       @reason = reason  # TODO: something with this. this isn't a crawl attempt persay but maybe assessments should know why they were made?
       @property = shop.property
+      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-data-products")
     end
 
     def assess_all
@@ -43,20 +45,17 @@ module Assessment
     end
 
     def assess_product_images(api_product)
-      if api_product.images.size < MINIMUM_IMAGE_COUNT
-        assessment = base_assessment_record(api_product, "image-count")
-        assessment.score = (api_product.images.size.to_f / MINIMUM_IMAGE_COUNT * 100).round
+      make_assessment(api_product, "image-count") do |assessment|
+        assessment.score = ratio_score(api_product.images.size.to_f / MINIMUM_IMAGE_COUNT)
         assessment.score_mode = "numeric"
         assessment.details = {
           image_count: api_product.images.size,
         }
-        assessment.save!
       end
 
       api_product.images.each do |image|
-        if image.width < MINIMUM_IMAGE_DIMENSION || image.height < MINIMUM_IMAGE_DIMENSION
-          assessment = base_assessment_record(api_product, "image-size")
-          assessment.score = ([image.width, image.height].min / MINIMUM_IMAGE_DIMENSION * 100).round
+        make_assessment(api_product, "image-size") do |assessment|
+          assessment.score = ratio_score([image.width, image.height].min.to_f / MINIMUM_IMAGE_DIMENSION)
           assessment.score_mode = "numeric"
           assessment.details = {
             image_id: image.id,
@@ -64,61 +63,50 @@ module Assessment
             height: image.height,
             src: image.src,
           }
-          assessment.save!
         end
       end
     end
 
     def assess_product_metadata(api_product)
-      if api_product.title.length < MINIMUM_PRODUCT_TITLE_LENGTH
-        assessment = base_assessment_record(api_product, "product-title-length")
-        assessment.score = ((api_product.title.length.to_f / MINIMUM_PRODUCT_TITLE_LENGTH) * 100).round
+      make_assessment(api_product, "product-title-length") do |assessment|
+        assessment.score = ratio_score(api_product.title.length.to_f / MINIMUM_PRODUCT_TITLE_LENGTH)
         assessment.score_mode = "binary"
         assessment.details = {
           product_id: api_product.id,
           title_length: api_product.title.length,
         }
-        assessment.save!
       end
 
-      description_length = Nokogiri::HTML(api_product.body_html).text.length
-      if description_length < MINIMUM_PRODUCT_DESCRIPTION_LENGTH
-        assessment = base_assessment_record(api_product, "product-description-length")
-        assessment.score = ((description_length.to_f / MINIMUM_PRODUCT_DESCRIPTION_LENGTH) * 100).round
+      make_assessment(api_product, "product-description-length") do |assessment|
+        description_length = Nokogiri::HTML(api_product.body_html).text.length
+        assessment.score = ratio_score(description_length.to_f / MINIMUM_PRODUCT_DESCRIPTION_LENGTH)
         assessment.score_mode = "numeric"
         assessment.details = {
           product_id: api_product.id,
           description_length: description_length,
         }
-        assessment.save!
       end
     end
 
     def assess_variant_metadata(api_product)
-      if api_product.published_at.present?
-        # Check if all variants are out of stock
-        tracked_variants = api_product.variants.select { |api_variant| api_variant.inventory_policy == "deny" }
-        if tracked_variants.all? { |api_variant| api_variant.inventory_quantity <= 0 }
-          assessment = base_assessment_record(api_product, "product-out-of-stock")
-          assessment.score = 0
-          assessment.score_mode = "binary"
-          assessment.details = {
-            product_id: api_product.id,
-            variant_ids: tracked_variants.map(&:id),
-          }
-          assessment.save!
-        end
+      make_assessment(api_product, "published-product-out-of-stock") do |assessment|
+        assessment.score = begin
+            tracked_variants = api_product.variants.select { |api_variant| api_variant.inventory_policy == "deny" }
+            tracked_variants.all? { |api_variant| api_variant.inventory_quantity <= 0 }
+          end
+        assessment.score_mode = "binary"
+        assessment.details = {
+          product_id: api_product.id,
+          variant_ids: tracked_variants.map(&:id).sort,
+        }
       end
     end
 
-    def base_assessment_record(api_product, key)
-      @property.assessment_results.build(
-        account_id: @property.account_id,
-        key: "shopify-product-data-#{key}",
-        key_category: "products",
-        assessment_at: Time.now.utc,
-        url: "https://#{@shop.domain}/products/#{api_product.handle}",
-      )
+    def make_assessment(api_product, key)
+      @issue_governor.make_assessment("shopify-product-data-#{key}", "products") do |assessment|
+        assessment.url = "https://#{@shop.domain}/products/#{api_product.handle}"
+        yield assessment
+      end
     end
   end
 end

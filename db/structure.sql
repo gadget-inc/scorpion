@@ -461,6 +461,43 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: assessment_issues; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assessment_issues (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    number integer NOT NULL,
+    opened_at timestamp without time zone NOT NULL,
+    closed_at timestamp without time zone,
+    key character varying NOT NULL,
+    key_category character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: assessment_issues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.assessment_issues_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessment_issues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.assessment_issues_id_seq OWNED BY public.assessment_issues.id;
+
+
+--
 -- Name: assessment_results; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -477,7 +514,9 @@ CREATE TABLE public.assessment_results (
     url character varying,
     details jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    issue_id bigint,
+    production_scope character varying NOT NULL
 );
 
 
@@ -1230,6 +1269,13 @@ ALTER TABLE ONLY public.activity_feed_items ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: assessment_issues id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issues ALTER COLUMN id SET DEFAULT nextval('public.assessment_issues_id_seq'::regclass);
+
+
+--
 -- Name: assessment_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1401,6 +1447,14 @@ ALTER TABLE ONLY public.activity_feed_items
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: assessment_issues assessment_issues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issues
+    ADD CONSTRAINT assessment_issues_pkey PRIMARY KEY (id);
 
 
 --
@@ -1742,6 +1796,14 @@ ALTER TABLE ONLY public.crawl_test_case_logs
 
 
 --
+-- Name: assessment_results fk_rails_121c3ae9d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results
+    ADD CONSTRAINT fk_rails_121c3ae9d1 FOREIGN KEY (issue_id) REFERENCES public.assessment_issues(id);
+
+
+--
 -- Name: shopify_data_asset_change_events fk_rails_170f55912b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1774,6 +1836,14 @@ ALTER TABLE ONLY public.crawl_test_cases
 
 
 --
+-- Name: assessment_issues fk_rails_451f31d5b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issues
+    ADD CONSTRAINT fk_rails_451f31d5b3 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
 -- Name: shopify_shops fk_rails_484f3cc7d7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1787,6 +1857,14 @@ ALTER TABLE ONLY public.shopify_shops
 
 ALTER TABLE ONLY public.shopify_data_theme_change_events
     ADD CONSTRAINT fk_rails_4fcb6b6291 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: assessment_issues fk_rails_51b210a22a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issues
+    ADD CONSTRAINT fk_rails_51b210a22a FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2065,6 +2143,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200306163244'),
 ('20200306213109'),
 ('20200306214602'),
-('20200309180051');
+('20200309180051'),
+('20200311152459'),
+('20200311152649');
 
 

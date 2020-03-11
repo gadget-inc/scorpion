@@ -39,6 +39,7 @@ class Property < ApplicationRecord
   has_many :crawl_attempts, class_name: "Crawl::Attempt", dependent: :destroy
   has_many :activity_feed_items, dependent: :destroy, class_name: "Activity::FeedItem"
   has_many :assessment_results, class_name: "Assessment::Result", inverse_of: :property, dependent: :destroy
+  has_many :issues, class_name: "Assessment::Issue", inverse_of: :property, dependent: :destroy
   has_many :crawl_test_cases, class_name: "CrawlTest::Case", dependent: :destroy
   has_one :shopify_shop, dependent: :destroy, required: false
 

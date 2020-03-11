@@ -548,6 +548,9 @@ GEM
       concurrent-ruby (~> 1.0)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
+    sequenced (3.2.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
     shopify_api (9.0.1)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
@@ -696,6 +699,7 @@ DEPENDENCIES
   rufo
   safely
   scenic
+  sequenced
   shopify_api
   shopify_app
   spring

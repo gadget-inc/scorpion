@@ -10,6 +10,7 @@ module Crawl
     def initialize(property, reason)
       @property = property
       @reason = reason
+      @issue_governor = Assessment::IssueGovernor.new(@property, "interactions")
     end
 
     def test_interaction(interaction_id)
@@ -40,27 +41,20 @@ module Crawl
           success = false
         end
 
-        assessment = @property.assessment_results.build(
-          account_id: @property.account_id,
-          key: "interaction-#{interaction_id}",
-          assessment_at: Time.now.utc,
-          key_category: key_category_for_id(interaction_id),
-          score: success ? 1 : 0,
-          score_mode: "binary",
-          error_code: categorize_error(error),
-          details: { error: error },
-        )
-
-        assessment.save!
+        @issue_governor.make_assessment("interaction-#{interaction_id}", key_category_for_id(interaction_id)) do |assessment|
+          assessment.assign_attributes({
+            score: success ? 1 : 0,
+            score_mode: "binary",
+            error_code: categorize_error(error),
+            details: { error: error },
+          })
+        end
       end
     end
 
     def store_result(_result)
       # TODO: store screenshots and whatnot
       true
-    end
-
-    def base_assessment_record(id)
     end
 
     def key_category_for_id(id)

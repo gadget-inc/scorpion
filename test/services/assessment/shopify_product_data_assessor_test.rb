@@ -9,7 +9,7 @@ module Assessment
     end
 
     test "it can audit products" do
-      assert_difference "@shop.property.assessment_results.size", 69 do
+      assert_difference "@shop.property.assessment_results.size", 771 do
         @assessor.assess_all
       end
     end

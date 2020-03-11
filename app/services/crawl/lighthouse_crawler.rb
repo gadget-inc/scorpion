@@ -36,6 +36,7 @@ module Crawl
       @crawl_options = crawl_options
       @reason = reason
       @url_categorizer = Identity::UrlCategorizer.new(@property)
+      @issue_governor = Assessment::IssueGovernor.new(@property, "lighthouse")
     end
 
     def collect_lighthouse_crawl
@@ -54,33 +55,28 @@ module Crawl
     end
 
     def store_result(result)
-      assessments = result["lighthouse"]["audits"].map do |_key, audit|
-        record = base_assessment_record(audit["id"], result["url"])
-        record.score = (audit["score"] * 100).round
-        record.score_mode = audit["scoreDisplayMode"]
-        record.details = { lighthouse_details: audit["details"] }
-        record
+      result["lighthouse"]["audits"].map do |_key, audit|
+        @issue_governor.make_assessment("lighthouse-#{audit["id"]}", key_category_for_audit(audit["id"], result["url"])) do |assessment|
+          assessment.score = (audit["score"] * 100).round
+          assessment.score_mode = audit["scoreDisplayMode"]
+          assessment.details = { lighthouse_details: audit["details"] }
+          assessment.url = result["url"]
+        end
       end
-
-      Crawl::Attempt.transaction do
-        @lifecycle.register_progress!
-        assessments.each(&:save!)
-      end
+      @lifecycle.register_progress!
     end
 
     def store_error_result(error_result)
-      assessments = LIGHTHOUSE_CONFIG[:settings][:onlyAudits].map do |audit_id|
-        record = base_assessment_record(audit_id, error_result["url"])
-        record.score = 0
-        record.score_mode = "binary"
-        record.error_code = error_code(error_result)
-        record
+      LIGHTHOUSE_CONFIG[:settings][:onlyAudits].map do |audit_id|
+        @issue_governor.make_assessment("lighthouse-#{audit_id}", key_category_for_audit(audit_id, error_result["url"])) do |assessment|
+          assessment.score = 0
+          assessment.score_mode = "binary"
+          assessment.error_code = error_code(error_result)
+          assessment.url = error_result["url"]
+        end
       end
 
-      Crawl::Attempt.transaction do
-        @lifecycle.register_progress!
-        assessments.each(&:save!)
-      end
+      @lifecycle.register_progress!
     end
 
     def base_assessment_record(id, url)
