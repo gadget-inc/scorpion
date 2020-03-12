@@ -118,11 +118,20 @@ export type AttachRemoteUrlPayload = {
   errors?: Maybe<Array<Scalars['String']>>,
 };
 
+export type Descriptor = {
+   __typename: 'Descriptor',
+  description: Scalars['String'],
+  id: Scalars['ID'],
+  key: Scalars['String'],
+  title: Scalars['String'],
+};
+
 
 export type Issue = {
    __typename: 'Issue',
   closedAt?: Maybe<Scalars['ISO8601DateTime']>,
   createdAt: Scalars['ISO8601DateTime'],
+  descriptor: Descriptor,
   id: Scalars['ID'],
   key: Scalars['String'],
   keyCategory: KeyCategory,
@@ -307,6 +316,10 @@ export type GetIssueForIssuePageQuery = (
   & { issue: Maybe<(
     { __typename: 'Issue' }
     & Pick<Issue, 'id' | 'name' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt'>
+    & { descriptor: (
+      { __typename: 'Descriptor' }
+      & Pick<Descriptor, 'title' | 'description'>
+    ) }
   )> }
 );
 
@@ -371,13 +384,13 @@ export type GetIssuesForHomePageComponentProps = Omit<ApolloReactComponents.Quer
     export const GetIssuesForHomePageComponent = (props: GetIssuesForHomePageComponentProps) => (
       <ApolloReactComponents.Query<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables> query={GetIssuesForHomePageDocument} {...props} />
     );
-    
+
 
 /**
  * __useGetIssuesForHomePageQuery__
  *
  * To run a query within a React component, call `useGetIssuesForHomePageQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetIssuesForHomePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * When your component renders, `useGetIssuesForHomePageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -411,13 +424,13 @@ export type GetCurrentUserForSettingsComponentProps = Omit<ApolloReactComponents
     export const GetCurrentUserForSettingsComponent = (props: GetCurrentUserForSettingsComponentProps) => (
       <ApolloReactComponents.Query<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables> query={GetCurrentUserForSettingsDocument} {...props} />
     );
-    
+
 
 /**
  * __useGetCurrentUserForSettingsQuery__
  *
  * To run a query within a React component, call `useGetCurrentUserForSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCurrentUserForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * When your component renders, `useGetCurrentUserForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -448,6 +461,10 @@ export const GetIssueForIssuePageDocument = gql`
     openedAt
     lastSeenAt
     closedAt
+    descriptor {
+      title
+      description
+    }
   }
 }
     `;
@@ -456,13 +473,13 @@ export type GetIssueForIssuePageComponentProps = Omit<ApolloReactComponents.Quer
     export const GetIssueForIssuePageComponent = (props: GetIssueForIssuePageComponentProps) => (
       <ApolloReactComponents.Query<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables> query={GetIssueForIssuePageDocument} {...props} />
     );
-    
+
 
 /**
  * __useGetIssueForIssuePageQuery__
  *
  * To run a query within a React component, call `useGetIssueForIssuePageQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetIssueForIssuePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * When your component renders, `useGetIssueForIssuePageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -503,7 +520,7 @@ export type AttachUploadToContainerComponentProps = Omit<ApolloReactComponents.M
     export const AttachUploadToContainerComponent = (props: AttachUploadToContainerComponentProps) => (
       <ApolloReactComponents.Mutation<AttachUploadToContainerMutation, AttachUploadToContainerMutationVariables> mutation={AttachUploadToContainerDocument} {...props} />
     );
-    
+
 
 /**
  * __useAttachUploadToContainerMutation__
@@ -550,7 +567,7 @@ export type AttachRemoteUrlToContainerComponentProps = Omit<ApolloReactComponent
     export const AttachRemoteUrlToContainerComponent = (props: AttachRemoteUrlToContainerComponentProps) => (
       <ApolloReactComponents.Mutation<AttachRemoteUrlToContainerMutation, AttachRemoteUrlToContainerMutationVariables> mutation={AttachRemoteUrlToContainerDocument} {...props} />
     );
-    
+
 
 /**
  * __useAttachRemoteUrlToContainerMutation__

@@ -33,6 +33,7 @@ export interface SimpleQueryProps<
   children?: (data: AssertedKeys<Data, RequiredKeys>, result: QueryResult<Data, Variables>) => React.ReactNode;
   require?: RequiredKeys[]; // properties to ensure are present in the returned data. If they aren't, render a 404
   spinForSubsequentLoads?: boolean;
+  spinner?: React.ComponentType;
 }
 
 // Handy component to handle errors and loading states for big and simple loads all in one place, and return data with a stricter
@@ -55,7 +56,8 @@ export class SimpleQuery<
   handleResult = (result: QueryResult<Data, Variables>) => {
     if (result.loading) {
       if (!result.data || isEqual(result.data, {}) || (result.data && this.props.spinForSubsequentLoads)) {
-        return <PageLoadSpin />;
+        const Spinner = this.props.spinner || PageLoadSpin;
+        return <Spinner />;
       }
     }
 

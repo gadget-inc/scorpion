@@ -14,8 +14,13 @@ class Types::Assessment::IssueType < Types::BaseObject
   field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
   field :results, Types::Assessment::ResultType.connection_type, null: false
+  field :descriptor, Types::Assessment::DescriptorType, null: false
 
   def name
     "Issue ##{object.number}"
+  end
+
+  def descriptor
+    AssociationLoader.for(Assessment::Issue, :descriptor).load(object)
   end
 end

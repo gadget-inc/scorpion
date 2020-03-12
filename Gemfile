@@ -20,6 +20,7 @@ gem "fixings", github: "airhorns/fixings"
 gem "rails-i18n"
 gem "wisper"
 gem "nokogiri"
+gem "redcarpet"
 
 # Integrations
 gem "rest-client"

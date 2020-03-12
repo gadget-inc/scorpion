@@ -2,7 +2,7 @@ import React from "react";
 import enTranslations from "@shopify/polaris/locales/en.json";
 import { AppProvider } from "@shopify/polaris";
 import { AppConfig } from "@shopify/app-bridge";
-import { Provider } from "@shopify/app-bridge-react";
+import { Provider, RoutePropagator } from "@shopify/app-bridge-react";
 import { ApolloProvider } from "@apollo/react-components";
 import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -35,6 +35,7 @@ export const App = () => {
             <Provider config={AppBridgeConfig}>
               <AppProvider i18n={enTranslations}>
                 <Router basename={Settings.baseUrl}>
+                  <Route>{({ location }) => <RoutePropagator location={location} />}</Route>
                   <HotkeysContainer>
                     <React.Suspense fallback={<PageLoadSpin />}>
                       <Switch>

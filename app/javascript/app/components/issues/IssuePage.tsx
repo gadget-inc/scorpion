@@ -1,6 +1,18 @@
 import React from "react";
 import { Page } from "../common";
-import { Card, DisplayText, Stack, Badge, BadgeProps, TextContainer, Layout, DescriptionList } from "@shopify/polaris";
+import {
+  Card,
+  DisplayText,
+  Stack,
+  Badge,
+  BadgeProps,
+  TextContainer,
+  Layout,
+  DescriptionList,
+  SkeletonPage,
+  SkeletonBodyText,
+  SkeletonDisplayText
+} from "@shopify/polaris";
 import gql from "graphql-tag";
 import { GetIssueForIssuePageComponent } from "app/app-graph";
 
@@ -15,6 +27,10 @@ gql`
       openedAt
       lastSeenAt
       closedAt
+      descriptor {
+        title
+        description
+      }
     }
   }
 `;
@@ -32,21 +48,57 @@ const IssueSeverityBadge = (_props: { issue: {} }) => {
   return <Badge status={status}>{text}</Badge>;
 };
 
+const IssuePageSkeleton = () => (
+  <SkeletonPage>
+    <Layout>
+      <Layout.Section>
+        <SkeletonDisplayText />
+      </Layout.Section>
+      <Layout.Section>
+        <Card sectioned>
+          <TextContainer>
+            <SkeletonDisplayText size="small" />
+            <SkeletonBodyText />
+          </TextContainer>
+        </Card>
+      </Layout.Section>
+      <Layout.Section secondary>
+        <Card>
+          <Card.Section>
+            <TextContainer>
+              <SkeletonDisplayText size="small" />
+              <SkeletonBodyText lines={2} />
+            </TextContainer>
+          </Card.Section>
+        </Card>
+      </Layout.Section>
+    </Layout>
+  </SkeletonPage>
+);
+
 export default class IssuePage extends Page<{ number: string }> {
   render() {
     return (
-      <Page.Load component={GetIssueForIssuePageComponent} variables={{ number: parseInt(this.props.match.params.number, 10) }}>
+      <Page.Load
+        component={GetIssueForIssuePageComponent}
+        variables={{ number: parseInt(this.props.match.params.number, 10) }}
+        spinner={IssuePageSkeleton}
+      >
         {data => (
-          <Page.Layout title={data.issue.name} breadcrumbs={[{ content: "Issues" }]}>
+          <Page.Layout title={data.issue.name}>
             <Layout.Section>
               <Stack alignment="center">
-                <DisplayText>{data.issue.name}</DisplayText>
+                <DisplayText>
+                  {data.issue.name} - {data.issue.descriptor.title}
+                </DisplayText>
                 <IssueSeverityBadge issue={data.issue} />
               </Stack>
             </Layout.Section>
             <Layout.Section>
               <Card title="Issue details" sectioned>
-                <p>View a summary of the issue.</p>
+                <TextContainer>
+                  <div dangerouslySetInnerHTML={{ __html: data.issue.descriptor.description }}></div>
+                </TextContainer>
               </Card>
             </Layout.Section>
             <Layout.Section secondary>

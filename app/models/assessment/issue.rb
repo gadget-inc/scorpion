@@ -26,5 +26,6 @@ class Assessment::Issue < ApplicationRecord
   belongs_to :property
 
   has_many :results, class_name: "Assessment::Result", dependent: :destroy
+  belongs_to :descriptor, class_name: "Assessment::Descriptor", foreign_key: :key, primary_key: :key, inverse_of: false
   acts_as_sequenced column: :number, scope: :account_id, start_at: 1
 end

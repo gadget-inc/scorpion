@@ -25,7 +25,7 @@ gql`
 export default class HomePage extends Page {
   render() {
     return (
-      <Page.Layout title="Home" primaryAction={{ content: "Scan now" }}>
+      <Page.Layout title="Home">
         <Page.Load component={GetIssuesForHomePageComponent} require={["currentProperty"]}>
           {data => (
             <>
@@ -38,8 +38,16 @@ export default class HomePage extends Page {
                     resourceName={{ singular: "issue", plural: "issues" }}
                     items={data.currentProperty.issues.nodes}
                     renderItem={(issue: ArrayElementType<typeof data.currentProperty.issues.nodes>) => {
+                      const url = `/issues/${issue.number}`;
+
                       return (
-                        <ResourceItem id={issue.id} url={`/issues/${issue.number}`} accessibilityLabel={`View details for ${issue.name}`}>
+                        <ResourceItem
+                          id={issue.id}
+                          onClick={() => {
+                            this.props.history.push(url);
+                          }}
+                          accessibilityLabel={`View details for ${issue.name}`}
+                        >
                           <h3>
                             <TextStyle variation="strong">{issue.name}</TextStyle>
                           </h3>

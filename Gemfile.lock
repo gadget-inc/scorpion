@@ -505,6 +505,7 @@ GEM
       ffi (~> 1.0)
     rcodetools (0.8.5.0)
     recursive-open-struct (1.1.0)
+    redcarpet (3.5.0)
     redis (4.1.3)
     reline (0.1.3)
       io-console (~> 0.5)
@@ -699,6 +700,7 @@ DEPENDENCIES
   rails (~> 6.0.2)
   rails-i18n
   rcodetools
+  redcarpet
   redis (~> 4.1)
   request_store
   rest-client
