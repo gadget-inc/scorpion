@@ -605,7 +605,7 @@ GEM
     trestle-jsoneditor (0.1.0)
       activesupport (>= 4.2.0)
       trestle (~> 0.9)
-    trestle-omniauth (0.2.0)
+    trestle-omniauth (0.3.0)
       omniauth (~> 1.9.0)
       rails (>= 5.0.0)
       trestle (~> 0.9)
@@ -720,7 +720,7 @@ DEPENDENCIES
   timecop
   trestle
   trestle-jsoneditor
-  trestle-omniauth (~> 0.2.0)
+  trestle-omniauth (~> 0.3.0)
   trestle-search
   trestle-simplemde
   vcr

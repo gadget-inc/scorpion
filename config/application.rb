@@ -58,6 +58,7 @@ module Scorpion
     config.crawler = config_for(:crawler)
     config.google = config_for(:google)
     config.kubernetes = config_for(:kubernetes)
+    config.dev_infrastructure = config_for(:dev_infrastructure)
 
     config.log_tags ||= {}
     config.log_tags[:user_id] = ->(request) { request.session[:current_user_id] }

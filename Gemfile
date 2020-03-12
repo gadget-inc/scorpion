@@ -58,7 +58,7 @@ gem "zaru"
 
 # Admin
 gem "trestle"
-gem "trestle-omniauth", "~> 0.2.0"  #, path: "~/Code/trestle-omniauth"
+gem "trestle-omniauth", "~> 0.3.0"
 gem "trestle-search"
 gem "trestle-jsoneditor"
 gem "trestle-simplemde"

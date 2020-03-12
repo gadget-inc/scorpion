@@ -33,4 +33,18 @@ Trestle.resource(:descriptors, scope: Assessment) do
       col { static_field :created_at }
     end
   end
+
+  controller do
+    include Infrastructure::TrustedDeveloperAuth
+    skip_before_action :require_authenticated_user, only: [:dump]
+    before_action :require_trusted_developer, only: [:dump]
+
+    def dump
+      render json: Assessment::Descriptor.all
+    end
+  end
+
+  routes do
+    get :dump, on: :collection
+  end
 end

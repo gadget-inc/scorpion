@@ -1,0 +1,8 @@
+development: &development
+  api_access_token: "development"
+test:
+  <<: *development
+integration_test:
+  <<: *development
+production:
+  api_access_token: <%= ENV['DEV_INFRASTRUCTURE_API_ACCESS_TOKEN'] %>

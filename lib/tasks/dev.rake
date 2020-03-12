@@ -23,4 +23,24 @@ namespace :dev do
     system "bin/spring", "stop"
     puts "Good to go!"
   end
+
+  desc "Fetch and store descriptors"
+  task :sync_descriptors => :environment do
+    url = "https://admin.ggt.dev/assessment/descriptors/dump"
+    token = ENV.fetch("DEV_ACCESS_TOKEN")
+
+    response = RestClient::Request.execute(
+      method: :get,
+      url: url,
+      headers: { :Authorization => "Bearer #{token}", accept: :json },
+    )
+
+    existings = Assessment::Descriptor.all.to_a.index_by(&:key)
+    passed = JSON.parse(response.body)
+    passed.each do |blob|
+      instance = existings[blob["key"]] || Assessment::Descriptor.new
+      instance.assign_attributes(blob.except("id"))
+      instance.save!
+    end
+  end
 end
