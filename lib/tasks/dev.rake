@@ -26,7 +26,7 @@ namespace :dev do
 
   desc "Fetch and store descriptors"
   task :sync_descriptors => :environment do
-    url = "https://admin.ggt.dev/assessment/descriptors/dump"
+    url = "https://scorpion-admin.gadget.dev/assessment/descriptors/dump"
     token = ENV.fetch("DEV_ACCESS_TOKEN")
 
     response = RestClient::Request.execute(
