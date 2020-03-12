@@ -14,8 +14,22 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
         else
           raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
         end
-      job.enqueue
-      flash[:message] = "Global #{job.name} job enqueued"
+
+      # Lazy
+      if Rails.env.development?
+        begin
+          old_value = Que::Job.run_synchronously
+          Que::Job.run_synchronously = true
+          job.run
+        ensure
+          Que::Job.run_synchronously = old_value
+          flash[:message] = "Global #{job.name} job run"
+        end
+      else
+        job.enqueue
+        flash[:message] = "Global #{job.name} job enqueued"
+      end
+
       redirect_to admin.path
     end
   end

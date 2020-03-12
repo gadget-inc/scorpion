@@ -85,6 +85,29 @@ module Assessment
       end
     end
 
+    test "it bumps issues' last seen at when more failing assessments arrive" do
+      assessment = @governor.make_assessment("key-1", "home") do |record|
+        record.score = 50
+        record.score_mode = "binary"
+      end
+      issue = assessment.issue
+      old_last_seen_at = issue.last_seen_at
+
+      Timecop.travel(Time.now.utc + 10.minutes)
+      new_assessment = nil
+      assert_difference "@property.issues.size", 0 do
+        new_assessment = @governor.make_assessment("key-1", "home") do |record|
+          record.score = 50
+          record.score_mode = "binary"
+        end
+      end
+
+      assert_not_nil new_assessment.issue
+      assert_equal issue, new_assessment.issue
+      issue.reload
+      assert_operator old_last_seen_at, :<, issue.last_seen_at
+    end
+
     test "it closes issues when passing assessments arrive after failing ones" do
       assessment = @governor.make_assessment("key-1", "home") do |record|
         record.score = 50

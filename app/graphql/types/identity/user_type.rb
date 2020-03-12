@@ -7,8 +7,6 @@ class Types::Identity::UserType < Types::BaseObject
   field :primary_text_identifier, String, null: false
   field :secondary_text_identifier, String, null: true
 
-  field :pending_invitation, Boolean, null: false
-
   field :created_at, GraphQL::Types::ISO8601DateTime, null: false
   field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
@@ -35,9 +33,5 @@ class Types::Identity::UserType < Types::BaseObject
 
   def auth_area_url
     Rails.application.routes.url_helpers.auth_root_url
-  end
-
-  def pending_invitation
-    !object.accepted_or_not_invited?
   end
 end

@@ -15,13 +15,13 @@ export type Scalars = {
   Int: number,
   Float: number,
   ISO8601DateTime: string,
+  JSONScalar: any,
   MutationClientId: any,
 };
 
 export type Account = {
    __typename: 'Account',
   appUrl: Scalars['String'],
-  businessLines: Array<BusinessLine>,
   createdAt: Scalars['ISO8601DateTime'],
   creator: User,
   discarded: Scalars['Boolean'],
@@ -65,9 +65,24 @@ export type AppMutationUpdateAccountArgs = {
 export type AppQuery = {
    __typename: 'AppQuery',
   currentAccount: Account,
+  currentProperty: Property,
   currentUser: User,
-  currentUserAuthToken: Scalars['String'],
+  issue?: Maybe<Issue>,
+  issues: IssueConnection,
   users: UserConnection,
+};
+
+
+export type AppQueryIssueArgs = {
+  number: Scalars['Int']
+};
+
+
+export type AppQueryIssuesArgs = {
+  after?: Maybe<Scalars['String']>,
+  before?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>
 };
 
 
@@ -103,12 +118,57 @@ export type AttachRemoteUrlPayload = {
   errors?: Maybe<Array<Scalars['String']>>,
 };
 
-export type BusinessLine = {
-   __typename: 'BusinessLine',
+
+export type Issue = {
+   __typename: 'Issue',
+  closedAt?: Maybe<Scalars['ISO8601DateTime']>,
+  createdAt: Scalars['ISO8601DateTime'],
   id: Scalars['ID'],
+  key: Scalars['String'],
+  keyCategory: KeyCategory,
+  lastSeenAt: Scalars['ISO8601DateTime'],
   name: Scalars['String'],
+  number: Scalars['Int'],
+  openedAt: Scalars['ISO8601DateTime'],
+  results: ResultConnection,
+  updatedAt: Scalars['ISO8601DateTime'],
 };
 
+
+export type IssueResultsArgs = {
+  after?: Maybe<Scalars['String']>,
+  before?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>
+};
+
+export type IssueConnection = {
+   __typename: 'IssueConnection',
+  edges: Array<IssueEdge>,
+  nodes: Array<Issue>,
+  pageInfo: PageInfo,
+};
+
+export type IssueEdge = {
+   __typename: 'IssueEdge',
+  cursor: Scalars['String'],
+  node?: Maybe<Issue>,
+};
+
+
+export const enum KeyCategory {
+  Home = 'HOME',
+  Navigation = 'NAVIGATION',
+  Browsing = 'BROWSING',
+  Products = 'PRODUCTS',
+  Search = 'SEARCH',
+  Cart = 'CART',
+  Checkout = 'CHECKOUT',
+  Performance = 'PERFORMANCE',
+  Design = 'DESIGN',
+  Seo = 'SEO',
+  Security = 'SECURITY'
+};
 
 
 export type MutationError = {
@@ -128,6 +188,55 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']>,
 };
 
+export type Property = {
+   __typename: 'Property',
+  allowedDomains: Array<Scalars['String']>,
+  crawlRoots: Array<Scalars['String']>,
+  createdAt: Scalars['ISO8601DateTime'],
+  creator: User,
+  enabled: Scalars['Boolean'],
+  id: Scalars['ID'],
+  issues: IssueConnection,
+  name: Scalars['String'],
+  updatedAt: Scalars['ISO8601DateTime'],
+};
+
+
+export type PropertyIssuesArgs = {
+  after?: Maybe<Scalars['String']>,
+  before?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>
+};
+
+export type Result = {
+   __typename: 'Result',
+  assessmentAt: Scalars['ISO8601DateTime'],
+  createdAt: Scalars['ISO8601DateTime'],
+  details: Scalars['JSONScalar'],
+  id: Scalars['ID'],
+  issue?: Maybe<Issue>,
+  key: Scalars['String'],
+  keyCategory: KeyCategory,
+  score: Scalars['Int'],
+  scoreMode: Scalars['String'],
+  updatedAt: Scalars['ISO8601DateTime'],
+  url?: Maybe<Scalars['String']>,
+};
+
+export type ResultConnection = {
+   __typename: 'ResultConnection',
+  edges: Array<ResultEdge>,
+  nodes: Array<Result>,
+  pageInfo: PageInfo,
+};
+
+export type ResultEdge = {
+   __typename: 'ResultEdge',
+  cursor: Scalars['String'],
+  node?: Maybe<Result>,
+};
+
 export type UpdateAccountPayload = {
    __typename: 'UpdateAccountPayload',
   account?: Maybe<Account>,
@@ -142,7 +251,6 @@ export type User = {
   email: Scalars['String'],
   fullName?: Maybe<Scalars['String']>,
   id: Scalars['ID'],
-  pendingInvitation: Scalars['Boolean'],
   primaryTextIdentifier: Scalars['String'],
   secondaryTextIdentifier?: Maybe<Scalars['String']>,
   updatedAt: Scalars['ISO8601DateTime'],
@@ -161,6 +269,23 @@ export type UserEdge = {
   node?: Maybe<User>,
 };
 
+export type GetIssuesForHomePageQueryVariables = {};
+
+
+export type GetIssuesForHomePageQuery = (
+  { __typename: 'AppQuery' }
+  & { currentProperty: (
+    { __typename: 'Property' }
+    & { issues: (
+      { __typename: 'IssueConnection' }
+      & { nodes: Array<(
+        { __typename: 'Issue' }
+        & Pick<Issue, 'id' | 'name' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'closedAt'>
+      )> }
+    ) }
+  ) }
+);
+
 export type GetCurrentUserForSettingsQueryVariables = {};
 
 
@@ -170,6 +295,19 @@ export type GetCurrentUserForSettingsQuery = (
     { __typename: 'User' }
     & Pick<User, 'id' | 'fullName' | 'email'>
   ) }
+);
+
+export type GetIssueForIssuePageQueryVariables = {
+  number: Scalars['Int']
+};
+
+
+export type GetIssueForIssuePageQuery = (
+  { __typename: 'AppQuery' }
+  & { issue: Maybe<(
+    { __typename: 'Issue' }
+    & Pick<Issue, 'id' | 'name' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt'>
+  )> }
 );
 
 export type AttachUploadToContainerMutationVariables = {
@@ -211,6 +349,54 @@ export type AttachRemoteUrlToContainerMutation = (
 );
 
 
+export const GetIssuesForHomePageDocument = gql`
+    query GetIssuesForHomePage {
+  currentProperty {
+    issues {
+      nodes {
+        id
+        name
+        number
+        key
+        keyCategory
+        openedAt
+        closedAt
+      }
+    }
+  }
+}
+    `;
+export type GetIssuesForHomePageComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>, 'query'>;
+
+    export const GetIssuesForHomePageComponent = (props: GetIssuesForHomePageComponentProps) => (
+      <ApolloReactComponents.Query<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables> query={GetIssuesForHomePageDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetIssuesForHomePageQuery__
+ *
+ * To run a query within a React component, call `useGetIssuesForHomePageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssuesForHomePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIssuesForHomePageQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetIssuesForHomePageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>(GetIssuesForHomePageDocument, baseOptions);
+      }
+export function useGetIssuesForHomePageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>(GetIssuesForHomePageDocument, baseOptions);
+        }
+export type GetIssuesForHomePageQueryHookResult = ReturnType<typeof useGetIssuesForHomePageQuery>;
+export type GetIssuesForHomePageLazyQueryHookResult = ReturnType<typeof useGetIssuesForHomePageLazyQuery>;
+export type GetIssuesForHomePageQueryResult = ApolloReactCommon.QueryResult<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables>;
 export const GetCurrentUserForSettingsDocument = gql`
     query GetCurrentUserForSettings {
   currentUser {
@@ -251,6 +437,52 @@ export function useGetCurrentUserForSettingsLazyQuery(baseOptions?: ApolloReactH
 export type GetCurrentUserForSettingsQueryHookResult = ReturnType<typeof useGetCurrentUserForSettingsQuery>;
 export type GetCurrentUserForSettingsLazyQueryHookResult = ReturnType<typeof useGetCurrentUserForSettingsLazyQuery>;
 export type GetCurrentUserForSettingsQueryResult = ApolloReactCommon.QueryResult<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables>;
+export const GetIssueForIssuePageDocument = gql`
+    query GetIssueForIssuePage($number: Int!) {
+  issue(number: $number) {
+    id
+    name
+    number
+    key
+    keyCategory
+    openedAt
+    lastSeenAt
+    closedAt
+  }
+}
+    `;
+export type GetIssueForIssuePageComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>, 'query'> & ({ variables: GetIssueForIssuePageQueryVariables; skip?: boolean; } | { skip: boolean; });
+
+    export const GetIssueForIssuePageComponent = (props: GetIssueForIssuePageComponentProps) => (
+      <ApolloReactComponents.Query<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables> query={GetIssueForIssuePageDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetIssueForIssuePageQuery__
+ *
+ * To run a query within a React component, call `useGetIssueForIssuePageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssueForIssuePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIssueForIssuePageQuery({
+ *   variables: {
+ *      number: // value for 'number'
+ *   },
+ * });
+ */
+export function useGetIssueForIssuePageQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>(GetIssueForIssuePageDocument, baseOptions);
+      }
+export function useGetIssueForIssuePageLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>(GetIssueForIssuePageDocument, baseOptions);
+        }
+export type GetIssueForIssuePageQueryHookResult = ReturnType<typeof useGetIssueForIssuePageQuery>;
+export type GetIssueForIssuePageLazyQueryHookResult = ReturnType<typeof useGetIssueForIssuePageLazyQuery>;
+export type GetIssueForIssuePageQueryResult = ApolloReactCommon.QueryResult<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>;
 export const AttachUploadToContainerDocument = gql`
     mutation AttachUploadToContainer($directUploadSignedId: String!, $attachmentContainerId: ID!, $attachmentContainerType: AttachmentContainerEnum!) {
   attachDirectUploadedFile(directUploadSignedId: $directUploadSignedId, attachmentContainerId: $attachmentContainerId, attachmentContainerType: $attachmentContainerType) {

@@ -3,5 +3,6 @@
 module Types
   class AppQueryType < Types::BaseObject
     include Identity::IdentityQueries
+    include Assessment::AssessmentQueries
   end
 end

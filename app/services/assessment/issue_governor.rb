@@ -23,9 +23,9 @@ module Assessment
 
       Assessment::Result.transaction do
         assessment.issue = issue_for_assessment(assessment)
-        if assessment.issue
-          update_issue_open_state(assessment, assessment.issue)
-          assessment.issue.save!
+        if (issue = assessment.issue)
+          update_issue_state(issue, assessment)
+          issue.save!
         end
         assessment.save!
       end
@@ -40,15 +40,19 @@ module Assessment
       elsif assessment.score < SCORE_THRESHOLD
         # Only create new issues for failing assessments
         issue = @property.issues.build(attrs)
-        issue.opened_at = Time.now.utc
+        now = Time.now.utc
+        issue.opened_at = now
+        issue.last_seen_at = now
         issue
       end
     end
 
-    def update_issue_open_state(assessment, issue)
+    def update_issue_state(issue, new_assessment)
       # Close open issues for passing assessments
-      if assessment.score > SCORE_THRESHOLD
+      if new_assessment.score > SCORE_THRESHOLD
         issue.closed_at = Time.now.utc
+      else
+        issue.last_seen_at = Time.now.utc
       end
     end
   end

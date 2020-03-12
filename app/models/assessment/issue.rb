@@ -8,6 +8,7 @@
 #  closed_at    :datetime
 #  key          :string           not null
 #  key_category :string           not null
+#  last_seen_at :datetime         not null
 #  number       :integer          not null
 #  opened_at    :datetime         not null
 #  created_at   :datetime         not null

@@ -12,6 +12,7 @@ class App::GraphQLController < AppAreaController
     context = {
       current_user: current_user,
       current_account: current_account,
+      current_property: current_property,
     }
     result = ScorpionAppSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result

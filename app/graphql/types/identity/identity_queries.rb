@@ -5,8 +5,8 @@ module Types::Identity::IdentityQueries
 
   included do
     field :current_user, Types::Identity::UserType, null: false, description: "Get the details of the currently logged in user"
-    field :current_user_auth_token, String, null: false, description: "Get a JWT token for the current user useful for passing to other services"
     field :current_account, Types::Identity::AccountType, null: false, description: "Get the details of the current account"
+    field :current_property, Types::Identity::PropertyType, null: false, description: "Get the details of the current property"
     field :users, Types::Identity::UserType.connection_type, null: false, description: "Get all the active users in the current account"
   end
 
@@ -18,8 +18,8 @@ module Types::Identity::IdentityQueries
     context[:current_user]
   end
 
-  def current_user_auth_token
-    Identity::GenerateJwt.new(context[:current_account]).generate(context[:current_user])
+  def current_property
+    context[:current_property]
   end
 
   def users

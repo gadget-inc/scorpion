@@ -6,6 +6,7 @@ class CreateAssessmentIssues < ActiveRecord::Migration[6.0]
       t.bigint :property_id, null: false
       t.integer :number, null: false
       t.datetime :opened_at, null: false
+      t.datetime :last_seen_at, null: false
       t.datetime :closed_at
       t.string :key, null: false
       t.string :key_category, null: false

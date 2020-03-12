@@ -14,6 +14,7 @@ module ShopifyAuthenticated
   attr_reader :current_user
   attr_reader :current_account
   attr_reader :current_shop
+  attr_reader :current_property
 
   def shopify_session
     return redirect_to_login unless shop_session
@@ -40,6 +41,7 @@ module ShopifyAuthenticated
       @current_provider_identity = details[:identity]
       @current_account = @current_user.permissioned_accounts.first
       @current_shop = ShopifyShop.kept.where(account_id: @current_account.id).first
+      @current_property = @current_shop.property
     end
 
     @shop_session

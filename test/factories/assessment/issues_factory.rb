@@ -5,7 +5,7 @@ FactoryBot.define do
     association :property
     sequence(:number)
     opened_at { "2020-03-11 11:25:01" }
-    closed_at { "2020-03-11 11:25:01" }
+    last_seen_at { "2020-03-11 11:25:01" }
     key_category { "home" }
     key { "foo" }
   end

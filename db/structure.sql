@@ -470,6 +470,7 @@ CREATE TABLE public.assessment_issues (
     property_id bigint NOT NULL,
     number integer NOT NULL,
     opened_at timestamp without time zone NOT NULL,
+    last_seen_at timestamp without time zone NOT NULL,
     closed_at timestamp without time zone,
     key character varying NOT NULL,
     key_category character varying NOT NULL,
