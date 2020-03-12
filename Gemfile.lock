@@ -541,6 +541,14 @@ GEM
     rufo (0.11.0)
     safe_yaml (1.0.5)
     safely (0.3.2)
+    sassc (2.2.1)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     scenic (1.5.2)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
@@ -603,6 +611,8 @@ GEM
       trestle (~> 0.9)
     trestle-search (0.4.1)
       trestle (~> 0.9.0)
+    trestle-simplemde (0.1.1)
+      trestle (~> 0.8, >= 0.8.6)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -698,6 +708,7 @@ DEPENDENCIES
   rubocop-rails
   rufo
   safely
+  sassc-rails
   scenic
   sequenced
   shopify_api
@@ -711,6 +722,7 @@ DEPENDENCIES
   trestle-jsoneditor
   trestle-omniauth (~> 0.2.0)
   trestle-search
+  trestle-simplemde
   vcr
   wait
   web-console

@@ -61,6 +61,8 @@ gem "trestle"
 gem "trestle-omniauth", "~> 0.2.0"  #, path: "~/Code/trestle-omniauth"
 gem "trestle-search"
 gem "trestle-jsoneditor"
+gem "trestle-simplemde"
+gem "sassc-rails" # required for "trestle-simplemde"
 gem "pg_search"
 
 group :development, :test, :integration_test do

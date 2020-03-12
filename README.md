@@ -86,7 +86,7 @@ yarn run test
 If changes are made to the structure of the development database outside of Rails' migrations (which is the case for `customer-warehouse` side changes), Rails doesn't know that things have changed. This means the test database will fall out of sync with the development database. To recreate the test database with the most up to date version of the development database's structure, run:
 
 ```
-bin/rails db:structure:dump dbt:test:prepare
+bin/rails db:structure:dump db:test:prepare
 ```
 
 ### Structure

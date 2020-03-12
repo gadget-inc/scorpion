@@ -461,6 +461,40 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: assessment_descriptors; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assessment_descriptors (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    title character varying NOT NULL,
+    severity character varying NOT NULL,
+    description character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: assessment_descriptors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.assessment_descriptors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessment_descriptors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.assessment_descriptors_id_seq OWNED BY public.assessment_descriptors.id;
+
+
+--
 -- Name: assessment_issues; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1270,6 +1304,13 @@ ALTER TABLE ONLY public.activity_feed_items ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: assessment_descriptors id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_descriptors ALTER COLUMN id SET DEFAULT nextval('public.assessment_descriptors_id_seq'::regclass);
+
+
+--
 -- Name: assessment_issues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1448,6 +1489,14 @@ ALTER TABLE ONLY public.activity_feed_items
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: assessment_descriptors assessment_descriptors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_descriptors
+    ADD CONSTRAINT assessment_descriptors_pkey PRIMARY KEY (id);
 
 
 --
@@ -1681,6 +1730,13 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_assessment_descriptors_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_assessment_descriptors_on_key ON public.assessment_descriptors USING btree (key);
 
 
 --
@@ -2146,6 +2202,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200306214602'),
 ('20200309180051'),
 ('20200311152459'),
-('20200311152649');
+('20200311152649'),
+('20200312162431');
 
 
