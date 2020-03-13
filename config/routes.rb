@@ -29,9 +29,7 @@ Rails.application.routes.draw do
   constraints ->(request) { request.host == Rails.configuration.x.domains.app || request.host == Rails.configuration.x.domains.webhooks } do
     mount ShopifyApp::Engine, at: "/shopify"
     get "/shopify/auth/shopify_offline/callback", to: "shopify_app/callback#offline_callback"
-  end
 
-  constraints host: Rails.configuration.x.domains.app do
     scope module: :app do
       mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "graphql", as: "app_graphiql"
       post "/graphql", to: "graphql#execute"

@@ -12,6 +12,7 @@ import { Settings } from "./lib/settings";
 import { FlagsProvider } from "../superlib";
 import { NotFoundPage } from "./components/chrome/NotFoundPage";
 import { PageLoadSpin } from "../superlib";
+import { NavigationBar } from "./components/common/NavigationBar/NavigationBar";
 
 const HomePage = React.lazy(() => import("./components/home/HomePage"));
 const Launchpad = React.lazy(() => import("./components/home/Launchpad"));
@@ -35,6 +36,7 @@ export const App = () => {
             <Provider config={AppBridgeConfig}>
               <AppProvider i18n={enTranslations}>
                 <Router basename={Settings.baseUrl}>
+                  <NavigationBar />
                   <Route>{({ location }) => <RoutePropagator location={location} />}</Route>
                   <HotkeysContainer>
                     <React.Suspense fallback={<PageLoadSpin />}>

@@ -28,10 +28,10 @@ namespace :dev do
   task :sync_descriptors => :environment do
     sync = Infrastructure::AssessmentDescriptorSync.new
     attributes = begin
-      sync.fetch_remote
-    rescue RestClient::Exception
-      sync.load_cache
-    end
+        sync.fetch_remote
+      rescue RestClient::Exception
+        sync.load_cache
+      end
     sync.save_cache attributes
     sync.import attributes
   end

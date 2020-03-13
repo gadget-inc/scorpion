@@ -1,0 +1,97 @@
+@import "@shopify/polaris/styles/foundation";
+@import "@shopify/polaris/styles/shared";
+
+$item-min-height: rem(16px);
+$item-min-width: rem(50px);
+$item-vertical-padding: $item-min-height / 2;
+$underline-height: border-width(thicker);
+$focus-state-box-shadow-color: rgba(0, 0, 0, 0.8);
+
+.NavigationBarContainer {
+  width: 100%;
+  border-bottom: border();
+}
+
+.NavigationBar {
+  @include page-layout;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0;
+  list-style: none;
+}
+
+.NavigationBarItem {
+  @include unstyled-link;
+  @include unstyled-button;
+  @include text-style-body;
+  @include text-emphasis-subdued;
+  display: block;
+  color: var(--p-text, color("ink", "lighter"));
+  position: relative;
+  justify-content: center;
+  margin-top: 1px;
+  margin-bottom: -1px;
+  padding: 0 spacing();
+  outline: none;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+
+    .Title {
+      @include text-emphasis-normal;
+      background-color: var(--p-surface-hovered, transparent);
+      border-bottom: var(--p-override-none, $underline-height) solid color("sky");
+    }
+  }
+
+  &:active {
+    .Title {
+      background-color: var(--p-surface-pressed, transparent);
+    }
+  }
+
+  &:focus {
+    box-shadow: var(--p-override-none, inset 0 0 2px 0 $focus-state-box-shadow-color, 0 0 2px 0 $focus-state-box-shadow-color);
+
+    .Title {
+      @include text-emphasis-normal;
+      border-bottom: var(--p-override-none, $underline-height) solid color("indigo", "light");
+    }
+
+    &:not(:active) {
+      // stylelint-disable-next-line  selector-max-specificity
+      .Title {
+        @include focus-ring($style: "focused");
+      }
+    }
+  }
+
+  &.NavigationBarItem-active {
+    // stylelint-disable-next-line selector-max-class
+    .Title {
+      border-bottom: var(--p-override-none, $underline-height) solid color("indigo");
+
+      @media (-ms-high-contrast: active) {
+        outline: 1px solid;
+      }
+    }
+  }
+}
+
+.NavigationBarItem-active {
+  @include text-emphasis-normal;
+}
+
+.Title {
+  @include focus-ring;
+  width: 100%;
+  border-radius: var(--p-border-radius-base, 0);
+  display: block;
+  padding: spacing(tight) 0 (spacing(tight) - border-width(thicker)) 0;
+  border-bottom: var(--p-override-none, $underline-height) solid transparent;
+  min-width: $item-min-width;
+}

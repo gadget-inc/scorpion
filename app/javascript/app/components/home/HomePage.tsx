@@ -1,6 +1,6 @@
 import React from "react";
 import { Page } from "../common";
-import { Card, DisplayText, ResourceList, ResourceItem, TextStyle } from "@shopify/polaris";
+import { Card, DisplayText, ResourceList, ResourceItem, TextStyle, Tabs } from "@shopify/polaris";
 import gql from "graphql-tag";
 import { GetIssuesForHomePageComponent } from "app/app-graph";
 import { ArrayElementType } from "app/lib/types";
@@ -22,6 +22,47 @@ gql`
     }
   }
 `;
+
+function TabsExample() {
+  const [selected, setSelected] = React.useState(0);
+
+  const handleTabChange = React.useCallback(selectedTabIndex => setSelected(selectedTabIndex), []);
+
+  const tabs = [
+    {
+      id: "all-customers",
+      content: "All",
+      accessibilityLabel: "All customers",
+      panelID: "all-customers-content"
+    },
+    {
+      id: "accepts-marketing",
+      content: "Accepts marketing",
+      panelID: "accepts-marketing-content"
+    },
+    {
+      id: "repeat-customers",
+      content: "Repeat customers",
+      panelID: "repeat-customers-content"
+    },
+    {
+      id: "prospects",
+      content: "Prospects",
+      panelID: "prospects-content"
+    }
+  ];
+
+  return (
+    <Card>
+      <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
+        <Card.Section title={tabs[selected].content}>
+          <p>Tab {selected} selected</p>
+        </Card.Section>
+      </Tabs>
+    </Card>
+  );
+}
+
 export default class HomePage extends Page {
   render() {
     return (
@@ -56,6 +97,7 @@ export default class HomePage extends Page {
                     }}
                   />
                 </Card>
+                <TabsExample />
               </Page.Layout.Section>
             </>
           )}
