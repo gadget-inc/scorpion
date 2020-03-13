@@ -71,7 +71,7 @@
     "flag": "^4.0.0-2",
     "fork-ts-checker-notifier-webpack-plugin": "^2.0.0",
     "fork-ts-checker-webpack-plugin": "^4.0.5",
-    "graphql": "^14.1.1",
+    "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "is-hotkey": "^0.1.4",
     "lodash": "^4.17.11",
