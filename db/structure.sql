@@ -2061,6 +2061,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 
 --
+-- Name: assessment_issues fk_rails_c08ec361a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issues
+    ADD CONSTRAINT fk_rails_c08ec361a7 FOREIGN KEY (key) REFERENCES public.assessment_descriptors(key);
+
+
+--
 -- Name: accounts fk_rails_c0b1e2d9f4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2203,6 +2211,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200309180051'),
 ('20200311152459'),
 ('20200311152649'),
-('20200312162431');
+('20200312162431'),
+('20200313150053'),
+('20200313152518');
 
 

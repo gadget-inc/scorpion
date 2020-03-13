@@ -20,6 +20,9 @@ end
 
 OmniAuth.config.test_mode = true
 
+sync = Infrastructure::AssessmentDescriptorSync.new
+sync.import(sync.load_cache)
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include GraphQLTestHelper

@@ -18,6 +18,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (key => assessment_descriptors.key)
 #  fk_rails_...  (property_id => properties.id)
 #
 require "test_helper"

@@ -16,6 +16,6 @@ BaseClientSideAppSettings::EXPORTED_FLAGS.each do |flag|
 end
 
 Rails.logger.info "DB Seeded!"
-[Account, User].each do |klass|
+[Account, User, Property, Assessment::Descriptor].each do |klass|
   Rails.logger.info "#{klass.name} count: #{klass.all.count}"
 end

@@ -6,6 +6,7 @@ module Assessment
     setup do
       @property = create(:property)
       @governor = Assessment::IssueGovernor.new(@property, "governor-test")
+      @descriptor = Assessment::Descriptor.create!(key: "key-1", title: "Test", description: "Test", severity: "low")
     end
 
     test "it can create assessments" do
