@@ -20,5 +20,9 @@ module Activity
     def on_shopify_events_changed(event)
       enqueue_produce_job(event[:shopify_shop_id])
     end
+
+    def on_shopify_apps_changed(event)
+      enqueue_produce_job(event[:shopify_shop_id])
+    end
   end
 end
