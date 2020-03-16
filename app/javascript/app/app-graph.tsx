@@ -336,14 +336,6 @@ export type GetOverallStatusFragment = (
   ) }
 );
 
-export type GetOverallStatusFragment = (
-  { __typename: 'AppQuery' }
-  & { currentProperty: (
-    { __typename: 'Property' }
-    & Pick<Property, 'id' | 'name'>
-  ) }
-);
-
 export type GetCurrentUserForSettingsQueryVariables = {};
 
 

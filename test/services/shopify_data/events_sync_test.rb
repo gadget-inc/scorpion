@@ -13,6 +13,11 @@ module ShopifyData
       assert @shop.data_events.empty?
       @sync.run
       assert_not @shop.data_events.empty?
+
+      # run the sync again immediately after and ensure no duplicates are created
+      assert_no_difference "@shop.data_events.count" do
+        @sync.run
+      end
     end
   end
 end

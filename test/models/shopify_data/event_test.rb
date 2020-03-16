@@ -19,6 +19,10 @@
 #  shopify_shop_id    :bigint           not null
 #  subject_id         :bigint           not null
 #
+# Indexes
+#
+#  index_shopify_data_events_on_event_id  (event_id) UNIQUE
+#
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)

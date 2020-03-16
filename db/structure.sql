@@ -1775,6 +1775,13 @@ CREATE UNIQUE INDEX index_que_scheduler_audit_on_scheduler_job_id ON public.que_
 
 
 --
+-- Name: index_shopify_data_events_on_event_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_shopify_data_events_on_event_id ON public.shopify_data_events USING btree (event_id);
+
+
+--
 -- Name: index_shopify_shops_on_discarded_at_and_domain; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2213,6 +2220,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200311152649'),
 ('20200312162431'),
 ('20200313150053'),
-('20200313152518');
+('20200313152518'),
+('20200316160005');
 
 

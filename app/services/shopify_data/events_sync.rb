@@ -27,7 +27,7 @@ module ShopifyData
     end
 
     def start_params
-      most_recent_event_id = @shop.data_events.maximum(:id)
+      most_recent_event_id = @shop.data_events.maximum(:event_id)
       if most_recent_event_id
         { since_id: most_recent_event_id }
       else
