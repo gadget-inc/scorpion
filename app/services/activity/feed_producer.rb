@@ -11,6 +11,7 @@ module Activity
       ShopifyData::ShopChangeEvent => { cursor: :created_at },
       ShopifyData::AssetChangeEvent => { scope: ShopifyData::AssetChangeEvent.includes(:theme), cursor: :action_at },
       ShopifyData::ThemeChangeEvent => { scope: ShopifyData::ThemeChangeEvent.includes(:theme), cursor: :created_at },
+      ShopifyData::DetectedAppChangeEvent => { scope: ShopifyData::DetectedAppChangeEvent.includes(:detected_app), cursor: :created_at },
     }.freeze
 
     def initialize(property)
@@ -95,6 +96,10 @@ module Activity
         "Shop #{event.record_attribute} #{event.old_value} => #{event.new_value}"
       when ShopifyData::ThemeChangeEvent
         "Theme #{event.theme.name} #{event.record_attribute} #{event.old_value} => #{event.new_value}"
+      when ShopifyData::DetectedAppChangeEvent
+        "App #{event.detected_app.name} #{event.action} action"
+      else
+        raise "Unknown event class for representing #{event.class}"
       end
     end
 

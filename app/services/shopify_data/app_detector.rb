@@ -4,6 +4,7 @@ module ShopifyData
   # Invokes lighthouse using the crawler service to find all the requests made fo third party JS on a given storefront.
   class AppDetector
     include SemanticLogger::Loggable
+    include Wisper::Publisher
 
     LIGHTHOUSE_CONFIG = {
       extends: "lighthouse:default",
@@ -33,6 +34,7 @@ module ShopifyData
       )
 
       detect_apps(results.flatten)
+      broadcast(:shopify_apps_changed, { shopify_shop_id: @shopify_shop.id })
     end
 
     def detect_apps(lighthouse_requests)

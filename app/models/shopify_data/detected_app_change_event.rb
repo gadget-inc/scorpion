@@ -21,5 +21,6 @@
 class ShopifyData::DetectedAppChangeEvent < ApplicationRecord
   include AccountScoped
 
+  belongs_to :shopify_shop, optional: false, inverse_of: :detected_app_change_events
   belongs_to :detected_app, class_name: "ShopifyData::DetectedApp", foreign_key: :shopify_data_detected_app_id, optional: false, inverse_of: :detected_app_change_events
 end

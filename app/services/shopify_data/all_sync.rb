@@ -12,6 +12,7 @@ module ShopifyData
     def run
       ShopifyData::SyncEventsJob.enqueue(shop_domain: @shop.myshopify_domain)
       ShopifyData::SyncShopJob.enqueue(shop_domain: @shop.myshopify_domain)
+      ShopifyData::DetectAppsJob.enqueue(shopify_shop_id: @shop.id)
 
       @shop.with_shopify_session do
         themes = with_retries { ShopifyAPI::Theme.find(:all) }
