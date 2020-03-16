@@ -90,6 +90,7 @@
     "react-select": "^3.0.4",
     "regenerator-runtime": "^0.13.2",
     "slate-hotkeys": "^0.2.9",
+    "third-party-web": "^0.11.1",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.0.3",
     "tslib": "^1.9.3",

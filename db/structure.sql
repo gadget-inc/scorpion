@@ -986,6 +986,78 @@ ALTER SEQUENCE public.shopify_data_asset_change_events_id_seq OWNED BY public.sh
 
 
 --
+-- Name: shopify_data_detected_app_change_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_detected_app_change_events (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    shopify_shop_id bigint NOT NULL,
+    shopify_data_detected_app_id bigint NOT NULL,
+    action character varying NOT NULL,
+    action_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_detected_app_change_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_detected_app_change_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_detected_app_change_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_detected_app_change_events_id_seq OWNED BY public.shopify_data_detected_app_change_events.id;
+
+
+--
+-- Name: shopify_data_detected_apps; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_detected_apps (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    shopify_shop_id bigint NOT NULL,
+    name character varying NOT NULL,
+    first_seen_at timestamp without time zone NOT NULL,
+    last_seen_at timestamp without time zone NOT NULL,
+    seen_last_time boolean NOT NULL,
+    reasons character varying[] NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_detected_apps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_detected_apps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_detected_apps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_detected_apps_id_seq OWNED BY public.shopify_data_detected_apps.id;
+
+
+--
 -- Name: shopify_data_events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1395,6 +1467,20 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events ALTER COLUMN id SET DEF
 
 
 --
+-- Name: shopify_data_detected_app_change_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_app_change_events ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_detected_app_change_events_id_seq'::regclass);
+
+
+--
+-- Name: shopify_data_detected_apps id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_apps ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_detected_apps_id_seq'::regclass);
+
+
+--
 -- Name: shopify_data_events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1625,6 +1711,22 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.shopify_data_asset_change_events
     ADD CONSTRAINT shopify_data_asset_change_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shopify_data_detected_app_change_events shopify_data_detected_app_change_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_app_change_events
+    ADD CONSTRAINT shopify_data_detected_app_change_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shopify_data_detected_apps shopify_data_detected_apps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_apps
+    ADD CONSTRAINT shopify_data_detected_apps_pkey PRIMARY KEY (id);
 
 
 --
@@ -1860,6 +1962,14 @@ ALTER TABLE ONLY public.crawl_test_case_logs
 
 
 --
+-- Name: shopify_data_detected_app_change_events fk_rails_061882a92b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_app_change_events
+    ADD CONSTRAINT fk_rails_061882a92b FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
 -- Name: assessment_results fk_rails_121c3ae9d1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1881,6 +1991,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 ALTER TABLE ONLY public.shopify_shops
     ADD CONSTRAINT fk_rails_24f3150cd2 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
+-- Name: shopify_data_detected_app_change_events fk_rails_2fde6ba7df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_app_change_events
+    ADD CONSTRAINT fk_rails_2fde6ba7df FOREIGN KEY (shopify_data_detected_app_id) REFERENCES public.shopify_data_detected_apps(id);
 
 
 --
@@ -1945,6 +2063,14 @@ ALTER TABLE ONLY public.shopify_shops
 
 ALTER TABLE ONLY public.shopify_data_theme_change_events
     ADD CONSTRAINT fk_rails_58f303623f FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
+-- Name: shopify_data_detected_app_change_events fk_rails_5bfbbe208d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_app_change_events
+    ADD CONSTRAINT fk_rails_5bfbbe208d FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2068,6 +2194,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 
 --
+-- Name: shopify_data_detected_apps fk_rails_be8152b8c5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_apps
+    ADD CONSTRAINT fk_rails_be8152b8c5 FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
 -- Name: assessment_issues fk_rails_c08ec361a7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2137,6 +2271,14 @@ ALTER TABLE ONLY public.activity_feed_items
 
 ALTER TABLE ONLY public.crawl_attempts
     ADD CONSTRAINT fk_rails_fa7728ded8 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: shopify_data_detected_apps fk_rails_fc0b899b55; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_apps
+    ADD CONSTRAINT fk_rails_fc0b899b55 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2221,6 +2363,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200312162431'),
 ('20200313150053'),
 ('20200313152518'),
-('20200316160005');
+('20200316160005'),
+('20200316215357'),
+('20200316222149');
 
 

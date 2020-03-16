@@ -67,6 +67,9 @@ class ShopifyShop < ApplicationRecord
   has_many :data_asset_change_events, class_name: "ShopifyData::AssetChangeEvent", dependent: :destroy
   has_many :data_shop_change_events, class_name: "ShopifyData::ShopChangeEvent", dependent: :destroy
 
+  has_many :detected_apps, class_name: "ShopifyData::DetectedApp", dependent: :destroy
+  has_many :detected_app_change_events, class_name: "ShopifyData::DetectedAppChangeEvent", dependent: :destroy
+
   def api_version
     ShopifyApp.configuration.api_version
   end
