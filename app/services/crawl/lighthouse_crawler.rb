@@ -16,6 +16,8 @@ module Crawl
           image-aspect-ratio
           document-title
           no-vulnerable-libraries
+          uses-optimized-images
+          offscreen-images
           password-inputs-can-be-pasted-into
           uses-passive-event-listeners
           meta-description
@@ -91,7 +93,7 @@ module Crawl
 
     def key_category_for_audit(id, url)
       case id
-      when "interactive", "speed-index"
+      when "interactive", "speed-index", "uses-optimized-images", "offscreen-images"
         :performance
       when "no-vulnerable-libraries", "password-inputs-can-be-pasted-into"
         :security
