@@ -52,7 +52,7 @@ gem "request_store"
 gem "safely"
 gem "scenic"
 gem "sequenced"
-gem "honeycomb-beeline", "~> 1.3.0", require: false # needs custom requiring in order to set up middleware properly, see initializer
+gem "honeycomb-beeline", "~> 2.0.0", require: false # needs custom requiring in order to set up middleware properly, see initializer
 gem "k8s-client"
 gem "wait"
 gem "zaru"
