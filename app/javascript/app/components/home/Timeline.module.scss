@@ -1,0 +1,33 @@
+@import "@shopify/polaris/styles/foundation";
+@import "@shopify/polaris/styles/shared";
+
+$ball-dimension: rem(14px);
+
+.TimelineContainer {
+  margin-top: spacing("loose");
+}
+
+.Timeline {
+  padding: spacing();
+  margin: spacing("tight") 0;
+  border-left: 4px solid color("sky");
+  list-style: none;
+}
+
+.TimelineEntry {
+  padding: spacing() 0;
+  position: relative;
+
+  :after {
+    position: absolute;
+    display: block;
+    top: spacing();
+    left: -1 * (spacing() + $ball-dimension / 2 + rem(2px));
+    background: color("sky", "dark");
+    border: 1px solid color("sky", "light");
+    border-radius: 50%;
+    height: $ball-dimension;
+    width: $ball-dimension;
+    content: "";
+  }
+}

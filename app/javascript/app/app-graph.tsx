@@ -126,6 +126,30 @@ export type Descriptor = {
   title: Scalars['String'],
 };
 
+export type FeedItem = {
+   __typename: 'FeedItem',
+  createdAt: Scalars['ISO8601DateTime'],
+  groupEnd: Scalars['ISO8601DateTime'],
+  groupStart: Scalars['ISO8601DateTime'],
+  id: Scalars['ID'],
+  itemAt?: Maybe<Scalars['ISO8601DateTime']>,
+  itemType: Scalars['String'],
+  updatedAt: Scalars['ISO8601DateTime'],
+};
+
+export type FeedItemConnection = {
+   __typename: 'FeedItemConnection',
+  edges: Array<FeedItemEdge>,
+  nodes: Array<FeedItem>,
+  pageInfo: PageInfo,
+};
+
+export type FeedItemEdge = {
+   __typename: 'FeedItemEdge',
+  cursor: Scalars['String'],
+  node?: Maybe<FeedItem>,
+};
+
 
 export type Issue = {
    __typename: 'Issue',
@@ -199,6 +223,7 @@ export type PageInfo = {
 
 export type Property = {
    __typename: 'Property',
+  activityFeedItems: FeedItemConnection,
   allowedDomains: Array<Scalars['String']>,
   crawlRoots: Array<Scalars['String']>,
   createdAt: Scalars['ISO8601DateTime'],
@@ -208,6 +233,14 @@ export type Property = {
   issues: IssueConnection,
   name: Scalars['String'],
   updatedAt: Scalars['ISO8601DateTime'],
+};
+
+
+export type PropertyActivityFeedItemsArgs = {
+  after?: Maybe<Scalars['String']>,
+  before?: Maybe<Scalars['String']>,
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>
 };
 
 
@@ -295,6 +328,22 @@ export type GetIssuesForHomePageQuery = (
   ) }
 );
 
+export type GetOverallStatusFragment = (
+  { __typename: 'AppQuery' }
+  & { currentProperty: (
+    { __typename: 'Property' }
+    & Pick<Property, 'id' | 'name'>
+  ) }
+);
+
+export type GetOverallStatusFragment = (
+  { __typename: 'AppQuery' }
+  & { currentProperty: (
+    { __typename: 'Property' }
+    & Pick<Property, 'id' | 'name'>
+  ) }
+);
+
 export type GetCurrentUserForSettingsQueryVariables = {};
 
 
@@ -361,7 +410,14 @@ export type AttachRemoteUrlToContainerMutation = (
   )> }
 );
 
-
+export const GetOverallStatusFragmentDoc = gql`
+    fragment GetOverallStatus on AppQuery {
+  currentProperty {
+    id
+    name
+  }
+}
+    `;
 export const GetIssuesForHomePageDocument = gql`
     query GetIssuesForHomePage {
   currentProperty {
@@ -384,13 +440,13 @@ export type GetIssuesForHomePageComponentProps = Omit<ApolloReactComponents.Quer
     export const GetIssuesForHomePageComponent = (props: GetIssuesForHomePageComponentProps) => (
       <ApolloReactComponents.Query<GetIssuesForHomePageQuery, GetIssuesForHomePageQueryVariables> query={GetIssuesForHomePageDocument} {...props} />
     );
-
+    
 
 /**
  * __useGetIssuesForHomePageQuery__
  *
  * To run a query within a React component, call `useGetIssuesForHomePageQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetIssuesForHomePageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useGetIssuesForHomePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -424,13 +480,13 @@ export type GetCurrentUserForSettingsComponentProps = Omit<ApolloReactComponents
     export const GetCurrentUserForSettingsComponent = (props: GetCurrentUserForSettingsComponentProps) => (
       <ApolloReactComponents.Query<GetCurrentUserForSettingsQuery, GetCurrentUserForSettingsQueryVariables> query={GetCurrentUserForSettingsDocument} {...props} />
     );
-
+    
 
 /**
  * __useGetCurrentUserForSettingsQuery__
  *
  * To run a query within a React component, call `useGetCurrentUserForSettingsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCurrentUserForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useGetCurrentUserForSettingsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -473,13 +529,13 @@ export type GetIssueForIssuePageComponentProps = Omit<ApolloReactComponents.Quer
     export const GetIssueForIssuePageComponent = (props: GetIssueForIssuePageComponentProps) => (
       <ApolloReactComponents.Query<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables> query={GetIssueForIssuePageDocument} {...props} />
     );
-
+    
 
 /**
  * __useGetIssueForIssuePageQuery__
  *
  * To run a query within a React component, call `useGetIssueForIssuePageQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetIssueForIssuePageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useGetIssueForIssuePageQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -520,7 +576,7 @@ export type AttachUploadToContainerComponentProps = Omit<ApolloReactComponents.M
     export const AttachUploadToContainerComponent = (props: AttachUploadToContainerComponentProps) => (
       <ApolloReactComponents.Mutation<AttachUploadToContainerMutation, AttachUploadToContainerMutationVariables> mutation={AttachUploadToContainerDocument} {...props} />
     );
-
+    
 
 /**
  * __useAttachUploadToContainerMutation__
@@ -567,7 +623,7 @@ export type AttachRemoteUrlToContainerComponentProps = Omit<ApolloReactComponent
     export const AttachRemoteUrlToContainerComponent = (props: AttachRemoteUrlToContainerComponentProps) => (
       <ApolloReactComponents.Mutation<AttachRemoteUrlToContainerMutation, AttachRemoteUrlToContainerMutationVariables> mutation={AttachRemoteUrlToContainerDocument} {...props} />
     );
-
+    
 
 /**
  * __useAttachRemoteUrlToContainerMutation__

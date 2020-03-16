@@ -9,6 +9,7 @@ class Types::Identity::PropertyType < Types::BaseObject
   field :allowed_domains, [String], null: false
 
   field :issues, Types::Assessment::IssueType.connection_type, null: false
+  field :activity_feed_items, Types::Activity::FeedItemType.connection_type, null: false
 
   field :creator, Types::Identity::UserType, null: false
   field :created_at, GraphQL::Types::ISO8601DateTime, null: false
