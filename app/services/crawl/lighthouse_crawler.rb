@@ -79,6 +79,9 @@ module Crawl
           assessment.score = 0
           assessment.score_mode = "binary"
           assessment.error_code = error_code(error_result)
+          assessment.details = {
+            error: error_result,
+          }
           assessment.url = error_result["url"]
         end
       end
