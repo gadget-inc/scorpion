@@ -23,3 +23,6 @@ Style/Documentation:
     - app/controllers/**/*
     - app/mailers/**/*
     - config/**/*
+
+Style/OneLineConditional:
+  Enabled: false

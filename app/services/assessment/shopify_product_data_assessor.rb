@@ -90,10 +90,8 @@ module Assessment
 
     def assess_variant_metadata(api_product)
       make_assessment(api_product, "published-product-out-of-stock") do |assessment|
-        assessment.score = begin
-            tracked_variants = api_product.variants.select { |api_variant| api_variant.inventory_policy == "deny" }
-            tracked_variants.all? { |api_variant| api_variant.inventory_quantity <= 0 }
-          end
+        tracked_variants = api_product.variants.select { |api_variant| api_variant.inventory_policy == "deny" }
+        assessment.score = if tracked_variants.all? { |api_variant| api_variant.inventory_quantity <= 0 } then 0 else 1 end
         assessment.score_mode = "binary"
         assessment.details = {
           product_id: api_product.id,
