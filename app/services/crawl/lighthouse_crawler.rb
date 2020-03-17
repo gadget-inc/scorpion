@@ -59,10 +59,15 @@ module Crawl
     def store_result(result)
       result["lighthouse"]["audits"].map do |_key, audit|
         @issue_governor.make_assessment("lighthouse-#{audit["id"]}", key_category_for_audit(audit["id"], result["url"])) do |assessment|
-          assessment.score = (audit["score"] * 100).round
           assessment.score_mode = audit["scoreDisplayMode"]
           assessment.details = { lighthouse_details: audit["details"] }
           assessment.url = result["url"]
+          if audit["scoreDisplayMode"] != "error"
+            assessment.score = (audit["score"] * 100).round
+          else
+            assessment.error_code = "LIGHTHOUSE_ERROR"
+            assessment.score = 0
+          end
         end
       end
       @lifecycle.register_progress!
