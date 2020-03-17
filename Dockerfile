@@ -43,4 +43,5 @@ ARG RELEASE=unknown
 
 COPY . /app/
 COPY --from=assets /app/public /app/public
+COPY --from=assets /app/node_modules/third-party-web /app/node_modules/third-party-web
 RUN echo $RELEASE > /app/RELEASE
