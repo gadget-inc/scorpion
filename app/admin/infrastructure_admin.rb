@@ -5,14 +5,18 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
   end
 
   controller do
-    def run_periodic_enqueue_crawls
-      job = case params[:crawl_type]
+    def run_infrastructure_job
+      job = case params[:job_type]
         when "high_frequency"
           Infrastructure::PeriodicHighFrequencyEnqueueJob
         when "medium_frequency"
           Infrastructure::PeriodicMediumFrequencyEnqueueJob
+        when "reinstall_webhooks"
+          Infrastructure::ReinstallAllWebhooksJob
+        when "assess_all"
+          CrawlTest::PeriodicExecuteAssessmentsJob
         else
-          raise "Unknown crawl type for enqueue: #{params[:crawl_type]}"
+          raise "Unknown job type for enqueue: #{params[:job_type]}"
         end
 
       # Lazy
@@ -35,6 +39,6 @@ Trestle.admin(:infrastructure, path: "infrastructure") do
   end
 
   routes do
-    post :run_periodic_enqueue_crawls
+    post :run_infrastructure_job
   end
 end

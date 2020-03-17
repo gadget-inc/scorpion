@@ -1,15 +1,19 @@
 <% content_for(:title, "Infrastructure") %>
 <%= render layout: "layout" do %>
   <div class="mb-4">
-    <%= button_to "Run Global High Frequency Jobs", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "high_frequency" }, class: "btn btn-primary" %>
+    <%= button_to "Run Global High Frequency Jobs", run_infrastructure_job_path, method: :post, params: { job_type: "high_frequency" }, class: "btn btn-primary" %>
     <p>Crawl all active properties' key urls and key interactions</p>
   </div>
   <div class="mb-4">
-    <%= button_to "Run Global Medium Frequency Jobs", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "medium_frequency" }, class: "btn btn-primary" %>
+    <%= button_to "Run Global Medium Frequency Jobs", run_infrastructure_job_path, method: :post, params: { job_type: "medium_frequency" }, class: "btn btn-primary" %>
     <p>Run all medium frequency crawls and assessments</p>
   </div>
   <div class="mb-4">
-    <%= button_to "Run Global Reinstall Webhooks Job", run_periodic_enqueue_crawls_path, method: :post, params: { crawl_type: "reinstall_webhooks" }, class: "btn btn-primary" %>
+    <%= button_to "Run Global Reinstall Webhooks Job", run_infrastructure_job_path, method: :post, params: { job_type: "reinstall_webhooks" }, class: "btn btn-primary" %>
     <p>Recreate each webhook for eact active shopify store (useful if theyve changed to update the old stores)</p>
+  </div>
+    <div class="mb-4">
+    <%= button_to "Run Global Test Assessments Job", run_infrastructure_job_path, method: :post, params: { job_type: "assess_all" }, class: "btn btn-primary" %>
+    <p>Run assessments for all ambient properties</p>
   </div>
 <% end %>
