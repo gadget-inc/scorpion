@@ -14,7 +14,7 @@ integration_test:
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
   run_as_kubernetes_job: false
 production:
-  api_url: https://scorpion-crawler.superpro.io
+  api_url: https://scorpion-crawler-production-oxdalcbcwa-uc.a.run.app
   run_as_kubernetes_job: false
   container_image: gcr.io/superpro-production/scorpion-crawler:latest
   auth_token: <%= ENV['SCORPION_CRAWLER_AUTH_TOKEN'] %>
