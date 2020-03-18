@@ -3,8 +3,6 @@ import { Card, Icon, IconProps, TextContainer, Heading, Stack } from "@shopify/p
 import gql from "graphql-tag";
 import styles from "./Timeline.module.scss";
 
-gql``;
-
 const TimelineEntry = (props: {}) => {
   return (
     <li className={styles.TimelineEntry}>
