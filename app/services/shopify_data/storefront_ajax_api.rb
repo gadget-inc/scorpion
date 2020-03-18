@@ -8,10 +8,10 @@ module ShopifyData
       @base_url = base_url
     end
 
-    def all_products
+    def all_products(limit_total: nil)
       page = 1 # shopify api starts at 1 indexing for pages
       limit = 100
-
+      total = 0
       handles = Set.new
 
       loop do
@@ -22,13 +22,19 @@ module ShopifyData
           else
             handles.add(product["handle"])
           end
+          total += 1
           yield product
         end
+
         if result.size < limit
           break
-        else
-          page += 1
         end
+
+        if limit_total && total >= limit_total
+          break
+        end
+
+        page += 1
       end
     end
 

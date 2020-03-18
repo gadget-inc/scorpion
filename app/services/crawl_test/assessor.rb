@@ -18,7 +18,7 @@ module CrawlTest
     end
 
     def run_storefront_data_crawl
-      Assessment::ShopifyStorefrontProductDataAssessor.new(@property).assess_all
+      Assessment::ShopifyStorefrontProductDataAssessor.new(@property, product_limit: 50).assess_all
     end
 
     def run_interaction_crawls

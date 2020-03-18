@@ -12,14 +12,15 @@ module Assessment
     MINIMUM_PRODUCT_TITLE_LENGTH = 10
     MINIMUM_PRODUCT_DESCRIPTION_LENGTH = 400
 
-    def initialize(property)
+    def initialize(property, product_limit: nil)
       @property = property
       @api = ShopifyData::StorefrontAjaxApi.new(property.crawl_roots[0])
+      @product_limit = product_limit
       @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-storefront-data-products")
     end
 
     def assess_all
-      @api.all_products do |api_product|
+      @api.all_products(limit_total: @product_limit) do |api_product|
         assess_one(api_product)
       end
     end
