@@ -7,6 +7,7 @@ module CrawlTest
     self.maximum_retry_count = 0
     self.exclusive_execution_lock = true
     self.queue = "crawl_tests"
+    self.priority = 50
 
     def run(crawl_test_case_id:)
       test_case = Case.find(crawl_test_case_id)
