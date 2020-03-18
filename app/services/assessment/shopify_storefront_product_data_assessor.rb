@@ -16,7 +16,6 @@ module Assessment
       @property = property
       @api = ShopifyData::StorefrontAjaxApi.new(property.crawl_roots[0])
       @product_limit = product_limit
-      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-storefront-data-products")
     end
 
     def assess_all
@@ -26,6 +25,7 @@ module Assessment
     end
 
     def assess_one(api_product)
+      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-storefront-data-product-#{api_product["id"]}")
       assess_product_images(api_product)
       assess_product_metadata(api_product)
       assess_variant_metadata(api_product)

@@ -5,10 +5,11 @@ module Assessment
   class IssueGovernor
     SCORE_THRESHOLD = 90
 
-    def initialize(property, production_scope)
+    def initialize(property, production_scope, cache_issues: true)
       @property = property
       @account = property.account
       @production_scope = production_scope
+      @cache_issues = cache_issues
     end
 
     def make_assessment(key, key_category, subject_type = nil, subject_id = nil)
@@ -24,10 +25,10 @@ module Assessment
       yield assessment
 
       Assessment::Result.transaction do
-        assessment.issue = issue_for_assessment(assessment)
-        if (issue = assessment.issue)
+        issue = issue_for_assessment(assessment)
+        if issue
+          assessment.issue = issue
           update_issue_state(issue, assessment)
-          issue.save!
         end
         assessment.save!
       end
@@ -46,7 +47,7 @@ module Assessment
         closed_at: nil,
       }
 
-      if (issue = @property.issues.where(attrs).first)
+      if (issue = existing_issue_for_attrs(attrs))
         issue
       elsif assessment.score < SCORE_THRESHOLD
         # Only create new issues for failing assessments
@@ -59,6 +60,33 @@ module Assessment
       end
     end
 
+    def reload_cache!
+      if @cache_issues
+        @issue_cache = nil
+        issue_cache
+      end
+    end
+
+    private
+
+    def existing_issue_for_attrs(attrs)
+      if @cache_issues
+        if (key_group = issue_cache[attrs[:key]])
+          key_group.detect do |existing|
+            existing.key_category == attrs[:key_category] &&
+            existing.subject_type == attrs[:subject_type] &&
+            existing.subject_id == attrs[:subject_id]
+          end
+        end
+      else
+        @property.issues.where(attrs).first
+      end
+    end
+
+    def issue_cache
+      @issue_cache ||= @property.issues.where(account_id: @account.id, production_scope: @production_scope, closed_at: nil).group_by(&:key)
+    end
+
     def update_issue_state(issue, new_assessment)
       # Close open issues for passing assessments
       if new_assessment.score > SCORE_THRESHOLD
@@ -66,6 +94,17 @@ module Assessment
       else
         issue.last_seen_at = Time.now.utc
       end
+
+      if @cache_issues
+        issue_cache[issue.key] ||= []
+        if issue.closed_at.nil?
+          issue_cache[issue.key] << issue unless issue_cache[issue.key].include?(issue)
+        else
+          issue_cache[issue.key].delete(issue)
+        end
+      end
+
+      issue.save!
     end
   end
 end

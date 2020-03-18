@@ -16,7 +16,6 @@ module Assessment
       @shop = shop
       @reason = reason  # TODO: something with this. this isn't a crawl attempt persay but maybe assessments should know why they were made?
       @property = shop.property
-      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-data-products")
     end
 
     def assess_all
@@ -30,6 +29,7 @@ module Assessment
     end
 
     def assess_one(api_product)
+      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-data-product-#{api_product.id}")
       assess_product_images(api_product)
       assess_product_metadata(api_product)
       assess_variant_metadata(api_product)

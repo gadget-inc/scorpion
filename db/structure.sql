@@ -1791,6 +1791,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: existing_issue_cache_lookup; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX existing_issue_cache_lookup ON public.assessment_issues USING btree (account_id, property_id, production_scope, closed_at);
+
+
+--
 -- Name: existing_issue_lookup; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2379,6 +2386,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200316215357'),
 ('20200316222149'),
 ('20200318181025'),
-('20200318181110');
+('20200318181110'),
+('20200318202850');
 
 
