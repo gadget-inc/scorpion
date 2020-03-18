@@ -30,7 +30,14 @@ end
 UnitOfWorkMiddleware = lambda { |job, &block|
   Infrastructure::UnitOfWork.unit("QueJob/#{job.que_attrs[:job_class]}") do |unit|
     unit.add_tags(job_id: job.que_attrs[:id])
-    block.call
+    begin
+      block.call
+    rescue StandardError => e
+      unit.add_tags(job_outcome: "failure", job_exception: e.message)
+      raise e
+    else
+      unit.add_tags(job_outcome: "success")
+    end
   end
 }
 
