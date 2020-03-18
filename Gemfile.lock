@@ -612,7 +612,7 @@ GEM
       trestle (~> 0.9)
     trestle-search (0.4.1)
       trestle (~> 0.9.0)
-    trestle-simplemde (0.1.1)
+    trestle-simplemde (0.1.2)
       trestle (~> 0.8, >= 0.8.6)
     tzinfo (1.2.6)
       thread_safe (~> 0.1)
