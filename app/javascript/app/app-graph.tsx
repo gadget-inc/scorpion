@@ -9,103 +9,103 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string,
-  String: string,
-  Boolean: boolean,
-  Int: number,
-  Float: number,
-  ISO8601DateTime: string,
-  JSONScalar: any,
-  MutationClientId: any,
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  ISO8601DateTime: string;
+  JSONScalar: any;
+  MutationClientId: any;
 };
 
 export type Account = {
-   __typename: 'Account',
-  appUrl: Scalars['String'],
-  createdAt: Scalars['ISO8601DateTime'],
-  creator: User,
-  discarded: Scalars['Boolean'],
-  discardedAt?: Maybe<Scalars['ISO8601DateTime']>,
-  id: Scalars['ID'],
-  name: Scalars['String'],
-  updatedAt: Scalars['ISO8601DateTime'],
+   __typename: 'Account';
+  appUrl: Scalars['String'];
+  createdAt: Scalars['ISO8601DateTime'];
+  creator: User;
+  discarded: Scalars['Boolean'];
+  discardedAt?: Maybe<Scalars['ISO8601DateTime']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 export type AccountAttributes = {
-  mutationClientId?: Maybe<Scalars['MutationClientId']>,
-  name: Scalars['String'],
+  mutationClientId?: Maybe<Scalars['MutationClientId']>;
+  name: Scalars['String'];
 };
 
 export type AppMutation = {
-   __typename: 'AppMutation',
-  attachDirectUploadedFile?: Maybe<AttachDirectUploadedFilePayload>,
-  attachRemoteUrl?: Maybe<AttachRemoteUrlPayload>,
-  updateAccount?: Maybe<UpdateAccountPayload>,
+   __typename: 'AppMutation';
+  attachDirectUploadedFile?: Maybe<AttachDirectUploadedFilePayload>;
+  attachRemoteUrl?: Maybe<AttachRemoteUrlPayload>;
+  updateAccount?: Maybe<UpdateAccountPayload>;
 };
 
 
 export type AppMutationAttachDirectUploadedFileArgs = {
-  directUploadSignedId: Scalars['String'],
-  attachmentContainerId: Scalars['ID'],
-  attachmentContainerType: AttachmentContainerEnum
+  directUploadSignedId: Scalars['String'];
+  attachmentContainerId: Scalars['ID'];
+  attachmentContainerType: AttachmentContainerEnum;
 };
 
 
 export type AppMutationAttachRemoteUrlArgs = {
-  url: Scalars['String'],
-  attachmentContainerId: Scalars['ID'],
-  attachmentContainerType: AttachmentContainerEnum
+  url: Scalars['String'];
+  attachmentContainerId: Scalars['ID'];
+  attachmentContainerType: AttachmentContainerEnum;
 };
 
 
 export type AppMutationUpdateAccountArgs = {
-  attributes: AccountAttributes
+  attributes: AccountAttributes;
 };
 
 export type AppQuery = {
-   __typename: 'AppQuery',
-  currentAccount: Account,
-  currentProperty: Property,
-  currentUser: User,
-  issue?: Maybe<Issue>,
-  issues: IssueConnection,
-  users: UserConnection,
+   __typename: 'AppQuery';
+  currentAccount: Account;
+  currentProperty: Property;
+  currentUser: User;
+  issue?: Maybe<Issue>;
+  issues: IssueConnection;
+  users: UserConnection;
 };
 
 
 export type AppQueryIssueArgs = {
-  number: Scalars['Int']
+  number: Scalars['Int'];
 };
 
 
 export type AppQueryIssuesArgs = {
-  after?: Maybe<Scalars['String']>,
-  before?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  last?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 
 export type AppQueryUsersArgs = {
-  after?: Maybe<Scalars['String']>,
-  before?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  last?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 export type AttachDirectUploadedFilePayload = {
-   __typename: 'AttachDirectUploadedFilePayload',
-  attachment?: Maybe<Attachment>,
-  errors?: Maybe<Array<Scalars['String']>>,
+   __typename: 'AttachDirectUploadedFilePayload';
+  attachment?: Maybe<Attachment>;
+  errors?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Attachment = {
-   __typename: 'Attachment',
-  bytesize: Scalars['Int'],
-  contentType: Scalars['String'],
-  filename: Scalars['String'],
-  id: Scalars['ID'],
-  url: Scalars['String'],
+   __typename: 'Attachment';
+  bytesize: Scalars['Int'];
+  contentType: Scalars['String'];
+  filename: Scalars['String'];
+  id: Scalars['ID'];
+  url: Scalars['String'];
 };
 
 export const enum AttachmentContainerEnum {
@@ -113,79 +113,79 @@ export const enum AttachmentContainerEnum {
 };
 
 export type AttachRemoteUrlPayload = {
-   __typename: 'AttachRemoteUrlPayload',
-  attachment?: Maybe<Attachment>,
-  errors?: Maybe<Array<Scalars['String']>>,
+   __typename: 'AttachRemoteUrlPayload';
+  attachment?: Maybe<Attachment>;
+  errors?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Descriptor = {
-   __typename: 'Descriptor',
-  description: Scalars['String'],
-  id: Scalars['ID'],
-  key: Scalars['String'],
-  title: Scalars['String'],
+   __typename: 'Descriptor';
+  description: Scalars['String'];
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  title: Scalars['String'];
 };
 
 export type FeedItem = {
-   __typename: 'FeedItem',
-  createdAt: Scalars['ISO8601DateTime'],
-  groupEnd: Scalars['ISO8601DateTime'],
-  groupStart: Scalars['ISO8601DateTime'],
-  id: Scalars['ID'],
-  itemAt?: Maybe<Scalars['ISO8601DateTime']>,
-  itemType: Scalars['String'],
-  updatedAt: Scalars['ISO8601DateTime'],
+   __typename: 'FeedItem';
+  createdAt: Scalars['ISO8601DateTime'];
+  groupEnd: Scalars['ISO8601DateTime'];
+  groupStart: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  itemAt?: Maybe<Scalars['ISO8601DateTime']>;
+  itemType: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 export type FeedItemConnection = {
-   __typename: 'FeedItemConnection',
-  edges: Array<FeedItemEdge>,
-  nodes: Array<FeedItem>,
-  pageInfo: PageInfo,
+   __typename: 'FeedItemConnection';
+  edges: Array<FeedItemEdge>;
+  nodes: Array<FeedItem>;
+  pageInfo: PageInfo;
 };
 
 export type FeedItemEdge = {
-   __typename: 'FeedItemEdge',
-  cursor: Scalars['String'],
-  node?: Maybe<FeedItem>,
+   __typename: 'FeedItemEdge';
+  cursor: Scalars['String'];
+  node?: Maybe<FeedItem>;
 };
 
 
 export type Issue = {
-   __typename: 'Issue',
-  closedAt?: Maybe<Scalars['ISO8601DateTime']>,
-  createdAt: Scalars['ISO8601DateTime'],
-  descriptor: Descriptor,
-  id: Scalars['ID'],
-  key: Scalars['String'],
-  keyCategory: KeyCategory,
-  lastSeenAt: Scalars['ISO8601DateTime'],
-  name: Scalars['String'],
-  number: Scalars['Int'],
-  openedAt: Scalars['ISO8601DateTime'],
-  results: ResultConnection,
-  updatedAt: Scalars['ISO8601DateTime'],
+   __typename: 'Issue';
+  closedAt?: Maybe<Scalars['ISO8601DateTime']>;
+  createdAt: Scalars['ISO8601DateTime'];
+  descriptor: Descriptor;
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  keyCategory: KeyCategory;
+  lastSeenAt: Scalars['ISO8601DateTime'];
+  name: Scalars['String'];
+  number: Scalars['Int'];
+  openedAt: Scalars['ISO8601DateTime'];
+  results: ResultConnection;
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 
 export type IssueResultsArgs = {
-  after?: Maybe<Scalars['String']>,
-  before?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  last?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 export type IssueConnection = {
-   __typename: 'IssueConnection',
-  edges: Array<IssueEdge>,
-  nodes: Array<Issue>,
-  pageInfo: PageInfo,
+   __typename: 'IssueConnection';
+  edges: Array<IssueEdge>;
+  nodes: Array<Issue>;
+  pageInfo: PageInfo;
 };
 
 export type IssueEdge = {
-   __typename: 'IssueEdge',
-  cursor: Scalars['String'],
-  node?: Maybe<Issue>,
+   __typename: 'IssueEdge';
+  cursor: Scalars['String'];
+  node?: Maybe<Issue>;
 };
 
 
@@ -205,110 +205,110 @@ export const enum KeyCategory {
 
 
 export type MutationError = {
-   __typename: 'MutationError',
-  field: Scalars['String'],
-  fullMessage: Scalars['String'],
-  message: Scalars['String'],
-  mutationClientId?: Maybe<Scalars['MutationClientId']>,
-  relativeField: Scalars['String'],
+   __typename: 'MutationError';
+  field: Scalars['String'];
+  fullMessage: Scalars['String'];
+  message: Scalars['String'];
+  mutationClientId?: Maybe<Scalars['MutationClientId']>;
+  relativeField: Scalars['String'];
 };
 
 export type PageInfo = {
-   __typename: 'PageInfo',
-  endCursor?: Maybe<Scalars['String']>,
-  hasNextPage: Scalars['Boolean'],
-  hasPreviousPage: Scalars['Boolean'],
-  startCursor?: Maybe<Scalars['String']>,
+   __typename: 'PageInfo';
+  endCursor?: Maybe<Scalars['String']>;
+  hasNextPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
+  startCursor?: Maybe<Scalars['String']>;
 };
 
 export type Property = {
-   __typename: 'Property',
-  activityFeedItems: FeedItemConnection,
-  allowedDomains: Array<Scalars['String']>,
-  crawlRoots: Array<Scalars['String']>,
-  createdAt: Scalars['ISO8601DateTime'],
-  creator: User,
-  enabled: Scalars['Boolean'],
-  id: Scalars['ID'],
-  issues: IssueConnection,
-  name: Scalars['String'],
-  updatedAt: Scalars['ISO8601DateTime'],
+   __typename: 'Property';
+  activityFeedItems: FeedItemConnection;
+  allowedDomains: Array<Scalars['String']>;
+  crawlRoots: Array<Scalars['String']>;
+  createdAt: Scalars['ISO8601DateTime'];
+  creator: User;
+  enabled: Scalars['Boolean'];
+  id: Scalars['ID'];
+  issues: IssueConnection;
+  name: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 
 export type PropertyActivityFeedItemsArgs = {
-  after?: Maybe<Scalars['String']>,
-  before?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  last?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 
 export type PropertyIssuesArgs = {
-  after?: Maybe<Scalars['String']>,
-  before?: Maybe<Scalars['String']>,
-  first?: Maybe<Scalars['Int']>,
-  last?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 export type Result = {
-   __typename: 'Result',
-  assessmentAt: Scalars['ISO8601DateTime'],
-  createdAt: Scalars['ISO8601DateTime'],
-  details: Scalars['JSONScalar'],
-  id: Scalars['ID'],
-  issue?: Maybe<Issue>,
-  key: Scalars['String'],
-  keyCategory: KeyCategory,
-  score: Scalars['Int'],
-  scoreMode: Scalars['String'],
-  updatedAt: Scalars['ISO8601DateTime'],
-  url?: Maybe<Scalars['String']>,
+   __typename: 'Result';
+  assessmentAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime'];
+  details: Scalars['JSONScalar'];
+  id: Scalars['ID'];
+  issue?: Maybe<Issue>;
+  key: Scalars['String'];
+  keyCategory: KeyCategory;
+  score: Scalars['Int'];
+  scoreMode: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
+  url?: Maybe<Scalars['String']>;
 };
 
 export type ResultConnection = {
-   __typename: 'ResultConnection',
-  edges: Array<ResultEdge>,
-  nodes: Array<Result>,
-  pageInfo: PageInfo,
+   __typename: 'ResultConnection';
+  edges: Array<ResultEdge>;
+  nodes: Array<Result>;
+  pageInfo: PageInfo;
 };
 
 export type ResultEdge = {
-   __typename: 'ResultEdge',
-  cursor: Scalars['String'],
-  node?: Maybe<Result>,
+   __typename: 'ResultEdge';
+  cursor: Scalars['String'];
+  node?: Maybe<Result>;
 };
 
 export type UpdateAccountPayload = {
-   __typename: 'UpdateAccountPayload',
-  account?: Maybe<Account>,
-  errors?: Maybe<Array<MutationError>>,
+   __typename: 'UpdateAccountPayload';
+  account?: Maybe<Account>;
+  errors?: Maybe<Array<MutationError>>;
 };
 
 export type User = {
-   __typename: 'User',
-  accounts: Array<Account>,
-  authAreaUrl: Scalars['String'],
-  createdAt: Scalars['ISO8601DateTime'],
-  email: Scalars['String'],
-  fullName?: Maybe<Scalars['String']>,
-  id: Scalars['ID'],
-  primaryTextIdentifier: Scalars['String'],
-  secondaryTextIdentifier?: Maybe<Scalars['String']>,
-  updatedAt: Scalars['ISO8601DateTime'],
+   __typename: 'User';
+  accounts: Array<Account>;
+  authAreaUrl: Scalars['String'];
+  createdAt: Scalars['ISO8601DateTime'];
+  email: Scalars['String'];
+  fullName?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  primaryTextIdentifier: Scalars['String'];
+  secondaryTextIdentifier?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 export type UserConnection = {
-   __typename: 'UserConnection',
-  edges: Array<UserEdge>,
-  nodes: Array<User>,
-  pageInfo: PageInfo,
+   __typename: 'UserConnection';
+  edges: Array<UserEdge>;
+  nodes: Array<User>;
+  pageInfo: PageInfo;
 };
 
 export type UserEdge = {
-   __typename: 'UserEdge',
-  cursor: Scalars['String'],
-  node?: Maybe<User>,
+   __typename: 'UserEdge';
+  cursor: Scalars['String'];
+  node?: Maybe<User>;
 };
 
 export type GetIssuesForHomePageQueryVariables = {};
@@ -348,13 +348,13 @@ export type GetCurrentUserForSettingsQuery = (
 );
 
 export type GetIssueForIssuePageQueryVariables = {
-  number: Scalars['Int']
+  number: Scalars['Int'];
 };
 
 
 export type GetIssueForIssuePageQuery = (
   { __typename: 'AppQuery' }
-  & { issue: Maybe<(
+  & { issue?: Maybe<(
     { __typename: 'Issue' }
     & Pick<Issue, 'id' | 'name' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt'>
     & { descriptor: (
@@ -365,18 +365,18 @@ export type GetIssueForIssuePageQuery = (
 );
 
 export type AttachUploadToContainerMutationVariables = {
-  directUploadSignedId: Scalars['String'],
-  attachmentContainerId: Scalars['ID'],
-  attachmentContainerType: AttachmentContainerEnum
+  directUploadSignedId: Scalars['String'];
+  attachmentContainerId: Scalars['ID'];
+  attachmentContainerType: AttachmentContainerEnum;
 };
 
 
 export type AttachUploadToContainerMutation = (
   { __typename: 'AppMutation' }
-  & { attachDirectUploadedFile: Maybe<(
+  & { attachDirectUploadedFile?: Maybe<(
     { __typename: 'AttachDirectUploadedFilePayload' }
     & Pick<AttachDirectUploadedFilePayload, 'errors'>
-    & { attachment: Maybe<(
+    & { attachment?: Maybe<(
       { __typename: 'Attachment' }
       & Pick<Attachment, 'id' | 'filename' | 'contentType' | 'bytesize' | 'url'>
     )> }
@@ -384,18 +384,18 @@ export type AttachUploadToContainerMutation = (
 );
 
 export type AttachRemoteUrlToContainerMutationVariables = {
-  url: Scalars['String'],
-  attachmentContainerId: Scalars['ID'],
-  attachmentContainerType: AttachmentContainerEnum
+  url: Scalars['String'];
+  attachmentContainerId: Scalars['ID'];
+  attachmentContainerType: AttachmentContainerEnum;
 };
 
 
 export type AttachRemoteUrlToContainerMutation = (
   { __typename: 'AppMutation' }
-  & { attachRemoteUrl: Maybe<(
+  & { attachRemoteUrl?: Maybe<(
     { __typename: 'AttachRemoteUrlPayload' }
     & Pick<AttachRemoteUrlPayload, 'errors'>
-    & { attachment: Maybe<(
+    & { attachment?: Maybe<(
       { __typename: 'Attachment' }
       & Pick<Attachment, 'id' | 'filename' | 'contentType' | 'bytesize' | 'url'>
     )> }
