@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -7,6 +7,9 @@ metadata:
   name: jobs
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      service: jobs
   template:
     metadata:
       creationTimestamp: null
@@ -35,18 +38,21 @@ spec:
       restartPolicy: Always
       volumes: <%= partial "rails_volumes" %>
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: jobs
+    service: crawl-jobs
   name: crawl-jobs
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      service: crawl-jobs
   template:
     metadata:
       labels:
-        service: jobs
+        service: crawl-jobs
     spec:
       serviceAccountName: scorpion-production
       containers:

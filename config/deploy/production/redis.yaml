@@ -14,7 +14,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -22,6 +22,9 @@ metadata:
   name: redis
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      service: redis
   strategy:
     type: Recreate
   template:
