@@ -103,8 +103,15 @@ module Assessment
       end
 
       issue = assessment.issue
-      issue.closed_at = Time.now.utc
-      issue.save!
+      assert_nil issue.closed_at
+
+      @governor.make_assessment("key-1", "home") do |record|
+        record.score = 100
+        record.score_mode = "binary"
+      end
+
+      issue.reload
+      assert_not_nil issue.closed_at
 
       assert_difference "@property.issues.size", 1 do
         new_assessment = @governor.make_assessment("key-1", "home") do |record|
