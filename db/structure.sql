@@ -1861,6 +1861,13 @@ CREATE UNIQUE INDEX index_assessment_descriptors_on_key ON public.assessment_des
 
 
 --
+-- Name: index_assessment_issues_on_account_id_and_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_assessment_issues_on_account_id_and_number ON public.assessment_issues USING btree (account_id, number);
+
+
+--
 -- Name: index_crawl_attempts_on_success_and_finished; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2387,6 +2394,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200316222149'),
 ('20200318181025'),
 ('20200318181110'),
-('20200318202850');
+('20200318202850'),
+('20200318214809');
 
 

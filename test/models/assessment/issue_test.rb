@@ -20,8 +20,9 @@
 #
 # Indexes
 #
-#  existing_issue_cache_lookup  (account_id,property_id,production_scope,closed_at)
-#  existing_issue_lookup        (account_id,property_id,key,key_category,closed_at,subject_type,subject_id)
+#  existing_issue_cache_lookup                       (account_id,property_id,production_scope,closed_at)
+#  existing_issue_lookup                             (account_id,property_id,key,key_category,closed_at,subject_type,subject_id)
+#  index_assessment_issues_on_account_id_and_number  (account_id,number) UNIQUE
 #
 # Foreign Keys
 #
