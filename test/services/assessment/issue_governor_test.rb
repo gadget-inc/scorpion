@@ -43,6 +43,7 @@ module Assessment
         record.score_mode = "binary"
       end
       issue = first_assessment.issue
+      number = issue.number
 
       assert_difference "@property.issues.size", 0 do
         second_assessment = @governor.make_assessment("key-1", "home") do |record|
@@ -62,6 +63,7 @@ module Assessment
 
         assert_not_nil third_assessment.issue
         assert_equal issue, third_assessment.issue
+        assert_equal number, issue.reload.number
       end
     end
 
@@ -112,6 +114,7 @@ module Assessment
 
         assert_not_nil new_assessment.issue
         assert_not_equal issue, new_assessment.issue
+        assert_operator issue.number, :<, new_assessment.issue.number
       end
     end
 
@@ -190,6 +193,7 @@ module Assessment
           assert_nil second_issue.closed_at
           assert_equal "product", second_issue.subject_type
           assert_equal "2", second_issue.subject_id
+          assert_operator first_issue.number, :<, second_issue.number
         end
       end
     end

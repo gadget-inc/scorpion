@@ -16,7 +16,7 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
-  config.cache_store = :redis_cache_store, { driver: :hiredis, url: ENV.fetch("REDIS_URL") }
+  config.cache_store = :redis_cache_store, { driver: :hiredis, url: config.redis[:url] }
   config.session_store :cache_store, key: "scorpion_production_sessions"
 
   # Disable serving static files from the `/public` folder by default since

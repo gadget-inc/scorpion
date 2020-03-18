@@ -89,16 +89,6 @@ module Crawl
       @lifecycle.register_progress!
     end
 
-    def base_assessment_record(id, url)
-      @property.assessment_results.build(
-        account_id: @property.account_id,
-        key: "lighthouse-#{id}",
-        assessment_at: Time.now.utc,
-        url: url,
-        key_category: key_category_for_audit(id, url),
-      )
-    end
-
     def key_category_for_audit(id, url)
       case id
       when "interactive", "speed-index", "uses-optimized-images", "offscreen-images"

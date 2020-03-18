@@ -35,5 +35,11 @@ class Assessment::Issue < ApplicationRecord
 
   has_many :results, class_name: "Assessment::Result", dependent: :destroy
   belongs_to :descriptor, class_name: "Assessment::Descriptor", foreign_key: :key, primary_key: :key, inverse_of: false
-  acts_as_sequenced column: :number, scope: :account_id, start_at: 1
+
+  before_create :set_number
+
+  def set_number
+    raise "Can't set issue number without account_id" if account_id.nil?
+    self.number ||= Redis::Counter.new("issue_numbers:v1:#{account_id}").increment
+  end
 end

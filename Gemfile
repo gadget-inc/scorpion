@@ -37,7 +37,6 @@ gem "asset_sync"
 gem "fog-google", "~> 1.9.1", github: "fog/fog-google"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "google-cloud-storage", "~> 1.25.1", require: false
-gem "hiredis"
 gem "json-schema"
 gem "image_processing"
 gem "lru_redux"
@@ -47,11 +46,13 @@ gem "que", github: "que-rb/que", ref: "53106609b24d7e8bc231ae3883f69dca8c989d9d"
 gem "que-scheduler"
 gem "que-locks"
 gem "que-web"
-gem "redis", "~> 4.1"
+gem "connection_pool"
+gem "hiredis"
+gem "redis", "~> 4.1", :require => ["redis", "redis/connection/hiredis"]
+gem "redis-objects"
 gem "request_store"
 gem "safely"
 gem "scenic"
-gem "sequenced"
 gem "honeycomb-beeline", "~> 2.0.0", require: false # needs custom requiring in order to set up middleware properly, see initializer
 gem "k8s-client"
 gem "wait"

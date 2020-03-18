@@ -18,7 +18,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = true
 
-  config.cache_store = :redis_cache_store, { url: "redis://localhost:6379/2" }
+  config.cache_store = :redis_cache_store, { driver: :hiredis, url: config.redis[:url] }
   config.session_store :cache_store, key: "scorpion_integration_test_sessions"
 
   # Raise exceptions instead of rendering exception templates.

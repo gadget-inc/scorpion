@@ -57,7 +57,7 @@ Rails.application.configure do
   # Development happens on a real domain that resolves to localhost through an nginx
   config.force_ssl = true
 
-  config.cache_store = :redis_cache_store, { url: "redis://localhost:6379/0" }
+  config.cache_store = :redis_cache_store, { driver: :hiredis, url: config.redis[:url] }
   config.session_store :cache_store, key: "scorpion_dev_sessions"
 
   config.x.domains.app = "app.ggt.dev"

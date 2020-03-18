@@ -53,6 +53,7 @@ module Scorpion
     config.x.domains.admin = "should be set in the environments"
     config.x.domains.assets = "should be set in the environments"
 
+    config.redis = config_for(:redis)
     config.admin = config_for(:admin)
     config.shopify = config_for(:shopify)
     config.crawler = config_for(:crawler)
