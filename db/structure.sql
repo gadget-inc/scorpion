@@ -509,7 +509,10 @@ CREATE TABLE public.assessment_issues (
     key character varying NOT NULL,
     key_category character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    subject_type character varying,
+    subject_id character varying,
+    production_scope character varying NOT NULL
 );
 
 
@@ -551,7 +554,9 @@ CREATE TABLE public.assessment_results (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     issue_id bigint,
-    production_scope character varying NOT NULL
+    production_scope character varying NOT NULL,
+    subject_type character varying,
+    subject_id character varying
 );
 
 
@@ -1786,6 +1791,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: existing_issue_lookup; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX existing_issue_lookup ON public.assessment_issues USING btree (account_id, property_id, key, key_category, closed_at, subject_type, subject_id);
+
+
+--
 -- Name: idx_feed_time_lookup; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2365,6 +2377,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200313152518'),
 ('20200316160005'),
 ('20200316215357'),
-('20200316222149');
+('20200316222149'),
+('20200318181025'),
+('20200318181110');
 
 

@@ -12,12 +12,14 @@
 #  production_scope :string           not null
 #  score            :integer          not null
 #  score_mode       :string           not null
+#  subject_type     :string
 #  url              :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  account_id       :bigint           not null
 #  issue_id         :bigint
 #  property_id      :bigint           not null
+#  subject_id       :string
 #
 # Foreign Keys
 #

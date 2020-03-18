@@ -88,7 +88,7 @@ module Assessment
     end
 
     def make_assessment(api_product, key)
-      @issue_governor.make_assessment("shopify-storefront-product-data-#{key}", "products") do |assessment|
+      @issue_governor.make_assessment("shopify-storefront-product-data-#{key}", "products", "shopify_product", api_product["id"]) do |assessment|
         assessment.url = "#{@property.crawl_roots[0]}/products/#{api_product["handle"]}"
         yield assessment
       end

@@ -101,7 +101,7 @@ module Assessment
     end
 
     def make_assessment(api_product, key)
-      @issue_governor.make_assessment("shopify-product-data-#{key}", "products") do |assessment|
+      @issue_governor.make_assessment("shopify-product-data-#{key}", "products", "shopify_product", api_product.id.to_s) do |assessment|
         assessment.url = "https://#{@shop.domain}/products/#{api_product.handle}"
         yield assessment
       end

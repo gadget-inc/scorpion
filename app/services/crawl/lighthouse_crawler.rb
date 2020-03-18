@@ -58,7 +58,7 @@ module Crawl
 
     def store_result(result)
       result["lighthouse"]["audits"].map do |_key, audit|
-        @issue_governor.make_assessment("lighthouse-#{audit["id"]}", key_category_for_audit(audit["id"], result["url"])) do |assessment|
+        @issue_governor.make_assessment("lighthouse-#{audit["id"]}", key_category_for_audit(audit["id"], result["url"]), "url", result["url"]) do |assessment|
           assessment.score_mode = audit["scoreDisplayMode"]
           assessment.details = { lighthouse_details: audit["details"] }
           assessment.url = result["url"]
@@ -75,7 +75,7 @@ module Crawl
 
     def store_error_result(error_result)
       LIGHTHOUSE_CONFIG[:settings][:onlyAudits].map do |audit_id|
-        @issue_governor.make_assessment("lighthouse-#{audit_id}", key_category_for_audit(audit_id, error_result["url"])) do |assessment|
+        @issue_governor.make_assessment("lighthouse-#{audit_id}", key_category_for_audit(audit_id, error_result["url"]), "url", error_result["url"]) do |assessment|
           assessment.score = 0
           assessment.score_mode = "binary"
           assessment.error_code = error_code(error_result)

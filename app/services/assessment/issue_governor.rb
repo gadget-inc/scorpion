@@ -11,12 +11,14 @@ module Assessment
       @production_scope = production_scope
     end
 
-    def make_assessment(key, key_category)
+    def make_assessment(key, key_category, subject_type = nil, subject_id = nil)
       assessment = @property.assessment_results.build(
         account_id: @property.account_id,
         production_scope: @production_scope,
         key: key,
         key_category: key_category,
+        subject_type: subject_type,
+        subject_id: subject_id,
         assessment_at: Time.now.utc,
       )
       yield assessment
@@ -34,13 +36,23 @@ module Assessment
     end
 
     def issue_for_assessment(assessment)
-      attrs = { account_id: @account.id, key: assessment.key, key_category: assessment.key_category, closed_at: nil }
+      attrs = {
+        account_id: @account.id,
+        property_id: @property.id,
+        key: assessment.key,
+        key_category: assessment.key_category,
+        subject_type: assessment.subject_type,
+        subject_id: assessment.subject_id,
+        closed_at: nil,
+      }
+
       if (issue = @property.issues.where(attrs).first)
         issue
       elsif assessment.score < SCORE_THRESHOLD
         # Only create new issues for failing assessments
         issue = @property.issues.build(attrs)
         now = Time.now.utc
+        issue.production_scope = @production_scope
         issue.opened_at = now
         issue.last_seen_at = now
         issue

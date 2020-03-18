@@ -8,5 +8,6 @@ FactoryBot.define do
     last_seen_at { "2020-03-11 11:25:01" }
     key_category { "home" }
     key { "lighthouse-interactive" }
+    production_scope { "lighthouse" }
   end
 end

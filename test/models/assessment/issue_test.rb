@@ -3,17 +3,24 @@
 #
 # Table name: assessment_issues
 #
-#  id           :bigint           not null, primary key
-#  closed_at    :datetime
-#  key          :string           not null
-#  key_category :string           not null
-#  last_seen_at :datetime         not null
-#  number       :integer          not null
-#  opened_at    :datetime         not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  account_id   :bigint           not null
-#  property_id  :bigint           not null
+#  id               :bigint           not null, primary key
+#  closed_at        :datetime
+#  key              :string           not null
+#  key_category     :string           not null
+#  last_seen_at     :datetime         not null
+#  number           :integer          not null
+#  opened_at        :datetime         not null
+#  production_scope :string           not null
+#  subject_type     :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  account_id       :bigint           not null
+#  property_id      :bigint           not null
+#  subject_id       :string
+#
+# Indexes
+#
+#  existing_issue_lookup  (account_id,property_id,key,key_category,closed_at,subject_type,subject_id)
 #
 # Foreign Keys
 #
