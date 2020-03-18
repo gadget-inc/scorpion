@@ -83,6 +83,7 @@ export default class IssuePage extends Page<{ number: string }> {
         component={GetIssueForIssuePageComponent}
         variables={{ number: parseInt(this.props.match.params.number, 10) }}
         spinner={IssuePageSkeleton}
+        require={["issue"]}
       >
         {data => (
           <Page.Layout title={data.issue.name}>

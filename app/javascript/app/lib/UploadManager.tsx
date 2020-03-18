@@ -46,7 +46,7 @@ gql`
 `;
 
 export type ProgressCallback = (loaded: number, total: number) => void;
-export type AttachmentResult = Exclude<Exclude<AttachUploadToContainerMutation["attachDirectUploadedFile"], null>["attachment"], null>;
+export type AttachmentResult = NonNullable<NonNullable<AttachUploadToContainerMutation["attachDirectUploadedFile"]>["attachment"]>;
 
 export class UploadManager {
   upload: DirectUpload;

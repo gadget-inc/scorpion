@@ -8,7 +8,7 @@ import { AppBridgeContext, IAppBridgeContext } from "@shopify/app-bridge-react/c
 import { shouldRedirect, getWindow } from "@shopify/app-bridge/client/redirect";
 import { Redirect } from "@shopify/app-bridge/actions";
 import { useContext } from "react";
-export type AssertedKeys<T, K extends keyof T> = { [Key in K]: NonNullable<T[Key]> } & T;
+export type AssertedKeys<T, K extends keyof T> = { [Key in K]-?: NonNullable<T[Key]> } & T;
 
 export function assert<T>(value: T | undefined | null): T {
   if (!value) {
