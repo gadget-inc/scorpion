@@ -1282,14 +1282,30 @@
     tslib "1.10.0"
     upper-case "2.0.1"
 
-"@graphql-codegen/schema-ast@^1.8.3":
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/schema-ast/-/schema-ast-1.11.2.tgz#4ed4ed99d814aa3e40bb8c558ed3b096056791ba"
-  integrity sha512-VMjyQDC9cuNj2+ff87IOiOd/3Z9pG52mty1Ei9gYHmZm/yxjmbyKrHdEbp0DA+jQr0OGKow4QdekNaQmBTvEXg==
+"@graphql-codegen/plugin-helpers@1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-1.13.0.tgz#9adfd2d63b4616f2e8e6396726fe93aa7d760a0c"
+  integrity sha512-/0G0pi0MR8UjqahqZEn+VN1EBIDtsOqJU2i4a8o32RP1F9Bm4wr1upSHkJuv0GO/KVp8Y/AERq0l1LjNLuWMZA==
   dependencies:
-    "@graphql-codegen/plugin-helpers" "1.11.2"
-    "@graphql-toolkit/common" "0.9.0"
-    tslib "1.10.0"
+    "@graphql-toolkit/common" "0.9.7"
+    camel-case "4.1.1"
+    common-tags "1.8.0"
+    constant-case "3.0.3"
+    import-from "3.0.0"
+    lower-case "2.0.1"
+    param-case "3.0.3"
+    pascal-case "3.1.1"
+    tslib "1.11.1"
+    upper-case "2.0.1"
+
+"@graphql-codegen/schema-ast@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/schema-ast/-/schema-ast-1.13.0.tgz#b253c6e1b25a018eb202df598f875699c2e7d1ff"
+  integrity sha512-vYaBWoux7H4IQw2rmsb4POVMIzxUSu27NuJgZjZwIS9c6CGoWPo6ko5LQlWvVhxVhvwS6VmcxiUqDrlEqstldQ==
+  dependencies:
+    "@graphql-codegen/plugin-helpers" "1.13.0"
+    "@graphql-toolkit/common" "0.9.7"
+    tslib "1.11.1"
 
 "@graphql-codegen/typescript-operations@^1.8.2":
   version "1.11.2"
@@ -12155,7 +12171,7 @@ tslib@1.10.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-tslib@^1, tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@1.11.1, tslib@^1, tslib@^1.10.0, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
