@@ -40,6 +40,8 @@ module ShopifyData
       response = RestClient::Request.execute(
         method: :get,
         url: @base_url + path,
+        open_timeout: 5,
+        timeout: 60,
         headers: {
           params: params,
         },

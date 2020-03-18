@@ -76,7 +76,8 @@ class Crawl::CrawlerClient
         crawlOptions: crawl_options,
       }.merge!(payload).to_json,
       headers: { :Authorization => "Bearer #{@auth_token}", content_type: :json },
-      read_timeout: nil,
+      open_timeout: 5,
+      read_timeout: 60 * 15,
       block_response: proc { |response|
         Infrastructure::LineWiseHttpResponseReader.new(response).each_line do |line|
           blob = JSON.parse(line)
