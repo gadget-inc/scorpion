@@ -7,8 +7,8 @@ require "honeycomb/integrations/rack"
 require "honeycomb/integrations/faraday"
 
 Honeycomb.configure do |config|
-  config.write_key = "54cee8187c9b4ef53c14aedef14948b8"
-  config.dataset = "scorpion-production-rails"
+  config.write_key = "0c6b4ca0962c6a1f68fb3b14cf965a25"
+  config.dataset = "scorpion-production"
   config.notification_events = %w[
     sql.active_record
     render_template.action_view
