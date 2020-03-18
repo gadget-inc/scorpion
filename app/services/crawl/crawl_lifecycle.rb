@@ -14,12 +14,15 @@ module Crawl
     end
 
     def run
+      start = Time.now.utc
+      @last_progress = start
+
       @attempt_record = @account.crawl_attempts.create!(
         property: @property,
         started_reason: @reason,
         crawl_type: @crawl_type,
-        started_at: Time.now.utc,
-        last_progress_at: Time.now.utc,
+        started_at: start,
+        last_progress_at: start,
         running: true,
       )
 
@@ -40,7 +43,11 @@ module Crawl
     end
 
     def register_progress!
-      @attempt_record.update!(last_progress_at: Time.now.utc)
+      now = Time.now.utc
+      if now > (@last_progress + 5.seconds)
+        @attempt_record.update!(last_progress_at: now)
+      end
+      @last_progress = now
     end
   end
 end
