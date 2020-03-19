@@ -9,10 +9,12 @@ require "fixings/test_help"
 # If you want to re-record VCR data, set these variables in your environment before running your tests. `bin/rake dev:env_vars` will spit as many of them as it can out from your development database to then use to create VCR fixtures.
 ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] ||= "test.myshopify.com"
 ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] ||= "test_shopify_access_token"
+ENV["SCORPION_CRAWLER_URL"] ||= "http://127.0.0.1:3002"
 
 VCR.configure do |config|
   config.filter_sensitive_data("<SHOPIFY_SHOP_OAUTH_DOMAIN>") { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
   config.filter_sensitive_data("<SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN>") { ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] }
+  config.filter_sensitive_data("<SCORPION_CRAWLER_URL>") { ENV["SCORPION_CRAWLER_URL"] }
   config.filter_sensitive_data("<KUBE_CLUSTER_ADDRESS>") { "kubernetes.docker.internal:6443" }
 
   config.fixings_query_matcher_param_exclusions << "appsecret_proof"

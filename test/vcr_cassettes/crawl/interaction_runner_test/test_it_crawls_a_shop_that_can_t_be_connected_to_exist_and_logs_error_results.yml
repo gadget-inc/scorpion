@@ -1,47 +1,47 @@
 ---
 http_interactions:
-- request:
-    method: post
-    uri: http://127.0.0.1:3001/interaction/shopify_browse_add
-    body:
-      encoding: UTF-8
-      string: '{"traceContext":{"crawlAttemptId":15},"crawlOptions":{},"property":{"id":"15","crawlRoots":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"allowedDomains":["this-domain-doesnt-exist.kdjflksj3333flskj.com"]},"startPage":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com"}'
-    headers:
-      Accept:
-      - "*/*"
-      User-Agent:
-      - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
-      Authorization:
-      - "<AUTHORIZATION>"
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '288'
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response:
-    status:
-      code: 202
-      message: Accepted
-    headers:
-      X-Powered-By:
-      - Express
-      X-Request-Id:
-      - 1098a628-24e7-4708-bd30-f367f2408730
-      Content-Type:
-      - application/ndjson
-      Date:
-      - Fri, 06 Mar 2020 16:09:19 GMT
-      Connection:
-      - keep-alive
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: |
-        {"tag":"system","message":"Request start"}
-        {"tag":"log","message":"INTERACTION START","metadata":{"options":{"start":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com"}}}
-        {"tag":"system","finished":true,"success":false,"error":{"name":"Error","message":"net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com","stack":"Error: net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com\n    at navigate (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:120:37)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at FrameManager.navigateFrame (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:94:17)\n    at Frame.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:406:12)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:12)\n    at ShopifyBrowseAdd.run (/Users/airhorns/Code/scorpion-crawler/src/interactions/shopify_browse_add.ts:26:5)\n    at Context.run (/Users/airhorns/Code/scorpion-crawler/src/willow/context.ts:48:14)\n    at InteractionRunner.run (/Users/airhorns/Code/scorpion-crawler/src/willow/interaction_runner.ts:48:22)\n  -- ASYNC --\n    at Frame.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:111:15)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:49)\n    at Page.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:112:23)\n    at ShopifyBrowseAdd.run (/Users/airhorns/Code/scorpion-crawler/src/interactions/shopify_browse_add.ts:26:29)\n    at Context.run (/Users/airhorns/Code/scorpion-crawler/src/willow/context.ts:48:29)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at InteractionRunner.run (/Users/airhorns/Code/scorpion-crawler/src/willow/interaction_runner.ts:48:22)"}}
-    http_version: null
-  recorded_at: Fri, 06 Mar 2020 16:09:21 GMT
+  - request:
+      method: post
+      uri: <SCORPION_CRAWLER_URL>/interaction/shopify_browse_add
+      body:
+        encoding: UTF-8
+        string: '{"traceContext":{"crawlAttemptId":15},"crawlOptions":{},"property":{"id":"15","crawlRoots":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"allowedDomains":["this-domain-doesnt-exist.kdjflksj3333flskj.com"]},"startPage":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com"}'
+      headers:
+        Accept:
+          - "*/*"
+        User-Agent:
+          - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
+        Authorization:
+          - "<AUTHORIZATION>"
+        Content-Type:
+          - application/json
+        Content-Length:
+          - "288"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 202
+        message: Accepted
+      headers:
+        X-Powered-By:
+          - Express
+        X-Request-Id:
+          - 1098a628-24e7-4708-bd30-f367f2408730
+        Content-Type:
+          - application/ndjson
+        Date:
+          - Fri, 06 Mar 2020 16:09:19 GMT
+        Connection:
+          - keep-alive
+        Transfer-Encoding:
+          - chunked
+      body:
+        encoding: UTF-8
+        string: |
+          {"tag":"system","message":"Request start"}
+          {"tag":"log","message":"INTERACTION START","metadata":{"options":{"start":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com"}}}
+          {"tag":"system","finished":true,"success":false,"error":{"name":"Error","message":"net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com","stack":"Error: net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com\n    at navigate (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:120:37)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at FrameManager.navigateFrame (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:94:17)\n    at Frame.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:406:12)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:12)\n    at ShopifyBrowseAdd.run (/Users/airhorns/Code/scorpion-crawler/src/interactions/shopify_browse_add.ts:26:5)\n    at Context.run (/Users/airhorns/Code/scorpion-crawler/src/willow/context.ts:48:14)\n    at InteractionRunner.run (/Users/airhorns/Code/scorpion-crawler/src/willow/interaction_runner.ts:48:22)\n  -- ASYNC --\n    at Frame.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:111:15)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:49)\n    at Page.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:112:23)\n    at ShopifyBrowseAdd.run (/Users/airhorns/Code/scorpion-crawler/src/interactions/shopify_browse_add.ts:26:29)\n    at Context.run (/Users/airhorns/Code/scorpion-crawler/src/willow/context.ts:48:29)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at InteractionRunner.run (/Users/airhorns/Code/scorpion-crawler/src/willow/interaction_runner.ts:48:22)"}}
+      http_version: null
+    recorded_at: Fri, 06 Mar 2020 16:09:21 GMT
 recorded_with: VCR 5.1.0

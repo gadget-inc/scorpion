@@ -1,48 +1,48 @@
 ---
 http_interactions:
-- request:
-    method: post
-    uri: http://127.0.0.1:3001/lighthouse
-    body:
-      encoding: UTF-8
-      string: '{"traceContext":{"crawlAttemptId":5},"crawlOptions":{},"property":{"id":"5","crawlRoots":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"allowedDomains":["this-domain-doesnt-exist.kdjflksj3333flskj.com"]},"pages":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"lighthouseConfig":{"extends":"lighthouse:default","settings":{"onlyAudits":["interactive","speed-index","viewport","errors-in-console","image-aspect-ratio","document-title","no-vulnerable-libraries","password-inputs-can-be-pasted-into","uses-passive-event-listeners","meta-description","font-size","link-text","tap-targets","hreflang"]}}}'
-    headers:
-      Accept:
-      - "*/*"
-      User-Agent:
-      - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
-      Authorization:
-      - "<AUTHORIZATION>"
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '623'
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response:
-    status:
-      code: 202
-      message: Accepted
-    headers:
-      X-Powered-By:
-      - Express
-      X-Request-Id:
-      - d8c6e6d2-0e5b-439a-adab-06a9e625310e
-      Content-Type:
-      - application/ndjson
-      Date:
-      - Fri, 06 Mar 2020 15:52:19 GMT
-      Connection:
-      - keep-alive
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: |
-        {"tag":"system","message":"Request start"}
-        {"tag":"log","started":true}
-        {"tag":"crawl_error","url":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com","error":{"name":"Error","message":"net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com","stack":"Error: net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com\n    at navigate (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:120:37)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at FrameManager.navigateFrame (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:94:17)\n    at Frame.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:406:12)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:12)\n    at CreeperPage.process (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper_page.ts:62:7)\n    at Worker.Creeper.processQueueItem [as fn] (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper.ts:173:16)\n  -- ASYNC --\n    at Frame.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:111:15)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:49)\n    at Page.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:112:23)\n    at CreeperPage.process (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper_page.ts:62:23)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at Worker.Creeper.processQueueItem [as fn] (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper.ts:173:16)"}}
-        {"tag":"system","finished":true,"success":true}
-    http_version: null
-  recorded_at: Fri, 06 Mar 2020 15:52:21 GMT
+  - request:
+      method: post
+      uri: <SCORPION_CRAWLER_URL>/lighthouse
+      body:
+        encoding: UTF-8
+        string: '{"traceContext":{"crawlAttemptId":5},"crawlOptions":{},"property":{"id":"5","crawlRoots":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"allowedDomains":["this-domain-doesnt-exist.kdjflksj3333flskj.com"]},"pages":["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"],"lighthouseConfig":{"extends":"lighthouse:default","settings":{"onlyAudits":["interactive","speed-index","viewport","errors-in-console","image-aspect-ratio","document-title","no-vulnerable-libraries","password-inputs-can-be-pasted-into","uses-passive-event-listeners","meta-description","font-size","link-text","tap-targets","hreflang"]}}}'
+      headers:
+        Accept:
+          - "*/*"
+        User-Agent:
+          - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
+        Authorization:
+          - "<AUTHORIZATION>"
+        Content-Type:
+          - application/json
+        Content-Length:
+          - "623"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 202
+        message: Accepted
+      headers:
+        X-Powered-By:
+          - Express
+        X-Request-Id:
+          - d8c6e6d2-0e5b-439a-adab-06a9e625310e
+        Content-Type:
+          - application/ndjson
+        Date:
+          - Fri, 06 Mar 2020 15:52:19 GMT
+        Connection:
+          - keep-alive
+        Transfer-Encoding:
+          - chunked
+      body:
+        encoding: UTF-8
+        string: |
+          {"tag":"system","message":"Request start"}
+          {"tag":"log","started":true}
+          {"tag":"crawl_error","url":"https://this-domain-doesnt-exist.kdjflksj3333flskj.com","error":{"name":"Error","message":"net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com","stack":"Error: net::ERR_NAME_NOT_RESOLVED at https://this-domain-doesnt-exist.kdjflksj3333flskj.com\n    at navigate (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:120:37)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at FrameManager.navigateFrame (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:94:17)\n    at Frame.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/FrameManager.js:406:12)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:12)\n    at CreeperPage.process (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper_page.ts:62:7)\n    at Worker.Creeper.processQueueItem [as fn] (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper.ts:173:16)\n  -- ASYNC --\n    at Frame.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:111:15)\n    at Page.goto (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/Page.js:670:49)\n    at Page.<anonymous> (/Users/airhorns/Code/scorpion-crawler/node_modules/puppeteer/lib/helper.js:112:23)\n    at CreeperPage.process (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper_page.ts:62:23)\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at Worker.Creeper.processQueueItem [as fn] (/Users/airhorns/Code/scorpion-crawler/src/creeper/creeper.ts:173:16)"}}
+          {"tag":"system","finished":true,"success":true}
+      http_version: null
+    recorded_at: Fri, 06 Mar 2020 15:52:21 GMT
 recorded_with: VCR 5.1.0

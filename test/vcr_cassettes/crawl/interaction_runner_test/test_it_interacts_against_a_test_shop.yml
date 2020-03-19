@@ -1,103 +1,103 @@
 ---
 http_interactions:
-- request:
-    method: post
-    uri: http://127.0.0.1:3001/interaction/shopify_browse_add
-    body:
-      encoding: UTF-8
-      string: '{"traceContext":{"crawlAttemptId":16},"crawlOptions":{},"property":{"id":"16","crawlRoots":["https://sole-destroyer.myshopify.com"],"allowedDomains":["sole-destroyer.myshopify.com"]},"startPage":"https://sole-destroyer.myshopify.com"}'
-    headers:
-      Accept:
-      - "*/*"
-      User-Agent:
-      - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
-      Authorization:
-      - "<AUTHORIZATION>"
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '234'
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response:
-    status:
-      code: 202
-      message: Accepted
-    headers:
-      X-Powered-By:
-      - Express
-      X-Request-Id:
-      - 10958c08-a159-49d8-800a-5e2c1eebd8b5
-      Content-Type:
-      - application/ndjson
-      Date:
-      - Fri, 06 Mar 2020 16:09:21 GMT
-      Connection:
-      - keep-alive
-      Transfer-Encoding:
-      - chunked
-    body:
-      encoding: UTF-8
-      string: |
-        {"tag":"system","message":"Request start"}
-        {"tag":"log","message":"INTERACTION START","metadata":{"options":{"start":"https://sole-destroyer.myshopify.com"}}}
-        {"tag":"log","message":"GROUP START Navigate to product page"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"selector":"a[href*='/products/']:humanVisible","operation":"tryFind","queryID":0}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"selector":"a[href*='/products/']:humanVisible","operation":"tryFind","queryID":0},"mostRecentAttempt":{"success":true,"result":[null]}}}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"mostVisible","queryID":1}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"mostVisible","queryID":1},"mostRecentAttempt":{"success":true}}}
-        {"tag":"log","message":"Found product link on homepage, navigating to PDP","metadata":{"href":"/collections/frontpage/products/classic-varsity-top"}}
-        {"tag":"log","message":"ACTION START click click for navigate"}
-        {"tag":"log","message":"ACTION START scroll into view click for navigate"}
-        {"tag":"log","message":"ACTION END SUCCESS scroll into view click for navigate"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":157.4921875,"y":300.859375,"queryID":2}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":157.4921875,"y":300.859375,"queryID":2}}}
-        {"tag":"log","message":"ACTION END SUCCESS click click for navigate"}
-        {"tag":"log","message":"URL assertion passed","metadata":{"match":"/products","url":"https://sole-destroyer.myshopify.com/collections/frontpage/products/classic-varsity-top"}}
-        {"tag":"log","message":"GROUP END Navigate to product page"}
-        {"tag":"log","message":"GROUP START Submit add-to-cart form on product page"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"priorityFindOne","queryID":3,"selectors":["form[action='/cart/add']:visible [type='submit']:humanVisible","form[action='/cart/add']:visible [name='add']:humanVisible"]}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"priorityFindOne","queryID":3,"selectors":["form[action='/cart/add']:visible [type='submit']:humanVisible","form[action='/cart/add']:visible [name='add']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart/add']:visible [type='submit']:humanVisible"}}}
-        {"tag":"log","message":"RACE START Submit add-to-cart form result"}
-        {"tag":"log","message":"ACTION START click Submit add product to cart form"}
-        {"tag":"log","message":"ACTION START scroll into view Submit add product to cart form"}
-        {"tag":"log","message":"ACTION END SUCCESS scroll into view Submit add product to cart form"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":568.75,"y":363,"queryID":4}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":568.75,"y":363,"queryID":4}}}
-        {"tag":"log","message":"RACE END Submit add-to-cart form result promise winner: AJAX form submit without page navigate"}
-        {"tag":"log","message":"ACTION END SUCCESS click Submit add product to cart form"}
-        {"tag":"log","message":"GROUP END Submit add-to-cart form on product page"}
-        {"tag":"log","message":"GROUP START cart->checkout form detection and reveal"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"tryPriorityFind","queryID":5,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
-        {"tag":"log","message":"QUERY END TIMEOUT, not failing as not strict","metadata":{"attemptCount":21,"errorContext":{"operation":"tryPriorityFind","queryID":5,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":false,"selector":null,"result":[]}}}
-        {"tag":"log","message":"Detected no cart->checkout form, likely after ajax form submit, interacting on page to reveal cart"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"selector":"a[href='/cart']:humanVisible","operation":"findOne","queryID":6}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"selector":"a[href='/cart']:humanVisible","operation":"findOne","queryID":6},"mostRecentAttempt":{"success":true}}}
-        {"tag":"log","message":"ACTION START click Open AJAX cart or go to cart page"}
-        {"tag":"log","message":"ACTION START scroll into view Open AJAX cart or go to cart page"}
-        {"tag":"log","message":"ACTION END SUCCESS scroll into view Open AJAX cart or go to cart page"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":601,"y":173.875,"queryID":7}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":601,"y":173.875,"queryID":7}}}
-        {"tag":"log","message":"ACTION END SUCCESS click Open AJAX cart or go to cart page"}
-        {"tag":"log","message":"RACE START Click cart link"}
-        {"tag":"log","message":"RACE END Click cart link timeout expired"}
-        {"tag":"log","message":"Detected page navigation to cart form on /cart page"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"tryPriorityFind","queryID":8,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"tryPriorityFind","queryID":8,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart']:visible [name='checkout']:humanVisible","result":[null]}}}
-        {"tag":"log","message":"Detected cart->checkout submit button as present"}
-        {"tag":"log","message":"GROUP END cart->checkout form detection and reveal"}
-        {"tag":"log","message":"GROUP START Submit cart->checkout form"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"priorityFindOne","queryID":9,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"priorityFindOne","queryID":9,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart']:visible [name='checkout']:humanVisible"}}}
-        {"tag":"log","message":"ACTION START click click for navigate"}
-        {"tag":"log","message":"ACTION START scroll into view click for navigate"}
-        {"tag":"log","message":"ACTION END SUCCESS scroll into view click for navigate"}
-        {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":665.3203125,"y":300.1875,"queryID":10}}}
-        {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":665.3203125,"y":300.1875,"queryID":10}}}
-        {"tag":"log","message":"ACTION END SUCCESS click click for navigate"}
-        {"tag":"log","message":"URL assertion passed","metadata":{"url":"https://sole-destroyer.myshopify.com/10572333111/checkouts/1d119db6b15aec0f95851f671bece20d?_ga=2.40643618.1689655991.1583510964-1346179911.1583510964&locale=en","match":{}}}
-        {"tag":"log","message":"GROUP END Submit cart->checkout form"}
-        {"tag":"system","finished":true,"success":true,"error":null}
-    http_version: null
-  recorded_at: Fri, 06 Mar 2020 16:09:54 GMT
+  - request:
+      method: post
+      uri: <SCORPION_CRAWLER_URL>/interaction/shopify_browse_add
+      body:
+        encoding: UTF-8
+        string: '{"traceContext":{"crawlAttemptId":16},"crawlOptions":{},"property":{"id":"16","crawlRoots":["https://sole-destroyer.myshopify.com"],"allowedDomains":["sole-destroyer.myshopify.com"]},"startPage":"https://sole-destroyer.myshopify.com"}'
+      headers:
+        Accept:
+          - "*/*"
+        User-Agent:
+          - rest-client/2.1.0 (darwin19.2.0 x86_64) ruby/2.7.0p0
+        Authorization:
+          - "<AUTHORIZATION>"
+        Content-Type:
+          - application/json
+        Content-Length:
+          - "234"
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    response:
+      status:
+        code: 202
+        message: Accepted
+      headers:
+        X-Powered-By:
+          - Express
+        X-Request-Id:
+          - 10958c08-a159-49d8-800a-5e2c1eebd8b5
+        Content-Type:
+          - application/ndjson
+        Date:
+          - Fri, 06 Mar 2020 16:09:21 GMT
+        Connection:
+          - keep-alive
+        Transfer-Encoding:
+          - chunked
+      body:
+        encoding: UTF-8
+        string: |
+          {"tag":"system","message":"Request start"}
+          {"tag":"log","message":"INTERACTION START","metadata":{"options":{"start":"https://sole-destroyer.myshopify.com"}}}
+          {"tag":"log","message":"GROUP START Navigate to product page"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"selector":"a[href*='/products/']:humanVisible","operation":"tryFind","queryID":0}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"selector":"a[href*='/products/']:humanVisible","operation":"tryFind","queryID":0},"mostRecentAttempt":{"success":true,"result":[null]}}}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"mostVisible","queryID":1}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"mostVisible","queryID":1},"mostRecentAttempt":{"success":true}}}
+          {"tag":"log","message":"Found product link on homepage, navigating to PDP","metadata":{"href":"/collections/frontpage/products/classic-varsity-top"}}
+          {"tag":"log","message":"ACTION START click click for navigate"}
+          {"tag":"log","message":"ACTION START scroll into view click for navigate"}
+          {"tag":"log","message":"ACTION END SUCCESS scroll into view click for navigate"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":157.4921875,"y":300.859375,"queryID":2}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":157.4921875,"y":300.859375,"queryID":2}}}
+          {"tag":"log","message":"ACTION END SUCCESS click click for navigate"}
+          {"tag":"log","message":"URL assertion passed","metadata":{"match":"/products","url":"https://sole-destroyer.myshopify.com/collections/frontpage/products/classic-varsity-top"}}
+          {"tag":"log","message":"GROUP END Navigate to product page"}
+          {"tag":"log","message":"GROUP START Submit add-to-cart form on product page"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"priorityFindOne","queryID":3,"selectors":["form[action='/cart/add']:visible [type='submit']:humanVisible","form[action='/cart/add']:visible [name='add']:humanVisible"]}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"priorityFindOne","queryID":3,"selectors":["form[action='/cart/add']:visible [type='submit']:humanVisible","form[action='/cart/add']:visible [name='add']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart/add']:visible [type='submit']:humanVisible"}}}
+          {"tag":"log","message":"RACE START Submit add-to-cart form result"}
+          {"tag":"log","message":"ACTION START click Submit add product to cart form"}
+          {"tag":"log","message":"ACTION START scroll into view Submit add product to cart form"}
+          {"tag":"log","message":"ACTION END SUCCESS scroll into view Submit add product to cart form"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":568.75,"y":363,"queryID":4}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":568.75,"y":363,"queryID":4}}}
+          {"tag":"log","message":"RACE END Submit add-to-cart form result promise winner: AJAX form submit without page navigate"}
+          {"tag":"log","message":"ACTION END SUCCESS click Submit add product to cart form"}
+          {"tag":"log","message":"GROUP END Submit add-to-cart form on product page"}
+          {"tag":"log","message":"GROUP START cart->checkout form detection and reveal"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"tryPriorityFind","queryID":5,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
+          {"tag":"log","message":"QUERY END TIMEOUT, not failing as not strict","metadata":{"attemptCount":21,"errorContext":{"operation":"tryPriorityFind","queryID":5,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":false,"selector":null,"result":[]}}}
+          {"tag":"log","message":"Detected no cart->checkout form, likely after ajax form submit, interacting on page to reveal cart"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"selector":"a[href='/cart']:humanVisible","operation":"findOne","queryID":6}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"selector":"a[href='/cart']:humanVisible","operation":"findOne","queryID":6},"mostRecentAttempt":{"success":true}}}
+          {"tag":"log","message":"ACTION START click Open AJAX cart or go to cart page"}
+          {"tag":"log","message":"ACTION START scroll into view Open AJAX cart or go to cart page"}
+          {"tag":"log","message":"ACTION END SUCCESS scroll into view Open AJAX cart or go to cart page"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":601,"y":173.875,"queryID":7}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":601,"y":173.875,"queryID":7}}}
+          {"tag":"log","message":"ACTION END SUCCESS click Open AJAX cart or go to cart page"}
+          {"tag":"log","message":"RACE START Click cart link"}
+          {"tag":"log","message":"RACE END Click cart link timeout expired"}
+          {"tag":"log","message":"Detected page navigation to cart form on /cart page"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"tryPriorityFind","queryID":8,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"tryPriorityFind","queryID":8,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart']:visible [name='checkout']:humanVisible","result":[null]}}}
+          {"tag":"log","message":"Detected cart->checkout submit button as present"}
+          {"tag":"log","message":"GROUP END cart->checkout form detection and reveal"}
+          {"tag":"log","message":"GROUP START Submit cart->checkout form"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"priorityFindOne","queryID":9,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"errorContext":{"operation":"priorityFindOne","queryID":9,"selectors":["form[action='/cart']:visible [name='checkout']:humanVisible","form[action='/checkout']:visible [type='submit']:humanVisible","form[action='/cart']:visible [type='submit'][name!='add'][name!='update']:humanVisible","form[action='/cart']:visible button[name!='add'][name!='update']:humanVisible","form[action='/checkout']:visible button:not([name]):humanVisible","a[href*='/checkout']:humanVisible"]},"mostRecentAttempt":{"success":true,"selector":"form[action='/cart']:visible [name='checkout']:humanVisible"}}}
+          {"tag":"log","message":"ACTION START click click for navigate"}
+          {"tag":"log","message":"ACTION START scroll into view click for navigate"}
+          {"tag":"log","message":"ACTION END SUCCESS scroll into view click for navigate"}
+          {"tag":"log","message":"QUERY START","metadata":{"errorContext":{"operation":"verifyClick","x":665.3203125,"y":300.1875,"queryID":10}}}
+          {"tag":"log","message":"QUERY END SUCCESS","metadata":{"attemptCount":1,"mostRecentAttempt":{"success":true},"errorContext":{"operation":"verifyClick","x":665.3203125,"y":300.1875,"queryID":10}}}
+          {"tag":"log","message":"ACTION END SUCCESS click click for navigate"}
+          {"tag":"log","message":"URL assertion passed","metadata":{"url":"https://sole-destroyer.myshopify.com/10572333111/checkouts/1d119db6b15aec0f95851f671bece20d?_ga=2.40643618.1689655991.1583510964-1346179911.1583510964&locale=en","match":{}}}
+          {"tag":"log","message":"GROUP END Submit cart->checkout form"}
+          {"tag":"system","finished":true,"success":true,"error":null}
+      http_version: null
+    recorded_at: Fri, 06 Mar 2020 16:09:54 GMT
 recorded_with: VCR 5.1.0

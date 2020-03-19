@@ -20,8 +20,6 @@ module OmniAuth::Strategies
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  # frozen_string_literal: true
-
   shopify_strategy_setup = lambda { |env|
     strategy = env["omniauth.strategy"]
 
