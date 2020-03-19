@@ -68,5 +68,11 @@ FactoryBot.define do
       crawl_roots { ["https://this-domain-doesnt-exist.kdjflksj3333flskj.com"] }
       allowed_domains { ["this-domain-doesnt-exist.kdjflksj3333flskj.com"] }
     end
+
+    factory :ambient_not_shopify_property do
+      crawl_roots { ["https://example.com"] }
+      allowed_domains { ["example.com"] }
+      ambient { true }
+    end
   end
 end
