@@ -18,7 +18,7 @@ module Infrastructure
           logger.info "Checking property", { url: url }
           response = RestClient.get(url)
           is_shopify = response.headers[:x_shopid].present?
-        rescue RestClient::RequestFailed, SocketError, Errno::ECONNREFUSED => e
+        rescue RestClient::RequestFailed, RestClient::SSLCertificateNotVerified, OpenSSL::SSL::SSLError, SocketError, Errno::ECONNREFUSED => e
           is_shopify = false
           logger.warn("Error checking property", { message: e.message })
         end
