@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CrawlTest
-  class ExecuteAssessmentsJob < Que::Job
+  class ExecuteInteractionCrawlsJob < Que::Job
     include SemanticLogger::Loggable
 
     self.maximum_retry_count = 0
@@ -11,7 +11,7 @@ module CrawlTest
 
     def run(property_id:)
       property = Property.for_ambient_crawls.find(property_id)
-      Assessor.new(property).run_all
+      Assessor.new(property).run_interaction_crawls
     end
   end
 end
