@@ -9,7 +9,7 @@ GIT_SHA=$(git rev-parse HEAD)
 export REVISION=${REVISION:-$GIT_SHA}
 
 # deploy application to it's namespace
-bundle exec krane render -f config/deploy/$ENVIRONMENT --current-sha=$REVISION | bundle exec krane deploy scorpion-production $CLUSTER --stdin -f config/deploy/$ENVIRONMENT/secrets.ejson
+bundle exec krane render -f config/deploy/$ENVIRONMENT --current-sha=$REVISION | bundle exec krane deploy scorpion-production $CLUSTER --stdin --global-timeout 20m -f config/deploy/$ENVIRONMENT/secrets.ejson
 
 if [ -n "$SENTRY_AUTH_TOKEN" ]; then
   sentry-cli releases new -p scorpion-backend -p scorpion-frontend $REVISION

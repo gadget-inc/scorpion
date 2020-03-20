@@ -45,7 +45,7 @@ metadata:
     service: crawl-jobs
   name: crawl-jobs
 spec:
-  replicas: 4
+  replicas: 3
   selector:
     matchLabels:
       service: crawl-jobs
@@ -55,6 +55,7 @@ spec:
         service: crawl-jobs
     spec:
       serviceAccountName: scorpion-production
+      terminationGracePeriodSeconds: 900
       containers:
         - name: jobs
           image: "gcr.io/superpro-production/scorpion-core:<%= current_sha %>"
