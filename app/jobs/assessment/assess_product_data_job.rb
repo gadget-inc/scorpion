@@ -5,8 +5,9 @@ class Assessment::AssessProductDataJob < Que::Job
   self.exclusive_execution_lock = true
   self.queue = "crawls"
 
-  def run(shopify_shop_id:, reason:)
+  def run(shopify_shop_id:, production_group_id:)
     shop = ShopifyShop.kept.find(shopify_shop_id)
-    Assessment::ShopifyProductDataAssessor.new(shop, reason).assess_all
+    production_group = Assessment::ProductionGroup.find(production_group_id)
+    Assessment::ShopifyProductDataAssessor.new(shop, production_group).assess_all
   end
 end

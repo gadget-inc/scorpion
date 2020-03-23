@@ -5,9 +5,10 @@ module Assessment
   class IssueGovernor
     SCORE_THRESHOLD = 90
 
-    def initialize(property, production_scope, cache_issues: true)
+    def initialize(property, production_group, production_scope, cache_issues: true)
       @property = property
       @account = property.account
+      @production_group = production_group
       @production_scope = production_scope
       @cache_issues = cache_issues
     end
@@ -15,6 +16,7 @@ module Assessment
     def make_assessment(key, key_category, subject_type = nil, subject_id = nil)
       assessment = @property.assessment_results.build(
         account_id: @property.account_id,
+        production_group: @production_group,
         production_scope: @production_scope,
         key: key,
         key_category: key_category,
@@ -56,6 +58,13 @@ module Assessment
         issue.production_scope = @production_scope
         issue.opened_at = now
         issue.last_seen_at = now
+        issue.issue_change_events.build(
+          account_id: @account.id,
+          property_id: @property.id,
+          assessment_production_group_id: @production_group.id,
+          action: "open",
+          action_at: now,
+        )
         issue
       end
     end
@@ -89,12 +98,22 @@ module Assessment
 
     def update_issue_state(issue, new_assessment)
       # Close open issues for passing assessments
+      now = Time.now.utc
+
       if new_assessment.score > SCORE_THRESHOLD
-        issue.closed_at = Time.now.utc
+        issue.closed_at = now
+        issue.issue_change_events.build(
+          account_id: @account.id,
+          property_id: @property.id,
+          assessment_production_group_id: @production_group.id,
+          action: "close",
+          action_at: now,
+        )
       else
-        issue.last_seen_at = Time.now.utc
+        issue.last_seen_at = now
       end
 
+      # Update issue cache
       if @cache_issues
         issue_cache[issue.key] ||= []
         if issue.closed_at.nil?

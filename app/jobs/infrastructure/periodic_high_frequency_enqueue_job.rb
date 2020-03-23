@@ -5,7 +5,14 @@ class Infrastructure::PeriodicHighFrequencyEnqueueJob < Que::Job
 
   def run
     Property.for_purposeful_crawls.find_each do |property|
-      Crawl::KeyUrlsCrawlJob.enqueue(property_id: property.id, reason: "scheduled")
+      production_group = Assessment::ProductionGroup.create!(
+        property: property,
+        account: property.account,
+        reason: "scheduled",
+        started_at: Time.now.utc,
+      )
+
+      Crawl::KeyUrlsCrawlJob.enqueue(property_id: property.id, production_group_id: production_group.id)
     end
   end
 

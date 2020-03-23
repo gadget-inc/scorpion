@@ -12,9 +12,9 @@ module Assessment
     MINIMUM_PRODUCT_TITLE_LENGTH = 10
     MINIMUM_PRODUCT_DESCRIPTION_LENGTH = 400
 
-    def initialize(shop, reason)
+    def initialize(shop, production_group)
       @shop = shop
-      @reason = reason  # TODO: something with this. this isn't a crawl attempt persay but maybe assessments should know why they were made?
+      @production_group = production_group
       @property = shop.property
     end
 
@@ -29,7 +29,7 @@ module Assessment
     end
 
     def assess_one(api_product)
-      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-data-product-#{api_product.id}")
+      @issue_governor = Assessment::IssueGovernor.new(@property, @production_group, "shopify-data-product-#{api_product.id}")
       assess_product_images(api_product)
       assess_product_metadata(api_product)
       assess_variant_metadata(api_product)

@@ -12,8 +12,11 @@ module Assessment
     MINIMUM_PRODUCT_TITLE_LENGTH = 10
     MINIMUM_PRODUCT_DESCRIPTION_LENGTH = 400
 
-    def initialize(property, product_limit: nil)
+    attr_reader :property, :production_group
+
+    def initialize(property, production_group, product_limit: nil)
       @property = property
+      @production_group = production_group
       @api = ShopifyData::StorefrontAjaxApi.new(property.crawl_roots[0])
       @product_limit = product_limit
     end
@@ -25,7 +28,7 @@ module Assessment
     end
 
     def assess_one(api_product)
-      @issue_governor = Assessment::IssueGovernor.new(@property, "shopify-storefront-data-product-#{api_product["id"]}")
+      @issue_governor = Assessment::IssueGovernor.new(@property, @production_group, "shopify-storefront-data-product-#{api_product["id"]}")
       assess_product_images(api_product)
       assess_product_metadata(api_product)
       assess_variant_metadata(api_product)

@@ -5,8 +5,9 @@ class Crawl::KeyUrlsCrawlJob < Que::Job
   self.exclusive_execution_lock = true
   self.queue = "crawls"
 
-  def run(property_id:, reason:)
+  def run(property_id:, production_group_id:)
     property = Property.find(property_id)
-    Crawl::LighthouseCrawler.new(property, reason).collect_lighthouse_crawl
+    production_group = Assessment::ProductionGroup.find(production_group_id)
+    Crawl::LighthouseCrawler.new(property, production_group).collect_lighthouse_crawl
   end
 end

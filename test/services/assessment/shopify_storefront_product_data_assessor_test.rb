@@ -5,7 +5,8 @@ module Assessment
   class ShopifyStorefrontProductDataAssessorTest < ActiveSupport::TestCase
     setup do
       @property = create(:ambient_homesick_property)
-      @assessor = ShopifyStorefrontProductDataAssessor.new(@property)
+      @production_group = create(:assessment_production_group, property: @property)
+      @assessor = ShopifyStorefrontProductDataAssessor.new(@property, @production_group)
     end
 
     test "it can audit products" do

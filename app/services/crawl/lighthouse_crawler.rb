@@ -31,18 +31,18 @@ module Crawl
 
     DEFAULT_CRAWL_OPTIONS = {}.freeze
 
-    attr_reader :property, :crawl_options, :reason
+    attr_reader :property, :crawl_options, :production_group
 
-    def initialize(property, reason, crawl_options = DEFAULT_CRAWL_OPTIONS)
+    def initialize(property, production_group, crawl_options = DEFAULT_CRAWL_OPTIONS)
       @property = property
+      @production_group = production_group
       @crawl_options = crawl_options
-      @reason = reason
       @url_categorizer = Identity::UrlCategorizer.new(@property)
-      @issue_governor = Assessment::IssueGovernor.new(@property, "lighthouse")
+      @issue_governor = Assessment::IssueGovernor.new(@property, @production_group, "lighthouse")
     end
 
     def collect_lighthouse_crawl
-      @lifecycle = CrawlLifecycle.new(@property, @reason, :collect_lighthouse)
+      @lifecycle = CrawlLifecycle.new(@property, @production_group.reason, :collect_lighthouse)
       @lifecycle.run do |attempt_record|
         CrawlerClient.client.lighthouse(
           @property,

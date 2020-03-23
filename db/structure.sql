@@ -495,6 +495,42 @@ ALTER SEQUENCE public.assessment_descriptors_id_seq OWNED BY public.assessment_d
 
 
 --
+-- Name: assessment_issue_change_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assessment_issue_change_events (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    assessment_issue_id bigint,
+    action character varying NOT NULL,
+    action_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    assessment_production_group_id bigint NOT NULL
+);
+
+
+--
+-- Name: assessment_issue_change_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.assessment_issue_change_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessment_issue_change_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.assessment_issue_change_events_id_seq OWNED BY public.assessment_issue_change_events.id;
+
+
+--
 -- Name: assessment_issues; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -536,6 +572,40 @@ ALTER SEQUENCE public.assessment_issues_id_seq OWNED BY public.assessment_issues
 
 
 --
+-- Name: assessment_production_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assessment_production_groups (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    reason character varying NOT NULL,
+    started_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: assessment_production_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.assessment_production_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assessment_production_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.assessment_production_groups_id_seq OWNED BY public.assessment_production_groups.id;
+
+
+--
 -- Name: assessment_results; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -556,7 +626,8 @@ CREATE TABLE public.assessment_results (
     issue_id bigint,
     production_scope character varying NOT NULL,
     subject_type character varying,
-    subject_id character varying
+    subject_id character varying,
+    assessment_production_group_id bigint NOT NULL
 );
 
 
@@ -1388,10 +1459,24 @@ ALTER TABLE ONLY public.assessment_descriptors ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: assessment_issue_change_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events ALTER COLUMN id SET DEFAULT nextval('public.assessment_issue_change_events_id_seq'::regclass);
+
+
+--
 -- Name: assessment_issues id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.assessment_issues ALTER COLUMN id SET DEFAULT nextval('public.assessment_issues_id_seq'::regclass);
+
+
+--
+-- Name: assessment_production_groups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_production_groups ALTER COLUMN id SET DEFAULT nextval('public.assessment_production_groups_id_seq'::regclass);
 
 
 --
@@ -1591,11 +1676,27 @@ ALTER TABLE ONLY public.assessment_descriptors
 
 
 --
+-- Name: assessment_issue_change_events assessment_issue_change_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events
+    ADD CONSTRAINT assessment_issue_change_events_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: assessment_issues assessment_issues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.assessment_issues
     ADD CONSTRAINT assessment_issues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assessment_production_groups assessment_production_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_production_groups
+    ADD CONSTRAINT assessment_production_groups_pkey PRIMARY KEY (id);
 
 
 --
@@ -2012,6 +2113,14 @@ ALTER TABLE ONLY public.shopify_data_asset_change_events
 
 
 --
+-- Name: assessment_issue_change_events fk_rails_1f2d50c62a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events
+    ADD CONSTRAINT fk_rails_1f2d50c62a FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
 -- Name: shopify_shops fk_rails_24f3150cd2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2089,6 +2198,14 @@ ALTER TABLE ONLY public.shopify_shops
 
 ALTER TABLE ONLY public.shopify_data_theme_change_events
     ADD CONSTRAINT fk_rails_58f303623f FOREIGN KEY (shopify_shop_id) REFERENCES public.shopify_shops(id);
+
+
+--
+-- Name: assessment_issue_change_events fk_rails_5aaa2e2fc7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events
+    ADD CONSTRAINT fk_rails_5aaa2e2fc7 FOREIGN KEY (assessment_issue_id) REFERENCES public.assessment_issues(id);
 
 
 --
@@ -2204,11 +2321,35 @@ ALTER TABLE ONLY public.assessment_results
 
 
 --
+-- Name: assessment_results fk_rails_a5722821f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_results
+    ADD CONSTRAINT fk_rails_a5722821f7 FOREIGN KEY (assessment_production_group_id) REFERENCES public.assessment_production_groups(id);
+
+
+--
 -- Name: activity_feed_items fk_rails_a5b0803240; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.activity_feed_items
     ADD CONSTRAINT fk_rails_a5b0803240 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: assessment_production_groups fk_rails_abdc9b0b01; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_production_groups
+    ADD CONSTRAINT fk_rails_abdc9b0b01 FOREIGN KEY (account_id) REFERENCES public.accounts(id);
+
+
+--
+-- Name: assessment_production_groups fk_rails_b7b0a0de98; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_production_groups
+    ADD CONSTRAINT fk_rails_b7b0a0de98 FOREIGN KEY (property_id) REFERENCES public.properties(id);
 
 
 --
@@ -2273,6 +2414,22 @@ ALTER TABLE ONLY public.shopify_data_theme_change_events
 
 ALTER TABLE ONLY public.user_provider_identities
     ADD CONSTRAINT fk_rails_d0ae084ed3 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: assessment_issue_change_events fk_rails_d3313b5120; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events
+    ADD CONSTRAINT fk_rails_d3313b5120 FOREIGN KEY (property_id) REFERENCES public.properties(id);
+
+
+--
+-- Name: assessment_issue_change_events fk_rails_db4083ecaa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assessment_issue_change_events
+    ADD CONSTRAINT fk_rails_db4083ecaa FOREIGN KEY (assessment_production_group_id) REFERENCES public.assessment_production_groups(id);
 
 
 --
@@ -2395,6 +2552,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200318181025'),
 ('20200318181110'),
 ('20200318202850'),
-('20200318214809');
+('20200318214809'),
+('20200323141240'),
+('20200323141425'),
+('20200323141426');
 
 

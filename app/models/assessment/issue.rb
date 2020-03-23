@@ -38,6 +38,8 @@ class Assessment::Issue < ApplicationRecord
   has_many :results, class_name: "Assessment::Result", dependent: :destroy
   belongs_to :descriptor, class_name: "Assessment::Descriptor", foreign_key: :key, primary_key: :key, inverse_of: false
 
+  has_many :issue_change_events, class_name: "Assessment::IssueChangeEvent", foreign_key: :assessment_issue_id, dependent: :destroy, inverse_of: :issue
+
   before_create :set_number
 
   def set_number

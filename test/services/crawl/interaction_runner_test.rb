@@ -6,7 +6,8 @@ module Crawl
   class InteractionRunnerTest < ActiveSupport::TestCase
     test "it interacts against a test shop" do
       @property = create(:harry_test_charlie_property)
-      @runner = InteractionRunner.new(@property, "test")
+      @production_group = create(:assessment_production_group, property: @property)
+      @runner = InteractionRunner.new(@property, @production_group)
 
       assert_difference "Crawl::Attempt.count", 1 do
         @runner.test_interaction("shopify-browse-add")
@@ -24,7 +25,8 @@ module Crawl
 
     test "it crawls a shop that can't be connected to exist and logs error results" do
       @property = create(:doesnt_exist_property)
-      @runner = InteractionRunner.new(@property, "test")
+      @production_group = create(:assessment_production_group, property: @property)
+      @runner = InteractionRunner.new(@property, @production_group)
 
       assert_difference "Crawl::Attempt.count", 1 do
         @runner.test_interaction("shopify-browse-add")

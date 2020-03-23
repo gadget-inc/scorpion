@@ -5,9 +5,15 @@ class CrawlTest::PeriodicExecuteAssessmentsJob < Que::Job
 
   def run
     Property.for_ambient_crawls.find_each do |property|
-      CrawlTest::ExecuteInteractionCrawlsJob.enqueue(property_id: property.id)
-      CrawlTest::ExecuteLighthouseAssessmentsJob.enqueue(property_id: property.id)
-      CrawlTest::ExecuteStorefrontDataCrawlJob.enqueue(property_id: property.id)
+      production_group = Assessment::ProductionGroup.create!(
+        property: property,
+        account: property.account,
+        reason: "scheduled",
+        started_at: Time.now.utc,
+      )
+      CrawlTest::ExecuteInteractionCrawlsJob.enqueue(property_id: property.id, production_group_id: production_group.id)
+      CrawlTest::ExecuteLighthouseAssessmentsJob.enqueue(property_id: property.id, production_group_id: production_group.id)
+      CrawlTest::ExecuteStorefrontDataCrawlJob.enqueue(property_id: property.id, production_group_id: production_group.id)
     end
   end
 

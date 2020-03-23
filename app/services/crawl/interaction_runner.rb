@@ -5,16 +5,16 @@ module Crawl
   class InteractionRunner
     include SemanticLogger::Loggable
 
-    attr_reader :property, :reason
+    attr_reader :property, :production_group
 
-    def initialize(property, reason)
+    def initialize(property, production_group)
       @property = property
-      @reason = reason
-      @issue_governor = Assessment::IssueGovernor.new(@property, "interactions")
+      @production_group = production_group
+      @issue_governor = Assessment::IssueGovernor.new(@property, production_group, "interactions")
     end
 
     def test_interaction(interaction_id)
-      @lifecycle = CrawlLifecycle.new(@property, @reason, :interaction)
+      @lifecycle = CrawlLifecycle.new(@property, @production_group.reason, :interaction)
       @lifecycle.run do |attempt_record|
         success = true
         error = nil

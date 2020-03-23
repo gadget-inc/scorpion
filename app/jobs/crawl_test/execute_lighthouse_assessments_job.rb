@@ -9,9 +9,10 @@ module CrawlTest
     self.queue = "crawl_tests"
     self.priority = 100
 
-    def run(property_id:)
+    def run(property_id:, production_group_id:)
       property = Property.for_ambient_crawls.find(property_id)
-      Assessor.new(property).run_lighthouse_crawl
+      production_group = Assessment::ProductionGroup.find(production_group_id)
+      Assessor.new(property, production_group).run_lighthouse_crawl
     end
   end
 end

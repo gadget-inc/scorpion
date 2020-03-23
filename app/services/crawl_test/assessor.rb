@@ -3,8 +3,11 @@
 module CrawlTest
   # Runs assessments for ambient properties
   class Assessor
-    def initialize(property)
+    attr_reader :property, :production_group
+
+    def initialize(property, production_group)
       @property = property
+      @production_group = production_group
     end
 
     def run_all
@@ -14,15 +17,15 @@ module CrawlTest
     end
 
     def run_lighthouse_crawl
-      Crawl::LighthouseCrawler.new(@property, "crawl-test").collect_lighthouse_crawl
+      Crawl::LighthouseCrawler.new(@property, @production_group).collect_lighthouse_crawl
     end
 
     def run_storefront_data_crawl
-      Assessment::ShopifyStorefrontProductDataAssessor.new(@property, product_limit: 50).assess_all
+      Assessment::ShopifyStorefrontProductDataAssessor.new(@property, @production_group, product_limit: 50).assess_all
     end
 
     def run_interaction_crawls
-      Crawl::InteractionRunner.new(@property, "crawl-test").test_interaction("shopify-browse-add")
+      Crawl::InteractionRunner.new(@property, @production_group).test_interaction("shopify-browse-add")
     end
   end
 end
