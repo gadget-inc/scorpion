@@ -3,7 +3,7 @@ require "test_helper"
 
 class Assessment::ShopifyProductDataAssessorTest < ActiveSupport::TestCase
   setup do
-    @shop = create(:shopify_shop)
+    @shop = create(:live_test_myshopify_shop)
     @production_group = create(:assessment_production_group, property: @shop.property)
     @assessor = Assessment::ShopifyProductDataAssessor.new(@shop, @production_group)
   end

@@ -26,3 +26,9 @@ Style/Documentation:
 
 Style/OneLineConditional:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: true
+  Include:
+    - test/**/*
+  EnforcedStyle: compact

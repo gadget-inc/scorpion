@@ -3,7 +3,7 @@ require "test_helper"
 
 class Infrastructure::ReinstallAllWebhooksJobTest < ActiveJob::TestCase
   setup do
-    @shop = create(:shopify_shop)
+    @shop = create(:live_test_myshopify_shop)
   end
 
   test "it reinstalls script tags for the shop" do
