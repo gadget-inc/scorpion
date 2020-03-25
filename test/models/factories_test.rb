@@ -21,7 +21,41 @@ class FactoriesTest < ActiveSupport::TestCase
 
   test "property fixtures create only one shop" do
     create(:live_test_myshopify_property)
+    assert_equal 1, Account.all.size
     assert_equal 1, Property.all.size
     assert_equal 1, ShopifyShop.all.size
+  end
+
+  test "shopify shop fixtures create only one shop" do
+    create(:live_test_myshopify_shop)
+    assert_equal 1, Account.all.size
+    assert_equal 1, Property.all.size
+    assert_equal 1, ShopifyShop.all.size
+  end
+
+  test "issue factories create only one issue" do
+    assert_difference "Assessment::Issue.count", 1 do
+      assert_difference "Assessment::IssueChangeEvent.count", 0 do
+        assert_difference "Account.count", 1 do
+          create(:assessment_issue)
+        end
+      end
+    end
+
+    assert_difference "Assessment::Issue.count", 1 do
+      assert_difference "Assessment::IssueChangeEvent.count", 1 do
+        assert_difference "Account.count", 1 do
+          create(:assessment_issue_with_open_event)
+        end
+      end
+    end
+  end
+
+  test "issue event factories create only one issue" do
+    assert_difference "Assessment::Issue.count", 1 do
+      assert_difference "Account.count", 1 do
+        create(:assessment_issue_change_event)
+      end
+    end
   end
 end

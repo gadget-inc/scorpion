@@ -502,12 +502,12 @@ CREATE TABLE public.assessment_issue_change_events (
     id bigint NOT NULL,
     account_id bigint NOT NULL,
     property_id bigint NOT NULL,
-    assessment_issue_id bigint,
+    assessment_issue_id bigint NOT NULL,
     action character varying NOT NULL,
     action_at timestamp without time zone NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    assessment_production_group_id bigint NOT NULL
+    assessment_production_group_id bigint
 );
 
 
@@ -2555,6 +2555,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200318214809'),
 ('20200323141240'),
 ('20200323141425'),
-('20200323141426');
+('20200323141426'),
+('20200325165202');
 
 

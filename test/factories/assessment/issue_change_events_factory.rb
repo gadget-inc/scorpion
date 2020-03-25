@@ -7,8 +7,7 @@ FactoryBot.define do
 
     after(:build) do |event|
       event.account = event.property.account
-      event.issue = build(:assessment_issue, property: event.property, account: event.property.account)
-      event.production_group = build(:assessment_production_group, property: event.property, account: event.property.account)
+      event.issue ||= build(:assessment_issue, property: event.property, account: event.property.account)
     end
   end
 end

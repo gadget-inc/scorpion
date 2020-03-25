@@ -7,11 +7,47 @@ module Activity
     EPOCH = Time.utc(2000)
 
     EVENT_SOURCES = {
-      ShopifyData::Event => { cursor: :created_at },
-      ShopifyData::ShopChangeEvent => { cursor: :created_at },
-      ShopifyData::AssetChangeEvent => { scope: ShopifyData::AssetChangeEvent.includes(:theme), cursor: :action_at },
-      ShopifyData::ThemeChangeEvent => { scope: ShopifyData::ThemeChangeEvent.includes(:theme), cursor: :created_at },
-      ShopifyData::DetectedAppChangeEvent => { scope: ShopifyData::DetectedAppChangeEvent.includes(:detected_app), cursor: :created_at },
+      ShopifyData::Event => {
+        cursor: :created_at,
+        filter_on: [:shopify_shop_id],
+        item_type: :shop_changes,
+      },
+      ShopifyData::ShopChangeEvent => {
+        cursor: :created_at,
+        filter_on: [:shopify_shop_id],
+        item_type: :shop_changes,
+      },
+      ShopifyData::AssetChangeEvent => {
+        scope: ShopifyData::AssetChangeEvent.includes(:theme),
+        cursor: :action_at,
+        filter_on: [:shopify_shop_id],
+        item_type: :shop_changes,
+      },
+      ShopifyData::ThemeChangeEvent => {
+        scope: ShopifyData::ThemeChangeEvent.includes(:theme),
+        cursor: :created_at,
+        filter_on: [:shopify_shop_id],
+        item_type: :shop_changes,
+      },
+      ShopifyData::DetectedAppChangeEvent => {
+        scope: ShopifyData::DetectedAppChangeEvent.includes(:detected_app),
+        cursor: :created_at,
+        filter_on: [:shopify_shop_id],
+        item_type: :app_changes,
+      },
+      Assessment::IssueChangeEvent => {
+        scope: Assessment::IssueChangeEvent.manual.includes(:issue),
+        cursor: :action_at,
+        filter_on: [:property_id],
+        item_type: :manual_issue_changes,
+      },
+      Assessment::ProductionGroup => {
+        scope: Assessment::ProductionGroup.includes(:issue_change_events),
+        cursor: :created_at,
+        filter_on: [:property_id],
+        item_type: :scan,
+        allow_grouping: false,
+      },
     }.freeze
 
     def initialize(property)
@@ -24,66 +60,83 @@ module Activity
       most_recent_item = @property.activity_feed_items.order("group_end DESC").first
       high_watermark = most_recent_item.try(:group_end) || EPOCH
 
-      existing_group_events = []
-      new_group_events = []
-
       new_events = EVENT_SOURCES.flat_map do |(klass, _)|
         new_events_for_source(klass, high_watermark)
       end
+      new_events.sort_by! { |event| cursor_value(event) }
 
-      new_for_existing, new_for_new = find_group_threshold_and_split(new_events, most_recent_item)
-      existing_group_events << new_for_existing
-      new_group_events << new_for_new
+      items = group_events_into_items(most_recent_item, new_events)
 
-      ActiveRecord::Base.transaction do
-        save_item!(most_recent_item, existing_group_events.flatten) if most_recent_item.present?
-        save_item!(FeedItem.new(account_id: @account.id, property_id: @property.id), new_group_events.flatten)
+      Activity::FeedItem.transaction do
+        items.each(&:save!)
       end
     end
 
-    def save_item!(item, events)
-      if !events.empty?
-        cursors = events.map { |event| cursor_value(event) }
-        max = cursors.max
-        item.group_start = cursors.min
-        item.group_end = max
-        item.item_at = max
+    def group_events_into_items(most_recent_feed_item, sorted_events)
+      current_feed_item = most_recent_feed_item
+      items = []
+      current_group_buffer = []
 
-        item.item_type = if events.size > 1
-            "event_group"
-          else
-            "event"
+      sorted_events.each do |event|
+        if current_feed_item && can_group?(current_feed_item, event)
+          # This item can be added to the current group, stick it in the buffer
+          current_group_buffer << event
+        else
+          # This group is over, finalize the feed item and reset the current buffer and item for the next group
+          if current_feed_item && !current_group_buffer.empty?
+            items << finalize_item(current_feed_item, current_group_buffer)
           end
 
-        item.hacky_internal_representation ||= { "events" => [] }
-        item.hacky_internal_representation["events"] += events.map { |event| hacky_internal_event_representation(event) }
-
-        item.save!
+          current_group_buffer = [event]
+          current_feed_item = Activity::FeedItem.new(
+            account_id: @account.id,
+            property_id: @property.id,
+            item_type: item_type(event),
+            group_start: cursor_value(event),
+          )
+        end
       end
+
+      if current_feed_item && !current_group_buffer.empty?
+        items << finalize_item(current_feed_item, current_group_buffer)
+      end
+
+      items
+    end
+
+    def finalize_item(item, events)
+      if events.empty?
+        raise "Can't create a feed item with no events"
+      end
+      cursors = events.map { |event| cursor_value(event) }
+      max = cursors.max
+      item.group_start = cursors.min
+      item.group_end = max
+      item.item_at = max
+      item.hacky_internal_representation ||= { "events" => [] }
+      item.hacky_internal_representation["events"] += events.map { |event| hacky_internal_event_representation(event) }
+      item
     end
 
     def new_events_for_source(source_class, high_watermark)
       descriptor = EVENT_SOURCES.fetch(source_class)
-      cursor_property = descriptor.fetch(:cursor)
-      scope = descriptor[:scope] || source_class
-      scope = scope.where(account_id: @account.id, shopify_shop_id: @shop.id).order({ cursor_property => :asc })
-      scope = scope.where(":property > :high_watermark", property: cursor_property, high_watermark: high_watermark)
-      records = scope.to_a.filter { |event| event[cursor_property] > high_watermark } # wtf
+      cursor_column = descriptor.fetch(:cursor)
+      scope = descriptor[:scope] || source_class.all
+
+      descriptor.fetch(:filter_on).each do |filter_column|
+        case filter_column
+        when :shopify_shop_id then scope = scope.where(shopify_shop_id: @shop.id)
+        when :property_id then scope = scope.where(property_id: @property.id)
+        else raise "Unknown feed producer filter column #{filter_column}"
+        end
+      end
+
+      scope = scope.where(account_id: @account.id)
+      scope = scope.order({ cursor_column => :asc })
+      scope = scope.where(":cursor_column > :high_watermark", cursor_column: cursor_column, high_watermark: high_watermark)
+      records = scope.to_a.filter { |event| event[cursor_column] > high_watermark } # wtf
       logger.info "Retrieved records for feed", klass: source_class.name, size: records.size
       records
-    end
-
-    def find_group_threshold_and_split(new_events, most_recent_item)
-      group_start = if most_recent_item
-          most_recent_item.group_start
-        else
-          EPOCH
-        end
-
-      # Groups should be a maximum of 8 minutes long. This will probably get fancier.
-      threshold = group_start + 8.minutes
-      events_for_existing, events_for_new = new_events.partition { |event| cursor_value(event) <= threshold }
-      [events_for_existing, events_for_new]
     end
 
     def hacky_internal_event_representation(event)
@@ -98,14 +151,28 @@ module Activity
         "Theme #{event.theme.name} #{event.record_attribute} #{event.old_value} => #{event.new_value}"
       when ShopifyData::DetectedAppChangeEvent
         "App #{event.detected_app.name} #{event.action} action"
+      when Assessment::IssueChangeEvent
+        "Issue #{event.issue.number} #{event.action}"
+      when Assessment::ProductionGroup
+        "Scan started" # TODO: add results
       else
         raise "Unknown event class for representing #{event.class}"
       end
     end
 
+    def can_group?(feed_item, event)
+      descriptor = EVENT_SOURCES.fetch(event.class)
+      threshold = feed_item.group_start + 8.minutes
+      feed_item.item_type == descriptor.fetch(:item_type).to_s && descriptor[:allow_grouping] != false && cursor_value(event) <= threshold
+    end
+
     def cursor_value(event)
       property = EVENT_SOURCES.fetch(event.class).fetch(:cursor)
       event[property]
+    end
+
+    def item_type(event)
+      EVENT_SOURCES.fetch(event.class).fetch(:item_type)
     end
   end
 end

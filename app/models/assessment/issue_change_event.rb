@@ -9,8 +9,8 @@
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  account_id                     :bigint           not null
-#  assessment_issue_id            :bigint
-#  assessment_production_group_id :bigint           not null
+#  assessment_issue_id            :bigint           not null
+#  assessment_production_group_id :bigint
 #  property_id                    :bigint           not null
 #
 # Foreign Keys
@@ -27,5 +27,8 @@ module Assessment
     belongs_to :property
     belongs_to :issue, class_name: "Assessment::Issue", foreign_key: :assessment_issue_id, inverse_of: :issue_change_events
     belongs_to :production_group, optional: true, class_name: "Assessment::ProductionGroup", foreign_key: :assessment_production_group_id, inverse_of: :issue_change_events
+
+    # Issue changes created not during scans are manual
+    scope :manual, -> { where(assessment_production_group_id: nil) }
   end
 end

@@ -17,7 +17,7 @@ FactoryBot.define do
     after(:build) do |property, evaluator|
       property.key_urls << build(:key_url, property: property, account: property.account, url: property.crawl_roots[0])
 
-      if evaluator.create_shopify_shop
+      if evaluator.create_shopify_shop && !property.shopify_shop
         property.shopify_shop = build(:shopify_shop, account: property.account, property: property, domain: property.crawl_roots[0], myshopify_domain: property.crawl_roots[0])
       end
     end

@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 FactoryBot.define do
   factory :shopify_shop do
-    association :property
+    transient do
+      property_factory { :property }
+    end
 
     domain { "coolsite.store" }
     myshopify_domain { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
     api_token { ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] }
 
-    after(:build) do |shop|
+    after(:build) do |shop, evaluator|
+      shop.property ||= build(evaluator.property_factory, shopify_shop: shop)
       shop.account = shop.property.account
       shop.creator = shop.account.creator
     end
@@ -17,7 +20,9 @@ FactoryBot.define do
       myshopify_domain { ENV["SHOPIFY_SHOP_OAUTH_DOMAIN"] }
       api_token { ENV["SHOPIFY_SHOP_OAUTH_ACCESS_TOKEN"] }
 
-      association :property, factory: :live_test_myshopify_property
+      transient do
+        property_factory { :live_test_myshopify_property }
+      end
     end
   end
 end

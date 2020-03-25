@@ -9,8 +9,8 @@
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  account_id                     :bigint           not null
-#  assessment_issue_id            :bigint
-#  assessment_production_group_id :bigint           not null
+#  assessment_issue_id            :bigint           not null
+#  assessment_production_group_id :bigint
 #  property_id                    :bigint           not null
 #
 # Foreign Keys

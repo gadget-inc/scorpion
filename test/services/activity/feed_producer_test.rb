@@ -4,8 +4,8 @@ require "test_helper"
 
 class Activity::FeedProducerTest < ActiveSupport::TestCase
   setup do
-    @property = create(:property)
-    @shop = create(:shopify_shop, property: @property, account: @property.account)
+    @shop = create(:live_test_myshopify_shop)
+    @property = @shop.property
     @producer = Activity::FeedProducer.new(@property)
     Timecop.freeze(Time.utc(2020, 3))
   end
@@ -20,7 +20,7 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
     create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Cool Shop", account: @property.account, shopify_shop: @shop)
     create(:shopify_data_shop_change_event, record_attribute: "customer_email", new_value: "test@test.com", account: @property.account, shopify_shop: @shop)
 
-    assert_difference "Activity::FeedItem.count" do
+    assert_difference "Activity::FeedItem.count", 1 do
       @producer.produce
     end
 
@@ -66,6 +66,63 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
     end
 
     assert_equal 3, first_feed_item.reload.hacky_internal_representation["events"].size
+  end
+
+  test "it creates different feed items for events with different group types" do
+    # Create fixtures
+    # shop_data, shop_data, scan, shop_data, shop_data -> 3 groups
+    start = Time.now.utc
+    Timecop.freeze(start + 1.minute)
+    create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Cool Shop", account: @property.account, shopify_shop: @shop)
+    create(:shopify_data_shop_change_event, record_attribute: "customer_email", new_value: "test@test.com", account: @property.account, shopify_shop: @shop)
+    Timecop.freeze(start + 2.minutes)
+    create(:assessment_production_group, account: @property.account, property: @property)
+    Timecop.freeze(start + 3.minutes)
+    create(:shopify_data_shop_change_event, record_attribute: "name", new_value: "Really Cool Shop", account: @property.account, shopify_shop: @shop)
+    create(:shopify_data_shop_change_event, record_attribute: "customer_email", new_value: "different@test.com", account: @property.account, shopify_shop: @shop)
+
+    Timecop.freeze(start + 4.minutes)
+    assert_difference "Activity::FeedItem.count", 3 do
+      @producer.produce
+    end
+
+    feed_items = @property.activity_feed_items.order("item_at ASC")
+    assert_equal 3, feed_items.size
+    assert_equal 2, feed_items[0].hacky_internal_representation["events"].size
+    assert_equal 1, feed_items[1].hacky_internal_representation["events"].size
+    assert_equal 2, feed_items[2].hacky_internal_representation["events"].size
+  end
+
+  test "it groups manual issue changes together but each scan is its own group" do
+    # scan, scan, 3 manual changes, scan -> 4 groups
+    start = Time.now.utc
+
+    Timecop.freeze(start + 1.minute)
+    group = create(:assessment_production_group, account: @property.account, property: @property)
+    create_list(:assessment_issue_with_open_event, 3, account: @property.account, property: @property, assessment_production_group: group)
+
+    Timecop.freeze(start + 2.minutes)
+    group = create(:assessment_production_group, account: @property.account, property: @property)
+    create_list(:assessment_issue_with_open_event, 3, account: @property.account, property: @property, assessment_production_group: group)
+
+    Timecop.freeze(start + 3.minutes)
+    create_list(:assessment_issue_with_open_event, 3, account: @property.account, property: @property, assessment_production_group: nil)
+
+    Timecop.freeze(start + 4.minutes)
+    group = create(:assessment_production_group, account: @property.account, property: @property)
+    create_list(:assessment_issue_with_open_event, 3, account: @property.account, property: @property, assessment_production_group: group)
+
+    Timecop.freeze(start + 5.minutes)
+    assert_difference "Activity::FeedItem.count", 4 do
+      @producer.produce
+    end
+
+    feed_items = @property.activity_feed_items.order("item_at ASC")
+    assert_equal 4, feed_items.size
+    assert_equal 1, feed_items[0].hacky_internal_representation["events"].size
+    assert_equal 1, feed_items[1].hacky_internal_representation["events"].size
+    assert_equal 3, feed_items[2].hacky_internal_representation["events"].size
+    assert_equal 1, feed_items[3].hacky_internal_representation["events"].size
   end
 
   test "it produces feed items with newly arrived items" do
