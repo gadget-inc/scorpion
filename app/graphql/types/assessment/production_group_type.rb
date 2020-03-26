@@ -11,6 +11,8 @@ class Types::Assessment::ProductionGroupType < Types::BaseObject
   field :issue_change_events, Types::Assessment::IssueChangeEventType.connection_type, null: false
   field :assessment_results, Types::Assessment::ResultType.connection_type, null: false
 
+  field :changed_issue_count, Int, null: false
+
   def property
     AssociationLoader.for(Assessment::ProductionGroup, :property).load(object)
   end
@@ -21,5 +23,9 @@ class Types::Assessment::ProductionGroupType < Types::BaseObject
 
   def assessment_results
     AssociationLoader.for(Assessment::ProductionGroup, :assessment_results).load(object)
+  end
+
+  def changed_issue_count
+    object.issue_change_events.count
   end
 end

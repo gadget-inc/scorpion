@@ -4,7 +4,7 @@ import { Card, DisplayText } from "@shopify/polaris";
 import gql from "graphql-tag";
 import { GetIssuesForHomePageComponent } from "app/app-graph";
 import { OverallStatusCard } from "./OverallStatusCard";
-import { Timeline } from "./Timeline";
+import { Timeline } from "../timeline/Timeline";
 
 gql`
   query GetIssuesForHomePage {

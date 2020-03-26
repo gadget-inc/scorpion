@@ -18,7 +18,7 @@ $ball-dimension: rem(14px);
   padding: spacing() 0;
   position: relative;
 
-  :after {
+  &:after {
     position: absolute;
     display: block;
     top: spacing();

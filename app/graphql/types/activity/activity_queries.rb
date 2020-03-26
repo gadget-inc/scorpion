@@ -8,7 +8,7 @@ module Types::Activity
     end
 
     def feed_items
-      context[:current_account].feed_items
+      context[:current_account].feed_items.order("item_at DESC")
     end
   end
 end

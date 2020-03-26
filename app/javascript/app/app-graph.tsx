@@ -261,6 +261,7 @@ export type PageInfo = {
 export type ProductionGroup = {
    __typename: 'ProductionGroup';
   assessmentResults: ResultConnection;
+  changedIssueCount: Scalars['Int'];
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
   issueChangeEvents: IssueChangeEventConnection;
@@ -486,6 +487,63 @@ export type GetIssueForIssuePageQuery = (
   )> }
 );
 
+export type ScanTimelineEntryDetailsFragment = (
+  { __typename: 'ProductionGroup' }
+  & Pick<ProductionGroup, 'id' | 'reason' | 'startedAt' | 'changedIssueCount'>
+  & { issueChangeEvents: (
+    { __typename: 'IssueChangeEventConnection' }
+    & { nodes: Array<(
+      { __typename: 'IssueChangeEvent' }
+      & Pick<IssueChangeEvent, 'id' | 'action'>
+      & { issue: (
+        { __typename: 'Issue' }
+        & Pick<Issue, 'number'>
+      ) }
+    )> }
+  ) }
+);
+
+export type GetActivityFeedForTimelineQueryVariables = {};
+
+
+export type GetActivityFeedForTimelineQuery = (
+  { __typename: 'AppQuery' }
+  & { feedItems: (
+    { __typename: 'FeedItemConnection' }
+    & { nodes: Array<(
+      { __typename: 'FeedItem' }
+      & TimelineEntryDetailsFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & Pick<PageInfo, 'hasNextPage' | 'endCursor'>
+    ) }
+  ) }
+);
+
+export type TimelineEntryDetailsFragment = (
+  { __typename: 'FeedItem' }
+  & Pick<FeedItem, 'id' | 'itemAt'>
+  & { subjects: Array<(
+    { __typename: 'IssueChangeEvent' }
+    & Pick<IssueChangeEvent, 'id'>
+  ) | (
+    { __typename: 'ProductionGroup' }
+    & ScanTimelineEntryDetailsFragment
+  ) | (
+    { __typename: 'ShopifyAssetChangeFeedSubject' }
+    & Pick<ShopifyAssetChangeFeedSubject, 'id'>
+  ) | (
+    { __typename: 'ShopifyEventFeedSubject' }
+    & Pick<ShopifyEventFeedSubject, 'id' | 'verb'>
+  ) | (
+    { __typename: 'ShopifyShopChangeFeedSubject' }
+    & Pick<ShopifyShopChangeFeedSubject, 'id'>
+  ) | (
+    { __typename: 'ShopifyThemeChangeFeedSubject' }
+    & Pick<ShopifyThemeChangeFeedSubject, 'id'>
+  )> }
+);
+
 export type AttachUploadToContainerMutationVariables = {
   directUploadSignedId: Scalars['String'];
   attachmentContainerId: Scalars['ID'];
@@ -532,6 +590,51 @@ export const GetOverallStatusFragmentDoc = gql`
   }
 }
     `;
+export const ScanTimelineEntryDetailsFragmentDoc = gql`
+    fragment ScanTimelineEntryDetails on ProductionGroup {
+  id
+  reason
+  startedAt
+  changedIssueCount
+  issueChangeEvents(first: 3) {
+    nodes {
+      id
+      action
+      issue {
+        number
+      }
+    }
+  }
+}
+    `;
+export const TimelineEntryDetailsFragmentDoc = gql`
+    fragment TimelineEntryDetails on FeedItem {
+  id
+  itemAt
+  subjects {
+    __typename
+    ... on ProductionGroup {
+      ...ScanTimelineEntryDetails
+    }
+    ... on IssueChangeEvent {
+      id
+    }
+    ... on ShopifyEventFeedSubject {
+      id
+      verb
+    }
+    ... on ShopifyAssetChangeFeedSubject {
+      id
+    }
+    ... on ShopifyShopChangeFeedSubject {
+      id
+    }
+    ... on ShopifyThemeChangeFeedSubject {
+      id
+    }
+  }
+}
+    ${ScanTimelineEntryDetailsFragmentDoc}`;
 export const GetIssuesForHomePageDocument = gql`
     query GetIssuesForHomePage {
   currentProperty {
@@ -670,6 +773,50 @@ export function useGetIssueForIssuePageLazyQuery(baseOptions?: ApolloReactHooks.
 export type GetIssueForIssuePageQueryHookResult = ReturnType<typeof useGetIssueForIssuePageQuery>;
 export type GetIssueForIssuePageLazyQueryHookResult = ReturnType<typeof useGetIssueForIssuePageLazyQuery>;
 export type GetIssueForIssuePageQueryResult = ApolloReactCommon.QueryResult<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>;
+export const GetActivityFeedForTimelineDocument = gql`
+    query GetActivityFeedForTimeline {
+  feedItems(first: 30) {
+    nodes {
+      ...TimelineEntryDetails
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+    ${TimelineEntryDetailsFragmentDoc}`;
+export type GetActivityFeedForTimelineComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>, 'query'>;
+
+    export const GetActivityFeedForTimelineComponent = (props: GetActivityFeedForTimelineComponentProps) => (
+      <ApolloReactComponents.Query<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables> query={GetActivityFeedForTimelineDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetActivityFeedForTimelineQuery__
+ *
+ * To run a query within a React component, call `useGetActivityFeedForTimelineQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetActivityFeedForTimelineQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetActivityFeedForTimelineQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetActivityFeedForTimelineQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>(GetActivityFeedForTimelineDocument, baseOptions);
+      }
+export function useGetActivityFeedForTimelineLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>(GetActivityFeedForTimelineDocument, baseOptions);
+        }
+export type GetActivityFeedForTimelineQueryHookResult = ReturnType<typeof useGetActivityFeedForTimelineQuery>;
+export type GetActivityFeedForTimelineLazyQueryHookResult = ReturnType<typeof useGetActivityFeedForTimelineLazyQuery>;
+export type GetActivityFeedForTimelineQueryResult = ApolloReactCommon.QueryResult<GetActivityFeedForTimelineQuery, GetActivityFeedForTimelineQueryVariables>;
 export const AttachUploadToContainerDocument = gql`
     mutation AttachUploadToContainer($directUploadSignedId: String!, $attachmentContainerId: ID!, $attachmentContainerType: AttachmentContainerEnum!) {
   attachDirectUploadedFile(directUploadSignedId: $directUploadSignedId, attachmentContainerId: $attachmentContainerId, attachmentContainerType: $attachmentContainerType) {
