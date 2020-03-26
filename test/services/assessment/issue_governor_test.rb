@@ -251,4 +251,74 @@ class Assessment::IssueGovernorTest < ActiveSupport::TestCase
     assert_nil first_issue.closed_at
     assert_not_nil second_issue.closed_at
   end
+
+  test "it can reopen issues with different categories" do
+    @governor.make_assessment("key-1", "home") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "home") do |record|
+      record.score = 100
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products") do |record|
+      record.score = 100
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "home") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    issues = @property.issues
+    assert_equal 4, issues.size
+  end
+
+  test "it can reopen issues with different subjects" do
+    @governor.make_assessment("key-1", "products", "product", "1") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products", "product", "2") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products", "product", "1") do |record|
+      record.score = 100
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products", "product", "2") do |record|
+      record.score = 100
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products", "product", "1") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    @governor.make_assessment("key-1", "products", "product", "2") do |record|
+      record.score = 50
+      record.score_mode = "binary"
+    end
+
+    issues = @property.issues
+    assert_equal 4, issues.size
+  end
 end

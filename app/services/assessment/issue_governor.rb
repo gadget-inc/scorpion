@@ -115,6 +115,8 @@ module Assessment
         issue.last_seen_at = now
       end
 
+      issue.save!
+
       # Update issue cache
       if @cache_issues
         issue_cache[issue.key] ||= []
@@ -125,7 +127,7 @@ module Assessment
         end
       end
 
-      issue.save!
+      issue
     end
   end
 end

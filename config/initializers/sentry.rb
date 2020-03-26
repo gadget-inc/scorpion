@@ -5,4 +5,5 @@ Raven.configure do |config|
     config.dsn = ENV["BACKEND_SENTRY_DSN"]
   end
   config.release = Fixings::AppRelease.current
+  config.rails_activesupport_breadcrumbs = true
 end
