@@ -13,12 +13,12 @@ module Infrastructure
     def prune_unless_shopify(property)
       logger.tagged({ property_id: property.id }) do
         is_shopify = nil
+        url = property.crawl_roots[0]
+        logger.info "Checking property", { url: url }
         begin
-          url = property.crawl_roots[0]
-          logger.info "Checking property", { url: url }
           response = RestClient.get(url)
           is_shopify = response.headers[:x_shopid].present?
-        rescue RestClient::RequestFailed, RestClient::SSLCertificateNotVerified, OpenSSL::SSL::SSLError, SocketError, Errno::ECONNREFUSED => e
+        rescue *RestClientExceptions::EXCEPTIONS => e
           is_shopify = false
           logger.warn("Error checking property", { message: e.message })
         end

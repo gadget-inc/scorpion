@@ -6,6 +6,7 @@ module Assessment
   # Doesn't require authentication against a shopify shop which is good for background profiling
   class ShopifyStorefrontProductDataAssessor
     include ScoreHelpers
+    include SemanticLogger::Loggable
 
     MINIMUM_IMAGE_COUNT = 3
     MINIMUM_IMAGE_DIMENSION = 200
@@ -25,6 +26,8 @@ module Assessment
       @api.all_products(limit_total: @product_limit) do |api_product|
         assess_one(api_product)
       end
+    rescue *Infrastructure::RestClientExceptions::EXCEPTIONS => e
+      logger.error("Error fetching products from AJAX api, suppressing...", e)
     end
 
     def assess_one(api_product)

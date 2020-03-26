@@ -5,8 +5,8 @@
   "scripts": {
     "debug-test": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "generate-graphql": "gql-gen --config app-gql-gen.yml",
-    "lint": "tsc --noEmit --incremental false --tsBuildInfoFile null && prettier --check \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx app/javascript",
-    "lintfix": "prettier --write \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx --fix app/javascript",
+    "lint": "tsc --noEmit --incremental false --tsBuildInfoFile null && prettier --loglevel warn --check \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx app/javascript",
+    "lintfix": "prettier --write --loglevel warn \"app/javascript/**/*.{js,ts,tsx}\" && eslint --ext js,ts,tsx --fix app/javascript",
     "test": "jest",
     "open-cypress": "cypress open --project ./test",
     "analyze-bundle": "RAILS_ENV=production NODE_ENV=production bin/webpack --profile --json > tmp/webpack-stats.json && webpack-bundle-analyzer tmp/webpack-stats.json"
