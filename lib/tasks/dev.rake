@@ -38,7 +38,7 @@ namespace :dev do
 
   desc "Run all assessments for a local property in band"
   task :assess => :environment do
-    property = Property.for_purposeful_crawls.first
+    property = Property.kept.for_purposeful_crawls.first
     production_group = Assessment::ProductionGroup.create!(
       property: property,
       account: property.account,
@@ -53,6 +53,15 @@ namespace :dev do
       if property.shopify_shop.present?
         Assessment::AssessProductDataJob.enqueue(shopify_shop_id: property.shopify_shop.id, production_group_id: production_group.id)
       end
+    end
+  end
+
+  desc "Run all data syncs for a local shopify shop in band"
+  task :shopify_sync => :environment do
+    shopify_shop = ShopifyShop.kept.first
+
+    Infrastructure::SynchronousQueJobs.with_synchronous_jobs do
+      ShopifyData::AllSyncJob.enqueue(shopify_shop_id: shopify_shop.id)
     end
   end
 end
