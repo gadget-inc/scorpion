@@ -26,7 +26,7 @@ module Assessment
       @api.all_products(limit_total: @product_limit) do |api_product|
         assess_one(api_product)
       end
-    rescue *Infrastructure::RestClientExceptions::EXCEPTIONS => e
+    rescue *Infrastructure::RestClientExceptions::EXCEPTIONS, JSON::ParserError => e
       logger.error("Error fetching products from AJAX api, suppressing...", e)
     end
 
