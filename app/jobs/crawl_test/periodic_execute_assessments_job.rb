@@ -13,7 +13,7 @@ class CrawlTest::PeriodicExecuteAssessmentsJob < Que::Job
       )
       CrawlTest::ExecuteInteractionCrawlsJob.enqueue(property_id: property.id, production_group_id: production_group.id)
       CrawlTest::ExecuteLighthouseAssessmentsJob.enqueue(property_id: property.id, production_group_id: production_group.id)
-      CrawlTest::ExecuteStorefrontDataCrawlJob.enqueue(property_id: property.id, production_group_id: production_group.id)
+      CrawlTest::ExecuteStorefrontAjaxDataCrawlJob.enqueue(property_id: property.id, production_group_id: production_group.id)
     end
   end
 

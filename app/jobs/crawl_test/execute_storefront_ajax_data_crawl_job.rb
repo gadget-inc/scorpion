@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CrawlTest
-  class ExecuteStorefrontDataCrawlJob < Que::Job
+  class ExecuteStorefrontAjaxDataCrawlJob < Que::Job
     include SemanticLogger::Loggable
 
     self.maximum_retry_count = 0
