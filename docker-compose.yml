@@ -42,9 +42,21 @@ services:
     command: redis-server --appendonly yes
 
   scorpion-crawler:
-    image: gcr.io/superpro-production/scorpion-crawler:8e71d5c01d05800b6a98429698dad3d4d83a26c0
+    image: gcr.io/superpro-production/scorpion-crawler:8acab4c22b301495da8697d819a62a3db89516eb
     ports:
-      - 3002:3002
+      - 3002:3002 # leave room for running a dev instance on 3001
     restart: on-failure
     environment:
       PORT: "3002"
+      BROWSERLESS_ENDPOINT: ws://browserless:3003/
+
+  browserless:
+    image: browserless/chrome:1.28.0-puppeteer-2.1.1
+    ports:
+      - 3003:3003
+    environment:
+      MAX_CONCURRENT_SESSIONS: "2"
+      PREBOOT_CHROME: "false"
+      CONNECTION_TIMEOUT: "300000" # 5 minutes in ms timeout, clients need to refresh their connection before 5 minutes is up
+      DEBUG: "browserless*"
+      PORT: "3003"

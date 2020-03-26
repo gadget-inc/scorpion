@@ -35,4 +35,24 @@ namespace :dev do
     sync.save_cache attributes
     sync.import attributes
   end
+
+  desc "Run all assessments for a local property in band"
+  task :assess => :environment do
+    property = Property.for_purposeful_crawls.first
+    production_group = Assessment::ProductionGroup.create!(
+      property: property,
+      account: property.account,
+      reason: "dev",
+      started_at: Time.now.utc,
+    )
+
+    Infrastructure::SynchronousQueJobs.with_synchronous_jobs do
+      Crawl::KeyUrlsCrawlJob.run(property_id: property.id, production_group_id: production_group.id)
+      Crawl::InteractionRunnerJob.enqueue(property_id: property.id, production_group_id: production_group.id, interaction_id: "shopify-browse-add")
+
+      if property.shopify_shop.present?
+        Assessment::AssessProductDataJob.enqueue(shopify_shop_id: property.shopify_shop.id, production_group_id: production_group.id)
+      end
+    end
+  end
 end

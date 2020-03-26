@@ -28,6 +28,7 @@ sync.import(sync.load_cache)
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   include GraphQLTestHelper
+  include Infrastructure::SynchronousQueJobs
 
   # Run tests in parallel with specified workers
   # Disabled cause it's broken
@@ -38,14 +39,6 @@ class ActiveSupport::TestCase
   teardown do
     OmniAuth.config.mock_auth[:shopify] = nil
     Timecop.return
-  end
-
-  def with_synchronous_jobs
-    old_value = Que::Job.run_synchronously
-    Que::Job.run_synchronously = true
-    yield
-  ensure
-    Que::Job.run_synchronously = old_value
   end
 
   def raise_on_unoptimized_queries
