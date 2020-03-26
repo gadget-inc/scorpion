@@ -3,6 +3,7 @@
 module Assessment
   # Assessment manager that produces issues and manages their lifecycle as assessments are made
   class IssueGovernor
+    include Wisper::Publisher
     SCORE_THRESHOLD = 90
 
     def initialize(property, production_group, production_scope, cache_issues: true)
@@ -35,6 +36,7 @@ module Assessment
         assessment.save!
       end
 
+      broadcast(:assessments_changed, { property_id: @property.id, production_group_id: @production_group.id, production_scope: @production_scope })
       assessment
     end
 

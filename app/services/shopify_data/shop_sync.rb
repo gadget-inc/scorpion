@@ -32,7 +32,7 @@ module ShopifyData
           ShopChangeEvent.insert_all!(changes) if !changes.empty?
         end
 
-        broadcast(:shopify_shop_changed, { shopify_shop_id: @shop.id })
+        broadcast(:shopify_shop_changed, { shopify_shop_id: @shop.id, property_id: @shop.property_id })
       end
     end
 

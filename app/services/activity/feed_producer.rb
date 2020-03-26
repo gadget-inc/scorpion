@@ -53,7 +53,8 @@ module Activity
     def initialize(property)
       @property = property
       @account = property.account
-      @shop = ShopifyShop.kept.find_by!(property_id: @property.id)
+      @shop = @property.shopify_shop
+      raise "Can't currently build feeds for properties without shopify shops" if @shop.nil?
     end
 
     def produce

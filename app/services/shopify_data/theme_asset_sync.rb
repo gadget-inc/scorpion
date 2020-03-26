@@ -32,7 +32,7 @@ module ShopifyData
           insert_theme_change_events!(data_theme)
         end
 
-        broadcast(:shopify_theme_changed, { shopify_shop_id: @shop.id, shopify_data_theme_id: data_theme.id })
+        broadcast(:shopify_theme_changed, { shopify_shop_id: @shop.id, shopify_data_theme_id: data_theme.id, property_id: @shop.property_id })
       end
     end
 

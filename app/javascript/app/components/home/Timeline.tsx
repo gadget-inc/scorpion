@@ -1,9 +1,9 @@
 import React from "react";
-import { Card, Icon, IconProps, TextContainer, Heading, Stack } from "@shopify/polaris";
-import gql from "graphql-tag";
+import { TextContainer, Heading } from "@shopify/polaris";
+// import gql from "graphql-tag";
 import styles from "./Timeline.module.scss";
 
-const TimelineEntry = (props: {}) => {
+const TimelineEntry = (_props: {}) => {
   return (
     <li className={styles.TimelineEntry}>
       <TextContainer>
@@ -13,7 +13,7 @@ const TimelineEntry = (props: {}) => {
   );
 };
 
-export const Timeline = (props: {}) => {
+export const Timeline = (_props: {}) => {
   return (
     <div className={styles.TimelineContainer}>
       <TextContainer>

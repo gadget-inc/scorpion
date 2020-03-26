@@ -34,7 +34,7 @@ module ShopifyData
       )
 
       detect_apps(results.flatten)
-      broadcast(:shopify_apps_changed, { shopify_shop_id: @shopify_shop.id })
+      broadcast(:shopify_apps_changed, { shopify_shop_id: @shopify_shop.id, property_id: @shopify_shop.property_id })
     end
 
     def detect_apps(lighthouse_requests)

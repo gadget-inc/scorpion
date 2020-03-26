@@ -22,7 +22,7 @@ module ShopifyData
           process_events(events)
         end
 
-        broadcast(:shopify_events_changed, { shopify_shop_id: @shop.id })
+        broadcast(:shopify_events_changed, { shopify_shop_id: @shop.id, property_id: @shop.property_id })
       end
     end
 
