@@ -13,5 +13,9 @@ module Types::Assessment
     def issue(number:)
       context[:current_account].issues.find_by(number: number)
     end
+
+    def issues
+      context[:current_account].issues
+    end
   end
 end

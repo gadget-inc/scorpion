@@ -25,7 +25,7 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
     end
 
     first_feed_item = @property.activity_feed_items.first
-    assert_equal 2, first_feed_item.hacky_internal_representation["events"].size
+    assert_equal 2, first_feed_item.subject_links.size
 
     # travel a month ahead
     Timecop.freeze(Time.utc(2020, 4))
@@ -37,8 +37,8 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
     second_feed_item = @property.activity_feed_items.order("created_at DESC").first
     assert_not_equal first_feed_item, second_feed_item
     assert_operator second_feed_item.item_at, :>, first_feed_item.item_at
-    assert_equal 1, second_feed_item.hacky_internal_representation["events"].size
-    assert_equal 2, first_feed_item.reload.hacky_internal_representation["events"].size
+    assert_equal 1, second_feed_item.subject_links.size
+    assert_equal 2, first_feed_item.reload.subject_links.size
 
     # travel a month ahead and make sure producing again doesnt create changes
     Timecop.freeze(Time.utc(2020, 5))
@@ -56,7 +56,7 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
     end
 
     first_feed_item = @property.activity_feed_items.first
-    assert_equal 2, first_feed_item.hacky_internal_representation["events"].size
+    assert_equal 2, first_feed_item.subject_links.size
 
     # travel a minute ahead
     Timecop.freeze(Time.now.utc + 1.minute)
@@ -65,7 +65,7 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
       @producer.produce
     end
 
-    assert_equal 3, first_feed_item.reload.hacky_internal_representation["events"].size
+    assert_equal 3, first_feed_item.reload.subject_links.size
   end
 
   test "it creates different feed items for events with different group types" do
@@ -88,9 +88,9 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
 
     feed_items = @property.activity_feed_items.order("item_at ASC")
     assert_equal 3, feed_items.size
-    assert_equal 2, feed_items[0].hacky_internal_representation["events"].size
-    assert_equal 1, feed_items[1].hacky_internal_representation["events"].size
-    assert_equal 2, feed_items[2].hacky_internal_representation["events"].size
+    assert_equal 2, feed_items[0].subject_links.size
+    assert_equal 1, feed_items[1].subject_links.size
+    assert_equal 2, feed_items[2].subject_links.size
   end
 
   test "it groups manual issue changes together but each scan is its own group" do
@@ -119,10 +119,10 @@ class Activity::FeedProducerTest < ActiveSupport::TestCase
 
     feed_items = @property.activity_feed_items.order("item_at ASC")
     assert_equal 4, feed_items.size
-    assert_equal 1, feed_items[0].hacky_internal_representation["events"].size
-    assert_equal 1, feed_items[1].hacky_internal_representation["events"].size
-    assert_equal 3, feed_items[2].hacky_internal_representation["events"].size
-    assert_equal 1, feed_items[3].hacky_internal_representation["events"].size
+    assert_equal 1, feed_items[0].subject_links.size
+    assert_equal 1, feed_items[1].subject_links.size
+    assert_equal 3, feed_items[2].subject_links.size
+    assert_equal 1, feed_items[3].subject_links.size
   end
 
   test "it produces feed items with newly arrived items" do

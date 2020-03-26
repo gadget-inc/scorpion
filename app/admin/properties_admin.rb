@@ -51,9 +51,6 @@ Trestle.resource(:properties) do
           column :id
           column :item_at
           column :item_type
-          column :data do |item|
-            item.hacky_internal_representation["events"]
-          end
           actions
         end
       end

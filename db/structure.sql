@@ -412,6 +412,38 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 
 
 --
+-- Name: activity_feed_item_subject_links; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.activity_feed_item_subject_links (
+    id bigint NOT NULL,
+    account_id bigint NOT NULL,
+    activity_feed_item_id bigint NOT NULL,
+    subject_type character varying NOT NULL,
+    subject_id bigint NOT NULL
+);
+
+
+--
+-- Name: activity_feed_item_subject_links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.activity_feed_item_subject_links_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activity_feed_item_subject_links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.activity_feed_item_subject_links_id_seq OWNED BY public.activity_feed_item_subject_links.id;
+
+
+--
 -- Name: activity_feed_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -423,7 +455,6 @@ CREATE TABLE public.activity_feed_items (
     item_at timestamp without time zone NOT NULL,
     group_start timestamp without time zone NOT NULL,
     group_end timestamp without time zone NOT NULL,
-    hacky_internal_representation jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -1445,6 +1476,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: activity_feed_item_subject_links id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_item_subject_links ALTER COLUMN id SET DEFAULT nextval('public.activity_feed_item_subject_links_id_seq'::regclass);
+
+
+--
 -- Name: activity_feed_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1649,6 +1687,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 ALTER TABLE ONLY public.active_storage_blobs
     ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_feed_item_subject_links activity_feed_item_subject_links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_item_subject_links
+    ADD CONSTRAINT activity_feed_item_subject_links_pkey PRIMARY KEY (id);
 
 
 --
@@ -2097,6 +2143,14 @@ ALTER TABLE ONLY public.shopify_data_detected_app_change_events
 
 
 --
+-- Name: activity_feed_item_subject_links fk_rails_0a479440b4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_item_subject_links
+    ADD CONSTRAINT fk_rails_0a479440b4 FOREIGN KEY (activity_feed_item_id) REFERENCES public.activity_feed_items(id);
+
+
+--
 -- Name: assessment_results fk_rails_121c3ae9d1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2230,6 +2284,14 @@ ALTER TABLE ONLY public.account_user_permissions
 
 ALTER TABLE ONLY public.account_user_permissions
     ADD CONSTRAINT fk_rails_63fd5df246 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: activity_feed_item_subject_links fk_rails_6a78a164ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_feed_item_subject_links
+    ADD CONSTRAINT fk_rails_6a78a164ee FOREIGN KEY (account_id) REFERENCES public.accounts(id);
 
 
 --
@@ -2556,6 +2618,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200323141240'),
 ('20200323141425'),
 ('20200323141426'),
-('20200325165202');
+('20200325165202'),
+('20200326174413'),
+('20200326175003');
 
 

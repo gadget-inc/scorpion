@@ -14,7 +14,32 @@
       }
       const result: IntrospectionResultData = {
   "__schema": {
-    "types": []
+    "types": [
+      {
+        "kind": "UNION",
+        "name": "FeedItemSubjectUnion",
+        "possibleTypes": [
+          {
+            "name": "IssueChangeEvent"
+          },
+          {
+            "name": "ProductionGroup"
+          },
+          {
+            "name": "ShopifyAssetChangeFeedSubject"
+          },
+          {
+            "name": "ShopifyEventFeedSubject"
+          },
+          {
+            "name": "ShopifyShopChangeFeedSubject"
+          },
+          {
+            "name": "ShopifyThemeChangeFeedSubject"
+          }
+        ]
+      }
+    ]
   }
 };
       export default result;

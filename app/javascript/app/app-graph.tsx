@@ -67,9 +67,18 @@ export type AppQuery = {
   currentAccount: Account;
   currentProperty: Property;
   currentUser: User;
+  feedItems: FeedItemConnection;
   issue?: Maybe<Issue>;
   issues: IssueConnection;
   users: UserConnection;
+};
+
+
+export type AppQueryFeedItemsArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 
@@ -134,6 +143,7 @@ export type FeedItem = {
   id: Scalars['ID'];
   itemAt?: Maybe<Scalars['ISO8601DateTime']>;
   itemType: Scalars['String'];
+  subjects: Array<FeedItemSubjectUnion>;
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
@@ -149,6 +159,8 @@ export type FeedItemEdge = {
   cursor: Scalars['String'];
   node?: Maybe<FeedItem>;
 };
+
+export type FeedItemSubjectUnion = IssueChangeEvent | ProductionGroup | ShopifyAssetChangeFeedSubject | ShopifyEventFeedSubject | ShopifyShopChangeFeedSubject | ShopifyThemeChangeFeedSubject;
 
 
 export type Issue = {
@@ -173,6 +185,31 @@ export type IssueResultsArgs = {
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+};
+
+export type IssueChangeEvent = {
+   __typename: 'IssueChangeEvent';
+  action?: Maybe<Scalars['String']>;
+  actionAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  issue: Issue;
+  productionGroup?: Maybe<ProductionGroup>;
+  property: Property;
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+export type IssueChangeEventConnection = {
+   __typename: 'IssueChangeEventConnection';
+  edges: Array<IssueChangeEventEdge>;
+  nodes: Array<IssueChangeEvent>;
+  pageInfo: PageInfo;
+};
+
+export type IssueChangeEventEdge = {
+   __typename: 'IssueChangeEventEdge';
+  cursor: Scalars['String'];
+  node?: Maybe<IssueChangeEvent>;
 };
 
 export type IssueConnection = {
@@ -219,6 +256,34 @@ export type PageInfo = {
   hasNextPage: Scalars['Boolean'];
   hasPreviousPage: Scalars['Boolean'];
   startCursor?: Maybe<Scalars['String']>;
+};
+
+export type ProductionGroup = {
+   __typename: 'ProductionGroup';
+  assessmentResults: ResultConnection;
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  issueChangeEvents: IssueChangeEventConnection;
+  property: Property;
+  reason: Scalars['String'];
+  startedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+export type ProductionGroupAssessmentResultsArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+};
+
+
+export type ProductionGroupIssueChangeEventsArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
 };
 
 export type Property = {
@@ -277,6 +342,63 @@ export type ResultEdge = {
    __typename: 'ResultEdge';
   cursor: Scalars['String'];
   node?: Maybe<Result>;
+};
+
+export type ShopifyAssetChangeFeedSubject = {
+   __typename: 'ShopifyAssetChangeFeedSubject';
+  action?: Maybe<Scalars['String']>;
+  actionAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+export type ShopifyEventFeedSubject = {
+   __typename: 'ShopifyEventFeedSubject';
+  arguments?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  createdAt: Scalars['ISO8601DateTime'];
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  path?: Maybe<Scalars['String']>;
+  shopifyCreatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime'];
+  verb: Scalars['String'];
+};
+
+export type ShopifyShopChangeFeedSubject = {
+   __typename: 'ShopifyShopChangeFeedSubject';
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  newValue?: Maybe<Scalars['JSONScalar']>;
+  oldValue?: Maybe<Scalars['JSONScalar']>;
+  recordAttribute: Scalars['String'];
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+export type ShopifyThemeChangeFeedSubject = {
+   __typename: 'ShopifyThemeChangeFeedSubject';
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  newValue?: Maybe<Scalars['JSONScalar']>;
+  oldValue?: Maybe<Scalars['JSONScalar']>;
+  recordAttribute: Scalars['String'];
+  theme: Theme;
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+export type Theme = {
+   __typename: 'Theme';
+  createdAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  previewable: Scalars['Boolean'];
+  processing: Scalars['Boolean'];
+  role: Scalars['String'];
+  shopifyCreatedAt?: Maybe<Scalars['ISO8601DateTime']>;
+  shopifyUpdatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 export type UpdateAccountPayload = {

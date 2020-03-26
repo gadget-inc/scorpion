@@ -114,8 +114,9 @@ module Activity
       item.group_start = cursors.min
       item.group_end = max
       item.item_at = max
-      item.hacky_internal_representation ||= { "events" => [] }
-      item.hacky_internal_representation["events"] += events.map { |event| hacky_internal_event_representation(event) }
+      events.each do |event|
+        item.subject_links.build(account_id: @property.account_id, subject: event)
+      end
       item
     end
 
@@ -138,27 +139,6 @@ module Activity
       records = scope.to_a.filter { |event| event[cursor_column] > high_watermark } # wtf
       logger.info "Retrieved records for feed", klass: source_class.name, size: records.size
       records
-    end
-
-    def hacky_internal_event_representation(event)
-      case event
-      when ShopifyData::Event
-        event.description
-      when ShopifyData::AssetChangeEvent
-        "Theme #{event.theme.name} asset #{event.key} #{event.action} action"
-      when ShopifyData::ShopChangeEvent
-        "Shop #{event.record_attribute} #{event.old_value} => #{event.new_value}"
-      when ShopifyData::ThemeChangeEvent
-        "Theme #{event.theme.name} #{event.record_attribute} #{event.old_value} => #{event.new_value}"
-      when ShopifyData::DetectedAppChangeEvent
-        "App #{event.detected_app.name} #{event.action} action"
-      when Assessment::IssueChangeEvent
-        "Issue #{event.issue.number} #{event.action}"
-      when Assessment::ProductionGroup
-        "Scan started" # TODO: add results
-      else
-        raise "Unknown event class for representing #{event.class}"
-      end
     end
 
     def can_group?(feed_item, event)
