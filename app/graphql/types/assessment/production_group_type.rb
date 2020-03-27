@@ -26,6 +26,6 @@ class Types::Assessment::ProductionGroupType < Types::BaseObject
   end
 
   def changed_issue_count
-    object.issue_change_events.count
+    issue_change_events.then(&:size)
   end
 end

@@ -22,4 +22,6 @@
 class ShopifyData::ShopChangeEvent < ApplicationRecord
   include AccountScoped
   include ShopifyShopScoped
+
+  scope :for_display, -> { where.not(record_attribute: %w[plan_display_name plan_name source]) }
 end

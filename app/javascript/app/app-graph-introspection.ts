@@ -29,6 +29,9 @@
             "name": "ShopifyAssetChangeFeedSubject"
           },
           {
+            "name": "ShopifyDetectedAppChangeFeedSubject"
+          },
+          {
             "name": "ShopifyEventFeedSubject"
           },
           {

@@ -4,6 +4,7 @@ class Types::Assessment::DescriptorType < Types::BaseObject
   field :id, GraphQL::Types::ID, null: false
   field :key, String, null: false
   field :title, String, null: false
+  field :severity, String, null: false
   field :description, String, null: false
 
   def id

@@ -67,4 +67,11 @@ Rails.application.configure do
   config.action_controller.asset_host = config.x.domains.assets
   config.hosts << ".ggt.dev" << config.x.domains.webhooks
   config.action_mailer.default_url_options = { host: config.x.domains.app }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false
+    Bullet.console = false
+    Bullet.skip_html_injection = true
+  end
 end

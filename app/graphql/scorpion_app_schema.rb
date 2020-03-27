@@ -5,4 +5,5 @@ class ScorpionAppSchema < GraphQL::Schema
   query(Types::AppQueryType)
   use GraphQL::Batch
   use GraphQL::Pagination::Connections
+  use GraphQL::Backtrace
 end

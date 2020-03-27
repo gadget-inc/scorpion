@@ -2,11 +2,21 @@
 
 class ApplicationController < ActionController::Base
   around_action :wrap_with_unit_of_work
+  around_action :trace_queries
   after_action :track_server_side_page_view
 
   attr_reader :current_user, :current_account
 
   private
+
+  def trace_queries
+    if !params[:query_backtraces].nil?
+      SqlLogging.configuration.show_sql_backtrace = true
+    end
+    yield
+  ensure
+    SqlLogging.configuration.show_sql_backtrace = false
+  end
 
   # Handle form data, JSON body, or a blank value
   def ensure_hash(ambiguous_param)

@@ -10,7 +10,7 @@ module ShopifyData
     to_string = ->(val) { val.to_s }
     SYNC_ATTRIBUTES = { cookie_consent_level: nil, country_code: nil, country_name: nil, currency: nil, customer_email: nil, domain: nil, enabled_presentment_currencies: nil, has_storefront: nil, latitude: to_string, longitude: to_string, money_format: nil, money_with_currency_format: nil, multi_location_enabled: nil, myshopify_domain: nil, password_enabled: nil, plan_display_name: nil, plan_name: nil, pre_launch_enabled: nil, requires_extra_payments_agreement: nil, setup_required: nil, source: nil, tax_shipping: nil, taxes_included: nil, timezone: nil, weight_unit: nil }.freeze
 
-    CHANGE_TRACKED_ATTRIBUTES = %i[ domain has_storefront password_enabled plan_display_name setup_required ].freeze
+    CHANGE_TRACKED_ATTRIBUTES = %i[ domain has_storefront password_enabled plan_display_name setup_required country_name currency domain taxes_included weight_unit multi_location_enabled ].freeze
 
     attr_reader :shop
 

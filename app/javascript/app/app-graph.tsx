@@ -132,7 +132,20 @@ export type Descriptor = {
   description: Scalars['String'];
   id: Scalars['ID'];
   key: Scalars['String'];
+  severity: Scalars['String'];
   title: Scalars['String'];
+};
+
+export type DetectedApp = {
+   __typename: 'DetectedApp';
+  createdAt: Scalars['ISO8601DateTime'];
+  firstSeenAt?: Maybe<Scalars['ISO8601DateTime']>;
+  id: Scalars['ID'];
+  lastSeenAt: Scalars['ISO8601DateTime'];
+  name: Scalars['String'];
+  reasons: Array<Scalars['String']>;
+  seenLastTime: Scalars['Boolean'];
+  updatedAt: Scalars['ISO8601DateTime'];
 };
 
 export type FeedItem = {
@@ -160,7 +173,7 @@ export type FeedItemEdge = {
   node?: Maybe<FeedItem>;
 };
 
-export type FeedItemSubjectUnion = IssueChangeEvent | ProductionGroup | ShopifyAssetChangeFeedSubject | ShopifyEventFeedSubject | ShopifyShopChangeFeedSubject | ShopifyThemeChangeFeedSubject;
+export type FeedItemSubjectUnion = IssueChangeEvent | ProductionGroup | ShopifyAssetChangeFeedSubject | ShopifyDetectedAppChangeFeedSubject | ShopifyEventFeedSubject | ShopifyShopChangeFeedSubject | ShopifyThemeChangeFeedSubject;
 
 
 export type Issue = {
@@ -352,6 +365,18 @@ export type ShopifyAssetChangeFeedSubject = {
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
   key: Scalars['String'];
+  theme: Theme;
+  updatedAt: Scalars['ISO8601DateTime'];
+};
+
+export type ShopifyDetectedAppChangeFeedSubject = {
+   __typename: 'ShopifyDetectedAppChangeFeedSubject';
+  action?: Maybe<Scalars['String']>;
+  actionAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime'];
+  detectedApp: DetectedApp;
+  id: Scalars['ID'];
+  key: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
@@ -487,6 +512,28 @@ export type GetIssueForIssuePageQuery = (
   )> }
 );
 
+export type AppChangeTimelineEntryDetailsFragment = (
+  { __typename: 'ShopifyDetectedAppChangeFeedSubject' }
+  & Pick<ShopifyDetectedAppChangeFeedSubject, 'id' | 'action' | 'actionAt' | 'key'>
+  & { detectedApp: (
+    { __typename: 'DetectedApp' }
+    & Pick<DetectedApp, 'name' | 'reasons'>
+  ) }
+);
+
+export type IssueChangeTimelineDetailsFragment = (
+  { __typename: 'IssueChangeEvent' }
+  & Pick<IssueChangeEvent, 'id' | 'action'>
+  & { issue: (
+    { __typename: 'Issue' }
+    & Pick<Issue, 'name' | 'key' | 'keyCategory'>
+    & { descriptor: (
+      { __typename: 'Descriptor' }
+      & Pick<Descriptor, 'title' | 'severity'>
+    ) }
+  ) }
+);
+
 export type ScanTimelineEntryDetailsFragment = (
   { __typename: 'ProductionGroup' }
   & Pick<ProductionGroup, 'id' | 'reason' | 'startedAt' | 'changedIssueCount'>
@@ -500,6 +547,34 @@ export type ScanTimelineEntryDetailsFragment = (
         & Pick<Issue, 'number'>
       ) }
     )> }
+  ) }
+);
+
+export type ShopifyAssetChangeTimelineDetailsFragment = (
+  { __typename: 'ShopifyAssetChangeFeedSubject' }
+  & Pick<ShopifyAssetChangeFeedSubject, 'id' | 'key' | 'action'>
+  & { theme: (
+    { __typename: 'Theme' }
+    & Pick<Theme, 'id' | 'name'>
+  ) }
+);
+
+export type ShopifyEventTimelineDetailsFragment = (
+  { __typename: 'ShopifyEventFeedSubject' }
+  & Pick<ShopifyEventFeedSubject, 'id' | 'description' | 'path'>
+);
+
+export type ShopifyShopChangeTimelineDetailsFragment = (
+  { __typename: 'ShopifyShopChangeFeedSubject' }
+  & Pick<ShopifyShopChangeFeedSubject, 'id' | 'recordAttribute' | 'oldValue' | 'newValue'>
+);
+
+export type ShopifyThemeChangeTimelineDetailsFragment = (
+  { __typename: 'ShopifyThemeChangeFeedSubject' }
+  & Pick<ShopifyThemeChangeFeedSubject, 'id' | 'recordAttribute' | 'oldValue' | 'newValue'>
+  & { theme: (
+    { __typename: 'Theme' }
+    & Pick<Theme, 'name'>
   ) }
 );
 
@@ -525,22 +600,25 @@ export type TimelineEntryDetailsFragment = (
   & Pick<FeedItem, 'id' | 'itemAt'>
   & { subjects: Array<(
     { __typename: 'IssueChangeEvent' }
-    & Pick<IssueChangeEvent, 'id'>
+    & IssueChangeTimelineDetailsFragment
   ) | (
     { __typename: 'ProductionGroup' }
     & ScanTimelineEntryDetailsFragment
   ) | (
     { __typename: 'ShopifyAssetChangeFeedSubject' }
-    & Pick<ShopifyAssetChangeFeedSubject, 'id'>
+    & ShopifyAssetChangeTimelineDetailsFragment
+  ) | (
+    { __typename: 'ShopifyDetectedAppChangeFeedSubject' }
+    & AppChangeTimelineEntryDetailsFragment
   ) | (
     { __typename: 'ShopifyEventFeedSubject' }
-    & Pick<ShopifyEventFeedSubject, 'id' | 'verb'>
+    & ShopifyEventTimelineDetailsFragment
   ) | (
     { __typename: 'ShopifyShopChangeFeedSubject' }
-    & Pick<ShopifyShopChangeFeedSubject, 'id'>
+    & ShopifyShopChangeTimelineDetailsFragment
   ) | (
     { __typename: 'ShopifyThemeChangeFeedSubject' }
-    & Pick<ShopifyThemeChangeFeedSubject, 'id'>
+    & ShopifyThemeChangeTimelineDetailsFragment
   )> }
 );
 
@@ -607,6 +685,70 @@ export const ScanTimelineEntryDetailsFragmentDoc = gql`
   }
 }
     `;
+export const AppChangeTimelineEntryDetailsFragmentDoc = gql`
+    fragment AppChangeTimelineEntryDetails on ShopifyDetectedAppChangeFeedSubject {
+  id
+  action
+  actionAt
+  key
+  detectedApp {
+    name
+    reasons
+  }
+}
+    `;
+export const IssueChangeTimelineDetailsFragmentDoc = gql`
+    fragment IssueChangeTimelineDetails on IssueChangeEvent {
+  id
+  action
+  issue {
+    name
+    key
+    keyCategory
+    descriptor {
+      title
+      severity
+    }
+  }
+}
+    `;
+export const ShopifyEventTimelineDetailsFragmentDoc = gql`
+    fragment ShopifyEventTimelineDetails on ShopifyEventFeedSubject {
+  id
+  description
+  path
+}
+    `;
+export const ShopifyAssetChangeTimelineDetailsFragmentDoc = gql`
+    fragment ShopifyAssetChangeTimelineDetails on ShopifyAssetChangeFeedSubject {
+  id
+  key
+  action
+  theme {
+    id
+    name
+  }
+}
+    `;
+export const ShopifyShopChangeTimelineDetailsFragmentDoc = gql`
+    fragment ShopifyShopChangeTimelineDetails on ShopifyShopChangeFeedSubject {
+  id
+  recordAttribute
+  oldValue
+  newValue
+}
+    `;
+export const ShopifyThemeChangeTimelineDetailsFragmentDoc = gql`
+    fragment ShopifyThemeChangeTimelineDetails on ShopifyThemeChangeFeedSubject {
+  id
+  recordAttribute
+  oldValue
+  newValue
+  theme {
+    name
+  }
+}
+    `;
 export const TimelineEntryDetailsFragmentDoc = gql`
     fragment TimelineEntryDetails on FeedItem {
   id
@@ -616,25 +758,33 @@ export const TimelineEntryDetailsFragmentDoc = gql`
     ... on ProductionGroup {
       ...ScanTimelineEntryDetails
     }
+    ... on ShopifyDetectedAppChangeFeedSubject {
+      ...AppChangeTimelineEntryDetails
+    }
     ... on IssueChangeEvent {
-      id
+      ...IssueChangeTimelineDetails
     }
     ... on ShopifyEventFeedSubject {
-      id
-      verb
+      ...ShopifyEventTimelineDetails
     }
     ... on ShopifyAssetChangeFeedSubject {
-      id
+      ...ShopifyAssetChangeTimelineDetails
     }
     ... on ShopifyShopChangeFeedSubject {
-      id
+      ...ShopifyShopChangeTimelineDetails
     }
     ... on ShopifyThemeChangeFeedSubject {
-      id
+      ...ShopifyThemeChangeTimelineDetails
     }
   }
 }
-    ${ScanTimelineEntryDetailsFragmentDoc}`;
+    ${ScanTimelineEntryDetailsFragmentDoc}
+${AppChangeTimelineEntryDetailsFragmentDoc}
+${IssueChangeTimelineDetailsFragmentDoc}
+${ShopifyEventTimelineDetailsFragmentDoc}
+${ShopifyAssetChangeTimelineDetailsFragmentDoc}
+${ShopifyShopChangeTimelineDetailsFragmentDoc}
+${ShopifyThemeChangeTimelineDetailsFragmentDoc}`;
 export const GetIssuesForHomePageDocument = gql`
     query GetIssuesForHomePage {
   currentProperty {

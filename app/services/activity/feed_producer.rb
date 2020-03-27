@@ -13,6 +13,7 @@ module Activity
         item_type: :shop_changes,
       },
       ShopifyData::ShopChangeEvent => {
+        scope: ShopifyData::ShopChangeEvent.for_display,
         cursor: :created_at,
         filter_on: [:shopify_shop_id],
         item_type: :shop_changes,
@@ -34,6 +35,7 @@ module Activity
         cursor: :created_at,
         filter_on: [:shopify_shop_id],
         item_type: :app_changes,
+        allow_grouping: false,
       },
       Assessment::IssueChangeEvent => {
         scope: Assessment::IssueChangeEvent.manual.includes(:issue),

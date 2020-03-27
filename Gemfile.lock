@@ -52,6 +52,14 @@ GIT
       thor (>= 0.20.3, < 2.0)
 
 GIT
+  remote: https://github.com/airhorns/sql-logging.git
+  revision: 1aed0affecb6cf2a49dc606de2907738174d6a96
+  ref: 1aed0affecb6cf2a49dc606de2907738174d6a96
+  specs:
+    sql-logging (3.0.11)
+      rails (>= 4.0)
+
+GIT
   remote: https://github.com/fog/fog-google.git
   revision: abb11e9c72ef65a65d25ccff7f126691076bc227
   specs:
@@ -718,6 +726,7 @@ DEPENDENCIES
   shopify_app
   spring
   spring-watcher-listen (~> 2.0.0)
+  sql-logging!
   subprocess
   test-prof
   timecop
