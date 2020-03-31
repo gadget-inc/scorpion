@@ -1,6 +1,6 @@
 import React from "react";
 import { Page } from "../common";
-import { Card, Layout, ResourceList, ResourceItem, TextStyle, Link } from "@shopify/polaris";
+import { Card, Layout, ResourceList, ResourceItem, TextStyle, Link, DisplayText } from "@shopify/polaris";
 import gql from "graphql-tag";
 import { IssueTypeEnum, useGetIssuesForIssuesIndexQuery, IssuesIndexIssueFragment } from "app/app-graph";
 import { IssueSeverityBadge } from "./IssueSeverityBadge";
@@ -44,10 +44,13 @@ gql`
 export default (props: {}) => {
   const history = useHistory();
   const paginationConfig = useConnectionPagination();
-  const { data, loading, fetchMore } = useGetIssuesForIssuesIndexQuery({ variables: paginationConfig.variables });
+  const { data, loading } = useGetIssuesForIssuesIndexQuery({ variables: paginationConfig.variables });
 
   return (
     <Page.Layout title="Issues">
+      <Page.Layout.Section>
+        <DisplayText>Issues</DisplayText>
+      </Page.Layout.Section>
       <Layout.Section>
         <Card>
           <ResourceList
