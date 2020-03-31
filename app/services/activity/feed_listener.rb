@@ -5,7 +5,7 @@ module Activity
     def enqueue_produce_job(property_id)
       Infrastructure::UnitOfWork.on_success(idempotency_key: "feed-rebuild-#{property_id}") do
         property = Property.find(property_id)
-        if property.discarded_at.nil? && !property.ambient
+        if property.discarded_at.nil? && !property.ambient && property.shopify_shop.present?
           Activity::ProduceFeedJob.enqueue(property_id: property.id)
         end
       end
