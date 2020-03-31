@@ -87,6 +87,7 @@
     "react-loads": "^8.4.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "react-router-use-location-state": "^2.3.1",
     "react-select": "^3.0.4",
     "regenerator-runtime": "^0.13.2",
     "slate-hotkeys": "^0.2.9",
@@ -96,6 +97,7 @@
     "tslib": "^1.9.3",
     "typescript": "^3.7.2",
     "url-join": "^4.0.1",
+    "use-location-state": "^2.3.1",
     "use-react-router": "^1.0.7"
   },
   "devDependencies": {

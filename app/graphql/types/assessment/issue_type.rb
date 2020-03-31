@@ -17,6 +17,9 @@ class Types::Assessment::IssueType < Types::BaseObject
   field :results, Types::Assessment::ResultType.connection_type, null: false
   field :descriptor, Types::Assessment::DescriptorType, null: false
 
+  field :subject_type, Types::Assessment::IssueTypeEnum, null: true
+  field :subject_id, String, null: true
+
   def name
     "Issue ##{object.number}"
   end

@@ -46,6 +46,7 @@ export const NavigationBar = () => {
     <nav className={styles.NavigationBarContainer}>
       <ul role="tablist" className={styles.NavigationBar}>
         <NavigationBarItem path="/" exact label="Home" />
+        <NavigationBarItem path="/issues" exact label="Issues" />
         <NavigationBarItem path="/settings" label="Settings" />
       </ul>
     </nav>

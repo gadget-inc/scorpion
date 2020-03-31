@@ -15,12 +15,13 @@ import {
 } from "@shopify/polaris";
 import gql from "graphql-tag";
 import { GetIssueForIssuePageComponent } from "app/app-graph";
+import { IssueSeverityBadge } from "./IssueSeverityBadge";
 
 gql`
   query GetIssueForIssuePage($number: Int!) {
     issue(number: $number) {
       id
-      name
+      nameWithTitle
       number
       key
       keyCategory
@@ -34,19 +35,6 @@ gql`
     }
   }
 `;
-
-const IssueSeverityBadge = (_props: { issue: {} }) => {
-  let status: BadgeProps["status"], text;
-
-  switch (1) {
-    case 1: {
-      status = "warning";
-      text = "Severe";
-    }
-  }
-
-  return <Badge status={status}>{text}</Badge>;
-};
 
 const IssuePageSkeleton = () => (
   <SkeletonPage>
@@ -86,12 +74,10 @@ export default class IssuePage extends Page<{ number: string }> {
         require={["issue"]}
       >
         {data => (
-          <Page.Layout title={data.issue.name}>
+          <Page.Layout title={data.issue.nameWithTitle}>
             <Layout.Section>
               <Stack alignment="center">
-                <DisplayText>
-                  {data.issue.name} - {data.issue.descriptor.title}
-                </DisplayText>
+                <DisplayText>{data.issue.nameWithTitle}</DisplayText>
                 <IssueSeverityBadge issue={data.issue} />
               </Stack>
             </Layout.Section>

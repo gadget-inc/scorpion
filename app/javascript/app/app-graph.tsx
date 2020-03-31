@@ -190,6 +190,8 @@ export type Issue = {
   number: Scalars['Int'];
   openedAt: Scalars['ISO8601DateTime'];
   results: ResultConnection;
+  subjectId?: Maybe<Scalars['String']>;
+  subjectType?: Maybe<IssueTypeEnum>;
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
@@ -237,6 +239,11 @@ export type IssueEdge = {
    __typename: 'IssueEdge';
   cursor: Scalars['String'];
   node?: Maybe<Issue>;
+};
+
+export const enum IssueTypeEnum {
+  Url = 'URL',
+  ShopifyProduct = 'SHOPIFY_PRODUCT'
 };
 
 
@@ -505,12 +512,43 @@ export type GetIssueForIssuePageQuery = (
   { __typename: 'AppQuery' }
   & { issue?: Maybe<(
     { __typename: 'Issue' }
-    & Pick<Issue, 'id' | 'name' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt'>
+    & Pick<Issue, 'id' | 'nameWithTitle' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt'>
     & { descriptor: (
       { __typename: 'Descriptor' }
       & Pick<Descriptor, 'title' | 'description'>
     ) }
   )> }
+);
+
+export type IssuesIndexIssueFragment = (
+  { __typename: 'Issue' }
+  & Pick<Issue, 'id' | 'nameWithTitle' | 'number' | 'key' | 'keyCategory' | 'openedAt' | 'lastSeenAt' | 'closedAt' | 'subjectType' | 'subjectId'>
+  & { descriptor: (
+    { __typename: 'Descriptor' }
+    & Pick<Descriptor, 'title' | 'description'>
+  ) }
+);
+
+export type GetIssuesForIssuesIndexQueryVariables = {
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+};
+
+
+export type GetIssuesForIssuesIndexQuery = (
+  { __typename: 'AppQuery' }
+  & { issues: (
+    { __typename: 'IssueConnection' }
+    & { nodes: Array<(
+      { __typename: 'Issue' }
+      & IssuesIndexIssueFragment
+    )>, pageInfo: (
+      { __typename: 'PageInfo' }
+      & Pick<PageInfo, 'endCursor' | 'startCursor' | 'hasPreviousPage' | 'hasNextPage'>
+    ) }
+  ) }
 );
 
 export type AppChangeTimelineEntryDetailsFragment = (
@@ -667,6 +705,24 @@ export const GetOverallStatusFragmentDoc = gql`
     id
     name
   }
+}
+    `;
+export const IssuesIndexIssueFragmentDoc = gql`
+    fragment IssuesIndexIssue on Issue {
+  id
+  nameWithTitle
+  number
+  key
+  keyCategory
+  openedAt
+  lastSeenAt
+  closedAt
+  descriptor {
+    title
+    description
+  }
+  subjectType
+  subjectId
 }
     `;
 export const ScanTimelineEntryDetailsFragmentDoc = gql`
@@ -879,7 +935,7 @@ export const GetIssueForIssuePageDocument = gql`
     query GetIssueForIssuePage($number: Int!) {
   issue(number: $number) {
     id
-    name
+    nameWithTitle
     number
     key
     keyCategory
@@ -925,6 +981,56 @@ export function useGetIssueForIssuePageLazyQuery(baseOptions?: ApolloReactHooks.
 export type GetIssueForIssuePageQueryHookResult = ReturnType<typeof useGetIssueForIssuePageQuery>;
 export type GetIssueForIssuePageLazyQueryHookResult = ReturnType<typeof useGetIssueForIssuePageLazyQuery>;
 export type GetIssueForIssuePageQueryResult = ApolloReactCommon.QueryResult<GetIssueForIssuePageQuery, GetIssueForIssuePageQueryVariables>;
+export const GetIssuesForIssuesIndexDocument = gql`
+    query GetIssuesForIssuesIndex($first: Int, $last: Int, $before: String, $after: String) {
+  issues(first: $first, last: $last, before: $before, after: $after) {
+    nodes {
+      ...IssuesIndexIssue
+    }
+    pageInfo {
+      endCursor
+      startCursor
+      hasPreviousPage
+      hasNextPage
+    }
+  }
+}
+    ${IssuesIndexIssueFragmentDoc}`;
+export type GetIssuesForIssuesIndexComponentProps = Omit<ApolloReactComponents.QueryComponentOptions<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>, 'query'>;
+
+    export const GetIssuesForIssuesIndexComponent = (props: GetIssuesForIssuesIndexComponentProps) => (
+      <ApolloReactComponents.Query<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables> query={GetIssuesForIssuesIndexDocument} {...props} />
+    );
+    
+
+/**
+ * __useGetIssuesForIssuesIndexQuery__
+ *
+ * To run a query within a React component, call `useGetIssuesForIssuesIndexQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIssuesForIssuesIndexQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIssuesForIssuesIndexQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useGetIssuesForIssuesIndexQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>(GetIssuesForIssuesIndexDocument, baseOptions);
+      }
+export function useGetIssuesForIssuesIndexLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>(GetIssuesForIssuesIndexDocument, baseOptions);
+        }
+export type GetIssuesForIssuesIndexQueryHookResult = ReturnType<typeof useGetIssuesForIssuesIndexQuery>;
+export type GetIssuesForIssuesIndexLazyQueryHookResult = ReturnType<typeof useGetIssuesForIssuesIndexLazyQuery>;
+export type GetIssuesForIssuesIndexQueryResult = ApolloReactCommon.QueryResult<GetIssuesForIssuesIndexQuery, GetIssuesForIssuesIndexQueryVariables>;
 export const GetActivityFeedForTimelineDocument = gql`
     query GetActivityFeedForTimeline {
   feedItems(first: 30) {

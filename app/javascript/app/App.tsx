@@ -12,12 +12,13 @@ import { Settings } from "./lib/settings";
 import { FlagsProvider } from "../superlib";
 import { NotFoundPage } from "./components/chrome/NotFoundPage";
 import { PageLoadSpin } from "../superlib";
-import { NavigationBar } from "./components/common/NavigationBar/NavigationBar";
+import { NavigationBar } from "./components/chrome/NavigationBar/NavigationBar";
 
 const HomePage = React.lazy(() => import("./components/home/HomePage"));
 const Launchpad = React.lazy(() => import("./components/home/Launchpad"));
 const SettingsPage = React.lazy(() => import("./components/identity/SettingsPage"));
 const IssuePage = React.lazy(() => import("./components/issues/IssuePage"));
+const IssuesIndexPage = React.lazy(() => import("./components/issues/IssuesIndexPage"));
 
 export const ScorpionClient = getClient();
 
@@ -46,6 +47,7 @@ export const App = () => {
                             <Route path="/" exact component={HomePage} />
                             <Route path="/launchpad" exact component={Launchpad} />
                             <Route path="/settings" exact component={SettingsPage} />
+                            <Route path="/issues" exact component={IssuesIndexPage} />
                             <Route path="/issues/:number" exact component={IssuePage} />
                             <Route component={NotFoundPage} />
                           </Switch>
