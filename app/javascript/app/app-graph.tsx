@@ -186,6 +186,7 @@ export type Issue = {
   keyCategory: KeyCategory;
   lastSeenAt: Scalars['ISO8601DateTime'];
   name: Scalars['String'];
+  nameWithTitle: Scalars['String'];
   number: Scalars['Int'];
   openedAt: Scalars['ISO8601DateTime'];
   results: ResultConnection;
@@ -544,7 +545,7 @@ export type ScanTimelineEntryDetailsFragment = (
       & Pick<IssueChangeEvent, 'id' | 'action'>
       & { issue: (
         { __typename: 'Issue' }
-        & Pick<Issue, 'number'>
+        & Pick<Issue, 'number' | 'nameWithTitle'>
       ) }
     )> }
   ) }
@@ -680,6 +681,7 @@ export const ScanTimelineEntryDetailsFragmentDoc = gql`
       action
       issue {
         number
+        nameWithTitle
       }
     }
   }

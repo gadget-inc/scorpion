@@ -5,6 +5,7 @@ class Types::Assessment::IssueType < Types::BaseObject
   field :key, String, null: false
   field :key_category, Types::Assessment::KeyCategory, null: false
   field :name, String, null: false
+  field :name_with_title, String, null: false
   field :number, Int, null: false
 
   field :closed_at, GraphQL::Types::ISO8601DateTime, null: true
@@ -18,6 +19,10 @@ class Types::Assessment::IssueType < Types::BaseObject
 
   def name
     "Issue ##{object.number}"
+  end
+
+  def name_with_title
+    descriptor.then { |desc| "#{name} - #{desc.title}" }
   end
 
   def descriptor

@@ -6,6 +6,8 @@ Trestle.resource(:descriptors, scope: Assessment) do
     end
   end
 
+  scope :all, -> { Assessment::Descriptor.order("id DESC") }, default: true
+
   table do
     column :id
     column :key

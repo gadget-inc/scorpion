@@ -16,6 +16,7 @@ gql`
         action
         issue {
           number
+          nameWithTitle
         }
       }
     }
@@ -40,7 +41,7 @@ export const ScanTimelineEntryCard = (props: { productionGroup: ScanTimelineEntr
       <ul>
         {props.productionGroup.issueChangeEvents.nodes.map(changeEvent => (
           <li key={changeEvent.id}>
-            Issue #{changeEvent.issue.number} {changeEvent.action}
+            {changeEvent.issue.nameWithTitle} {changeEvent.action}
           </li>
         ))}
       </ul>
