@@ -8,6 +8,6 @@ export class PageLoad<
   Variables = ComponentVariablesType<Component>
 > extends SimpleQuery<Component, RequiredKeys, Data, Variables> {
   static defaultProps = {
-    fetchPolicy: "cache-and-network"
+    fetchPolicy: "cache-and-network",
   };
 }

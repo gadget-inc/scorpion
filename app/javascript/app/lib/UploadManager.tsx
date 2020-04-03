@@ -5,7 +5,7 @@ import {
   AttachUploadToContainerDocument,
   AttachUploadToContainerMutation,
   AttachmentContainerEnum,
-  AttachRemoteUrlToContainerDocument
+  AttachRemoteUrlToContainerDocument,
 } from "app/app-graph";
 import { ScorpionClient } from "app/App";
 
@@ -71,22 +71,22 @@ export class UploadManager {
           variables: {
             directUploadSignedId: response.signed_id,
             attachmentContainerId: this.containerId,
-            attachmentContainerType: this.containerType
-          }
+            attachmentContainerType: this.containerType,
+          },
         })
-          .then(result => {
+          .then((result) => {
             if (result.errors) {
               return callback(result.errors[0], undefined);
             }
             callback(undefined, result.data.attachDirectUploadedFile.attachment);
           })
-          .catch(reason => callback(reason));
+          .catch((reason) => callback(reason));
       }
     });
   }
 
   directUploadWillStoreFileWithXHR(request: XMLHttpRequest) {
-    request.upload.addEventListener("progress", event => {
+    request.upload.addEventListener("progress", (event) => {
       this.onProgress && this.onProgress(event.loaded, event.total);
     });
   }
@@ -107,15 +107,15 @@ export class RemoteDownloadAttachmentManager {
       variables: {
         url: url,
         attachmentContainerId: this.containerId,
-        attachmentContainerType: this.containerType
-      }
+        attachmentContainerType: this.containerType,
+      },
     })
-      .then(result => {
+      .then((result) => {
         if (result.errors) {
           return callback(result.errors[0], undefined);
         }
         callback(undefined, result.data.attachRemoteUrl.attachment);
       })
-      .catch(reason => callback(reason));
+      .catch((reason) => callback(reason));
   }
 }

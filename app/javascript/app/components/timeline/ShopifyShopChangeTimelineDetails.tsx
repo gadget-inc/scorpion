@@ -23,7 +23,7 @@ const formatValue = (value: any) => {
 };
 
 export const ShopifyShopChangeTimelineDetails = (events: ShopifyShopChangeTimelineDetailsFragment[]) => {
-  return events.map(event => {
+  return events.map((event) => {
     let message: React.ReactNode;
 
     switch (event.recordAttribute) {

@@ -16,7 +16,7 @@ gql`
 `;
 
 export const ShopifyThemeChangeTimelineDetails = (events: ShopifyThemeChangeTimelineDetailsFragment[]) => {
-  return events.map(event => (
+  return events.map((event) => (
     <p key={event.id}>
       Theme {event.theme.name} {event.recordAttribute} {isUndefined(event.newValue) && "unset"}
       {!isUndefined(event.newValue) && (

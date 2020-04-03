@@ -10,12 +10,12 @@ const Listeners = new Set<Listener>();
 
 export const dispatch = (event: KeyboardEvent) => {
   const callbacks: Listener["callback"][] = [];
-  Listeners.forEach(listener => {
+  Listeners.forEach((listener) => {
     if (listener.detector(event)) {
       callbacks.push(listener.callback);
     }
   });
-  callbacks.forEach(callback => callback(event));
+  callbacks.forEach((callback) => callback(event));
 };
 
 export const HotkeysContainer = (props: { children: React.ReactNode }) => {

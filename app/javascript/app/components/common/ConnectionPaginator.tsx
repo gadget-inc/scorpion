@@ -17,7 +17,7 @@ export const useConnectionPagination = (pageSize = 20): PaginationConfig => {
   return {
     setBefore,
     setAfter,
-    variables: { before, after, first: forwards ? pageSize : undefined, last: !forwards ? pageSize : undefined }
+    variables: { before, after, first: forwards ? pageSize : undefined, last: !forwards ? pageSize : undefined },
   };
 };
 

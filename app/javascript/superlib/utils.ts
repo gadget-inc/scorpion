@@ -158,7 +158,7 @@ export const RelayConnectionQueryUpdater = memoizeOne((connectionName: string) =
         {
           __typename: previousConnection.__typename,
           edges: [...previousConnection.edges, ...newEdges],
-          pageInfo
+          pageInfo,
         }
       )
     : previousResult;
@@ -176,7 +176,7 @@ export const replaceLocationWithNewParams = (
 
 // automerge proxy friendly version of cloneDeep
 export const automergeFriendlyCloneDeep = (obj: any) => {
-  return cloneDeepWith(obj, item => {
+  return cloneDeepWith(obj, (item) => {
     if (isArrayLike(item)) {
       return item.map(cloneDeep);
     } else {

@@ -11,7 +11,7 @@ export const PageLoadSpin = () => (
       justifyContent: "center",
       flexDirection: "column",
       width: "100%",
-      minHeight: "20rem"
+      minHeight: "20rem",
     }}
   >
     <Spin />

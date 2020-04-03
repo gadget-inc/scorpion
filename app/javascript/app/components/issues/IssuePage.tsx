@@ -11,7 +11,7 @@ import {
   DescriptionList,
   SkeletonPage,
   SkeletonBodyText,
-  SkeletonDisplayText
+  SkeletonDisplayText,
 } from "@shopify/polaris";
 import gql from "graphql-tag";
 import { GetIssueForIssuePageComponent } from "app/app-graph";
@@ -73,7 +73,7 @@ export default class IssuePage extends Page<{ number: string }> {
         spinner={IssuePageSkeleton}
         require={["issue"]}
       >
-        {data => (
+        {(data) => (
           <Page.Layout title={data.issue.nameWithTitle}>
             <Layout.Section>
               <Stack alignment="center">
@@ -94,12 +94,12 @@ export default class IssuePage extends Page<{ number: string }> {
                   items={[
                     {
                       term: "First seen",
-                      description: data.issue.openedAt
+                      description: data.issue.openedAt,
                     },
                     {
                       term: "Last seen",
-                      description: data.issue.lastSeenAt
-                    }
+                      description: data.issue.lastSeenAt,
+                    },
                   ]}
                 />
               </Card>

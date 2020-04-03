@@ -7,7 +7,7 @@ import {
   ShopifyAssetChangeTimelineDetailsFragment,
   ShopifyShopChangeTimelineDetailsFragment,
   ShopifyThemeChangeTimelineDetailsFragment,
-  ShopifyEventTimelineDetailsFragment
+  ShopifyEventTimelineDetailsFragment,
 } from "app/app-graph";
 import { ScanTimelineEntryCard } from "./ScanTimelineEntryCard";
 import { AppChangeTimelineEntryCard } from "./AppChangeTimelineEntryCard";

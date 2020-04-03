@@ -39,7 +39,7 @@ export const ScanTimelineEntryCard = (props: { productionGroup: ScanTimelineEntr
         <p>{props.productionGroup.changedIssueCount} issue(s) changed</p>
       </TextContainer>
       <ul>
-        {props.productionGroup.issueChangeEvents.nodes.map(changeEvent => (
+        {props.productionGroup.issueChangeEvents.nodes.map((changeEvent) => (
           <li key={changeEvent.id}>
             {changeEvent.issue.nameWithTitle} {changeEvent.action}
           </li>

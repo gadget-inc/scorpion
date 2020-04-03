@@ -20,7 +20,7 @@ export const ShopifyAssetChangeTimelineDetails = (events: ShopifyAssetChangeTime
   return Object.entries(themeGroups).map(([themeId, themeEvents]) => (
     <p key={themeId}>
       {themeEvents.length} asset(s) changed on {themeEvents[0].theme.name}:{" "}
-      {themeEvents.map(event => (
+      {themeEvents.map((event) => (
         <span key={event.id}>
           {event.action} {event.key}
         </span>

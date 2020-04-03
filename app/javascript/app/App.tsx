@@ -25,7 +25,7 @@ export const ScorpionClient = getClient();
 const AppBridgeConfig: AppConfig = {
   apiKey: Settings.shopify.apiKey,
   shopOrigin: Settings.shopify.shopOrigin,
-  forceRedirect: false
+  forceRedirect: false,
 };
 
 export const App = () => {

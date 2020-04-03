@@ -12,7 +12,7 @@ gql`
 `;
 
 export const ShopifyEventTimelineDetails = (events: ShopifyEventTimelineDetailsFragment[]) => {
-  return events.map(event => (
+  return events.map((event) => (
     <p key={event.id}>
       {event.description}&nbsp;
       {event.path && (

@@ -7,11 +7,11 @@ if (globalVar.SCORPION_ENVIRONMENT === "production") {
   Sentry.init({
     dsn: globalVar.INJECTED_SETTINGS.sentryDsn,
     release: globalVar.INJECTED_SETTINGS.release,
-    environment: globalVar.SCORPION_ENVIRONMENT
+    environment: globalVar.SCORPION_ENVIRONMENT,
   });
 }
 
-Sentry.configureScope(scope => {
+Sentry.configureScope((scope) => {
   scope.setTag("entrypoint", globalVar.SCORPION_ENTRYPOINT);
 });
 
@@ -24,7 +24,7 @@ export class SentryErrorBoundary extends React.Component<{}, { error?: Error; ev
   componentDidCatch(error: Error, errorInfo: any) {
     this.setState({ error });
     console.error(error, errorInfo);
-    Sentry.withScope(scope => {
+    Sentry.withScope((scope) => {
       scope.setExtras(errorInfo);
       const eventId = Sentry.captureException(error);
       this.setState({ eventId });

@@ -15,13 +15,13 @@ export const getClient = () =>
         const queryParams = Object.assign(
           {
             operation: operation.operationName,
-            accountId: Settings.accountId
+            accountId: Settings.accountId,
           },
           operation.getContext().queryParams || {}
         );
 
         operation.setContext({
-          uri: `/graphql?${stringify(queryParams)}`
+          uri: `/graphql?${stringify(queryParams)}`,
         });
 
         return (forward as any)(operation);
@@ -37,14 +37,14 @@ export const getClient = () =>
         uri: "/graphql",
         credentials: "same-origin",
         headers: {
-          "X-CSRF-Token": csrfToken()
-        }
-      })
+          "X-CSRF-Token": csrfToken(),
+        },
+      }),
     ]),
     cache: new InMemoryCache({
       addTypename: true,
       fragmentMatcher: new IntrospectionFragmentMatcher({
-        introspectionQueryResultData: introspectionResult
-      })
-    })
+        introspectionQueryResultData: introspectionResult,
+      }),
+    }),
   });

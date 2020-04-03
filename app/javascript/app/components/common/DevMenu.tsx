@@ -10,7 +10,7 @@ import { Settings } from "app/lib/settings";
 export const DevMenu = () => {
   const app = useAppBridge();
   const [popoverActive, setPopoverActive] = useState(false);
-  const togglePopoverActive = useCallback(() => setPopoverActive(popoverActive => !popoverActive), []);
+  const togglePopoverActive = useCallback(() => setPopoverActive((popoverActive) => !popoverActive), []);
   const fetchedWindow = getWindow();
   const currentlyEmbedded = fetchedWindow && !shouldRedirect(fetchedWindow.top);
 
@@ -20,7 +20,7 @@ export const DevMenu = () => {
       css={{
         position: "fixed",
         right: "2em",
-        bottom: "2em"
+        bottom: "2em",
       }}
     >
       <Popover
@@ -35,15 +35,15 @@ export const DevMenu = () => {
               disabled: currentlyEmbedded,
               onAction: () => {
                 window.location.href = "https://" + Settings.shopify.shopOrigin + "/admin/apps/" + Settings.shopify.apiKey;
-              }
+              },
             },
             {
               content: "Exit embedded frame",
               disabled: !currentlyEmbedded,
               onAction: () => {
                 embeddedEscapeRedirect(app, Settings.appDomain + window?.location.pathname);
-              }
-            }
+              },
+            },
           ]}
         />
       </Popover>

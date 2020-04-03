@@ -29,7 +29,7 @@ export default class HomePage extends Page {
     return (
       <Page.Layout title="Home">
         <Page.Load component={GetIssuesForHomePageComponent} require={["currentProperty"]}>
-          {data => (
+          {(data) => (
             <>
               <Page.Layout.Section>
                 <DisplayText>Good day.</DisplayText>

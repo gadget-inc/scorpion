@@ -30,7 +30,7 @@ export const Timeline = (_props: {}) => {
 
       <ul className={styles.Timeline}>
         <SimpleQuery component={GetActivityFeedForTimelineComponent} require={["feedItems"]}>
-          {data => data.feedItems.nodes.map(node => <TimelineEntry key={node.id} feedItem={node} />)}
+          {(data) => data.feedItems.nodes.map((node) => <TimelineEntry key={node.id} feedItem={node} />)}
         </SimpleQuery>
       </ul>
     </div>
