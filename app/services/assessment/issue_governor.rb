@@ -71,13 +71,6 @@ module Assessment
       end
     end
 
-    def reload_cache!
-      if @cache_issues
-        @issue_cache = nil
-        issue_cache
-      end
-    end
-
     private
 
     def existing_issue_for_attrs(attrs)
