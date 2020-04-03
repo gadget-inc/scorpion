@@ -569,7 +569,7 @@ GEM
     semantic_range (2.3.0)
     sentry-raven (2.13.0)
       faraday (>= 0.7.6, < 1.0)
-    shopify_api (9.0.2)
+    shopify_api (9.0.4)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
       rack
