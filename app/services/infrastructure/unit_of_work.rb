@@ -54,6 +54,7 @@ class Infrastructure::UnitOfWork
     if !already_in_raven_transaction
       Raven.context.transaction.pop
     end
+    ::Raven::BreadcrumbBuffer.clear!
   end
 
   def add_tags(tags)
