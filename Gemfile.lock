@@ -215,7 +215,6 @@ GEM
       dry-logic (~> 0.4, >= 0.4.2)
     ejson (1.2.1)
     erubi (1.9.0)
-    erubis (2.7.0)
     et-orbi (1.2.2)
       tzinfo
     excon (0.71.1)
@@ -457,8 +456,7 @@ GEM
       fugit (~> 1.1, >= 1.1.8)
       hashie (>= 3, < 5)
       que (>= 0.12, <= 1.0.0.beta4)
-    que-web (0.8.0)
-      erubis
+    que-web (0.9.1)
       que (~> 1.0.0.beta3)
       sinatra
     raabro (1.1.6)
