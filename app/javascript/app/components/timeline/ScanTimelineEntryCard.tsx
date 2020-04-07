@@ -3,6 +3,9 @@ import { Card, TextContainer, Button, Icon, Stack } from "@shopify/polaris";
 import { QuestionMarkMajorTwotone } from "@shopify/polaris-icons";
 import gql from "graphql-tag";
 import { ScanTimelineEntryDetailsFragment } from "app/app-graph";
+import { Link } from "superlib";
+import { actionText } from "../common";
+import pluralize from "pluralize";
 
 gql`
   fragment ScanTimelineEntryDetails on ProductionGroup {
@@ -36,12 +39,14 @@ export const ScanTimelineEntryCard = (props: { productionGroup: ScanTimelineEntr
       }
     >
       <TextContainer>
-        <p>{props.productionGroup.changedIssueCount} issue(s) changed</p>
+        <p>
+          {props.productionGroup.changedIssueCount} {pluralize("issue", props.productionGroup.changedIssueCount)} changed
+        </p>
       </TextContainer>
       <ul>
         {props.productionGroup.issueChangeEvents.nodes.map((changeEvent) => (
           <li key={changeEvent.id}>
-            {changeEvent.issue.nameWithTitle} {changeEvent.action}
+            <Link url={`/issues/${changeEvent.issue.number}`}>{changeEvent.issue.nameWithTitle}</Link> {actionText(changeEvent.action)}
           </li>
         ))}
       </ul>

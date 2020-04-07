@@ -173,6 +173,8 @@ GEM
     colorize (0.8.1)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
+    counter-cache (0.3.0)
+      activerecord (>= 3.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -667,6 +669,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   connection_pool
+  counter-cache
   discard
   dotenv-rails
   ejson
@@ -690,6 +693,7 @@ DEPENDENCIES
   letter_opener_web
   listen (>= 3.0.5, < 3.3)
   lru_redux
+  memoist
   mini_magick
   minitest-ci
   minitest-snapshots (~> 0.3.0)

@@ -8,13 +8,16 @@ import { TimelineEntry } from "./TimelineEntry";
 
 gql`
   query GetActivityFeedForTimeline {
-    feedItems(first: 30) {
-      nodes {
-        ...TimelineEntryDetails
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
+    currentProperty {
+      id
+      activityFeedItems(first: 30) {
+        nodes {
+          ...TimelineEntryDetails
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }
@@ -29,8 +32,8 @@ export const Timeline = (_props: {}) => {
       </TextContainer>
 
       <ul className={styles.Timeline}>
-        <SimpleQuery component={GetActivityFeedForTimelineComponent} require={["feedItems"]}>
-          {(data) => data.feedItems.nodes.map((node) => <TimelineEntry key={node.id} feedItem={node} />)}
+        <SimpleQuery component={GetActivityFeedForTimelineComponent} require={["currentProperty"]}>
+          {(data) => data.currentProperty.activityFeedItems.nodes.map((node) => <TimelineEntry key={node.id} feedItem={node} />)}
         </SimpleQuery>
       </ul>
     </div>

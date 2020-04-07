@@ -7,3 +7,4 @@ export * from "./flags";
 export * from "./csrf";
 export * from "./Spin";
 export * from "./hotkeys";
+export * from "./Link";

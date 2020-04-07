@@ -33,6 +33,22 @@
 #
 class Assessment::Issue < ApplicationRecord
   include AccountScoped
+
+  scope :open, -> { where(closed_at: nil) }
+  scope :severity, ->(severity) { joins(:descriptor).where(assessment_descriptors: { severity: severity }) }
+  scope :order_by_severity, lambda {
+    joins(:descriptor).order(<<~SQL
+                CASE
+                  WHEN assessment_descriptors.severity = 'urgent' THEN 5
+                  WHEN assessment_descriptors.severity = 'error' THEN 4
+                  WHEN assessment_descriptors.severity = 'warning' THEN 3
+                  WHEN assessment_descriptors.severity = 'low' THEN 1
+                  ELSE 0
+            END
+          SQL
+)
+  }
+
   belongs_to :property
 
   has_many :results, class_name: "Assessment::Result", dependent: :destroy

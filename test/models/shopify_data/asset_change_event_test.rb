@@ -4,7 +4,7 @@
 # Table name: shopify_data_asset_change_events
 #
 #  id                    :bigint           not null, primary key
-#  action                :string
+#  action                :string           not null
 #  action_at             :datetime         not null
 #  key                   :string           not null
 #  account_id            :bigint           not null

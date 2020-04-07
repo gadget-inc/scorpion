@@ -3,3 +3,4 @@ if ((window as any).SCORPION_ENTRYPOINT != "app") {
 }
 
 export * from "./Page";
+export * from "./linking";

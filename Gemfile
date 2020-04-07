@@ -55,9 +55,11 @@ gem "safely"
 gem "scenic"
 gem "sql-logging", github: "airhorns/sql-logging", ref: "1aed0affecb6cf2a49dc606de2907738174d6a96"
 gem "honeycomb-beeline", "~> 2.0.0", require: false # needs custom requiring in order to set up middleware properly, see initializer
+gem "counter-cache"
 gem "k8s-client"
 gem "wait"
 gem "zaru"
+gem "memoist"
 
 # Admin
 gem "trestle"

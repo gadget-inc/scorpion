@@ -1068,7 +1068,7 @@ CREATE TABLE public.shopify_data_asset_change_events (
     shopify_shop_id bigint NOT NULL,
     shopify_data_theme_id bigint NOT NULL,
     key character varying NOT NULL,
-    action character varying,
+    action character varying NOT NULL,
     action_at timestamp without time zone NOT NULL
 );
 
@@ -2620,6 +2620,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200323141426'),
 ('20200325165202'),
 ('20200326174413'),
-('20200326175003');
+('20200326175003'),
+('20200407181932');
 
 
