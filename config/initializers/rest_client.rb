@@ -29,7 +29,7 @@ module RestClientInstrumentation
           {}
         end
 
-      crumb.data = { response_code: response.code, response_headers: headers }
+      crumb.data = { response_code: response.try(&:code), response_headers: headers, response_class: response.class.name }
       crumb.category = "http-request"
       crumb.timestamp = Time.now.to_i
       crumb.message = "request to #{kwargs[:path]}"
