@@ -5,7 +5,7 @@ RestClient.log = SemanticLogger[RestClient]
 module RestClientInstrumentation
   def execute(*args, **kwargs)
     Honeycomb.start_span(name: "slow_operation") do |span|
-      span.add_field("request_path", kwargs[:path])
+      span.add_field("request_path", kwargs[:url] || kwargs[:path])
       response = super
       record_sentry_breadcrumb(kwargs, response)
       record_honeycomb_span_result(span, response)
@@ -32,7 +32,7 @@ module RestClientInstrumentation
       crumb.data = { response_code: response.try(&:code), response_headers: headers, response_class: response.class.name }
       crumb.category = "http-request"
       crumb.timestamp = Time.now.to_i
-      crumb.message = "request to #{kwargs[:path]}"
+      crumb.message = "request to #{kwargs[:url] || kwargs[:path]}"
     end
   end
 end
