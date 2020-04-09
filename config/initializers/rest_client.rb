@@ -18,7 +18,7 @@ module RestClientInstrumentation
   end
 
   def record_honeycomb_span_result(span, response)
-    span.add_field("response_code", response.code)
+    span.add_field("response_code", response.try(&:code))
   end
 
   def record_sentry_breadcrumb(kwargs, response)
