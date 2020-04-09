@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Infrastructure
-
   # Uses entities database from third-party-web NPM module to get the details of the entity owning a domain
   # Ruby port of https://github.com/patrickhulce/third-party-web/blob/3e6e9082c6f6969b38b07ded9971314a55a19a1e/lib/create-entity-finder-api.js
   class ThirdPartyWeb
@@ -49,8 +48,6 @@ module Infrastructure
       domain
     end
 
-    private
-
     def domain_from_origin_or_url(origin_or_url)
       return nil if origin_or_url.size > 10000 || origin_or_url.start_with?("data:")
 
@@ -62,7 +59,7 @@ module Infrastructure
         return match[0]
       end
 
-      raise "Unable to get domain from #{origin_or_url}"
+      raise "Unable to get domain from \"#{origin_or_url}\""
     end
   end
 end

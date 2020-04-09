@@ -1059,6 +1059,47 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: shopify_data_app_store_apps; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shopify_data_app_store_apps (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    app_store_url character varying NOT NULL,
+    app_store_developer_url character varying NOT NULL,
+    developer_name character varying NOT NULL,
+    category character varying NOT NULL,
+    image_url character varying NOT NULL,
+    developer_url character varying,
+    faq_url character varying,
+    inferred_domains character varying[] NOT NULL,
+    confirmed_domains character varying[] NOT NULL,
+    priority integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: shopify_data_app_store_apps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.shopify_data_app_store_apps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: shopify_data_app_store_apps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.shopify_data_app_store_apps_id_seq OWNED BY public.shopify_data_app_store_apps.id;
+
+
+--
 -- Name: shopify_data_asset_change_events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1141,7 +1182,9 @@ CREATE TABLE public.shopify_data_detected_apps (
     seen_last_time boolean NOT NULL,
     reasons character varying[] NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    shopify_data_app_store_app_id bigint,
+    subject_key character varying NOT NULL
 );
 
 
@@ -1588,6 +1631,13 @@ ALTER TABLE ONLY public.que_jobs ALTER COLUMN id SET DEFAULT nextval('public.que
 
 
 --
+-- Name: shopify_data_app_store_apps id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_app_store_apps ALTER COLUMN id SET DEFAULT nextval('public.shopify_data_app_store_apps_id_seq'::regclass);
+
+
+--
 -- Name: shopify_data_asset_change_events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1858,6 +1908,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: shopify_data_app_store_apps shopify_data_app_store_apps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_app_store_apps
+    ADD CONSTRAINT shopify_data_app_store_apps_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: shopify_data_asset_change_events shopify_data_asset_change_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2047,6 +2105,13 @@ CREATE UNIQUE INDEX index_flipper_gates_on_feature_key_and_key_and_value ON publ
 --
 
 CREATE UNIQUE INDEX index_que_scheduler_audit_on_scheduler_job_id ON public.que_scheduler_audit USING btree (scheduler_job_id);
+
+
+--
+-- Name: index_shopify_data_app_store_apps_on_app_store_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_shopify_data_app_store_apps_on_app_store_url ON public.shopify_data_app_store_apps USING btree (app_store_url);
 
 
 --
@@ -2399,6 +2464,14 @@ ALTER TABLE ONLY public.activity_feed_items
 
 
 --
+-- Name: shopify_data_detected_apps fk_rails_a9e68aff34; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shopify_data_detected_apps
+    ADD CONSTRAINT fk_rails_a9e68aff34 FOREIGN KEY (shopify_data_app_store_app_id) REFERENCES public.shopify_data_app_store_apps(id);
+
+
+--
 -- Name: assessment_production_groups fk_rails_abdc9b0b01; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2621,6 +2694,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200325165202'),
 ('20200326174413'),
 ('20200326175003'),
-('20200407181932');
+('20200407181932'),
+('20200409162659'),
+('20200409170934'),
+('20200409182843');
 
 
