@@ -1,14 +1,13 @@
-"Infrastructure::PeriodicHighFrequencyEnqueueJob":
-  cron: "0 */2 * * *"
+# "Infrastructure::PeriodicHighFrequencyEnqueueJob":
+#   cron: "0 */2 * * *"
 
-"Infrastructure::PeriodicMediumFrequencyEnqueueJob":
-  cron: "30 */2 * * *"
+# "Infrastructure::PeriodicMediumFrequencyEnqueueJob":
+#   cron: "30 */2 * * *"
 
-"Infrastructure::PeriodicShopifySyncEnqueueJob":
-  cron: "45 * * * *"
+# "Infrastructure::PeriodicShopifySyncEnqueueJob":
+#   cron: "45 * * * *"
 
 "Infrastructure::PeriodicMarkFailedCrawlAttemptsJob":
   cron: "0 * * * *"
-
-"CrawlTest::PeriodicExecuteAssessmentsJob":
-  cron: "0 0 * * *"
+# "CrawlTest::PeriodicExecuteAssessmentsJob":
+#   cron: "0 0 * * *"
