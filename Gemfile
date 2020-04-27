@@ -34,7 +34,7 @@ gem "google-api-client"
 # Performance & Infrastructure
 gem "analytics-ruby", "~> 2.2.8", require: "segment/analytics"
 gem "asset_sync"
-gem "fog-google", "~> 1.9.1", github: "fog/fog-google"
+gem "fog-google", "~> 1.10.0", github: "fog/fog-google"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "google-cloud-storage", "~> 1.25.1", require: false
 gem "json-schema"
