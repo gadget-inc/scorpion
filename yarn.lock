@@ -10561,10 +10561,10 @@ react-is@^16.6.0, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
   integrity sha512-INBT1QEgtcCCgvccr5/86CfD71fw9EPmDxgiJX4I2Ddr6ZsV6iFXsuby+qWJPtmNuMY0zByTsG4468P7nHuNWA==
 
-react-loads@^8.4.0:
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/react-loads/-/react-loads-8.4.2.tgz#94084f0c2d8db2cae30fd6dd98ae3afbeb9bf155"
-  integrity sha512-zuW7BcXjAxWwIDGMW74SIUvNiQKwHU08d1ZGFKsKWyLQdOctAqjyNMzdhRoJNuj3IvGVkEJRfbJx7r3NpyfO/g==
+react-loads@^9.2.2:
+  version "9.2.2"
+  resolved "https://registry.yarnpkg.com/react-loads/-/react-loads-9.2.2.tgz#ce986632c28544e4763d043c3d4fc1a63ae6ca95"
+  integrity sha512-cWaudzsDFp8JFiZpUbeLDTQ3Fl+nk5yx9U678gq4e4Z5d4R3q5G/3p0kzzcFHTxKtNZgdBUREIWzxkhE81o9YA==
 
 react-router-dom@^5.0.0:
   version "5.1.2"
